@@ -6622,17 +6622,8 @@ var $;
         grid_step() {
             return 12;
         }
-        attr() {
-            return {
-                ...super.attr(),
-                hyoo_sketch_element__focused: this.focused()
-            };
-        }
-        event() {
-            return {
-                ...super.event(),
-                pointerdown: (event) => this.pointer_down(event)
-            };
+        preview() {
+            return false;
         }
         style() {
             return {
@@ -6645,28 +6636,25 @@ var $;
             };
         }
         sub() {
-            return [
-                this.Wrap(),
-                this.Position()
-            ];
+            return this.kinds();
         }
         Options() {
             const obj = new this.$.$mol_form();
             obj.form_fields = () => this.options();
             return obj;
         }
+        z_string() {
+            return "1";
+        }
+        pointer_down(next) {
+            if (next !== undefined)
+                return next;
+            return null;
+        }
         focused(next) {
             if (next !== undefined)
                 return next;
             return false;
-        }
-        pointer_down(event) {
-            if (event !== undefined)
-                return event;
-            return null;
-        }
-        z_string() {
-            return "1";
         }
         Element() {
             const obj = new this.$.$mol_view();
@@ -6707,6 +6695,26 @@ var $;
                 this.Resize()
             ];
             return obj;
+        }
+        Editor() {
+            const obj = new this.$.$hyoo_sketch_element_editor();
+            obj.pointer_down = (next) => this.pointer_down(next);
+            obj.focused = () => this.focused();
+            obj.sub = () => [
+                this.Wrap(),
+                this.Position()
+            ];
+            return obj;
+        }
+        Preview() {
+            const obj = new this.$.$mol_view();
+            return obj;
+        }
+        kinds() {
+            return [
+                this.Editor(),
+                this.Preview()
+            ];
         }
         X_control() {
             const obj = new this.$.$mol_number();
@@ -6781,10 +6789,10 @@ var $;
     ], $hyoo_sketch_element.prototype, "Options", null);
     __decorate([
         $mol_mem
-    ], $hyoo_sketch_element.prototype, "focused", null);
+    ], $hyoo_sketch_element.prototype, "pointer_down", null);
     __decorate([
         $mol_mem
-    ], $hyoo_sketch_element.prototype, "pointer_down", null);
+    ], $hyoo_sketch_element.prototype, "focused", null);
     __decorate([
         $mol_mem
     ], $hyoo_sketch_element.prototype, "Element", null);
@@ -6803,6 +6811,12 @@ var $;
     __decorate([
         $mol_mem
     ], $hyoo_sketch_element.prototype, "Position", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element.prototype, "Editor", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element.prototype, "Preview", null);
     __decorate([
         $mol_mem
     ], $hyoo_sketch_element.prototype, "X_control", null);
@@ -6834,6 +6848,37 @@ var $;
         $mol_mem
     ], $hyoo_sketch_element.prototype, "Height_field", null);
     $.$hyoo_sketch_element = $hyoo_sketch_element;
+    class $hyoo_sketch_element_editor extends $mol_view {
+        attr() {
+            return {
+                ...super.attr(),
+                hyoo_sketch_element__focused: this.focused()
+            };
+        }
+        event() {
+            return {
+                ...super.event(),
+                pointerdown: (event) => this.pointer_down(event)
+            };
+        }
+        focused(next) {
+            if (next !== undefined)
+                return next;
+            return false;
+        }
+        pointer_down(event) {
+            if (event !== undefined)
+                return event;
+            return null;
+        }
+    }
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_editor.prototype, "focused", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_editor.prototype, "pointer_down", null);
+    $.$hyoo_sketch_element_editor = $hyoo_sketch_element_editor;
 })($ || ($ = {}));
 //hyoo/sketch/element/-view.tree/element.view.tree.ts
 ;
@@ -6860,7 +6905,9 @@ var $;
             return Number(this.state().sub('height').value(next) ?? 50);
         }
         x(next) {
-            return Number(this.state().sub('x').value(next) ?? 0);
+            const result = Number(this.state().sub('x').value(next) ?? 0);
+            console.log({ next, val: result });
+            return result;
         }
         y(next) {
             return Number(this.state().sub('y').value(next) ?? 0);
@@ -6884,21 +6931,8 @@ var $;
         const { px, per } = $mol_style_unit;
         $mol_style_define($hyoo_sketch_element, {
             position: 'absolute',
-            cursor: 'pointer',
-            border: {
-                width: px(1),
-                style: 'dotted',
-            },
-            userSelect: 'none',
-            '@': {
-                hyoo_sketch_element__focused: {
-                    'true': {
-                        border: {
-                            style: 'solid',
-                        },
-                    },
-                },
-            },
+            transitionProperty: 'height, width, top, left',
+            transitionDuration: '.1s',
             Position: {
                 position: 'absolute',
                 right: px(5),
@@ -6915,8 +6949,26 @@ var $;
             Resize: {
                 cursor: 'nwse-resize',
             },
-            transitionProperty: 'height, width, top, left',
-            transitionDuration: '.1s',
+            Editor: {
+                flex: {
+                    grow: 1,
+                },
+                cursor: 'pointer',
+                border: {
+                    width: px(1),
+                    style: 'dotted',
+                },
+                userSelect: 'none',
+                '@': {
+                    hyoo_sketch_element__focused: {
+                        'true': {
+                            border: {
+                                style: 'solid',
+                            },
+                        },
+                    },
+                },
+            },
             Wrap: {
                 flex: {
                     grow: 1,
@@ -6941,6 +6993,9 @@ var $;
     var $$;
     (function ($$) {
         class $hyoo_sketch_element extends $.$hyoo_sketch_element {
+            kinds() {
+                return this.preview() ? [this.Preview()] : [this.Editor()];
+            }
             pointer_down(event) {
                 event.preventDefault();
                 event.stopPropagation();
@@ -7910,6 +7965,9 @@ var $;
         Element() {
             return this.Content();
         }
+        Preview() {
+            return this.Content();
+        }
         options() {
             return [
                 ...super.options(),
@@ -8009,6 +8067,11 @@ var $;
         Element() {
             return this.Content();
         }
+        Preview() {
+            const obj = new this.$.$mol_button_major();
+            obj.title = () => this.title();
+            return obj;
+        }
         options() {
             return [
                 ...super.options(),
@@ -8035,6 +8098,9 @@ var $;
     __decorate([
         $mol_mem
     ], $hyoo_sketch_element_button.prototype, "element", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_button.prototype, "Preview", null);
     __decorate([
         $mol_mem
     ], $hyoo_sketch_element_button.prototype, "Content", null);
@@ -8077,6 +8143,11 @@ var $;
         Element() {
             return this.Content();
         }
+        Preview() {
+            const obj = new this.$.$mol_string();
+            obj.hint = () => this.hint();
+            return obj;
+        }
         options() {
             return [
                 ...super.options(),
@@ -8088,6 +8159,7 @@ var $;
             const obj = new this.$.$mol_string();
             obj.hint = () => this.hint();
             obj.value = () => this.value();
+            obj.disabled = () => true;
             return obj;
         }
         Hint_control() {
@@ -8116,6 +8188,9 @@ var $;
     __decorate([
         $mol_mem
     ], $hyoo_sketch_element_string.prototype, "element", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_string.prototype, "Preview", null);
     __decorate([
         $mol_mem
     ], $hyoo_sketch_element_string.prototype, "Content", null);
@@ -9005,6 +9080,16 @@ var $;
         Element() {
             return this.Content();
         }
+        Preview() {
+            const obj = new this.$.$mol_link();
+            obj.arg = () => ({
+                page: this.page(),
+                page_preview: this.page()
+            });
+            obj.hint = () => this.hint();
+            obj.title = () => this.title();
+            return obj;
+        }
         options() {
             return [
                 ...super.options(),
@@ -9072,6 +9157,9 @@ var $;
     ], $hyoo_sketch_element_link.prototype, "project", null);
     __decorate([
         $mol_mem
+    ], $hyoo_sketch_element_link.prototype, "Preview", null);
+    __decorate([
+        $mol_mem
     ], $hyoo_sketch_element_link.prototype, "Content", null);
     __decorate([
         $mol_mem
@@ -9136,6 +9224,54 @@ var $;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
 //hyoo/sketch/element/link/link.view.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_icon_television extends $mol_icon {
+        path() {
+            return "M21,17H3V5H21M21,3H3C1.9,3 1,3.9 1,5V17C1,18.1 1.9,19 3,19H8V21H16V19H21C22.1,19 23,18.1 23,17V5C23,3.9 22.1,3 21,3Z";
+        }
+    }
+    $.$mol_icon_television = $mol_icon_television;
+})($ || ($ = {}));
+//mol/icon/television/-view.tree/television.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_icon_television_play extends $mol_icon {
+        path() {
+            return "M21,3H3C1.89,3 1,3.89 1,5V17C1,18.1 1.9,19 3,19H8V21H16V19H21C22.1,19 23,18.1 23,17V5C23,3.89 22.1,3 21,3M21,17H3V5H21M16,11L9,15V7";
+        }
+    }
+    $.$mol_icon_television_play = $mol_icon_television_play;
+})($ || ($ = {}));
+//mol/icon/television/play/-view.tree/play.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_icon_play extends $mol_icon {
+        path() {
+            return "M8,5.14V19.14L19,12.14L8,5.14Z";
+        }
+    }
+    $.$mol_icon_play = $mol_icon_play;
+})($ || ($ = {}));
+//mol/icon/play/-view.tree/play.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_icon_play_circle extends $mol_icon {
+        path() {
+            return "M10,16.5V7.5L16,12M12,2C6.48,2 2,6.48 2,12C2,17.52 6.48,22 12,22C17.52,22 22,17.52 22,12C22,6.48 17.52,2 12,2Z";
+        }
+    }
+    $.$mol_icon_play_circle = $mol_icon_play_circle;
+})($ || ($ = {}));
+//mol/icon/play/circle/-view.tree/circle.view.tree.ts
 ;
 "use strict";
 var $;
@@ -9233,6 +9369,12 @@ var $;
             const obj = new this.$.$hyoo_sketch_project_model();
             return obj;
         }
+        tools() {
+            return [
+                this.Project_demo(),
+                this.Page_preview()
+            ];
+        }
         head() {
             return [
                 this.Title(),
@@ -9255,6 +9397,7 @@ var $;
             obj.element = () => this.element(id);
             obj.focused = (next) => this.handle_focused(id, next);
             obj.grid_step = () => this.grid();
+            obj.preview = () => this.page_preview();
             return obj;
         }
         Element_text(id) {
@@ -9262,6 +9405,7 @@ var $;
             obj.element = () => this.element_text(id);
             obj.focused = (next) => this.handle_focused(id, next);
             obj.grid_step = () => this.grid();
+            obj.preview = () => this.page_preview();
             return obj;
         }
         Element_button(id) {
@@ -9269,6 +9413,7 @@ var $;
             obj.element = () => this.element_button(id);
             obj.focused = (next) => this.handle_focused(id, next);
             obj.grid_step = () => this.grid();
+            obj.preview = () => this.page_preview();
             return obj;
         }
         Element_string(id) {
@@ -9276,6 +9421,7 @@ var $;
             obj.element = () => this.element_string(id);
             obj.focused = (next) => this.handle_focused(id, next);
             obj.grid_step = () => this.grid();
+            obj.preview = () => this.page_preview();
             return obj;
         }
         Element_link(id) {
@@ -9284,6 +9430,7 @@ var $;
             obj.project = () => this.project();
             obj.focused = (next) => this.handle_focused(id, next);
             obj.grid_step = () => this.grid();
+            obj.preview = () => this.page_preview();
             return obj;
         }
         Options() {
@@ -9296,6 +9443,41 @@ var $;
                 this.Delete_key()
             ];
         }
+        Project_demo_icon() {
+            const obj = new this.$.$mol_icon_television_play();
+            return obj;
+        }
+        project_demo_pages() {
+            return "";
+        }
+        Project_demo() {
+            const obj = new this.$.$mol_link();
+            obj.hint = () => this.$.$mol_locale.text('$hyoo_sketch_page_frame_Project_demo_hint');
+            obj.sub = () => [
+                this.Project_demo_icon()
+            ];
+            obj.target = () => "_blank";
+            obj.arg = () => ({
+                demo: this.project_demo_pages()
+            });
+            return obj;
+        }
+        Page_preview_icon() {
+            const obj = new this.$.$mol_icon_play_circle();
+            return obj;
+        }
+        page_preview(val) {
+            if (val !== undefined)
+                return val;
+            return false;
+        }
+        Page_preview() {
+            const obj = new this.$.$mol_check_icon();
+            obj.hint = () => this.$.$mol_locale.text('$hyoo_sketch_page_frame_Page_preview_hint');
+            obj.Icon = () => this.Page_preview_icon();
+            obj.checked = (val) => this.page_preview(val);
+            return obj;
+        }
         Title() {
             const obj = new this.$.$mol_string();
             obj.value = (val) => this.page_name(val);
@@ -9304,6 +9486,9 @@ var $;
         }
         focused() {
             return false;
+        }
+        mode() {
+            return "";
         }
         grid_step() {
             return "";
@@ -9319,7 +9504,8 @@ var $;
         Content() {
             const obj = new this.$.$mol_view();
             obj.attr = () => ({
-                hyoo_sketch_page_frame__focused: this.focused()
+                hyoo_sketch_page_frame__focused: this.focused(),
+                hyoo_sketch_page_frame_content: this.mode()
             });
             obj.style = () => ({
                 height: this.height(),
@@ -9531,6 +9717,21 @@ var $;
     ], $hyoo_sketch_page_frame.prototype, "Options", null);
     __decorate([
         $mol_mem
+    ], $hyoo_sketch_page_frame.prototype, "Project_demo_icon", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_page_frame.prototype, "Project_demo", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_page_frame.prototype, "Page_preview_icon", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_page_frame.prototype, "page_preview", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_page_frame.prototype, "Page_preview", null);
+    __decorate([
+        $mol_mem
     ], $hyoo_sketch_page_frame.prototype, "Title", null);
     __decorate([
         $mol_mem
@@ -9629,7 +9830,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $mol_style_attach("hyoo/sketch/page/frame/frame.view.css", "[hyoo_sketch_page_frame_content] {\n\tbackground-color: white;\n\tbackground-image:\n\t\tlinear-gradient(var(--mol_theme_line), transparent 1px),\n\t\tlinear-gradient(90deg, var(--mol_theme_line) , transparent 1px);\n\tbackground-size: 10px 10px;\n\tbox-sizing: content-box;\n    background-position: -1px -1px;\n}\n\n[hyoo_sketch_page_frame__focused=\"true\"] {\n\tborder-color: 'black';\n}\n");
+    $mol_style_attach("hyoo/sketch/page/frame/frame.view.css", "[hyoo_sketch_page_frame_content=\"editor\"] {\n\tbackground-color: white;\n\tbackground-image:\n\t\tlinear-gradient(var(--mol_theme_line), transparent 1px),\n\t\tlinear-gradient(90deg, var(--mol_theme_line) , transparent 1px);\n\tbackground-size: 10px 10px;\n\tbox-sizing: content-box;\n    background-position: -1px -1px;\n}\n\n[hyoo_sketch_page_frame__focused=\"true\"] {\n\tborder-color: 'black';\n}\n");
 })($ || ($ = {}));
 //hyoo/sketch/page/frame/-css/frame.view.css.ts
 ;
@@ -9705,7 +9906,8 @@ var $;
                 const obj = this.domain().element_link($mol_guid());
                 this.page().elements([...this.page().elements(), obj]);
             }
-            Element_switch(id, type) {
+            Element_switch(id) {
+                const type = this.element(id).type();
                 switch (type) {
                     case 'text': return this.Element_text(id);
                     case 'button': return this.Element_button(id);
@@ -9715,7 +9917,7 @@ var $;
                 }
             }
             elements() {
-                return this.page().elements().map(obj => this.Element_switch(obj.id(), obj.type()));
+                return this.page().elements().map(obj => this.Element_switch(obj.id()));
             }
             element_focused(id) {
                 return this.$.$mol_state_arg.value('focus', id) ?? '';
@@ -9732,7 +9934,7 @@ var $;
                 const id = this.element_focused();
                 if (!id)
                     return null;
-                return this.Element_switch(id, this.element(id).type()).Options();
+                return this.Element_switch(id).Options();
             }
             grid_step() {
                 return `${this.grid()}px ${this.grid()}px`;
@@ -9750,9 +9952,22 @@ var $;
                     this.page().elements(list.filter(obj => obj.id() !== id));
                 }
             }
+            page_preview(next) {
+                if (next === undefined) {
+                    return this.page().id() === this.$.$mol_state_arg.value('page_preview');
+                }
+                this.$.$mol_state_arg.value('page_preview', next === true ? this.page().id() : null);
+                return next;
+            }
+            mode() {
+                return this.page_preview() ? 'preview' : 'editor';
+            }
+            project_demo_pages() {
+                return [this.page().id()].join(',');
+            }
         }
         __decorate([
-            $mol_mem_key2
+            $mol_mem_key
         ], $hyoo_sketch_page_frame.prototype, "Element_switch", null);
         __decorate([
             $mol_mem
@@ -9787,10 +10002,13 @@ var $;
                 this.Option_page()
             ];
         }
-        Placeholder() {
+        Demo_page(id) {
             const obj = new this.$.$mol_page();
-            obj.Title = () => null;
-            obj.Tools = () => null;
+            obj.title = () => this.demo_page_title(id);
+            obj.Head = () => null;
+            obj.body = () => [
+                this.Demo_page_content(id)
+            ];
             return obj;
         }
         user() {
@@ -9815,11 +10033,14 @@ var $;
             const obj = new this.$.$hyoo_sketch_page_model();
             return obj;
         }
+        page_options() {
+            return this.Frame_page().Options();
+        }
         element_focused_options() {
             return this.Frame_page().Element_options();
         }
-        page_options() {
-            return this.Frame_page().Options();
+        Demo_element(id) {
+            return this.Frame_page().Element_switch(id);
         }
         Frame_page() {
             const obj = new this.$.$hyoo_sketch_page_frame();
@@ -9839,13 +10060,30 @@ var $;
             ];
             return obj;
         }
+        demo_page_title(id) {
+            return "";
+        }
+        demo_page_width(id) {
+            return NaN;
+        }
+        demo_page_elements(id) {
+            return [];
+        }
+        Demo_page_content(id) {
+            const obj = new this.$.$mol_view();
+            obj.style = () => ({
+                width: this.demo_page_width(id)
+            });
+            obj.sub = () => this.demo_page_elements(id);
+            return obj;
+        }
     }
     __decorate([
         $mol_mem
     ], $hyoo_sketch.prototype, "domain", null);
     __decorate([
-        $mol_mem
-    ], $hyoo_sketch.prototype, "Placeholder", null);
+        $mol_mem_key
+    ], $hyoo_sketch.prototype, "Demo_page", null);
     __decorate([
         $mol_mem
     ], $hyoo_sketch.prototype, "user", null);
@@ -9870,6 +10108,9 @@ var $;
     __decorate([
         $mol_mem
     ], $hyoo_sketch.prototype, "Option_page", null);
+    __decorate([
+        $mol_mem_key
+    ], $hyoo_sketch.prototype, "Demo_page_content", null);
     $.$hyoo_sketch = $hyoo_sketch;
 })($ || ($ = {}));
 //hyoo/sketch/-view.tree/sketch.view.tree.ts
@@ -9927,7 +10168,17 @@ var $;
             page() {
                 return this.domain().page(this.page_opened());
             }
+            demo_pages() {
+                const str = this.$.$mol_state_arg.value('demo');
+                if (!str)
+                    return [];
+                return str.split(',');
+            }
             pages() {
+                const demo_pages = this.demo_pages();
+                if (demo_pages.length) {
+                    return demo_pages.map(id => this.Demo_page(id));
+                }
                 return [
                     this.Projects_page(),
                     ...this.project_opened() ? [this.Pages_page()] : [],
@@ -9937,6 +10188,23 @@ var $;
             }
             options() {
                 return this.element_focused_options() ?? this.Frame_page().Options();
+            }
+            demo_page_title(id) {
+                return this.domain().page(id).name();
+            }
+            demo_page_height(id) {
+                return this.domain().page(id).height();
+            }
+            demo_page_width(id) {
+                return this.domain().page(id).width();
+            }
+            demo_page_elements(id) {
+                const page = this.domain().page(id);
+                return page.elements().map(obj => {
+                    const element = this.Demo_element(obj.id());
+                    element.preview = $mol_const(true);
+                    return element;
+                });
             }
         }
         $$.$hyoo_sketch = $hyoo_sketch;

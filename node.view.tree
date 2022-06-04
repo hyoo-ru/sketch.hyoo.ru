@@ -216,12 +216,7 @@ $hyoo_sketch_element $mol_view
 		y? => y?
 		z? => z?
 	grid_step 12
-	attr *
-		^
-		hyoo_sketch_element__focused <= focused? false
-	event *
-		^
-		pointerdown?event <=> pointer_down?event null
+	preview false
 	style *
 		^
 		width <= width?
@@ -229,18 +224,23 @@ $hyoo_sketch_element $mol_view
 		left <= x?
 		top <= y?
 		zIndex <= z_string \1
-	sub /
-		<= Wrap $mol_view
-			style *
-				maxWidth <= width?
-			sub / <= Element $mol_view
-		<= Position $mol_view
+	sub <= kinds /
+		<= Editor $hyoo_sketch_element_editor
+			pointer_down? <=> pointer_down? null
+			focused <= focused? false
 			sub /
-				<= Resize $mol_view
-					event *
-						pointerdown? <=> resize_start? null
+				<= Wrap $mol_view
+					style *
+						maxWidth <= width?
+					sub / <= Element $mol_view
+				<= Position $mol_view
 					sub /
-						<= Icon $mol_icon_resize_bottom_right
+						<= Resize $mol_view
+							event *
+								pointerdown? <=> resize_start? null
+							sub /
+								<= Icon $mol_icon_resize_bottom_right
+		<= Preview $mol_view
 	Options $mol_form
 		form_fields <= options /
 			<= X_field $mol_form_field
@@ -263,6 +263,14 @@ $hyoo_sketch_element $mol_view
 				name @ \height
 				control <= Height_control $mol_number
 					value? <=> height?
+
+$hyoo_sketch_element_editor $mol_view
+	attr *
+		^
+		hyoo_sketch_element__focused <= focused? false
+	event *
+		^
+		pointerdown?event <=> pointer_down?event null
 
 $mol_link $mol_view
 	dom_name \a
@@ -349,6 +357,7 @@ $hyoo_sketch_element_text $hyoo_sketch_element
 		text? => text?
 	Element <= Content $mol_paragraph
 		title <= text?
+	Preview <= Content
 	options /
 		^
 		<= Text_field $mol_form_field
@@ -366,6 +375,8 @@ $hyoo_sketch_element_button $hyoo_sketch_element
 		title? => title?
 	Element <= Content $mol_button_major
 		title <= title
+	Preview $mol_button_major
+		title <= title
 	options /
 		^
 		<= Title_field $mol_form_field
@@ -380,6 +391,9 @@ $hyoo_sketch_element_string $hyoo_sketch_element
 	Element <= Content $mol_string
 		hint <= hint
 		value <= value
+		disabled true
+	Preview $mol_string
+		hint <= hint
 	options /
 		^
 		<= Hint_field $mol_form_field
@@ -503,6 +517,12 @@ $hyoo_sketch_element_link $hyoo_sketch_element
 		- arg * page <= page
 		hint <= hint
 		title <= title
+	Preview $mol_link
+		arg *
+			page <= page
+			page_preview <= page
+		hint <= hint
+		title <= title
 	options /
 		^
 		<= Hint_field $mol_form_field
@@ -525,6 +545,14 @@ $hyoo_sketch_element_link $hyoo_sketch_element
 				value? <=> page_id? \
 				dictionary <= pages *
 
+$mol_icon_television $mol_icon path \M21,17H3V5H21M21,3H3C1.9,3 1,3.9 1,5V17C1,18.1 1.9,19 3,19H8V21H16V19H21C22.1,19 23,18.1 23,17V5C23,3.9 22.1,3 21,3Z
+
+$mol_icon_television_play $mol_icon path \M21,3H3C1.89,3 1,3.89 1,5V17C1,18.1 1.9,19 3,19H8V21H16V19H21C22.1,19 23,18.1 23,17V5C23,3.89 22.1,3 21,3M21,17H3V5H21M16,11L9,15V7
+
+$mol_icon_play $mol_icon path \M8,5.14V19.14L19,12.14L8,5.14Z
+
+$mol_icon_play_circle $mol_icon path \M10,16.5V7.5L16,12M12,2C6.48,2 2,6.48 2,12C2,17.52 6.48,22 12,22C17.52,22 22,17.52 22,12C22,6.48 17.52,2 12,2Z
+
 $mol_icon_format_title $mol_icon path \M5,4V7H10.5V19H13.5V7H19V4H5Z
 
 $mol_icon_gesture $mol_icon path \M4.59,6.89C5.29,6.18 6,5.54 6.3,5.67C6.8,5.87 6.3,6.7 6,7.19C5.75,7.61 3.14,11.08 3.14,13.5C3.14,14.78 3.62,15.84 4.5,16.5C5.23,17.04 6.22,17.21 7.12,16.94C8.19,16.63 9.07,15.54 10.18,14.17C11.39,12.68 13,10.73 14.26,10.73C15.89,10.73 15.91,11.74 16,12.5C12.24,13.16 10.64,16.19 10.64,17.89C10.64,19.59 12.08,21 13.85,21C15.5,21 18.14,19.65 18.54,14.88H21V12.38H18.53C18.38,10.73 17.44,8.18 14.5,8.18C12.25,8.18 10.32,10.09 9.56,11C9,11.75 7.5,13.5 7.27,13.74C7,14.04 6.59,14.58 6.16,14.58C5.71,14.58 5.44,13.75 5.8,12.66C6.15,11.57 7.2,9.8 7.65,9.14C8.43,8 8.95,7.22 8.95,5.86C8.95,3.69 7.31,3 6.44,3C5.12,3 3.97,4 3.72,4.25C3.36,4.61 3.06,4.91 2.84,5.18L4.59,6.89M13.88,18.55C13.57,18.55 13.14,18.29 13.14,17.83C13.14,17.23 13.87,15.63 16,15.07C15.71,17.76 14.58,18.55 13.88,18.55Z
@@ -544,6 +572,17 @@ $hyoo_sketch_page_frame $mol_page
 		grid? => grid?
 		name? => page_name?
 	project $hyoo_sketch_project_model
+	tools /
+		<= Project_demo $mol_link
+			hint @ \Start demo from this page
+			sub / <= Project_demo_icon $mol_icon_television_play
+			target \_blank
+			arg *
+				demo <= project_demo_pages \
+		<= Page_preview $mol_check_icon
+			hint @ \Switch page to preview
+			Icon <= Page_preview_icon $mol_icon_play_circle
+			checked?val <=> page_preview?val false
 	head /
 		<= Title $mol_string
 			value?val <=> page_name?val
@@ -553,6 +592,7 @@ $hyoo_sketch_page_frame $mol_page
 		<= Content $mol_view
 			attr *
 				hyoo_sketch_page_frame__focused <= focused false
+				hyoo_sketch_page_frame_content <= mode \
 			style *
 				height <= height
 				width <= width
@@ -585,23 +625,28 @@ $hyoo_sketch_page_frame $mol_page
 		element <= element* $hyoo_sketch_element_model
 		focused? <=> handle_focused*? null
 		grid_step <= grid
+		preview <= page_preview
 	Element_text* $hyoo_sketch_element_text
 		element <= element_text* $hyoo_sketch_element_text_model
 		focused? <=> handle_focused*? null
 		grid_step <= grid
+		preview <= page_preview
 	Element_button* $hyoo_sketch_element_button
 		element <= element_button* $hyoo_sketch_element_button_model
 		focused? <=> handle_focused*? null
 		grid_step <= grid
+		preview <= page_preview
 	Element_string* $hyoo_sketch_element_string
 		element <= element_string* $hyoo_sketch_element_string_model
 		focused? <=> handle_focused*? null
 		grid_step <= grid
+		preview <= page_preview
 	Element_link* $hyoo_sketch_element_link
 		element <= element_link* $hyoo_sketch_element_link_model
 		project <= project
 		focused? <=> handle_focused*? null
 		grid_step <= grid
+		preview <= page_preview
 	Options $mol_form
 		form_fields <= options /
 			<= Width_field $mol_form_field
@@ -632,11 +677,18 @@ $hyoo_sketch $mol_book2
 		<= Frame_page $hyoo_sketch_page_frame
 			page <= page $hyoo_sketch_page_model
 			project <= project $hyoo_sketch_project_model
-			Element_options => element_focused_options
 			Options => page_options
+			Element_options => element_focused_options
+			Element_switch* => Demo_element*
 		<= Option_page $mol_page
 			title @ \Options
 			body / <= options $mol_view
-	Placeholder $mol_page
-		Title null
-		Tools null
+	Demo_page* $mol_page
+		title <= demo_page_title* \
+		Head null
+		body / 
+			<= Demo_page_content* $mol_view
+				style *
+					- height <= demo_page_height* NaN
+					width <= demo_page_width* NaN
+				sub <= demo_page_elements* /

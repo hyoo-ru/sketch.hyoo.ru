@@ -20,6 +20,8 @@
 	"$hyoo_sketch_page_frame_Grid_filed_name": "grid",
 	"$hyoo_sketch_page_frame_Height_field_name": "height",
 	"$hyoo_sketch_page_frame_Link_hint": "Add link element",
+	"$hyoo_sketch_page_frame_Page_preview_hint": "Switch page to preview",
+	"$hyoo_sketch_page_frame_Project_demo_hint": "Start demo from this page",
 	"$hyoo_sketch_page_frame_String_hint": "Add input element",
 	"$hyoo_sketch_page_frame_Text_hint": "Add text element",
 	"$hyoo_sketch_page_frame_Title_hint": "page name",
