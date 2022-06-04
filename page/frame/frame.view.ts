@@ -10,6 +10,23 @@ namespace $.$$ {
 			return this.domain().element(id)
 		}
 
+
+		element_text(id: string) {
+			return this.domain().element_text(id)
+		}
+
+		element_button(id: string) {
+			return this.domain().element_button(id)
+		}
+
+		element_string(id: string) {
+			return this.domain().element_string(id)
+		}
+
+		element_link(id: string) {
+			return this.domain().element_link(id)
+		}
+
 		element_text_add() {
 			const obj = this.domain().element_text( $mol_guid() )
 			this.page().elements( [...this.page().elements(), obj] )

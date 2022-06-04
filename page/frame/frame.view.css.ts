@@ -16,15 +16,6 @@ namespace $.$$ {
 				width: px(1),
 				color: 'transparent',
 			},
-			'@': {
-				hyoo_sketch_page_frame__focused: {
-					'true': {
-						border: {
-							color: 'black',
-						},
-					},
-				},
-			},
 		},
 
 		Head: {

@@ -7,3 +7,7 @@
 	box-sizing: content-box;
     background-position: -1px -1px;
 }
+
+[hyoo_sketch_page_frame__focused="true"] {
+	border-color: 'black';
+}

@@ -47,19 +47,19 @@ $hyoo_sketch_page_frame $mol_page
 		focused? <=> handle_focused*? null
 		grid_step <= grid
 	Element_text* $hyoo_sketch_element_text
-		element <= element*
+		element <= element_text* $hyoo_sketch_element_text_model
 		focused? <=> handle_focused*? null
 		grid_step <= grid
 	Element_button* $hyoo_sketch_element_button
-		element <= element*
+		element <= element_button* $hyoo_sketch_element_button_model
 		focused? <=> handle_focused*? null
 		grid_step <= grid
 	Element_string* $hyoo_sketch_element_string
-		element <= element*
+		element <= element_string* $hyoo_sketch_element_string_model
 		focused? <=> handle_focused*? null
 		grid_step <= grid
 	Element_link* $hyoo_sketch_element_link
-		element <= element*
+		element <= element_link* $hyoo_sketch_element_link_model
 		project <= project
 		focused? <=> handle_focused*? null
 		grid_step <= grid
