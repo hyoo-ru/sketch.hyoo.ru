@@ -5,6 +5,9 @@ $hyoo_sketch_element_string $hyoo_sketch_element
 	Element <= Content $mol_string
 		hint <= hint
 		value <= value
+		disabled true
+	Preview $mol_string
+		hint <= hint
 	options /
 		^
 		<= Hint_field $mol_form_field

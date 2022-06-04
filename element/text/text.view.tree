@@ -3,6 +3,7 @@ $hyoo_sketch_element_text $hyoo_sketch_element
 		text? => text?
 	Element <= Content $mol_paragraph
 		title <= text?
+	Preview <= Content
 	options /
 		^
 		<= Text_field $mol_form_field

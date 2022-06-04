@@ -5,6 +5,17 @@ $hyoo_sketch_page_frame $mol_page
 		grid? => grid?
 		name? => page_name?
 	project $hyoo_sketch_project_model
+	tools /
+		<= Project_demo $mol_link
+			hint @ \Start demo from this page
+			sub / <= Project_demo_icon $mol_icon_television_play
+			target \_blank
+			arg *
+				demo <= project_demo_pages \
+		<= Page_preview $mol_check_icon
+			hint @ \Switch page to preview
+			Icon <= Page_preview_icon $mol_icon_play_circle
+			checked?val <=> page_preview?val false
 	head /
 		<= Title $mol_string
 			value?val <=> page_name?val
@@ -14,6 +25,7 @@ $hyoo_sketch_page_frame $mol_page
 		<= Content $mol_view
 			attr *
 				hyoo_sketch_page_frame__focused <= focused false
+				hyoo_sketch_page_frame_content <= mode \
 			style *
 				height <= height
 				width <= width
@@ -46,23 +58,28 @@ $hyoo_sketch_page_frame $mol_page
 		element <= element* $hyoo_sketch_element_model
 		focused? <=> handle_focused*? null
 		grid_step <= grid
+		preview <= page_preview
 	Element_text* $hyoo_sketch_element_text
 		element <= element_text* $hyoo_sketch_element_text_model
 		focused? <=> handle_focused*? null
 		grid_step <= grid
+		preview <= page_preview
 	Element_button* $hyoo_sketch_element_button
 		element <= element_button* $hyoo_sketch_element_button_model
 		focused? <=> handle_focused*? null
 		grid_step <= grid
+		preview <= page_preview
 	Element_string* $hyoo_sketch_element_string
 		element <= element_string* $hyoo_sketch_element_string_model
 		focused? <=> handle_focused*? null
 		grid_step <= grid
+		preview <= page_preview
 	Element_link* $hyoo_sketch_element_link
 		element <= element_link* $hyoo_sketch_element_link_model
 		project <= project
 		focused? <=> handle_focused*? null
 		grid_step <= grid
+		preview <= page_preview
 	Options $mol_form
 		form_fields <= options /
 			<= Width_field $mol_form_field

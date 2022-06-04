@@ -9,11 +9,18 @@ $hyoo_sketch $mol_book2
 		<= Frame_page $hyoo_sketch_page_frame
 			page <= page $hyoo_sketch_page_model
 			project <= project $hyoo_sketch_project_model
-			Element_options => element_focused_options
 			Options => page_options
+			Element_options => element_focused_options
+			Element_switch* => Demo_element*
 		<= Option_page $mol_page
 			title @ \Options
 			body / <= options $mol_view
-	Placeholder $mol_page
-		Title null
-		Tools null
+	Demo_page* $mol_page
+		title <= demo_page_title* \
+		Head null
+		body / 
+			<= Demo_page_content* $mol_view
+				style *
+					- height <= demo_page_height* NaN
+					width <= demo_page_width* NaN
+				sub <= demo_page_elements* /

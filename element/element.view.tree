@@ -6,12 +6,7 @@ $hyoo_sketch_element $mol_view
 		y? => y?
 		z? => z?
 	grid_step 12
-	attr *
-		^
-		hyoo_sketch_element__focused <= focused? false
-	event *
-		^
-		pointerdown?event <=> pointer_down?event null
+	preview false
 	style *
 		^
 		width <= width?
@@ -19,18 +14,23 @@ $hyoo_sketch_element $mol_view
 		left <= x?
 		top <= y?
 		zIndex <= z_string \1
-	sub /
-		<= Wrap $mol_view
-			style *
-				maxWidth <= width?
-			sub / <= Element $mol_view
-		<= Position $mol_view
+	sub <= kinds /
+		<= Editor $hyoo_sketch_element_editor
+			pointer_down? <=> pointer_down? null
+			focused <= focused? false
 			sub /
-				<= Resize $mol_view
-					event *
-						pointerdown? <=> resize_start? null
+				<= Wrap $mol_view
+					style *
+						maxWidth <= width?
+					sub / <= Element $mol_view
+				<= Position $mol_view
 					sub /
-						<= Icon $mol_icon_resize_bottom_right
+						<= Resize $mol_view
+							event *
+								pointerdown? <=> resize_start? null
+							sub /
+								<= Icon $mol_icon_resize_bottom_right
+		<= Preview $mol_view
 	Options $mol_form
 		form_fields <= options /
 			<= X_field $mol_form_field
@@ -53,3 +53,11 @@ $hyoo_sketch_element $mol_view
 				name @ \height
 				control <= Height_control $mol_number
 					value? <=> height?
+
+$hyoo_sketch_element_editor $mol_view
+	attr *
+		^
+		hyoo_sketch_element__focused <= focused? false
+	event *
+		^
+		pointerdown?event <=> pointer_down?event null

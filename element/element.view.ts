@@ -2,15 +2,10 @@ namespace $.$$ {
 
 	export class $hyoo_sketch_element extends $.$hyoo_sketch_element {
 
-		/* 
-		прилипание к сеткет
-		если х или у на границе сетки, то для сдвижения нужно перетянуть его на несколько пикслей
-		несколько пикселей - это порог
+		kinds() {
+			return this.preview() ? [ this.Preview() ] : [ this.Editor() ]
+		}
 
-		узнать на границе или нет
-		если да, то сдвижине от границы должно превысит порог, чтобы оно сдвинулось
-		
-		*/
 		pointer_down(event: PointerEvent) {
 			event.preventDefault()
 			event.stopPropagation()

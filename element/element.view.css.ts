@@ -5,22 +5,9 @@ namespace $.$$ {
 	$mol_style_define( $hyoo_sketch_element , {
 
 		position: 'absolute',
-		cursor: 'pointer',
-		border: {
-			width: px(1),
-			style: 'dotted',
-		},
-		userSelect: 'none',
 
-		'@': {
-			hyoo_sketch_element__focused: {
-				'true': {
-					border: {
-						style: 'solid',
-					},
-				},
-			},
-		},
+		transitionProperty: 'height, width, top, left',
+		transitionDuration: '.1s',
 
 		Position: {
 			position: 'absolute',
@@ -41,8 +28,27 @@ namespace $.$$ {
 			cursor: 'nwse-resize',
 		},
 
-		transitionProperty: 'height, width, top, left',
-		transitionDuration: '.1s',
+		Editor: {
+			flex: {
+				grow: 1,
+			},
+			cursor: 'pointer',
+			border: {
+				width: px(1),
+				style: 'dotted',
+			},
+			userSelect: 'none',
+
+			'@': {
+				hyoo_sketch_element__focused: {
+					'true': {
+						border: {
+							style: 'solid',
+						},
+					},
+				},
+			},
+		},
 
 		Wrap: {
 			flex: {

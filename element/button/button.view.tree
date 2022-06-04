@@ -3,6 +3,8 @@ $hyoo_sketch_element_button $hyoo_sketch_element
 		title? => title?
 	Element <= Content $mol_button_major
 		title <= title
+	Preview $mol_button_major
+		title <= title
 	options /
 		^
 		<= Title_field $mol_form_field

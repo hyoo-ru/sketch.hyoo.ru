@@ -9,6 +9,12 @@ $hyoo_sketch_element_link $hyoo_sketch_element
 		- arg * page <= page
 		hint <= hint
 		title <= title
+	Preview $mol_link
+		arg *
+			page <= page
+			page_preview <= page
+		hint <= hint
+		title <= title
 	options /
 		^
 		<= Hint_field $mol_form_field

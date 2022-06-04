@@ -10,7 +10,6 @@ namespace $.$$ {
 			return this.domain().element(id)
 		}
 
-
 		element_text(id: string) {
 			return this.domain().element_text(id)
 		}
@@ -47,8 +46,9 @@ namespace $.$$ {
 			this.page().elements( [...this.page().elements(), obj] )
 		}
 
-		@ $mol_mem_key2
-		Element_switch(id: string, type: string) {
+		@ $mol_mem_key
+		Element_switch(id: string) {
+			const type = this.element(id).type()
 			switch(type) {
 				case 'text': return this.Element_text(id)
 				case 'button': return this.Element_button(id)
@@ -59,7 +59,7 @@ namespace $.$$ {
 		}
 
 		elements() {
-			return this.page().elements().map( obj => this.Element_switch( obj.id(), obj.type() ) )
+			return this.page().elements().map( obj => this.Element_switch( obj.id() ) )
 		}
 
 		@ $mol_mem
@@ -81,7 +81,7 @@ namespace $.$$ {
 			const id = this.element_focused()
 			if (!id) return null
 
-			return this.Element_switch(id, this.element(id).type()).Options()
+			return this.Element_switch(id).Options()
 		}
 
 		grid_step() {
@@ -103,6 +103,24 @@ namespace $.$$ {
 				const list = this.page().elements()
 				this.page().elements( list.filter( obj => obj.id() !== id ) )
 			}
+		}
+
+		page_preview(next?: boolean) {
+			if (next === undefined) {
+				return this.page().id() === this.$.$mol_state_arg.value('page_preview')
+			}
+
+			this.$.$mol_state_arg.value('page_preview', next === true ? this.page().id() : null)
+
+			return next
+		}
+
+		mode() {
+			return this.page_preview() ? 'preview' : 'editor'
+		}
+
+		project_demo_pages() {
+			return [ this.page().id() ].join(',')
 		}
 
 	}

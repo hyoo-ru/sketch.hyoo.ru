@@ -28,7 +28,9 @@ namespace $ {
 		}
 
 		x( next?: number ) {
-			return Number( this.state().sub( 'x' ).value( next ) ?? 0 )
+			const result = Number( this.state().sub( 'x' ).value( next ) ?? 0 )
+			console.log({ next, val: result })
+			return result
 		}
 
 		y( next?: number ) {
