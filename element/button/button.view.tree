@@ -1,0 +1,11 @@
+$hyoo_sketch_element_button $hyoo_sketch_element
+	element $hyoo_sketch_element_button_model
+		title? => title?
+	Element <= Content $mol_button_major
+		title <= title
+	options /
+		^
+		<= Title_field $mol_form_field
+			name @ \Title
+			control <= Title_control $mol_string
+				value? <=> title?

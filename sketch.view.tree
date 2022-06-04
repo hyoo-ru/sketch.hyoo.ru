@@ -1,0 +1,19 @@
+$hyoo_sketch $mol_book2
+	domain $hyoo_sketch_domain
+	title @ \Sketch
+	pages /
+		<= Projects_page $hyoo_sketch_project
+			person <= user $hyoo_sketch_person_model
+		<= Pages_page $hyoo_sketch_page
+			project <= project $hyoo_sketch_project_model
+		<= Frame_page $hyoo_sketch_page_frame
+			page <= page $hyoo_sketch_page_model
+			project <= project $hyoo_sketch_project_model
+			Element_options => element_focused_options
+			Options => page_options
+		<= Option_page $mol_page
+			title @ \Options
+			body / <= options $mol_view
+	Placeholder $mol_page
+		Title null
+		Tools null

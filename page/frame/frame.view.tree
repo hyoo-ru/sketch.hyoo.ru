@@ -1,0 +1,83 @@
+$hyoo_sketch_page_frame $mol_page
+	page $hyoo_sketch_page_model
+		width? => width?
+		height? => height?
+		grid? => grid?
+		name? => page_name?
+	project $hyoo_sketch_project_model
+	head /
+		<= Title $mol_string
+			value?val <=> page_name?val
+			hint @ \page name
+		<= Tools
+	body /
+		<= Content $mol_view
+			attr *
+				hyoo_sketch_page_frame__focused <= focused false
+			style *
+				height <= height
+				width <= width
+				backgroundSize <= grid_step \
+			event *
+				pointerdown? <=> focus? null
+			sub <= elements /
+		<= Side_left $mol_scroll
+			sub /
+				<= Tools_left $mol_list
+					rows <= tools_left /
+						<= Text $mol_button_minor
+							hint @ \Add text element
+							sub / <= Text_icon $mol_icon_format_title
+							click? <=> element_text_add? null
+						<= Button $mol_button_minor
+							hint @ \Add button element
+							sub / <= Button_icon $mol_icon_gesture_tap
+							click? <=> element_button_add? null
+						<= String $mol_button_minor
+							hint @ \Add input element
+							sub / <= String_icon $mol_icon_cursor_text
+							click? <=> element_string_add? null
+						<= Link $mol_button_minor
+							hint @ \Add link element
+							sub / <= Link_icon $mol_icon_link_plus
+							click? <=> element_link_add? null
+	element_focused? \
+	Element* $hyoo_sketch_element
+		element <= element* $hyoo_sketch_element_model
+		focused? <=> handle_focused*? null
+		grid_step <= grid
+	Element_text* $hyoo_sketch_element_text
+		element <= element*
+		focused? <=> handle_focused*? null
+		grid_step <= grid
+	Element_button* $hyoo_sketch_element_button
+		element <= element*
+		focused? <=> handle_focused*? null
+		grid_step <= grid
+	Element_string* $hyoo_sketch_element_string
+		element <= element*
+		focused? <=> handle_focused*? null
+		grid_step <= grid
+	Element_link* $hyoo_sketch_element_link
+		element <= element*
+		project <= project
+		focused? <=> handle_focused*? null
+		grid_step <= grid
+	Options $mol_form
+		form_fields <= options /
+			<= Width_field $mol_form_field
+				name @ \width
+				control <= Width_control $mol_number
+					value? <=> width?
+			<= Height_field $mol_form_field
+				name @ \height
+				control <= Height_control $mol_number
+					value? <=> height?
+			<= Grid_filed $mol_form_field
+				name @ \grid
+				control <= Grid_control $mol_number
+					value? <=> grid?
+	plugins /
+		<= Delete_key $mol_hotkey
+			key *
+				delete? <=> element_delete? null

@@ -1,0 +1,32 @@
+$hyoo_sketch_element_link $hyoo_sketch_element
+	element $hyoo_sketch_element_link_model
+		hint? => hint?
+		page? => page?
+		href? => href?
+		title? => title?
+	project $hyoo_sketch_project_model
+	Element <= Content $mol_link
+		- arg * page <= page
+		hint <= hint
+		title <= title
+	options /
+		^
+		<= Hint_field $mol_form_field
+			name @ \Hint
+			control <= Hint_control $mol_string
+				value? <=> hint?
+		<= Title_field $mol_form_field
+			name @ \Title
+			control <= Title_control $mol_string
+				value? <=> title?
+		- <= Href_field $mol_form_field
+			name @ \Link to external url
+			control <= Href_control $mol_string
+				value? <=> href?
+		<= Page_field $mol_form_field
+			name @ \Link to page
+			control <= Page_control $mol_select
+				align \top_center
+				no_options_message @ \Not found
+				value? <=> page_id? \
+				dictionary <= pages *
