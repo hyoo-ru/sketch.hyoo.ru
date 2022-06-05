@@ -12,6 +12,8 @@
 	"$hyoo_sketch_element_button_action_dict_open": "Open page",
 	"$hyoo_sketch_element_button_action_dict_replace": "Replace page",
 	"$hyoo_sketch_element_frame_Grid_filed_name": "grid",
+	"$hyoo_sketch_element_frame_Height_field_name": "height",
+	"$hyoo_sketch_element_frame_Width_field_name": "width",
 	"$hyoo_sketch_element_link_Hint_field_name": "Hint",
 	"$hyoo_sketch_element_link_Page_control_no_options_message": "Not found",
 	"$hyoo_sketch_element_link_Page_field_name": "Link to page",

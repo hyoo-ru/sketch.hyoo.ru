@@ -2334,6 +2334,60 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
+    class $hyoo_sketch_element_frame extends $hyoo_sketch_element {
+        width(next?: any): number;
+        height(next?: any): number;
+        grid(next?: any): number;
+        model(): $hyoo_sketch_element_frame_model;
+        style(): {
+            position: string;
+            width: number;
+            height: number;
+            left: number;
+            top: number;
+            zIndex: string;
+        };
+        Resizer(): any;
+        Element(): $mol_view;
+        Preview(): $mol_view;
+        options(): readonly any[];
+        mode(): string;
+        grid_step(): string;
+        Content(): $mol_view;
+        Width_control(): $$.$mol_number;
+        Width_field(): $$.$mol_form_field;
+        Height_control(): $$.$mol_number;
+        Height_field(): $$.$mol_form_field;
+        Grid_control(): $$.$mol_number;
+        Grid_filed(): $$.$mol_form_field;
+    }
+}
+
+declare namespace $ {
+    class $hyoo_sketch_element_frame_model extends $mol_object2 {
+        static from(element: $hyoo_sketch_element_model): $hyoo_sketch_element_frame_model;
+        element(): $hyoo_sketch_element_model;
+        domain(): $hyoo_sketch_domain;
+        state(): $mol_state_shared;
+        width(next?: number): number;
+        height(next?: number): number;
+        grid(next?: number): number;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $.$$ {
+    class $hyoo_sketch_element_frame extends $.$hyoo_sketch_element_frame {
+        model(): $hyoo_sketch_element_frame_model;
+        grid_step(): string;
+        mode(): "editor" | "preview";
+        pointer_down(): void;
+    }
+}
+
+declare namespace $ {
     class $mol_paragraph extends $mol_view {
         line_height(): number;
         letter_width(): number;
@@ -2858,56 +2912,6 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    class $hyoo_sketch_element_frame extends $hyoo_sketch_element {
-        width(next?: any): number;
-        height(next?: any): number;
-        grid(next?: any): number;
-        model(): $hyoo_sketch_element_frame_model;
-        style(): {
-            position: string;
-            width: number;
-            height: number;
-            left: number;
-            top: number;
-            zIndex: string;
-        };
-        Resizer(): any;
-        Element(): $mol_view;
-        Preview(): $mol_view;
-        options(): readonly any[];
-        mode(): string;
-        grid_step(): string;
-        Content(): $mol_view;
-        Grid_control(): $$.$mol_number;
-        Grid_filed(): $$.$mol_form_field;
-    }
-}
-
-declare namespace $ {
-    class $hyoo_sketch_element_frame_model extends $mol_object2 {
-        static from(element: $hyoo_sketch_element_model): $hyoo_sketch_element_frame_model;
-        element(): $hyoo_sketch_element_model;
-        domain(): $hyoo_sketch_domain;
-        state(): $mol_state_shared;
-        width(next?: number): number;
-        height(next?: number): number;
-        grid(next?: number): number;
-    }
-}
-
-declare namespace $ {
-}
-
-declare namespace $.$$ {
-    class $hyoo_sketch_element_frame extends $.$hyoo_sketch_element_frame {
-        model(): $hyoo_sketch_element_frame_model;
-        grid_step(): string;
-        mode(): "editor" | "preview";
-        pointer_down(): void;
-    }
-}
-
-declare namespace $ {
     class $mol_icon_format_title extends $mol_icon {
         path(): string;
     }
@@ -2954,6 +2958,7 @@ declare namespace $ {
         element_focused(next?: any): string;
         element(id: any): $hyoo_sketch_element_model;
         Element(id: any): $$.$hyoo_sketch_element;
+        Element_frame_refactor_frame_pls(id: any): $$.$hyoo_sketch_element_frame;
         Element_text(id: any): $$.$hyoo_sketch_element_text;
         Element_button(id: any): $$.$hyoo_sketch_element_button;
         Element_string(id: any): $$.$hyoo_sketch_element_string;
@@ -2999,6 +3004,8 @@ declare namespace $ {
         state(): $mol_state_shared;
         name(next?: string): string;
         elements(next?: $hyoo_sketch_element_model[]): $hyoo_sketch_element_model[];
+        element_frame(): $hyoo_sketch_element_model;
+        model_frame(): $hyoo_sketch_element_frame_model;
         project(next?: $hyoo_sketch_project_model): $hyoo_sketch_project_model | null;
     }
 }
@@ -3012,8 +3019,8 @@ declare namespace $.$$ {
         element(id: string): $hyoo_sketch_element_model;
         element_frame(): $hyoo_sketch_element_model;
         element_add(type: $hyoo_sketch_element_type): void;
-        Element_switch(id: string): $hyoo_sketch_element | $hyoo_sketch_element_text | $hyoo_sketch_element_button | $hyoo_sketch_element_string | $hyoo_sketch_element_link;
-        elements(): ($hyoo_sketch_element | $hyoo_sketch_element_text | $hyoo_sketch_element_button | $hyoo_sketch_element_string | $hyoo_sketch_element_link)[];
+        Element_switch(id: string): $hyoo_sketch_element | $hyoo_sketch_element_frame | $hyoo_sketch_element_text | $hyoo_sketch_element_button | $hyoo_sketch_element_string | $hyoo_sketch_element_link;
+        elements(): ($hyoo_sketch_element | $hyoo_sketch_element_frame | $hyoo_sketch_element_text | $hyoo_sketch_element_button | $hyoo_sketch_element_string | $hyoo_sketch_element_link)[];
         element_focused(id?: string): string;
         handle_focused(id: string, next?: boolean): boolean;
         element_frame_handle_focused(next?: boolean): boolean;
@@ -3155,6 +3162,7 @@ declare namespace $ {
         Page_list_page(): $$.$hyoo_sketch_page_list;
         page(): $hyoo_sketch_page_model;
         Element_focused_options(): $$.$mol_form | null;
+        Demo_element(id: any): $$.$hyoo_sketch_element | $$.$hyoo_sketch_element_frame | $$.$hyoo_sketch_element_text | $$.$hyoo_sketch_element_button | $$.$hyoo_sketch_element_string | $$.$hyoo_sketch_element_link;
         Page_page(): $$.$hyoo_sketch_page;
         Element_options(): $mol_view;
         Option_page(): $mol_page;
@@ -3178,6 +3186,9 @@ declare namespace $.$$ {
         demo_pages(): string[];
         pages(): ($mol_page | $hyoo_sketch_page | $hyoo_sketch_project | $hyoo_sketch_page_list)[];
         Element_options(): $mol_form;
+        demo_page_title(id: string): string;
+        demo_page_width(id: string): number;
+        demo_page_elements(id: string): ($hyoo_sketch_element | $hyoo_sketch_element_frame | $hyoo_sketch_element_text | $hyoo_sketch_element_button | $hyoo_sketch_element_string | $hyoo_sketch_element_link)[];
     }
 }
 
