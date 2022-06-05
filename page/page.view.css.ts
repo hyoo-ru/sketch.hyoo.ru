@@ -6,14 +6,11 @@ namespace $.$$ {
 
 		Body: {
 			alignItems: 'center',
+			padding: $mol_gap.block,
 		},
 
-		Content: {
+		Elements: {
 			position: 'relative',
-			width: per(100),
-			height: per(100),
-			justifyContent: 'center',
-			padding: $mol_gap.block,
 		},
 
 		Head: {

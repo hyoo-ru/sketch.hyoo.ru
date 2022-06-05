@@ -18,7 +18,7 @@ namespace $ {
 		name( next?: string ) {
 			return String( this.state().sub( 'name' ).value( next ) ?? '' )
 		}
-		
+
 		elements( next?: $hyoo_sketch_element_model[]) {
 			const ids = this.state().sub('elements').list( next && next.map( obj => obj.id() ) )
 			return ids.map( id => this.domain().element( String(id) ) )

@@ -20,7 +20,16 @@ $hyoo_sketch_page $mol_page
 		<= Tools
 	body /
 		<= Content $mol_view
-			sub <= elements /
+			sub /
+				<= Elements $mol_view
+					sub /
+						<= Element_frame $hyoo_sketch_element_frame
+							element <= element_frame $hyoo_sketch_element_model
+							focused? <=> element_frame_handle_focused? true
+							grid => grid
+							preview <= page_preview
+						<= Elements_other $mol_view
+							sub <= elements /
 		<= Side_left $mol_scroll
 			sub /
 				<= Tools_left $mol_list
@@ -47,11 +56,6 @@ $hyoo_sketch_page $mol_page
 		element <= element*
 		focused? <=> handle_focused*? null
 		grid <= grid
-		preview <= page_preview
-	Element_frame $hyoo_sketch_element_frame
-		element <= element_frame $hyoo_sketch_element_model
-		focused? <=> element_frame_handle_focused? null
-		grid => grid
 		preview <= page_preview
 	Element_text* $hyoo_sketch_element_text
 		element <= element*

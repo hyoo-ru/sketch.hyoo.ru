@@ -11,7 +11,11 @@ namespace $.$$ {
 		}
 
 		element_frame() {
-			return this.page().elements().find( obj => obj.type() === 'frame' )!
+			const res = this.page().elements().find( obj => obj.type() === 'frame' )!
+			if (!res) {
+				throw new Promise(()=>{}) // Loading
+			}
+			return res
 		}
 
 		element_add(type: $hyoo_sketch_element_type) {
@@ -24,7 +28,6 @@ namespace $.$$ {
 		Element_switch(id: string) {
 			const type = this.element(id).type()
 			switch(type) {
-				case 'frame': return this.Element_frame()
 				case 'text': return this.Element_text(id)
 				case 'button': return this.Element_button(id)
 				case 'string': return this.Element_string(id)
@@ -33,8 +36,10 @@ namespace $.$$ {
 			}
 		}
 
+		@ $mol_mem
 		elements() {
-			return this.page().elements().map( obj => this.Element_switch( obj.id() ) )
+			const filter = this.page().elements().filter( obj => obj.type() !== 'frame' )
+			return filter.map( obj => this.Element_switch( obj.id() ) )
 		}
 
 		@ $mol_mem
