@@ -1,5 +1,5 @@
 $hyoo_sketch_element_button $hyoo_sketch_element
-	element $hyoo_sketch_element_button_model
+	model $hyoo_sketch_element_button_model
 		title? => title?
 	Element <= Content $mol_button_major
 		title <= title
@@ -11,3 +11,13 @@ $hyoo_sketch_element_button $hyoo_sketch_element
 			name @ \Title
 			control <= Title_control $mol_string
 				value? <=> title?
+		<= Action_field $mol_form_field
+			name @ \Click action
+			control <= Action_control $mol_switch
+				value?val <=> action?val \none
+				options <= action_dict *
+					none @ \None
+					open @ \Open page
+					replace @ \Replace page
+					close @ \Close page
+		<= Target_field $mol_form_field

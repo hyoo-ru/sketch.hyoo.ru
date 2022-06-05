@@ -1,0 +1,25 @@
+$hyoo_sketch_page_list $mol_page
+	project $hyoo_sketch_project_model
+		name? => project_name?
+	tools /
+		<= Project_pin $mol_check_icon
+			hint @ \Pin project
+			Icon <= Project_pin_icon $mol_icon_eye
+			checked?val <=> project_pin?val false
+		<= Page_add $mol_button_minor
+			hint @ \Add page
+			click? <=> page_add? null
+			sub / <= Page_add_icon $mol_icon_plus
+	head /
+		<= Title $mol_string
+			value?val <=> project_name?val
+			hint @ \project name
+		<= Tools
+	body /
+		<= List $mol_list
+			rows <= pages /
+	Page* $mol_link
+		arg *
+			page <= page_id* \
+			focus null
+		title <= page_name* \

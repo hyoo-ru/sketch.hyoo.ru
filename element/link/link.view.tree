@@ -1,5 +1,5 @@
 $hyoo_sketch_element_link $hyoo_sketch_element
-	element $hyoo_sketch_element_link_model
+	model $hyoo_sketch_element_link_model
 		hint? => hint?
 		page? => page?
 		href? => href?

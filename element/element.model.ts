@@ -1,4 +1,6 @@
 namespace $ {
+
+	export type $hyoo_sketch_element_type = 'none' | 'frame' | 'text' | 'button' | 'string' | 'link'
 	
 	export class $hyoo_sketch_element_model extends $mol_object2 {
 		
@@ -15,8 +17,14 @@ namespace $ {
 			return this.domain().state().doc( 'element' ).doc( this.id() )
 		}
 
-		type( next?: string ) {
-			return String( this.state().sub( 'type' ).value( next ) ?? '' )
+		page(next?: $hyoo_sketch_page_model) {
+			const id = this.state().sub('page').value(next && next.id())
+			return id ? this.domain().page( String(id) ) : null
+		}
+
+		type( next?: $hyoo_sketch_element_type ) {
+			const str = String( this.state().sub( 'type' ).value( next ) ?? 'none' )
+			return (str as typeof next)!
 		}
 		
 		width( next?: number ) {
@@ -28,9 +36,7 @@ namespace $ {
 		}
 
 		x( next?: number ) {
-			const result = Number( this.state().sub( 'x' ).value( next ) ?? 0 )
-			console.log({ next, val: result })
-			return result
+			return Number( this.state().sub( 'x' ).value( next ) ?? 0 )
 		}
 
 		y( next?: number ) {

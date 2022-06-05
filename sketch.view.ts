@@ -36,36 +36,37 @@ namespace $.$$ {
 
 			return [
 				this.Projects_page(),
-				... this.project_opened() ? [this.Pages_page()] : [],
-				... this.page_opened() ? [this.Frame_page()] : [],
-				... this.page_opened() ? [this.Option_page()] : [],
+				... this.project_opened() ? [this.Page_list_page()] : [],
+				... this.page_opened() ? [this.Page_page()] : [],
+				... this.page_opened() && !!this.Element_options() ? [this.Option_page()] : [],
 			]
 		}
 
-		options() {
-			return this.element_focused_options() ?? this.Frame_page().Options()
+		@ $mol_mem
+		Element_options() {
+			return this.Element_focused_options()!
 		}
 
-		demo_page_title(id: string) {
-			return this.domain().page(id).name()
-		}
+		// demo_page_title(id: string) {
+		// 	return this.domain().page(id).name()
+		// }
 
-		demo_page_height(id: string) {
-			return this.domain().page(id).height()
-		}
+		// demo_page_height(id: string) {
+		// 	return this.domain().page(id).height()
+		// }
 
-		demo_page_width(id: string) {
-			return this.domain().page(id).width()
-		}
+		// demo_page_width(id: string) {
+		// 	return this.domain().page(id).width()
+		// }
 
-		demo_page_elements(id: string) {
-			const page = this.domain().page(id)
-			return page.elements().map( obj => {
-				const element = this.Demo_element(obj.id()) 
-				element.preview = $mol_const(true)
-				return element
-			} )
-		}
+		// demo_page_elements(id: string) {
+		// 	const page = this.domain().page(id)
+		// 	return page.elements().map( obj => {
+		// 		const element = this.Demo_element(obj.id()) 
+		// 		element.preview = $mol_const(true)
+		// 		return element
+		// 	} )
+		// }
 
 	}
 

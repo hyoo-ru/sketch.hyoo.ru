@@ -1,21 +1,31 @@
 namespace $.$$ {
 
-	const { rem } = $mol_style_unit
+	const { px, per } = $mol_style_unit
 
-	$mol_style_define( $hyoo_sketch_page , {
+	$mol_style_define( $.$hyoo_sketch_page, {
+
+		Body: {
+			alignItems: 'center',
+		},
+
+		Content: {
+			position: 'relative',
+			width: per(100),
+			height: per(100),
+			justifyContent: 'center',
+			padding: $mol_gap.block,
+		},
 
 		Head: {
-			flex: {
-				wrap: 'nowrap',
-			}
+			justifyContent: 'flex-start',
 		},
 
-		Tools: {
-			flex: {
-				wrap: 'nowrap',
-				shrink: 0,
-			}
-		},
+		Side_left: {
+			position: 'absolute',
+			top: 0,
+			left: 0,
+		}
+
 
 	} )
 

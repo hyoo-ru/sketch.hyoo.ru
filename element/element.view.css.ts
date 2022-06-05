@@ -9,10 +9,11 @@ namespace $.$$ {
 		transitionProperty: 'height, width, top, left',
 		transitionDuration: '.1s',
 
-		Position: {
+		Resizer: {
 			position: 'absolute',
 			right: px(5),
 			bottom: px(0),
+			cursor: 'nwse-resize',
 		},
 
 		Options: {
@@ -24,10 +25,6 @@ namespace $.$$ {
 			},
 		},
 
-		Resize: {
-			cursor: 'nwse-resize',
-		},
-
 		Editor: {
 			flex: {
 				grow: 1,
@@ -36,14 +33,16 @@ namespace $.$$ {
 			border: {
 				width: px(1),
 				style: 'dotted',
+				color: $mol_theme.control,
 			},
 			userSelect: 'none',
 
 			'@': {
-				hyoo_sketch_element__focused: {
+				hyoo_sketch_element_focused: {
 					'true': {
 						border: {
 							style: 'solid',
+							color: $mol_theme.current,
 						},
 					},
 				},

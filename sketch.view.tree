@@ -1,20 +1,19 @@
 $hyoo_sketch $mol_book2
 	domain $hyoo_sketch_domain
 	title @ \Sketch
+	plugins /
+		<= Theme $mol_theme_auto
 	pages /
 		<= Projects_page $hyoo_sketch_project
 			person <= user $hyoo_sketch_person_model
-		<= Pages_page $hyoo_sketch_page
+		<= Page_list_page $hyoo_sketch_page_list
 			project <= project $hyoo_sketch_project_model
-		<= Frame_page $hyoo_sketch_page_frame
+		<= Page_page $hyoo_sketch_page
 			page <= page $hyoo_sketch_page_model
-			project <= project $hyoo_sketch_project_model
-			Options => page_options
-			Element_options => element_focused_options
-			Element_switch* => Demo_element*
+			Element_options => Element_focused_options
 		<= Option_page $mol_page
 			title @ \Options
-			body / <= options $mol_view
+			body / <= Element_options $mol_view
 	Demo_page* $mol_page
 		title <= demo_page_title* \
 		Head null

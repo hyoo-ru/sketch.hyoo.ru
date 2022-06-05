@@ -24,16 +24,9 @@ namespace $ {
 			return ids.map( id => this.domain().element( String(id) ) )
 		}
 
-		width(next?: number) {
-			return Number( this.state().sub('width').value(next) ?? '340' )
-		}
-
-		height(next?: number) {
-			return Number( this.state().sub('height').value(next) ?? '640' )
-		}
-
-		grid(next?: number) {
-			return Number( this.state().sub('grid').value(next) ?? '8' )
+		project(next?: $hyoo_sketch_project_model) {
+			const id = this.state().sub('project').value(next && next.id())
+			return id ? this.domain().project( String(id) ) : null
 		}
 		
 	}

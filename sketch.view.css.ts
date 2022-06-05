@@ -10,13 +10,13 @@ namespace $.$$ {
 			},
 		},
 
-		Pages_page: {
+		Page_list_page: {
 			flex: {
-				basis: rem(15),
+				// basis: rem(15),
 			},
 		},
 
-		Frame_page: {
+		Page_page: {
 			flex: {
 				basis: rem(30),
 			},

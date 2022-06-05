@@ -16,7 +16,7 @@ namespace $.$$ {
 			const original_y = this.y()
 			const original_mouse_x = event.pageX
 			const original_mouse_y = event.pageY
-			const grid_step = this.grid_step()
+			const grid_step = this.grid()
 
 			const move = (e: PointerEvent) => {
 				const x = original_x + (e.pageX - original_mouse_x)
@@ -46,7 +46,7 @@ namespace $.$$ {
 			const original_height = this.height();
 			const original_mouse_x = event.pageX;
 			const original_mouse_y = event.pageY;
-			const grid_step = this.grid_step()
+			const grid_step = this.grid()
 
 			const resize = (e: PointerEvent) => {
 				e.preventDefault()

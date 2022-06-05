@@ -5,7 +5,7 @@ $hyoo_sketch_element $mol_view
 		x? => x?
 		y? => y?
 		z? => z?
-	grid_step 12
+	grid 8
 	preview false
 	style *
 		^
@@ -23,13 +23,11 @@ $hyoo_sketch_element $mol_view
 					style *
 						maxWidth <= width?
 					sub / <= Element $mol_view
-				<= Position $mol_view
+				<= Resizer $mol_view
+					event *
+						pointerdown? <=> resize_start? null
 					sub /
-						<= Resize $mol_view
-							event *
-								pointerdown? <=> resize_start? null
-							sub /
-								<= Icon $mol_icon_resize_bottom_right
+						<= Icon $mol_icon_resize_bottom_right
 		<= Preview $mol_view
 	Options $mol_form
 		form_fields <= options /
@@ -57,7 +55,7 @@ $hyoo_sketch_element $mol_view
 $hyoo_sketch_element_editor $mol_view
 	attr *
 		^
-		hyoo_sketch_element__focused <= focused? false
+		hyoo_sketch_element_focused <= focused? false
 	event *
 		^
 		pointerdown?event <=> pointer_down?event null

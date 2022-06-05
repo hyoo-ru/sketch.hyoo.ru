@@ -3,47 +3,99 @@ namespace $.$$ {
 	export class $hyoo_sketch_page extends $.$hyoo_sketch_page {
 
 		domain() {
-			return this.project().domain()
+			return this.page().domain()
 		}
 
-		user() {
-			return this.domain().user()
+		element(id: string) {
+			return this.domain().element(id)
 		}
 
-		pages() {
-			return this.project().pages().map( obj => this.Page( obj.id() ) )
+		element_frame() {
+			return this.page().elements().find( obj => obj.type() === 'frame' )!
 		}
 
-		page_id(id: string) {
-			return id
+		element_add(type: $hyoo_sketch_element_type) {
+			const obj = this.domain().element( $mol_guid() )
+			obj.type(type)
+			this.page().elements( [...this.page().elements(), obj] )
 		}
 
-		page_name(id: string) {
-			return this.domain().page( id ).name()
+		@ $mol_mem_key
+		Element_switch(id: string) {
+			const type = this.element(id).type()
+			switch(type) {
+				case 'frame': return this.Element_frame()
+				case 'text': return this.Element_text(id)
+				case 'button': return this.Element_button(id)
+				case 'string': return this.Element_string(id)
+				case 'link': return this.Element_link(id)
+				default: return this.Element(id)
+			}
 		}
 
-		project_name(next?: string) {
-			return this.project().name(next)
+		elements() {
+			return this.page().elements().map( obj => this.Element_switch( obj.id() ) )
 		}
 
-		page_add() {
-			const obj = this.domain().page( $mol_guid() )
-			obj.name( 'Page' )
-			this.project().pages( [...this.project().pages() , obj] )
+		@ $mol_mem
+		element_focused(id?: string) {
+			return this.$.$mol_state_arg.value('focus', id) ?? ''
 		}
 
-		project_pin(next?: boolean) {
-			const pinned = this.user().projects().indexOf( this.project() ) !== -1
+		@ $mol_mem_key
+		handle_focused(id: string, next?: boolean) {
+			if (next !== undefined) {
+				if (next) this.element_focused(id)
+				return true
+			}
+			return id === this.element_focused()
+		}
 
-			if ( next === undefined ) return pinned
+		element_frame_handle_focused(next?: boolean) {
+			return this.handle_focused(this.element_frame().id(), next)
+		}
 
-			if ( next ) {
-				this.user().projects( [ ...this.user().projects() , this.project() ] )
-			} else {
-				this.user().projects( this.user().projects().filter( obj => obj !== this.project() ) )
+		@ $mol_mem
+		Element_options() {
+			const id = this.element_focused()
+			if (!id) return null
+
+			return this.Element_switch(id).Options()
+		}
+
+		focus() {
+			this.$.$mol_state_arg.value('focus', null)
+		}
+
+		focused() {
+			return this.$.$mol_state_arg.value('focus') === null
+		}
+
+		element_delete() {
+			const id = this.element_focused()
+
+			if (id) {
+				const list = this.page().elements()
+				this.page().elements( list.filter( obj => obj.id() !== id ) )
+			}
+		}
+
+		page_preview(next?: boolean) {
+			if (next === undefined) {
+				return this.page().id() === this.$.$mol_state_arg.value('page_preview')
 			}
 
+			this.$.$mol_state_arg.value('page_preview', next === true ? this.page().id() : null)
+
 			return next
+		}
+
+		mode() {
+			return this.page_preview() ? 'preview' : 'editor'
+		}
+
+		project_demo_pages() {
+			return [ this.page().id() ].join(',')
 		}
 
 	}

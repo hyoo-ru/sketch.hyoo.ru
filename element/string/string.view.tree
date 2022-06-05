@@ -1,5 +1,5 @@
 $hyoo_sketch_element_string $hyoo_sketch_element
-	element $hyoo_sketch_element_string_model
+	model $hyoo_sketch_element_string_model
 		hint? => hint?
 		value? => value?
 	Element <= Content $mol_string
