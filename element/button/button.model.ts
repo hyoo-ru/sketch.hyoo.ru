@@ -29,12 +29,12 @@ namespace $ {
 			return (res as typeof next)!
 		}
 
-		page(next?: string) {
-			return String( this.state().sub('page').value(next) ?? '' )
+		target_page(next?: string) {
+			return String( this.state().sub('target_page').value(next) ?? '' )
 		}
 
-		link(next?: string) {
-			return String( this.state().sub('link').value(next) ?? '' )
+		target_link(next?: string) {
+			return String( this.state().sub('target_link').value(next) ?? 'https://mol.hyoo.ru' )
 		}
 		
 	}

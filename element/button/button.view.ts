@@ -45,18 +45,18 @@ namespace $.$$ {
 				this.demo( pages.filter( id => id !== page_current ) )
 			}
 
-			if (this.action() === 'open' && this.page()) {
-				this.demo([...pages, this.page()])
+			if (this.action() === 'open' && this.target_page()) {
+				this.demo([...pages, this.target_page()])
 			}
 
-			if (this.action() === 'replace' && this.page()) {
+			if (this.action() === 'replace' && this.target_page()) {
 				const next = pages.slice()
-				next.splice( pages.indexOf(page_current) , 1 , this.page() )
+				next.splice( pages.indexOf(page_current) , 1 , this.target_page() )
 				this.demo( next )
 			}
 
-			if (this.action() === 'external' && this.link()) {
-				$mol_dom_context.open(this.link(), '_blank')
+			if (this.action() === 'external' && this.target_link()) {
+				$mol_dom_context.open(this.target_link(), '_blank')
 			}
 		}
 

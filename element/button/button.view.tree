@@ -2,8 +2,8 @@ $hyoo_sketch_element_button $hyoo_sketch_element
 	model $hyoo_sketch_element_button_model
 		title? => title?
 		action? => action?
-		page? => page?
-		link? => link?
+		target_page? => target_page?
+		target_link? => target_link?
 	Element <= Content $mol_button_major
 		title <= title
 	Preview $mol_button_major
@@ -29,9 +29,9 @@ $hyoo_sketch_element_button $hyoo_sketch_element
 			control <= Page_control $mol_select
 				Filter null
 				align \top_right
-				value? <=> page? 
+				value? <=> target_page? 
 				dictionary <= project_pages *
 		<= Link_field $mol_form_field
 			name @ \Link
 			control <= Link_control $mol_string
-				value? <=> link?
+				value? <=> target_link?

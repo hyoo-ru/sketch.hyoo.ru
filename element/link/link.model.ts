@@ -28,12 +28,17 @@ namespace $ {
 			return String( this.state().sub('title').value(next) ?? 'Link' )
 		}
 
-		href(next?: string) {
-			return String( this.state().sub('href').value(next) ?? 'https://mol.hyoo.ru' )
+		action(next?: 'none' | 'open' | 'replace' | 'close' | 'external') {
+			const res = String( this.state().sub('action').value(next) ?? 'none' )
+			return (res as typeof next)!
 		}
 
-		page(next?: string) {
-			return String( this.state().sub('page').value(next) ?? '' )
+		target_page(next?: string) {
+			return String( this.state().sub('target_page').value(next) ?? '' )
+		}
+
+		target_link(next?: string) {
+			return String( this.state().sub('target_link').value(next) ?? 'https://mol.hyoo.ru' )
 		}
 		
 	}
