@@ -19,8 +19,8 @@ namespace $.$$ {
 		Options: {
 			$mol_form_field: {
 				flex: {
-					direction: 'row',
-					wrap: 'nowrap',
+					// direction: 'row',
+					// wrap: 'nowrap',
 				},
 			},
 		},
