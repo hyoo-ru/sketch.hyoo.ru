@@ -2847,6 +2847,7 @@ declare namespace $ {
         Element(): $$.$mol_link;
         Preview(): $$.$mol_link;
         options(): readonly any[];
+        nope(next?: any): any;
         Content(): $$.$mol_link;
         Hint_control(): $$.$mol_string;
         Hint_field(): $$.$mol_form_field;
@@ -2876,6 +2877,7 @@ declare namespace $.$$ {
     class $hyoo_sketch_element_link extends $.$hyoo_sketch_element_link {
         model(): $hyoo_sketch_element_link_model;
         pages(): {};
+        nope(event: Event): void;
     }
 }
 

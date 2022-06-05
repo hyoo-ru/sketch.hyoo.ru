@@ -524,7 +524,9 @@ $hyoo_sketch_element_link $hyoo_sketch_element
 		title? => title?
 	project $hyoo_sketch_project_model
 	Element <= Content $mol_link
-		- arg * page <= page
+		event *
+			click? <=> nope? null
+		uri \#
 		hint <= hint
 		title <= title
 	Preview $mol_link

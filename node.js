@@ -9568,8 +9568,17 @@ var $;
                 this.Page_field()
             ];
         }
+        nope(next) {
+            if (next !== undefined)
+                return next;
+            return null;
+        }
         Content() {
             const obj = new this.$.$mol_link();
+            obj.event = () => ({
+                click: (next) => this.nope(next)
+            });
+            obj.uri = () => "#";
             obj.hint = () => this.hint();
             obj.title = () => this.title();
             return obj;
@@ -9628,6 +9637,9 @@ var $;
     __decorate([
         $mol_mem
     ], $hyoo_sketch_element_link.prototype, "Preview", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_link.prototype, "nope", null);
     __decorate([
         $mol_mem
     ], $hyoo_sketch_element_link.prototype, "Content", null);
@@ -9705,6 +9717,10 @@ var $;
                     dict[page.id()] = page.name();
                     return dict;
                 }, {});
+            }
+            nope(event) {
+                event.preventDefault();
+                event.stopPropagation();
             }
         }
         __decorate([
