@@ -7103,10 +7103,7 @@ var $;
             },
             Options: {
                 $mol_form_field: {
-                    flex: {
-                        direction: 'row',
-                        wrap: 'nowrap',
-                    },
+                    flex: {},
                 },
             },
             Editor: {
