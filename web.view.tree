@@ -354,67 +354,6 @@ $mol_check_list $mol_view
 $mol_switch $mol_check_list
 	value?val \
 
-$hyoo_sketch_element_button $hyoo_sketch_element
-	model $hyoo_sketch_element_button_model
-		title? => title?
-	Element <= Content $mol_button_major
-		title <= title
-	Preview $mol_button_major
-		title <= title
-	options /
-		^
-		<= Title_field $mol_form_field
-			name @ \Title
-			control <= Title_control $mol_string
-				value? <=> title?
-		<= Action_field $mol_form_field
-			name @ \Click action
-			control <= Action_control $mol_switch
-				value?val <=> action?val \none
-				options <= action_dict *
-					none @ \None
-					open @ \Open page
-					replace @ \Replace page
-					close @ \Close page
-		<= Target_field $mol_form_field
-
-$hyoo_sketch_element_string $hyoo_sketch_element
-	model $hyoo_sketch_element_string_model
-		hint? => hint?
-		value? => value?
-	Element <= Content $mol_string
-		hint <= hint
-		value <= value
-		disabled true
-	Preview $mol_string
-		hint <= hint
-	options /
-		^
-		<= Hint_field $mol_form_field
-			name @ \Placeholder
-			control <= Hint_control $mol_string
-				value? <=> hint?
-		<= Value_field $mol_form_field
-			name @ \Value
-			control <= Value_control $mol_string
-				value? <=> value?
-
-$mol_link $mol_view
-	dom_name \a
-	attr *
-		^
-		href <= uri \
-		title <= hint \
-		target <= target \_self
-		download <= file_name \
-		mol_link_current <= current false
-	sub /$mol_view_content
-		<= title
-	arg *
-	event *
-		^
-		click?event <=> click?event <=> event_click?event null
-
 $mol_pop $mol_view
 	showed?val false
 	align_vert \
@@ -515,6 +454,81 @@ $mol_select $mol_pick
 		submit?event <=> submit?event null
 		enabled <= enabled true
 	Trigger_icon $mol_icon_dots_vertical
+
+$hyoo_sketch_element_button $hyoo_sketch_element
+	model $hyoo_sketch_element_button_model
+		title? => title?
+		action? => action?
+		page? => page?
+		link? => link?
+	Element <= Content $mol_button_major
+		title <= title
+	Preview $mol_button_major
+		click? <=> click? null
+		title <= title
+	options_button /
+		<= Title_field $mol_form_field
+			name @ \Title
+			control <= Title_control $mol_string
+				value? <=> title?
+		<= Action_field $mol_form_field
+			name @ \Click action
+			control <= Action_control $mol_switch
+				value? <=> action?
+				options <= action_dict *
+					none @ \None
+					open @ \Open page
+					replace @ \Replace page
+					close @ \Close page
+					external @ \External link
+		<= Page_field $mol_form_field
+			name @ \Page
+			control <= Page_control $mol_select
+				Filter null
+				align \top_right
+				value? <=> page? 
+				dictionary <= project_pages *
+		<= Link_field $mol_form_field
+			name @ \Link
+			control <= Link_control $mol_string
+				value? <=> link?
+
+$hyoo_sketch_element_string $hyoo_sketch_element
+	model $hyoo_sketch_element_string_model
+		hint? => hint?
+		value? => value?
+	Element <= Content $mol_string
+		hint <= hint
+		value <= value
+		disabled true
+	Preview $mol_string
+		hint <= hint
+	options /
+		^
+		<= Hint_field $mol_form_field
+			name @ \Placeholder
+			control <= Hint_control $mol_string
+				value? <=> hint?
+		<= Value_field $mol_form_field
+			name @ \Value
+			control <= Value_control $mol_string
+				value? <=> value?
+
+$mol_link $mol_view
+	dom_name \a
+	attr *
+		^
+		href <= uri \
+		title <= hint \
+		target <= target \_self
+		download <= file_name \
+		mol_link_current <= current false
+	sub /$mol_view_content
+		<= title
+	arg *
+	event *
+		^
+		click?event <=> click?event <=> event_click?event null
 
 $hyoo_sketch_element_link $hyoo_sketch_element
 	model $hyoo_sketch_element_link_model

@@ -1582,6 +1582,8 @@ var $;
             return Object.is(left.valueOf(), right['valueOf']());
         if (left instanceof RegExp)
             return left.source === right['source'] && left.flags === right['flags'];
+        if (left instanceof Error)
+            return left.stack === right['stack'];
         let left_cache = $.$mol_compare_deep_cache.get(left);
         if (left_cache) {
             const right_cache = left_cache.get(right);
@@ -1602,8 +1604,6 @@ var $;
                 result = compare_set(left, right);
             else if (left instanceof Map)
                 result = compare_map(left, right);
-            else if (left instanceof Error)
-                result = left.stack === right.stack;
             else if (ArrayBuffer.isView(left))
                 result = compare_buffer(left, right);
             else if (Symbol.toPrimitive in left)
@@ -7406,7 +7406,7 @@ var $;
         }
         page(next) {
             const id = this.state().sub('page').value(next && next.id());
-            return id ? this.domain().page(String(id)) : null;
+            return this.domain().page(String(id));
         }
         type(next) {
             const str = String(this.state().sub('type').value(next) ?? 'none');
@@ -8233,475 +8233,6 @@ var $;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
 //mol/switch/switch.view.ts
-;
-"use strict";
-var $;
-(function ($) {
-    class $hyoo_sketch_element_button extends $hyoo_sketch_element {
-        title(next) {
-            return this.model().title(next);
-        }
-        model() {
-            const obj = new this.$.$hyoo_sketch_element_button_model();
-            return obj;
-        }
-        Element() {
-            return this.Content();
-        }
-        Preview() {
-            const obj = new this.$.$mol_button_major();
-            obj.title = () => this.title();
-            return obj;
-        }
-        options() {
-            return [
-                ...super.options(),
-                this.Title_field(),
-                this.Action_field(),
-                this.Target_field()
-            ];
-        }
-        Content() {
-            const obj = new this.$.$mol_button_major();
-            obj.title = () => this.title();
-            return obj;
-        }
-        Title_control() {
-            const obj = new this.$.$mol_string();
-            obj.value = (next) => this.title(next);
-            return obj;
-        }
-        Title_field() {
-            const obj = new this.$.$mol_form_field();
-            obj.name = () => this.$.$mol_locale.text('$hyoo_sketch_element_button_Title_field_name');
-            obj.control = () => this.Title_control();
-            return obj;
-        }
-        action(val) {
-            if (val !== undefined)
-                return val;
-            return "none";
-        }
-        action_dict() {
-            return {
-                none: this.$.$mol_locale.text('$hyoo_sketch_element_button_action_dict_none'),
-                open: this.$.$mol_locale.text('$hyoo_sketch_element_button_action_dict_open'),
-                replace: this.$.$mol_locale.text('$hyoo_sketch_element_button_action_dict_replace'),
-                close: this.$.$mol_locale.text('$hyoo_sketch_element_button_action_dict_close')
-            };
-        }
-        Action_control() {
-            const obj = new this.$.$mol_switch();
-            obj.value = (val) => this.action(val);
-            obj.options = () => this.action_dict();
-            return obj;
-        }
-        Action_field() {
-            const obj = new this.$.$mol_form_field();
-            obj.name = () => this.$.$mol_locale.text('$hyoo_sketch_element_button_Action_field_name');
-            obj.control = () => this.Action_control();
-            return obj;
-        }
-        Target_field() {
-            const obj = new this.$.$mol_form_field();
-            return obj;
-        }
-    }
-    __decorate([
-        $mol_mem
-    ], $hyoo_sketch_element_button.prototype, "model", null);
-    __decorate([
-        $mol_mem
-    ], $hyoo_sketch_element_button.prototype, "Preview", null);
-    __decorate([
-        $mol_mem
-    ], $hyoo_sketch_element_button.prototype, "Content", null);
-    __decorate([
-        $mol_mem
-    ], $hyoo_sketch_element_button.prototype, "Title_control", null);
-    __decorate([
-        $mol_mem
-    ], $hyoo_sketch_element_button.prototype, "Title_field", null);
-    __decorate([
-        $mol_mem
-    ], $hyoo_sketch_element_button.prototype, "action", null);
-    __decorate([
-        $mol_mem
-    ], $hyoo_sketch_element_button.prototype, "Action_control", null);
-    __decorate([
-        $mol_mem
-    ], $hyoo_sketch_element_button.prototype, "Action_field", null);
-    __decorate([
-        $mol_mem
-    ], $hyoo_sketch_element_button.prototype, "Target_field", null);
-    $.$hyoo_sketch_element_button = $hyoo_sketch_element_button;
-})($ || ($ = {}));
-//hyoo/sketch/element/button/-view.tree/button.view.tree.ts
-;
-"use strict";
-var $;
-(function ($) {
-    class $hyoo_sketch_element_button_model extends $mol_object2 {
-        static from(element) {
-            const obj = new this;
-            obj.element = $mol_const(element);
-            return obj;
-        }
-        element() {
-            throw new Error('Not defined');
-        }
-        domain() {
-            return this.element().domain();
-        }
-        state() {
-            return this.element().state();
-        }
-        title(next) {
-            return String(this.state().sub('title').value(next) ?? 'Button');
-        }
-    }
-    $.$hyoo_sketch_element_button_model = $hyoo_sketch_element_button_model;
-})($ || ($ = {}));
-//hyoo/sketch/element/button/button.model.ts
-;
-"use strict";
-var $;
-(function ($) {
-    var $$;
-    (function ($$) {
-        $mol_style_define($.$hyoo_sketch_element_button, {
-            Preview: {
-                flex: {
-                    grow: 1,
-                },
-            },
-        });
-    })($$ = $.$$ || ($.$$ = {}));
-})($ || ($ = {}));
-//hyoo/sketch/element/button/button.view.css.ts
-;
-"use strict";
-var $;
-(function ($) {
-    var $$;
-    (function ($$) {
-        class $hyoo_sketch_element_button extends $.$hyoo_sketch_element_button {
-            model() {
-                return this.$.$hyoo_sketch_element_button_model.from(this.element());
-            }
-        }
-        __decorate([
-            $mol_mem
-        ], $hyoo_sketch_element_button.prototype, "model", null);
-        $$.$hyoo_sketch_element_button = $hyoo_sketch_element_button;
-    })($$ = $.$$ || ($.$$ = {}));
-})($ || ($ = {}));
-//hyoo/sketch/element/button/button.view.ts
-;
-"use strict";
-var $;
-(function ($) {
-    class $hyoo_sketch_element_string extends $hyoo_sketch_element {
-        hint(next) {
-            return this.model().hint(next);
-        }
-        value(next) {
-            return this.model().value(next);
-        }
-        model() {
-            const obj = new this.$.$hyoo_sketch_element_string_model();
-            return obj;
-        }
-        Element() {
-            return this.Content();
-        }
-        Preview() {
-            const obj = new this.$.$mol_string();
-            obj.hint = () => this.hint();
-            return obj;
-        }
-        options() {
-            return [
-                ...super.options(),
-                this.Hint_field(),
-                this.Value_field()
-            ];
-        }
-        Content() {
-            const obj = new this.$.$mol_string();
-            obj.hint = () => this.hint();
-            obj.value = () => this.value();
-            obj.disabled = () => true;
-            return obj;
-        }
-        Hint_control() {
-            const obj = new this.$.$mol_string();
-            obj.value = (next) => this.hint(next);
-            return obj;
-        }
-        Hint_field() {
-            const obj = new this.$.$mol_form_field();
-            obj.name = () => this.$.$mol_locale.text('$hyoo_sketch_element_string_Hint_field_name');
-            obj.control = () => this.Hint_control();
-            return obj;
-        }
-        Value_control() {
-            const obj = new this.$.$mol_string();
-            obj.value = (next) => this.value(next);
-            return obj;
-        }
-        Value_field() {
-            const obj = new this.$.$mol_form_field();
-            obj.name = () => this.$.$mol_locale.text('$hyoo_sketch_element_string_Value_field_name');
-            obj.control = () => this.Value_control();
-            return obj;
-        }
-    }
-    __decorate([
-        $mol_mem
-    ], $hyoo_sketch_element_string.prototype, "model", null);
-    __decorate([
-        $mol_mem
-    ], $hyoo_sketch_element_string.prototype, "Preview", null);
-    __decorate([
-        $mol_mem
-    ], $hyoo_sketch_element_string.prototype, "Content", null);
-    __decorate([
-        $mol_mem
-    ], $hyoo_sketch_element_string.prototype, "Hint_control", null);
-    __decorate([
-        $mol_mem
-    ], $hyoo_sketch_element_string.prototype, "Hint_field", null);
-    __decorate([
-        $mol_mem
-    ], $hyoo_sketch_element_string.prototype, "Value_control", null);
-    __decorate([
-        $mol_mem
-    ], $hyoo_sketch_element_string.prototype, "Value_field", null);
-    $.$hyoo_sketch_element_string = $hyoo_sketch_element_string;
-})($ || ($ = {}));
-//hyoo/sketch/element/string/-view.tree/string.view.tree.ts
-;
-"use strict";
-var $;
-(function ($) {
-    class $hyoo_sketch_element_string_model extends $mol_object2 {
-        static from(element) {
-            const obj = new this;
-            obj.element = $mol_const(element);
-            return obj;
-        }
-        element() {
-            throw new Error('Not defined');
-        }
-        domain() {
-            return this.element().domain();
-        }
-        state() {
-            return this.element().state();
-        }
-        hint(next) {
-            return String(this.state().sub('hint').value(next) ?? 'Type here');
-        }
-        value(next) {
-            return String(this.state().sub('value').value(next) ?? '');
-        }
-    }
-    $.$hyoo_sketch_element_string_model = $hyoo_sketch_element_string_model;
-})($ || ($ = {}));
-//hyoo/sketch/element/string/string.model.ts
-;
-"use strict";
-var $;
-(function ($) {
-    var $$;
-    (function ($$) {
-        class $hyoo_sketch_element_string extends $.$hyoo_sketch_element_string {
-            model() {
-                return this.$.$hyoo_sketch_element_string_model.from(this.element());
-            }
-        }
-        __decorate([
-            $mol_mem
-        ], $hyoo_sketch_element_string.prototype, "model", null);
-        $$.$hyoo_sketch_element_string = $hyoo_sketch_element_string;
-    })($$ = $.$$ || ($.$$ = {}));
-})($ || ($ = {}));
-//hyoo/sketch/element/string/string.view.ts
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_link extends $mol_view {
-        dom_name() {
-            return "a";
-        }
-        attr() {
-            return {
-                ...super.attr(),
-                href: this.uri(),
-                title: this.hint(),
-                target: this.target(),
-                download: this.file_name(),
-                mol_link_current: this.current()
-            };
-        }
-        sub() {
-            return [
-                this.title()
-            ];
-        }
-        arg() {
-            return {};
-        }
-        event() {
-            return {
-                ...super.event(),
-                click: (event) => this.click(event)
-            };
-        }
-        uri() {
-            return "";
-        }
-        hint() {
-            return "";
-        }
-        target() {
-            return "_self";
-        }
-        file_name() {
-            return "";
-        }
-        current() {
-            return false;
-        }
-        event_click(event) {
-            if (event !== undefined)
-                return event;
-            return null;
-        }
-        click(event) {
-            return this.event_click(event);
-        }
-    }
-    __decorate([
-        $mol_mem
-    ], $mol_link.prototype, "event_click", null);
-    $.$mol_link = $mol_link;
-})($ || ($ = {}));
-//mol/link/-view.tree/link.view.tree.ts
-;
-"use strict";
-var $;
-(function ($) {
-    const { rem } = $mol_style_unit;
-    const { scale } = $mol_style_func;
-    $mol_style_define($mol_link, {
-        textDecoration: 'none',
-        color: $mol_theme.control,
-        stroke: 'currentcolor',
-        cursor: 'pointer',
-        padding: $mol_gap.text,
-        boxSizing: 'border-box',
-        position: 'relative',
-        minWidth: rem(2.5),
-        gap: $mol_gap.space,
-        border: {
-            radius: $mol_gap.round,
-        },
-        ':hover': {
-            background: {
-                color: $mol_theme.hover,
-            },
-            $mol_icon: {
-                transform: 'scale(1.5)',
-            },
-        },
-        ':focus': {
-            outline: 'none',
-            background: {
-                color: $mol_theme.hover,
-            },
-            $mol_icon: {
-                transform: 'scale(1.5)',
-            },
-        },
-        ':focus-within': {
-            outline: 'none',
-            background: {
-                color: $mol_theme.hover,
-            }
-        },
-        '@': {
-            mol_link_current: {
-                'true': {
-                    color: $mol_theme.current,
-                    textShadow: '0 0',
-                }
-            }
-        },
-    });
-})($ || ($ = {}));
-//mol/link/link.view.css.ts
-;
-"use strict";
-var $;
-(function ($) {
-    var $$;
-    (function ($$) {
-        class $mol_link extends $.$mol_link {
-            uri() {
-                const arg = this.arg();
-                const uri = new this.$.$mol_state_arg(this.state_key()).link(arg);
-                if (uri !== this.$.$mol_state_arg.href())
-                    return uri;
-                const arg2 = {};
-                for (let i in arg)
-                    arg2[i] = null;
-                return new this.$.$mol_state_arg(this.state_key()).link(arg2);
-            }
-            uri_native() {
-                const base = this.$.$mol_state_arg.href();
-                return new URL(this.uri(), base);
-            }
-            current() {
-                const base = this.$.$mol_state_arg.href_normal();
-                const target = this.uri_native().toString();
-                if (base === target)
-                    return true;
-                const args = this.arg();
-                const keys = Object.keys(args).filter(key => args[key] != null);
-                if (keys.length === 0)
-                    return false;
-                for (const key of keys) {
-                    if (this.$.$mol_state_arg.value(key) !== args[key])
-                        return false;
-                }
-                return true;
-            }
-            file_name() {
-                return null;
-            }
-            minimal_height() {
-                return Math.max(super.minimal_height(), 24);
-            }
-            target() {
-                return (this.uri_native().origin === $mol_dom_context.location.origin) ? '_self' : '_blank';
-            }
-        }
-        __decorate([
-            $mol_mem
-        ], $mol_link.prototype, "uri", null);
-        __decorate([
-            $mol_mem
-        ], $mol_link.prototype, "uri_native", null);
-        __decorate([
-            $mol_mem
-        ], $mol_link.prototype, "current", null);
-        $$.$mol_link = $mol_link;
-    })($$ = $.$$ || ($.$$ = {}));
-})($ || ($ = {}));
-//mol/link/link.view.ts
 ;
 "use strict";
 var $;
@@ -9534,6 +9065,575 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    class $hyoo_sketch_element_button extends $hyoo_sketch_element {
+        title(next) {
+            return this.model().title(next);
+        }
+        action(next) {
+            return this.model().action(next);
+        }
+        page(next) {
+            return this.model().page(next);
+        }
+        link(next) {
+            return this.model().link(next);
+        }
+        model() {
+            const obj = new this.$.$hyoo_sketch_element_button_model();
+            return obj;
+        }
+        Element() {
+            return this.Content();
+        }
+        Preview() {
+            const obj = new this.$.$mol_button_major();
+            obj.click = (next) => this.click(next);
+            obj.title = () => this.title();
+            return obj;
+        }
+        options_button() {
+            return [
+                this.Title_field(),
+                this.Action_field(),
+                this.Page_field(),
+                this.Link_field()
+            ];
+        }
+        Content() {
+            const obj = new this.$.$mol_button_major();
+            obj.title = () => this.title();
+            return obj;
+        }
+        click(next) {
+            if (next !== undefined)
+                return next;
+            return null;
+        }
+        Title_control() {
+            const obj = new this.$.$mol_string();
+            obj.value = (next) => this.title(next);
+            return obj;
+        }
+        Title_field() {
+            const obj = new this.$.$mol_form_field();
+            obj.name = () => this.$.$mol_locale.text('$hyoo_sketch_element_button_Title_field_name');
+            obj.control = () => this.Title_control();
+            return obj;
+        }
+        action_dict() {
+            return {
+                none: this.$.$mol_locale.text('$hyoo_sketch_element_button_action_dict_none'),
+                open: this.$.$mol_locale.text('$hyoo_sketch_element_button_action_dict_open'),
+                replace: this.$.$mol_locale.text('$hyoo_sketch_element_button_action_dict_replace'),
+                close: this.$.$mol_locale.text('$hyoo_sketch_element_button_action_dict_close'),
+                external: this.$.$mol_locale.text('$hyoo_sketch_element_button_action_dict_external')
+            };
+        }
+        Action_control() {
+            const obj = new this.$.$mol_switch();
+            obj.value = (next) => this.action(next);
+            obj.options = () => this.action_dict();
+            return obj;
+        }
+        Action_field() {
+            const obj = new this.$.$mol_form_field();
+            obj.name = () => this.$.$mol_locale.text('$hyoo_sketch_element_button_Action_field_name');
+            obj.control = () => this.Action_control();
+            return obj;
+        }
+        project_pages() {
+            return {};
+        }
+        Page_control() {
+            const obj = new this.$.$mol_select();
+            obj.Filter = () => null;
+            obj.align = () => "top_right";
+            obj.value = (next) => this.page(next);
+            obj.dictionary = () => this.project_pages();
+            return obj;
+        }
+        Page_field() {
+            const obj = new this.$.$mol_form_field();
+            obj.name = () => this.$.$mol_locale.text('$hyoo_sketch_element_button_Page_field_name');
+            obj.control = () => this.Page_control();
+            return obj;
+        }
+        Link_control() {
+            const obj = new this.$.$mol_string();
+            obj.value = (next) => this.link(next);
+            return obj;
+        }
+        Link_field() {
+            const obj = new this.$.$mol_form_field();
+            obj.name = () => this.$.$mol_locale.text('$hyoo_sketch_element_button_Link_field_name');
+            obj.control = () => this.Link_control();
+            return obj;
+        }
+    }
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_button.prototype, "model", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_button.prototype, "Preview", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_button.prototype, "Content", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_button.prototype, "click", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_button.prototype, "Title_control", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_button.prototype, "Title_field", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_button.prototype, "Action_control", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_button.prototype, "Action_field", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_button.prototype, "Page_control", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_button.prototype, "Page_field", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_button.prototype, "Link_control", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_button.prototype, "Link_field", null);
+    $.$hyoo_sketch_element_button = $hyoo_sketch_element_button;
+})($ || ($ = {}));
+//hyoo/sketch/element/button/-view.tree/button.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $hyoo_sketch_element_button_model extends $mol_object2 {
+        static from(element) {
+            const obj = new this;
+            obj.element = $mol_const(element);
+            return obj;
+        }
+        element() {
+            throw new Error('Not defined');
+        }
+        domain() {
+            return this.element().domain();
+        }
+        state() {
+            return this.element().state();
+        }
+        title(next) {
+            return String(this.state().sub('title').value(next) ?? 'Button');
+        }
+        action(next) {
+            const res = String(this.state().sub('action').value(next) ?? 'none');
+            return res;
+        }
+        page(next) {
+            return String(this.state().sub('page').value(next) ?? '');
+        }
+        link(next) {
+            return String(this.state().sub('link').value(next) ?? '');
+        }
+    }
+    $.$hyoo_sketch_element_button_model = $hyoo_sketch_element_button_model;
+})($ || ($ = {}));
+//hyoo/sketch/element/button/button.model.ts
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        $mol_style_define($.$hyoo_sketch_element_button, {
+            Preview: {
+                flex: {
+                    grow: 1,
+                },
+            },
+        });
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//hyoo/sketch/element/button/button.view.css.ts
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $hyoo_sketch_element_button extends $.$hyoo_sketch_element_button {
+            model() {
+                return this.$.$hyoo_sketch_element_button_model.from(this.element());
+            }
+            project_pages() {
+                const pages = this.element().page().project().pages();
+                const filter = pages.filter(obj => obj.id() !== this.element().page().id());
+                const dict = filter.reduce((dict, page) => {
+                    dict[page.id()] = page.name();
+                    return dict;
+                }, {});
+                console.log({ pages, filter, dict });
+                return dict;
+            }
+            options() {
+                const action = this.action();
+                return [
+                    ...super.options(),
+                    this.Title_field(),
+                    this.Action_field(),
+                    ...action === 'open' || action === 'replace' ? [this.Page_field()] : [],
+                    ...action === 'external' ? [this.Link_field()] : [],
+                ];
+            }
+            demo(next) {
+                return (this.$.$mol_state_arg.value('demo', next && next.join(',')) ?? '').split(',');
+            }
+            click() {
+                if (this.preview() === false || !this.demo().length)
+                    return;
+                const pages = this.demo();
+                const page_current = this.element().page().id();
+                if (this.action() === 'close') {
+                    this.demo(pages.filter(id => id !== page_current));
+                }
+                if (this.action() === 'open' && this.page()) {
+                    this.demo([...pages, this.page()]);
+                }
+                if (this.action() === 'replace' && this.page()) {
+                    const next = pages.slice();
+                    next.splice(pages.indexOf(page_current), 1, this.page());
+                    this.demo(next);
+                }
+                if (this.action() === 'external' && this.link()) {
+                    $mol_dom_context.open(this.link(), '_blank');
+                }
+            }
+        }
+        __decorate([
+            $mol_mem
+        ], $hyoo_sketch_element_button.prototype, "model", null);
+        __decorate([
+            $mol_mem
+        ], $hyoo_sketch_element_button.prototype, "project_pages", null);
+        $$.$hyoo_sketch_element_button = $hyoo_sketch_element_button;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//hyoo/sketch/element/button/button.view.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $hyoo_sketch_element_string extends $hyoo_sketch_element {
+        hint(next) {
+            return this.model().hint(next);
+        }
+        value(next) {
+            return this.model().value(next);
+        }
+        model() {
+            const obj = new this.$.$hyoo_sketch_element_string_model();
+            return obj;
+        }
+        Element() {
+            return this.Content();
+        }
+        Preview() {
+            const obj = new this.$.$mol_string();
+            obj.hint = () => this.hint();
+            return obj;
+        }
+        options() {
+            return [
+                ...super.options(),
+                this.Hint_field(),
+                this.Value_field()
+            ];
+        }
+        Content() {
+            const obj = new this.$.$mol_string();
+            obj.hint = () => this.hint();
+            obj.value = () => this.value();
+            obj.disabled = () => true;
+            return obj;
+        }
+        Hint_control() {
+            const obj = new this.$.$mol_string();
+            obj.value = (next) => this.hint(next);
+            return obj;
+        }
+        Hint_field() {
+            const obj = new this.$.$mol_form_field();
+            obj.name = () => this.$.$mol_locale.text('$hyoo_sketch_element_string_Hint_field_name');
+            obj.control = () => this.Hint_control();
+            return obj;
+        }
+        Value_control() {
+            const obj = new this.$.$mol_string();
+            obj.value = (next) => this.value(next);
+            return obj;
+        }
+        Value_field() {
+            const obj = new this.$.$mol_form_field();
+            obj.name = () => this.$.$mol_locale.text('$hyoo_sketch_element_string_Value_field_name');
+            obj.control = () => this.Value_control();
+            return obj;
+        }
+    }
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_string.prototype, "model", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_string.prototype, "Preview", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_string.prototype, "Content", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_string.prototype, "Hint_control", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_string.prototype, "Hint_field", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_string.prototype, "Value_control", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_string.prototype, "Value_field", null);
+    $.$hyoo_sketch_element_string = $hyoo_sketch_element_string;
+})($ || ($ = {}));
+//hyoo/sketch/element/string/-view.tree/string.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $hyoo_sketch_element_string_model extends $mol_object2 {
+        static from(element) {
+            const obj = new this;
+            obj.element = $mol_const(element);
+            return obj;
+        }
+        element() {
+            throw new Error('Not defined');
+        }
+        domain() {
+            return this.element().domain();
+        }
+        state() {
+            return this.element().state();
+        }
+        hint(next) {
+            return String(this.state().sub('hint').value(next) ?? 'Type here');
+        }
+        value(next) {
+            return String(this.state().sub('value').value(next) ?? '');
+        }
+    }
+    $.$hyoo_sketch_element_string_model = $hyoo_sketch_element_string_model;
+})($ || ($ = {}));
+//hyoo/sketch/element/string/string.model.ts
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $hyoo_sketch_element_string extends $.$hyoo_sketch_element_string {
+            model() {
+                return this.$.$hyoo_sketch_element_string_model.from(this.element());
+            }
+        }
+        __decorate([
+            $mol_mem
+        ], $hyoo_sketch_element_string.prototype, "model", null);
+        $$.$hyoo_sketch_element_string = $hyoo_sketch_element_string;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//hyoo/sketch/element/string/string.view.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_link extends $mol_view {
+        dom_name() {
+            return "a";
+        }
+        attr() {
+            return {
+                ...super.attr(),
+                href: this.uri(),
+                title: this.hint(),
+                target: this.target(),
+                download: this.file_name(),
+                mol_link_current: this.current()
+            };
+        }
+        sub() {
+            return [
+                this.title()
+            ];
+        }
+        arg() {
+            return {};
+        }
+        event() {
+            return {
+                ...super.event(),
+                click: (event) => this.click(event)
+            };
+        }
+        uri() {
+            return "";
+        }
+        hint() {
+            return "";
+        }
+        target() {
+            return "_self";
+        }
+        file_name() {
+            return "";
+        }
+        current() {
+            return false;
+        }
+        event_click(event) {
+            if (event !== undefined)
+                return event;
+            return null;
+        }
+        click(event) {
+            return this.event_click(event);
+        }
+    }
+    __decorate([
+        $mol_mem
+    ], $mol_link.prototype, "event_click", null);
+    $.$mol_link = $mol_link;
+})($ || ($ = {}));
+//mol/link/-view.tree/link.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    const { rem } = $mol_style_unit;
+    const { scale } = $mol_style_func;
+    $mol_style_define($mol_link, {
+        textDecoration: 'none',
+        color: $mol_theme.control,
+        stroke: 'currentcolor',
+        cursor: 'pointer',
+        padding: $mol_gap.text,
+        boxSizing: 'border-box',
+        position: 'relative',
+        minWidth: rem(2.5),
+        gap: $mol_gap.space,
+        border: {
+            radius: $mol_gap.round,
+        },
+        ':hover': {
+            background: {
+                color: $mol_theme.hover,
+            },
+            $mol_icon: {
+                transform: 'scale(1.5)',
+            },
+        },
+        ':focus': {
+            outline: 'none',
+            background: {
+                color: $mol_theme.hover,
+            },
+            $mol_icon: {
+                transform: 'scale(1.5)',
+            },
+        },
+        ':focus-within': {
+            outline: 'none',
+            background: {
+                color: $mol_theme.hover,
+            }
+        },
+        '@': {
+            mol_link_current: {
+                'true': {
+                    color: $mol_theme.current,
+                    textShadow: '0 0',
+                }
+            }
+        },
+    });
+})($ || ($ = {}));
+//mol/link/link.view.css.ts
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $mol_link extends $.$mol_link {
+            uri() {
+                const arg = this.arg();
+                const uri = new this.$.$mol_state_arg(this.state_key()).link(arg);
+                if (uri !== this.$.$mol_state_arg.href())
+                    return uri;
+                const arg2 = {};
+                for (let i in arg)
+                    arg2[i] = null;
+                return new this.$.$mol_state_arg(this.state_key()).link(arg2);
+            }
+            uri_native() {
+                const base = this.$.$mol_state_arg.href();
+                return new URL(this.uri(), base);
+            }
+            current() {
+                const base = this.$.$mol_state_arg.href_normal();
+                const target = this.uri_native().toString();
+                if (base === target)
+                    return true;
+                const args = this.arg();
+                const keys = Object.keys(args).filter(key => args[key] != null);
+                if (keys.length === 0)
+                    return false;
+                for (const key of keys) {
+                    if (this.$.$mol_state_arg.value(key) !== args[key])
+                        return false;
+                }
+                return true;
+            }
+            file_name() {
+                return null;
+            }
+            minimal_height() {
+                return Math.max(super.minimal_height(), 24);
+            }
+            target() {
+                return (this.uri_native().origin === $mol_dom_context.location.origin) ? '_self' : '_blank';
+            }
+        }
+        __decorate([
+            $mol_mem
+        ], $mol_link.prototype, "uri", null);
+        __decorate([
+            $mol_mem
+        ], $mol_link.prototype, "uri_native", null);
+        __decorate([
+            $mol_mem
+        ], $mol_link.prototype, "current", null);
+        $$.$mol_link = $mol_link;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//mol/link/link.view.ts
+;
+"use strict";
+var $;
+(function ($) {
     class $hyoo_sketch_element_link extends $hyoo_sketch_element {
         hint(next) {
             return this.model().hint(next);
@@ -10292,7 +10392,7 @@ var $;
         }
         project(next) {
             const id = this.state().sub('project').value(next && next.id());
-            return id ? this.domain().project(String(id)) : null;
+            return this.domain().project(String(id));
         }
     }
     __decorate([
@@ -10347,6 +10447,7 @@ var $;
             element_add(type) {
                 const obj = this.domain().element($mol_guid());
                 obj.type(type);
+                obj.page(this.page());
                 this.page().elements([...this.page().elements(), obj]);
             }
             Element_switch(id) {

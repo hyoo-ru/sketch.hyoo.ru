@@ -2311,7 +2311,7 @@ declare namespace $ {
         id(): string;
         domain(): $hyoo_sketch_domain;
         state(): $mol_state_shared;
-        page(next?: $hyoo_sketch_page_model): $hyoo_sketch_page_model | null;
+        page(next?: $hyoo_sketch_page_model): $hyoo_sketch_page_model;
         type(next?: $hyoo_sketch_element_type): $hyoo_sketch_element_type;
         width(next?: number): number;
         height(next?: number): number;
@@ -2545,120 +2545,6 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
-    class $hyoo_sketch_element_button extends $hyoo_sketch_element {
-        title(next?: any): string;
-        model(): $hyoo_sketch_element_button_model;
-        Element(): $mol_button_major;
-        Preview(): $mol_button_major;
-        options(): readonly any[];
-        Content(): $mol_button_major;
-        Title_control(): $$.$mol_string;
-        Title_field(): $$.$mol_form_field;
-        action(val?: any): string;
-        action_dict(): {
-            none: string;
-            open: string;
-            replace: string;
-            close: string;
-        };
-        Action_control(): $$.$mol_switch;
-        Action_field(): $$.$mol_form_field;
-        Target_field(): $$.$mol_form_field;
-    }
-}
-
-declare namespace $ {
-    class $hyoo_sketch_element_button_model extends $mol_object2 {
-        static from(element: $hyoo_sketch_element_model): $hyoo_sketch_element_button_model;
-        element(): $hyoo_sketch_element_model;
-        domain(): $hyoo_sketch_domain;
-        state(): $mol_state_shared;
-        title(next?: string): string;
-    }
-}
-
-declare namespace $.$$ {
-}
-
-declare namespace $.$$ {
-    class $hyoo_sketch_element_button extends $.$hyoo_sketch_element_button {
-        model(): $hyoo_sketch_element_button_model;
-    }
-}
-
-declare namespace $ {
-    class $hyoo_sketch_element_string extends $hyoo_sketch_element {
-        hint(next?: any): string;
-        value(next?: any): string;
-        model(): $hyoo_sketch_element_string_model;
-        Element(): $$.$mol_string;
-        Preview(): $$.$mol_string;
-        options(): readonly any[];
-        Content(): $$.$mol_string;
-        Hint_control(): $$.$mol_string;
-        Hint_field(): $$.$mol_form_field;
-        Value_control(): $$.$mol_string;
-        Value_field(): $$.$mol_form_field;
-    }
-}
-
-declare namespace $ {
-    class $hyoo_sketch_element_string_model extends $mol_object2 {
-        static from(element: $hyoo_sketch_element_model): $hyoo_sketch_element_string_model;
-        element(): $hyoo_sketch_element_model;
-        domain(): $hyoo_sketch_domain;
-        state(): $mol_state_shared;
-        hint(next?: string): string;
-        value(next?: string): string;
-    }
-}
-
-declare namespace $.$$ {
-    class $hyoo_sketch_element_string extends $.$hyoo_sketch_element_string {
-        model(): $hyoo_sketch_element_string_model;
-    }
-}
-
-declare namespace $ {
-    class $mol_link extends $mol_view {
-        dom_name(): string;
-        attr(): {
-            href: string;
-            title: string;
-            target: string;
-            download: string;
-            mol_link_current: boolean;
-        };
-        sub(): readonly $mol_view_content[];
-        arg(): {};
-        event(): {
-            click: (event?: any) => any;
-        };
-        uri(): string;
-        hint(): string;
-        target(): string;
-        file_name(): string;
-        current(): boolean;
-        event_click(event?: any): any;
-        click(event?: any): any;
-    }
-}
-
-declare namespace $ {
-}
-
-declare namespace $.$$ {
-    class $mol_link extends $.$mol_link {
-        uri(): string;
-        uri_native(): URL;
-        current(): boolean;
-        file_name(): string;
-        minimal_height(): number;
-        target(): '_self' | '_blank' | '_top' | '_parent' | string;
-    }
-}
-
-declare namespace $ {
     class $mol_pop extends $mol_view {
         showed(val?: any): boolean;
         align_vert(): string;
@@ -2840,6 +2726,135 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
+    class $hyoo_sketch_element_button extends $hyoo_sketch_element {
+        title(next?: any): string;
+        action(next?: any): "close" | "open" | "external" | "replace" | "none";
+        page(next?: any): string;
+        link(next?: any): string;
+        model(): $hyoo_sketch_element_button_model;
+        Element(): $mol_button_major;
+        Preview(): $mol_button_major;
+        options_button(): readonly any[];
+        Content(): $mol_button_major;
+        click(next?: any): any;
+        Title_control(): $$.$mol_string;
+        Title_field(): $$.$mol_form_field;
+        action_dict(): {
+            none: string;
+            open: string;
+            replace: string;
+            close: string;
+            external: string;
+        };
+        Action_control(): $$.$mol_switch;
+        Action_field(): $$.$mol_form_field;
+        project_pages(): {};
+        Page_control(): $$.$mol_select;
+        Page_field(): $$.$mol_form_field;
+        Link_control(): $$.$mol_string;
+        Link_field(): $$.$mol_form_field;
+    }
+}
+
+declare namespace $ {
+    class $hyoo_sketch_element_button_model extends $mol_object2 {
+        static from(element: $hyoo_sketch_element_model): $hyoo_sketch_element_button_model;
+        element(): $hyoo_sketch_element_model;
+        domain(): $hyoo_sketch_domain;
+        state(): $mol_state_shared;
+        title(next?: string): string;
+        action(next?: 'none' | 'open' | 'replace' | 'close' | 'external'): "close" | "open" | "external" | "replace" | "none";
+        page(next?: string): string;
+        link(next?: string): string;
+    }
+}
+
+declare namespace $.$$ {
+}
+
+declare namespace $.$$ {
+    class $hyoo_sketch_element_button extends $.$hyoo_sketch_element_button {
+        model(): $hyoo_sketch_element_button_model;
+        project_pages(): {};
+        options(): any[];
+        demo(next?: string[]): string[];
+        click(): void;
+    }
+}
+
+declare namespace $ {
+    class $hyoo_sketch_element_string extends $hyoo_sketch_element {
+        hint(next?: any): string;
+        value(next?: any): string;
+        model(): $hyoo_sketch_element_string_model;
+        Element(): $$.$mol_string;
+        Preview(): $$.$mol_string;
+        options(): readonly any[];
+        Content(): $$.$mol_string;
+        Hint_control(): $$.$mol_string;
+        Hint_field(): $$.$mol_form_field;
+        Value_control(): $$.$mol_string;
+        Value_field(): $$.$mol_form_field;
+    }
+}
+
+declare namespace $ {
+    class $hyoo_sketch_element_string_model extends $mol_object2 {
+        static from(element: $hyoo_sketch_element_model): $hyoo_sketch_element_string_model;
+        element(): $hyoo_sketch_element_model;
+        domain(): $hyoo_sketch_domain;
+        state(): $mol_state_shared;
+        hint(next?: string): string;
+        value(next?: string): string;
+    }
+}
+
+declare namespace $.$$ {
+    class $hyoo_sketch_element_string extends $.$hyoo_sketch_element_string {
+        model(): $hyoo_sketch_element_string_model;
+    }
+}
+
+declare namespace $ {
+    class $mol_link extends $mol_view {
+        dom_name(): string;
+        attr(): {
+            href: string;
+            title: string;
+            target: string;
+            download: string;
+            mol_link_current: boolean;
+        };
+        sub(): readonly $mol_view_content[];
+        arg(): {};
+        event(): {
+            click: (event?: any) => any;
+        };
+        uri(): string;
+        hint(): string;
+        target(): string;
+        file_name(): string;
+        current(): boolean;
+        event_click(event?: any): any;
+        click(event?: any): any;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $.$$ {
+    class $mol_link extends $.$mol_link {
+        uri(): string;
+        uri_native(): URL;
+        current(): boolean;
+        file_name(): string;
+        minimal_height(): number;
+        target(): '_self' | '_blank' | '_top' | '_parent' | string;
+    }
+}
+
+declare namespace $ {
     class $hyoo_sketch_element_link extends $hyoo_sketch_element {
         hint(next?: any): string;
         page(next?: any): string;
@@ -3011,7 +3026,7 @@ declare namespace $ {
         elements(next?: $hyoo_sketch_element_model[]): $hyoo_sketch_element_model[];
         element_frame(): $hyoo_sketch_element_model;
         model_frame(): $hyoo_sketch_element_frame_model;
-        project(next?: $hyoo_sketch_project_model): $hyoo_sketch_project_model | null;
+        project(next?: $hyoo_sketch_project_model): $hyoo_sketch_project_model;
     }
 }
 
