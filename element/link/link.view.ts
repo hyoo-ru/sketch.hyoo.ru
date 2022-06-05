@@ -14,6 +14,11 @@ namespace $.$$ {
 			} , {} )
 		}
 
+		nope(event: Event) {
+			event.preventDefault()
+			event.stopPropagation()
+		}
+
 	}
 
 }
