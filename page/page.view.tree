@@ -57,6 +57,11 @@ $hyoo_sketch_page $mol_page
 		focused? <=> handle_focused*? null
 		grid <= grid
 		preview <= page_preview
+	Element_frame_refactor_frame_pls* $hyoo_sketch_element_frame
+		element <= element*
+		focused? <=> handle_focused*? null
+		grid <= grid
+		preview <= page_preview
 	Element_text* $hyoo_sketch_element_text
 		element <= element*
 		focused? <=> handle_focused*? null

@@ -11,11 +11,7 @@ namespace $.$$ {
 		}
 
 		element_frame() {
-			const res = this.page().elements().find( obj => obj.type() === 'frame' )!
-			if (!res) {
-				throw new Promise(()=>{}) // Loading
-			}
-			return res
+			return this.page().element_frame()
 		}
 
 		element_add(type: $hyoo_sketch_element_type) {
@@ -28,6 +24,7 @@ namespace $.$$ {
 		Element_switch(id: string) {
 			const type = this.element(id).type()
 			switch(type) {
+				case 'frame': return this.Element_frame_refactor_frame_pls(id)
 				case 'text': return this.Element_text(id)
 				case 'button': return this.Element_button(id)
 				case 'string': return this.Element_string(id)

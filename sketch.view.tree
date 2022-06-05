@@ -11,6 +11,7 @@ $hyoo_sketch $mol_book2
 		<= Page_page $hyoo_sketch_page
 			page <= page $hyoo_sketch_page_model
 			Element_options => Element_focused_options
+			Element_switch* => Demo_element*
 		<= Option_page $mol_page
 			title @ \Options
 			body / <= Element_options $mol_view
@@ -20,6 +21,5 @@ $hyoo_sketch $mol_book2
 		body / 
 			<= Demo_page_content* $mol_view
 				style *
-					- height <= demo_page_height* NaN
 					width <= demo_page_width* NaN
 				sub <= demo_page_elements* /

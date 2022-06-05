@@ -47,26 +47,22 @@ namespace $.$$ {
 			return this.Element_focused_options()!
 		}
 
-		// demo_page_title(id: string) {
-		// 	return this.domain().page(id).name()
-		// }
+		demo_page_title(id: string) {
+			return this.domain().page(id).name()
+		}
 
-		// demo_page_height(id: string) {
-		// 	return this.domain().page(id).height()
-		// }
+		demo_page_width(id: string) {
+			return this.domain().page(id).model_frame().width()
+		}
 
-		// demo_page_width(id: string) {
-		// 	return this.domain().page(id).width()
-		// }
-
-		// demo_page_elements(id: string) {
-		// 	const page = this.domain().page(id)
-		// 	return page.elements().map( obj => {
-		// 		const element = this.Demo_element(obj.id()) 
-		// 		element.preview = $mol_const(true)
-		// 		return element
-		// 	} )
-		// }
+		demo_page_elements(id: string) {
+			const page = this.domain().page(id)
+			return page.elements().filter(obj => obj.type() !== 'frame').map( obj => {
+				const element = this.Demo_element(obj.id()) 
+				element.preview = $mol_const(true)
+				return element
+			} )
+		}
 
 	}
 

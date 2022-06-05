@@ -24,6 +24,17 @@ namespace $ {
 			return ids.map( id => this.domain().element( String(id) ) )
 		}
 
+		element_frame() {
+			const element = this.elements().find( obj => obj.type() === 'frame' )
+			console.log(element?.id())
+			if (!element) throw new Promise(()=>{}) // Data not loaded now
+			return element
+		}
+
+		model_frame() {
+			return this.$.$hyoo_sketch_element_frame_model.from(this.element_frame())
+		}
+
 		project(next?: $hyoo_sketch_project_model) {
 			const id = this.state().sub('project').value(next && next.id())
 			return id ? this.domain().project( String(id) ) : null

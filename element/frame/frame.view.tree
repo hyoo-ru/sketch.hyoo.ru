@@ -14,8 +14,14 @@ $hyoo_sketch_element_frame $hyoo_sketch_element
 			backgroundSize <= grid_step \
 	Preview $mol_view
 	options /
-		<= Width_field
-		<= Height_field
+		<= Width_field $mol_form_field
+			name @ \width
+			control <= Width_control $mol_number
+				value? <=> width?
+		<= Height_field $mol_form_field
+			name @ \height
+			control <= Height_control $mol_number
+				value? <=> height?
 		<= Grid_filed $mol_form_field
 			name @ \grid
 			control <= Grid_control $mol_number
