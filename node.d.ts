@@ -2578,6 +2578,9 @@ declare namespace $ {
 }
 
 declare namespace $.$$ {
+}
+
+declare namespace $.$$ {
     class $hyoo_sketch_element_button extends $.$hyoo_sketch_element_button {
         model(): $hyoo_sketch_element_button_model;
     }

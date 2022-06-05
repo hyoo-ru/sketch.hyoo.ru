@@ -8369,6 +8369,22 @@ var $;
 (function ($) {
     var $$;
     (function ($$) {
+        $mol_style_define($.$hyoo_sketch_element_button, {
+            Preview: {
+                flex: {
+                    grow: 1,
+                },
+            },
+        });
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//hyoo/sketch/element/button/button.view.css.ts
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
         class $hyoo_sketch_element_button extends $.$hyoo_sketch_element_button {
             model() {
                 return this.$.$hyoo_sketch_element_button_model.from(this.element());
@@ -10267,7 +10283,6 @@ var $;
         }
         element_frame() {
             const element = this.elements().find(obj => obj.type() === 'frame');
-            console.log(element?.id());
             if (!element)
                 throw new Promise(() => { });
             return element;
