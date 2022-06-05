@@ -1,12 +1,15 @@
 $hyoo_sketch_element_button $hyoo_sketch_element
 	model $hyoo_sketch_element_button_model
 		title? => title?
+		action? => action?
+		page? => page?
+		link? => link?
 	Element <= Content $mol_button_major
 		title <= title
 	Preview $mol_button_major
+		click? <=> click? null
 		title <= title
-	options /
-		^
+	options_button /
 		<= Title_field $mol_form_field
 			name @ \Title
 			control <= Title_control $mol_string
@@ -14,10 +17,21 @@ $hyoo_sketch_element_button $hyoo_sketch_element
 		<= Action_field $mol_form_field
 			name @ \Click action
 			control <= Action_control $mol_switch
-				value?val <=> action?val \none
+				value? <=> action?
 				options <= action_dict *
 					none @ \None
 					open @ \Open page
 					replace @ \Replace page
 					close @ \Close page
-		<= Target_field $mol_form_field
+					external @ \External link
+		<= Page_field $mol_form_field
+			name @ \Page
+			control <= Page_control $mol_select
+				Filter null
+				align \top_right
+				value? <=> page? 
+				dictionary <= project_pages *
+		<= Link_field $mol_form_field
+			name @ \Link
+			control <= Link_control $mol_string
+				value? <=> link?

@@ -17,6 +17,7 @@ namespace $.$$ {
 		element_add(type: $hyoo_sketch_element_type) {
 			const obj = this.domain().element( $mol_guid() )
 			obj.type(type)
+			obj.page(this.page())
 			this.page().elements( [...this.page().elements(), obj] )
 		}
 

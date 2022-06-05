@@ -23,6 +23,19 @@ namespace $ {
 		title(next?: string) {
 			return String( this.state().sub('title').value(next) ?? 'Button' )
 		}
+
+		action(next?: 'none' | 'open' | 'replace' | 'close' | 'external') {
+			const res = String( this.state().sub('action').value(next) ?? 'none' )
+			return (res as typeof next)!
+		}
+
+		page(next?: string) {
+			return String( this.state().sub('page').value(next) ?? '' )
+		}
+
+		link(next?: string) {
+			return String( this.state().sub('link').value(next) ?? '' )
+		}
 		
 	}
 	

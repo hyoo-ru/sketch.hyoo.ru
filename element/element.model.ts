@@ -18,8 +18,8 @@ namespace $ {
 		}
 
 		page(next?: $hyoo_sketch_page_model) {
-			const id = this.state().sub('page').value(next && next.id())
-			return id ? this.domain().page( String(id) ) : null
+			const id = this.state().sub('page').value(next && next.id())!
+			return this.domain().page( String(id) )
 		}
 
 		type( next?: $hyoo_sketch_element_type ) {

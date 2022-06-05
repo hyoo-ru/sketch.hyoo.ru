@@ -36,7 +36,7 @@ namespace $ {
 
 		project(next?: $hyoo_sketch_project_model) {
 			const id = this.state().sub('project').value(next && next.id())
-			return id ? this.domain().project( String(id) ) : null
+			return this.domain().project( String(id) )
 		}
 		
 	}
