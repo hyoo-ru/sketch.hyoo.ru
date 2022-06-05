@@ -26,7 +26,6 @@ namespace $ {
 
 		element_frame() {
 			const element = this.elements().find( obj => obj.type() === 'frame' )
-			console.log(element?.id())
 			if (!element) throw new Promise(()=>{}) // Data not loaded now
 			return element
 		}
