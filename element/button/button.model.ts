@@ -24,6 +24,11 @@ namespace $ {
 			return String( this.state().sub('title').value(next) ?? 'Button' )
 		}
 
+		button_type(next?: 'major' | 'minor') {
+			const res = String( this.state().sub('button_type').value(next) ?? 'major' )
+			return (res as typeof next)!
+		}
+
 		action(next?: 'none' | 'open' | 'replace' | 'close' | 'external') {
 			const res = String( this.state().sub('action').value(next) ?? 'none' )
 			return (res as typeof next)!
@@ -35,6 +40,10 @@ namespace $ {
 
 		target_link(next?: string) {
 			return String( this.state().sub('target_link').value(next) ?? 'https://mol.hyoo.ru' )
+		}
+
+		icon_name(next?: string) {
+			return String( this.state().sub('icon_name').value(next) ?? '' )
 		}
 		
 	}

@@ -39,6 +39,7 @@ namespace $.$$ {
 				... this.project_opened() ? [this.Page_list_page()] : [],
 				... this.page_opened() ? [this.Page_page()] : [],
 				... this.page_opened() && !!this.Element_options() ? [this.Option_page()] : [],
+				// this.Icon_search_page(),
 			]
 		}
 

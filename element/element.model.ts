@@ -28,11 +28,11 @@ namespace $ {
 		}
 		
 		width( next?: number ) {
-			return Number( this.state().sub( 'number' ).value( next ) ?? 100 )
+			return Number( this.state().sub( 'number' ).value( next ) ?? 312 )
 		}
 
 		height( next?: number ) {
-			return Number( this.state().sub( 'height' ).value( next ) ?? 50 )
+			return Number( this.state().sub( 'height' ).value( next ) ?? 40 )
 		}
 
 		x( next?: number ) {

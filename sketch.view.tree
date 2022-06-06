@@ -15,6 +15,7 @@ $hyoo_sketch $mol_book2
 		<= Option_page $mol_page
 			title @ \Options
 			body / <= Element_options $mol_view
+		<= Icon_search_page $mol_icon_demo
 	Demo_page* $mol_page
 		title <= demo_page_title* \
 		Head null

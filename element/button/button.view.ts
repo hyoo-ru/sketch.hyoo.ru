@@ -24,7 +24,9 @@ namespace $.$$ {
 
 			return [
 				... super.options(),
+				this.Type_field(),
 				this.Title_field(),
+				this.Icon_field(),
 				this.Action_field(),
 				... action === 'open' || action === 'replace' ? [ this.Page_field() ] : [],
 				... action === 'external' ? [ this.Link_field() ] : [],
@@ -58,6 +60,52 @@ namespace $.$$ {
 			if (this.action() === 'external' && this.target_link()) {
 				$mol_dom_context.open(this.target_link(), '_blank')
 			}
+		}
+
+		@ $mol_mem
+		Button() {
+			const obj = this.button_type() === 'major' ? new this.$.$mol_button_major : new this.$.$mol_button_minor
+			
+			obj.click = () => this.click()
+			obj.title = () => this.title()
+			obj.sub = () => this.button_sub()
+			
+			return obj as $mol_button
+		}
+
+
+		icon(name: string) {
+			if ( name.startsWith('$mol_icon_') && this.$[ name ] ) {
+				return new ( this.$[ name ] as typeof $mol_icon )
+			}
+			return new $mol_icon
+		}
+
+		@ $mol_mem
+		Button_icon() {
+			return this.icon( this.icon_name() )
+		}
+
+		@ $mol_mem
+		Icon_preview() {
+			return this.icon( this.icon_name() )
+		}
+
+		@ $mol_mem
+		icon_control() {
+			return [
+				this.Icon_preview(),
+				this.Icon_name(),
+				this.Icon_search(),
+			]
+		}
+
+		@ $mol_mem
+		button_sub() {
+			return [
+				... this.icon_name() ? [ this.Button_icon() ] : [],
+				this.title(), 
+			]
 		}
 
 	}

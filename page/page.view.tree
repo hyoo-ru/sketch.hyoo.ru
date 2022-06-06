@@ -84,6 +84,6 @@ $hyoo_sketch_page $mol_page
 		grid <= grid
 		preview <= page_preview
 	plugins /
-		<= Delete_key $mol_hotkey
+		<= Element_key $mol_hotkey
 			key *
 				delete? <=> element_delete? null

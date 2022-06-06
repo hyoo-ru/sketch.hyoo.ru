@@ -28,6 +28,12 @@ namespace $.$$ {
 			},
 		},
 
+		Icon_search_page: {
+			flex: {
+				basis: rem(30),
+			},
+		}
+
 	} ) 
 
 }
