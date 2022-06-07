@@ -1,0 +1,5 @@
+[hyoo_sketch_editor_paper]:where(:not([hyoo_sketch_editor_paper_preview="true"])) {
+	background-image:
+		linear-gradient(var(--mol_theme_line), transparent 1px),
+		linear-gradient(90deg, var(--mol_theme_line) , transparent 1px);
+}

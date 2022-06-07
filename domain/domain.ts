@@ -20,7 +20,7 @@ namespace $ {
 		
 		@ $mol_mem_key
 		person( id: string ) {
-			const obj = new $hyoo_sketch_person_model
+			const obj = new $hyoo_sketch_person
 			obj.id = $mol_const( id )
 			obj.domain = $mol_const( this )
 			return obj
@@ -28,16 +28,16 @@ namespace $ {
 
 		@ $mol_mem_key
 		element_type( id: string ) {
-			const obj = new $hyoo_sketch_element_model
+			const obj = new $hyoo_sketch_element
 			obj.id = $mol_const( id )
 			obj.domain = $mol_const( this )
 			
-			return obj.type()
+			return obj.meta().type()
 		}
 
 		@ $mol_mem_key
 		element( id: string ) {
-			const obj = new $hyoo_sketch_element_model
+			const obj = new $hyoo_sketch_element
 			obj.id = $mol_const( id )
 			obj.domain = $mol_const( this )
 			return obj
@@ -45,7 +45,7 @@ namespace $ {
 
 		@ $mol_mem_key
 		page( id: string ) {
-			const obj = new $hyoo_sketch_page_model
+			const obj = new $hyoo_sketch_page
 			obj.id = $mol_const( id )
 			obj.domain = $mol_const( this )
 			return obj
@@ -53,7 +53,7 @@ namespace $ {
 
 		@ $mol_mem_key
 		project( id: string ) {
-			const obj = new $hyoo_sketch_project_model
+			const obj = new $hyoo_sketch_project
 			obj.id = $mol_const( id )
 			obj.domain = $mol_const( this )
 			return obj

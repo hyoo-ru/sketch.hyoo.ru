@@ -1,0 +1,16 @@
+$hyoo_sketch_project_list $mol_page
+	person $hyoo_sketch_person
+	title @ \Projects
+	project_name_default @ \New project
+	tools /
+		<= Lights $mol_lights_toggle
+		<= Project_add $mol_button_minor
+			hint @ \Add project
+			click? <=> project_add? null
+			sub / <= Project_add_icon $mol_icon_plus
+	body /
+		<= List $mol_list
+			rows <= projects /
+	Project* $mol_link
+		arg * project <= project_id* \
+		title <= project_name* \

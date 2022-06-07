@@ -1,0 +1,12 @@
+$hyoo_sketch_element2_text $hyoo_sketch_element2
+	model $hyoo_sketch_element2_text_model
+		text? => text?
+	Element <= Content $mol_paragraph
+		title <= text?
+	Preview <= Content
+	options /
+		^
+		<= Text_field $mol_form_field
+			name @ \Text
+			control <= Text_control $mol_string
+				value? <=> text?

@@ -1,38 +1,37 @@
 namespace $.$$ {
 
-	const { rem } = $mol_style_unit
+	const { per, rem } = $mol_style_unit
+	const { calc } = $mol_style_func
 
 	$mol_style_define( $hyoo_sketch , {
 
-		Projects_page: {
+		Projects: {
 			flex: {
-				basis: rem(12),
+				shrink: 0,
+				basis: rem(25),
 			},
 		},
 
-		Page_list_page: {
+		Project: {
 			flex: {
-				// basis: rem(15),
+				shrink: 0,
+				basis: rem(15),
 			},
 		},
 
-		Page_page: {
+		Editor: {
 			flex: {
-				basis: rem(30),
+				shrink: 0,
+				basis: calc( '100% - 35rem' ),
 			},
 		},
 
-		Option_page: {
-			flex: {
-				basis: rem(20),
-			},
-		},
-
-		Icon_search_page: {
-			flex: {
-				basis: rem(30),
-			},
-		}
+		// Option: {
+		// 	flex: {
+		// 		shrink: 0,
+		// 		basis: rem(20),
+		// 	},
+		// },
 
 	} ) 
 

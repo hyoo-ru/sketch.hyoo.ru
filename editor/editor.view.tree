@@ -1,0 +1,127 @@
+$hyoo_sketch_editor $mol_page
+	page $hyoo_sketch_page
+		domain => domain
+		project => project
+		width? => width?
+		height? => height?
+		grid? => grid?
+	focus? \
+	tools /
+		<= Project_demo $mol_link
+			hint @ \Start demo from this page
+			sub / <= Project_demo_icon $mol_icon_television_play
+			target \_blank
+			arg *
+				demo <= project_demo_pages \
+		<= Page_preview $mol_check_icon
+			hint @ \Switch page to preview
+			Icon <= Page_preview_icon $mol_icon_play_circle
+			checked?val <=> preview?val false
+	head /
+		<= Title $mol_string
+			hint @ \Page name
+			value? <=> page_name? \
+		<= Tools
+	Page_options /
+		<= Page_width $hyoo_sketch_option
+			name @ \W
+			Control <= Width $mol_number
+				value? <=> width?
+		<= Page_height $hyoo_sketch_option
+			name @ \H
+			Control <= Height $mol_number
+				value? <=> height?
+		<= Page_grid $hyoo_sketch_option
+			name @ \Grid
+			Control <= Grid $mol_switch
+				value? <=> grid?
+				options *
+					4 \4
+					8 \8
+					16 \16
+					32 \32
+	Options *
+	body /
+		<= Paper $hyoo_sketch_editor_paper
+			width <= width
+			height <= height
+			grid <= grid
+			preview <= preview
+			focused? <=> paper_focused? false
+			sub / <= Elements $mol_view
+
+- $hyoo_sketch_page $mol_page
+	head /
+		<= Title $mol_string
+			value?val <=> page_name?val
+			hint @ \page name
+		<= Tools
+	body /
+		<= Content $mol_view
+			sub /
+				<= Elements $mol_view
+					sub /
+						<= Element_frame $hyoo_sketch_element_frame
+							element <= element_frame $hyoo_sketch_element_model
+							focused? <=> element_frame_handle_focused? true
+							grid => grid
+							preview <= page_preview
+						<= Elements_other $mol_view
+							sub <= elements /
+		<= Side_left $mol_scroll
+			sub /
+				<= Tools_left $mol_list
+					rows <= tools_left /
+						<= Text $mol_button_minor
+							hint @ \Add text element
+							sub / <= Text_icon $mol_icon_format_title
+							click? <=> element_add*text? null
+						<= Button $mol_button_minor
+							hint @ \Add button element
+							sub / <= Button_icon $mol_icon_gesture_tap
+							click? <=> element_add*button? null
+						<= String $mol_button_minor
+							hint @ \Add input element
+							sub / <= String_icon $mol_icon_cursor_text
+							click? <=> element_add*string? null
+						<= Link $mol_button_minor
+							hint @ \Add link element
+							sub / <= Link_icon $mol_icon_link_plus
+							click? <=> element_add*link? null
+	element_focused? \
+	element* $hyoo_sketch_element_model
+	Element* $hyoo_sketch_element
+		element <= element*
+		focused? <=> handle_focused*? null
+		grid <= grid
+		preview <= page_preview
+	Element_frame_refactor_frame_pls* $hyoo_sketch_element_frame
+		element <= element*
+		focused? <=> handle_focused*? null
+		grid <= grid
+		preview <= page_preview
+	Element_text* $hyoo_sketch_element_text
+		element <= element*
+		focused? <=> handle_focused*? null
+		grid <= grid
+		preview <= page_preview
+	Element_button* $hyoo_sketch_element_button
+		element <= element*
+		focused? <=> handle_focused*? null
+		grid <= grid
+		preview <= page_preview
+	Element_string* $hyoo_sketch_element_string
+		element <= element*
+		focused? <=> handle_focused*? null
+		grid <= grid
+		preview <= page_preview
+	Element_link* $hyoo_sketch_element_link
+		element <= element*
+		project <= project
+		focused? <=> handle_focused*? null
+		grid <= grid
+		preview <= page_preview
+	plugins /
+		<= Element_key $mol_hotkey
+			key *
+				delete? <=> element_delete? null
