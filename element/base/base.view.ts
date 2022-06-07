@@ -81,25 +81,31 @@ namespace $.$$ {
 		duplicate(event: KeyboardEvent) {
 			const copy = this.element().duplicate()
 			this.page().element_add(copy)
+			return copy
 		}
 
-		delete() {
+		delete(event: KeyboardEvent) {
+			event.preventDefault()
 			this.page().element_delete( this.element() )
 		}
 
-		move_up() {
+		move_up(event: KeyboardEvent) {
+			event.preventDefault()
 			this.top( this.top() - this.page().grid() )
 		}
 
-		move_down() {
+		move_down(event: KeyboardEvent) {
+			event.preventDefault()
 			this.top( this.top() + this.page().grid() )
 		}
 
-		move_left() {
+		move_left(event: KeyboardEvent) {
+			event.preventDefault()
 			this.left( this.left() - this.page().grid() )
 		}
 
-		move_right() {
+		move_right(event: KeyboardEvent) {
+			event.preventDefault()
 			this.left( this.left() + this.page().grid() )
 		}
 

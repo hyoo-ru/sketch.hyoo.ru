@@ -24,9 +24,9 @@ namespace $.$$ {
 			return String( this.state().sub('text_align_hor').value(next) ?? super.align_hor() )
 		}
 
-		// size(next?: string) {
-		// 	ret
-		// }
+		size(next?: string) {
+			return String( this.state().sub('text_size').value(next) ?? super.size() )
+		}
 
 	}
 

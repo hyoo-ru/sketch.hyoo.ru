@@ -38,7 +38,7 @@ $hyoo_sketch_element_text $hyoo_sketch_element_base
 			<= Size_option $hyoo_sketch_option
 				name @ \Size
 				Control <= Size_control $mol_switch
-					value? <=> size? \1rem
+					value? <=> size? \1.0rem
 					options *
 						0.75rem \Muted
 						1.0rem \Normal

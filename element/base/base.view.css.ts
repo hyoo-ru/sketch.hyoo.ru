@@ -6,6 +6,7 @@ namespace $.$$ {
 
 		position: 'absolute',
 		transition: 'none',
+		outline: 'none',
 
 		flex: {
 			grow: 1,
