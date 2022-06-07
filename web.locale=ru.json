@@ -1,6 +1,3 @@
 {
-	"$mol_lights_toggle_hint": "Переключить освещение",
-	"$mol_select_Filter_hint": "Фильтр..",
-	"$mol_select_hint": "Выбрать..",
-	"$mol_select_no_options_message": "Нет вариантов"
+	"$mol_lights_toggle_hint": "Переключить освещение"
 }
