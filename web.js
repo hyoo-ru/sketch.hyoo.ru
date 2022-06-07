@@ -4468,12 +4468,6 @@ var $;
             obj.domain = $mol_const(this);
             return obj;
         }
-        element_type(id) {
-            const obj = new $hyoo_sketch_element;
-            obj.id = $mol_const(id);
-            obj.domain = $mol_const(this);
-            return obj.type();
-        }
         element(id) {
             const obj = new $hyoo_sketch_element;
             obj.id = $mol_const(id);
@@ -4502,9 +4496,6 @@ var $;
     __decorate([
         $mol_mem_key
     ], $hyoo_sketch_domain.prototype, "person", null);
-    __decorate([
-        $mol_mem_key
-    ], $hyoo_sketch_domain.prototype, "element_type", null);
     __decorate([
         $mol_mem_key
     ], $hyoo_sketch_domain.prototype, "element", null);
@@ -5160,7 +5151,7 @@ var $;
             return String(this.state().sub('name').value(next) ?? '');
         }
         type(next) {
-            return String(this.state().sub('type').value(next) ?? '');
+            return String(this.state().sub('type').value(next) ?? 'base');
         }
         width(next) {
             return Number(this.state().sub('width').value(next) ?? 0);
@@ -7518,6 +7509,10 @@ var $;
             const obj = new this.$.$hyoo_sketch_element();
             return obj;
         }
+        state() {
+            const obj = new this.$.$mol_state_shared();
+            return obj;
+        }
         style() {
             return {
                 ...super.style(),
@@ -7702,6 +7697,9 @@ var $;
     ], $hyoo_sketch_element_base.prototype, "element", null);
     __decorate([
         $mol_mem
+    ], $hyoo_sketch_element_base.prototype, "state", null);
+    __decorate([
+        $mol_mem
     ], $hyoo_sketch_element_base.prototype, "order", null);
     __decorate([
         $mol_mem
@@ -7845,6 +7843,9 @@ var $;
     var $$;
     (function ($$) {
         class $hyoo_sketch_element_base extends $.$hyoo_sketch_element_base {
+            state() {
+                return this.element().state();
+            }
             switch() {
                 return this.editing() ? [this.Editor()] : [this.Element()];
             }
@@ -7910,50 +7911,80 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    class $mol_icon_television extends $mol_icon {
-        path() {
-            return "M21,17H3V5H21M21,3H3C1.9,3 1,3.9 1,5V17C1,18.1 1.9,19 3,19H8V21H16V19H21C22.1,19 23,18.1 23,17V5C23,3.9 22.1,3 21,3Z";
+    class $mol_paragraph extends $mol_view {
+        line_height() {
+            return 24;
+        }
+        letter_width() {
+            return 7;
+        }
+        width_limit() {
+            return Infinity;
+        }
+        sub() {
+            return [
+                this.title()
+            ];
         }
     }
-    $.$mol_icon_television = $mol_icon_television;
+    $.$mol_paragraph = $mol_paragraph;
 })($ || ($ = {}));
-//mol/icon/television/-view.tree/television.view.tree.ts
+//mol/paragraph/-view.tree/paragraph.view.tree.ts
 ;
 "use strict";
 var $;
 (function ($) {
-    class $mol_icon_television_play extends $mol_icon {
-        path() {
-            return "M21,3H3C1.89,3 1,3.89 1,5V17C1,18.1 1.9,19 3,19H8V21H16V19H21C22.1,19 23,18.1 23,17V5C23,3.89 22.1,3 21,3M21,17H3V5H21M16,11L9,15V7";
-        }
-    }
-    $.$mol_icon_television_play = $mol_icon_television_play;
+    $mol_style_attach("mol/paragraph/paragraph.view.css", ":where([mol_paragraph]) {\n\tmargin: 0;\n\tmax-width: 100%;\n}\n");
 })($ || ($ = {}));
-//mol/icon/television/play/-view.tree/play.view.tree.ts
+//mol/paragraph/-css/paragraph.view.css.ts
 ;
 "use strict";
 var $;
 (function ($) {
-    class $mol_icon_play extends $mol_icon {
-        path() {
-            return "M8,5.14V19.14L19,12.14L8,5.14Z";
+    var $$;
+    (function ($$) {
+        class $mol_paragraph extends $.$mol_paragraph {
+            maximal_width() {
+                let width = 0;
+                const letter = this.letter_width();
+                for (const kid of this.sub()) {
+                    if (!kid)
+                        continue;
+                    if (kid instanceof $mol_view) {
+                        width += kid.maximal_width();
+                    }
+                    else if (typeof kid !== 'object') {
+                        width += String(kid).length * letter;
+                    }
+                }
+                return width;
+            }
+            width_limit() {
+                return this.$.$mol_window.size().width;
+            }
+            minimal_width() {
+                return this.letter_width();
+            }
+            row_width() {
+                return Math.max(Math.min(this.width_limit(), this.maximal_width()), this.letter_width());
+            }
+            minimal_height() {
+                return Math.max(1, Math.ceil(this.maximal_width() / this.row_width())) * this.line_height();
+            }
         }
-    }
-    $.$mol_icon_play = $mol_icon_play;
+        __decorate([
+            $mol_mem
+        ], $mol_paragraph.prototype, "maximal_width", null);
+        __decorate([
+            $mol_mem
+        ], $mol_paragraph.prototype, "row_width", null);
+        __decorate([
+            $mol_mem
+        ], $mol_paragraph.prototype, "minimal_height", null);
+        $$.$mol_paragraph = $mol_paragraph;
+    })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
-//mol/icon/play/-view.tree/play.view.tree.ts
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_icon_play_circle extends $mol_icon {
-        path() {
-            return "M10,16.5V7.5L16,12M12,2C6.48,2 2,6.48 2,12C2,17.52 6.48,22 12,22C17.52,22 22,17.52 22,12C22,6.48 17.52,2 12,2Z";
-        }
-    }
-    $.$mol_icon_play_circle = $mol_icon_play_circle;
-})($ || ($ = {}));
-//mol/icon/play/circle/-view.tree/circle.view.tree.ts
+//mol/paragraph/paragraph.view.ts
 ;
 "use strict";
 var $;
@@ -8143,6 +8174,269 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    class $hyoo_sketch_element_text extends $hyoo_sketch_element_base {
+        Element() {
+            const obj = new this.$.$mol_paragraph();
+            obj.style = () => ({
+                padding: this.padding_style(),
+                justifyContent: this.align_hor(),
+                alignItems: this.align_ver(),
+                fontSize: this.size()
+            });
+            obj.title = () => this.text();
+            return obj;
+        }
+        Options() {
+            return {
+                ...super.Options(),
+                text: this.Text_options()
+            };
+        }
+        padding_style() {
+            return "0px";
+        }
+        text(next) {
+            if (next !== undefined)
+                return next;
+            return "Text";
+        }
+        Text_control() {
+            const obj = new this.$.$mol_string();
+            obj.value = (next) => this.text(next);
+            return obj;
+        }
+        Text_option() {
+            const obj = new this.$.$hyoo_sketch_option();
+            obj.name = () => this.$.$mol_locale.text('$hyoo_sketch_element_text_Text_option_name');
+            obj.Control = () => this.Text_control();
+            return obj;
+        }
+        padding(next) {
+            if (next !== undefined)
+                return next;
+            return "text";
+        }
+        Padding_control() {
+            const obj = new this.$.$mol_switch();
+            obj.value = (next) => this.padding(next);
+            obj.options = () => ({
+                none: "None",
+                text: "Text",
+                block: "Block",
+                space: "Space"
+            });
+            return obj;
+        }
+        Padding_option() {
+            const obj = new this.$.$hyoo_sketch_option();
+            obj.name = () => this.$.$mol_locale.text('$hyoo_sketch_element_text_Padding_option_name');
+            obj.Control = () => this.Padding_control();
+            return obj;
+        }
+        align_hor(next) {
+            if (next !== undefined)
+                return next;
+            return "start";
+        }
+        Align_hor_control() {
+            const obj = new this.$.$mol_switch();
+            obj.value = (next) => this.align_hor(next);
+            obj.options = () => this.align_options();
+            return obj;
+        }
+        Align_hor_option() {
+            const obj = new this.$.$hyoo_sketch_option();
+            obj.name = () => this.$.$mol_locale.text('$hyoo_sketch_element_text_Align_hor_option_name');
+            obj.Control = () => this.Align_hor_control();
+            return obj;
+        }
+        align_ver(next) {
+            if (next !== undefined)
+                return next;
+            return "start";
+        }
+        align_options() {
+            return {
+                start: "Start",
+                center: "Center",
+                end: "End"
+            };
+        }
+        Align_ver_control() {
+            const obj = new this.$.$mol_switch();
+            obj.value = (next) => this.align_ver(next);
+            obj.options = () => this.align_options();
+            return obj;
+        }
+        Align_ver_option() {
+            const obj = new this.$.$hyoo_sketch_option();
+            obj.name = () => this.$.$mol_locale.text('$hyoo_sketch_element_text_Align_ver_option_name');
+            obj.Control = () => this.Align_ver_control();
+            return obj;
+        }
+        size(next) {
+            if (next !== undefined)
+                return next;
+            return "1rem";
+        }
+        Size_control() {
+            const obj = new this.$.$mol_switch();
+            obj.value = (next) => this.size(next);
+            obj.options = () => ({
+                "0.75rem": "Muted",
+                "1.0rem": "Normal",
+                "1.25rem": "Accent"
+            });
+            return obj;
+        }
+        Size_option() {
+            const obj = new this.$.$hyoo_sketch_option();
+            obj.name = () => this.$.$mol_locale.text('$hyoo_sketch_element_text_Size_option_name');
+            obj.Control = () => this.Size_control();
+            return obj;
+        }
+        Text_options() {
+            return [
+                this.Text_option(),
+                this.Padding_option(),
+                this.Align_hor_option(),
+                this.Align_ver_option(),
+                this.Size_option()
+            ];
+        }
+    }
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_text.prototype, "Element", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_text.prototype, "text", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_text.prototype, "Text_control", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_text.prototype, "Text_option", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_text.prototype, "padding", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_text.prototype, "Padding_control", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_text.prototype, "Padding_option", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_text.prototype, "align_hor", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_text.prototype, "Align_hor_control", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_text.prototype, "Align_hor_option", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_text.prototype, "align_ver", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_text.prototype, "Align_ver_control", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_text.prototype, "Align_ver_option", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_text.prototype, "size", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_text.prototype, "Size_control", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_text.prototype, "Size_option", null);
+    $.$hyoo_sketch_element_text = $hyoo_sketch_element_text;
+})($ || ($ = {}));
+//hyoo/sketch/element/text/-view.tree/text.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $hyoo_sketch_element_text extends $.$hyoo_sketch_element_text {
+            padding_style() {
+                if (this.padding() === 'none')
+                    return '0px';
+                return `var(--mol_gap_${this.padding()})`;
+            }
+            text(next) {
+                return String(this.state().sub('text_content').value(next) ?? super.text());
+            }
+            padding(next) {
+                return String(this.state().sub('text_padding').value(next) ?? super.padding());
+            }
+            align_ver(next) {
+                return String(this.state().sub('text_align_ver').value(next) ?? super.align_ver());
+            }
+            align_hor(next) {
+                return String(this.state().sub('text_align_hor').value(next) ?? super.align_hor());
+            }
+        }
+        $$.$hyoo_sketch_element_text = $hyoo_sketch_element_text;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//hyoo/sketch/element/text/text.view.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_icon_television extends $mol_icon {
+        path() {
+            return "M21,17H3V5H21M21,3H3C1.9,3 1,3.9 1,5V17C1,18.1 1.9,19 3,19H8V21H16V19H21C22.1,19 23,18.1 23,17V5C23,3.9 22.1,3 21,3Z";
+        }
+    }
+    $.$mol_icon_television = $mol_icon_television;
+})($ || ($ = {}));
+//mol/icon/television/-view.tree/television.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_icon_television_play extends $mol_icon {
+        path() {
+            return "M21,3H3C1.89,3 1,3.89 1,5V17C1,18.1 1.9,19 3,19H8V21H16V19H21C22.1,19 23,18.1 23,17V5C23,3.89 22.1,3 21,3M21,17H3V5H21M16,11L9,15V7";
+        }
+    }
+    $.$mol_icon_television_play = $mol_icon_television_play;
+})($ || ($ = {}));
+//mol/icon/television/play/-view.tree/play.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_icon_play extends $mol_icon {
+        path() {
+            return "M8,5.14V19.14L19,12.14L8,5.14Z";
+        }
+    }
+    $.$mol_icon_play = $mol_icon_play;
+})($ || ($ = {}));
+//mol/icon/play/-view.tree/play.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_icon_play_circle extends $mol_icon {
+        path() {
+            return "M10,16.5V7.5L16,12M12,2C6.48,2 2,6.48 2,12C2,17.52 6.48,22 12,22C17.52,22 22,17.52 22,12C22,6.48 17.52,2 12,2Z";
+        }
+    }
+    $.$mol_icon_play_circle = $mol_icon_play_circle;
+})($ || ($ = {}));
+//mol/icon/play/circle/-view.tree/circle.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
     class $hyoo_sketch_editor_paper extends $mol_view {
         grid() {
             return NaN;
@@ -8316,12 +8610,12 @@ var $;
                 this.Paper()
             ];
         }
-        Element(id) {
+        Element_base(id) {
             const obj = new this.$.$hyoo_sketch_element_base();
-            obj.element = () => this.element(id);
-            obj.grid = () => this.grid();
-            obj.selected = (next) => this.element_selected(id, next);
-            obj.editing = () => this.editing();
+            return obj;
+        }
+        Element_text(id) {
+            const obj = new this.$.$hyoo_sketch_element_text();
             return obj;
         }
         editor_title() {
@@ -8442,18 +8736,6 @@ var $;
             ];
             return obj;
         }
-        element(id) {
-            const obj = new this.$.$hyoo_sketch_element();
-            return obj;
-        }
-        element_selected(id, next) {
-            if (next !== undefined)
-                return next;
-            return false;
-        }
-        editing() {
-            return true;
-        }
     }
     __decorate([
         $mol_mem
@@ -8463,7 +8745,10 @@ var $;
     ], $hyoo_sketch_editor.prototype, "selected", null);
     __decorate([
         $mol_mem_key
-    ], $hyoo_sketch_editor.prototype, "Element", null);
+    ], $hyoo_sketch_editor.prototype, "Element_base", null);
+    __decorate([
+        $mol_mem_key
+    ], $hyoo_sketch_editor.prototype, "Element_text", null);
     __decorate([
         $mol_mem
     ], $hyoo_sketch_editor.prototype, "Project_demo_icon", null);
@@ -8515,12 +8800,6 @@ var $;
     __decorate([
         $mol_mem
     ], $hyoo_sketch_editor.prototype, "Paper", null);
-    __decorate([
-        $mol_mem_key
-    ], $hyoo_sketch_editor.prototype, "element", null);
-    __decorate([
-        $mol_mem_key
-    ], $hyoo_sketch_editor.prototype, "element_selected", null);
     $.$hyoo_sketch_editor = $hyoo_sketch_editor;
 })($ || ($ = {}));
 //hyoo/sketch/editor/-view.tree/editor.view.tree.ts
@@ -8550,6 +8829,15 @@ var $;
         class $hyoo_sketch_editor extends $.$hyoo_sketch_editor {
             element(id) {
                 return this.domain().element(id);
+            }
+            Element(id) {
+                const type = this.element(id).type();
+                const obj = this[`Element_${type}`](id);
+                obj.element = () => this.element(id);
+                obj.grid = () => this.grid();
+                obj.selected = (next) => this.element_selected(id, next);
+                obj.editing = () => this.editing();
+                return obj;
             }
             elements() {
                 return this.page().elements().map(obj => this.Element(obj.id()));
@@ -8591,6 +8879,9 @@ var $;
                 return !this.preview();
             }
         }
+        __decorate([
+            $mol_mem_key
+        ], $hyoo_sketch_editor.prototype, "Element", null);
         __decorate([
             $mol_mem
         ], $hyoo_sketch_editor.prototype, "selected", null);
@@ -8759,6 +9050,9 @@ var $;
         __decorate([
             $mol_mem
         ], $hyoo_sketch_option_page.prototype, "keys", null);
+        __decorate([
+            $mol_mem
+        ], $hyoo_sketch_option_page.prototype, "items", null);
         $$.$hyoo_sketch_option_page = $hyoo_sketch_option_page;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));

@@ -272,6 +272,7 @@ $hyoo_sketch_option $mol_row
 $hyoo_sketch_element_base $mol_view
 	element $hyoo_sketch_element
 		domain => domain
+	state $mol_state_shared
 	style *
 		^
 		width <= width? 320
@@ -380,13 +381,11 @@ $hyoo_sketch_element_base $mol_view
 		^
 		pointerdown?event <=> pointer_down?event null
 
-$mol_icon_television $mol_icon path \M21,17H3V5H21M21,3H3C1.9,3 1,3.9 1,5V17C1,18.1 1.9,19 3,19H8V21H16V19H21C22.1,19 23,18.1 23,17V5C23,3.9 22.1,3 21,3Z
-
-$mol_icon_television_play $mol_icon path \M21,3H3C1.89,3 1,3.89 1,5V17C1,18.1 1.9,19 3,19H8V21H16V19H21C22.1,19 23,18.1 23,17V5C23,3.89 22.1,3 21,3M21,17H3V5H21M16,11L9,15V7
-
-$mol_icon_play $mol_icon path \M8,5.14V19.14L19,12.14L8,5.14Z
-
-$mol_icon_play_circle $mol_icon path \M10,16.5V7.5L16,12M12,2C6.48,2 2,6.48 2,12C2,17.52 6.48,22 12,22C17.52,22 22,17.52 22,12C22,6.48 17.52,2 12,2Z
+$mol_paragraph $mol_view
+	line_height 24
+	letter_width 7
+	width_limit Infinity
+	sub / <= title
 
 $mol_check_list $mol_view
 	Option* $mol_check
@@ -402,6 +401,60 @@ $mol_check_list $mol_view
 
 $mol_switch $mol_check_list
 	value?val \
+
+$hyoo_sketch_element_text $hyoo_sketch_element_base
+	Element $mol_paragraph
+		style *
+			padding <= padding_style \0px
+			justifyContent <= align_hor
+			alignItems <= align_ver
+			fontSize <= size
+		title <= text? \Text
+	Options *
+		^
+		text <= Text_options /
+			<= Text_option $hyoo_sketch_option
+				name @ \Text
+				Control <= Text_control $mol_string
+					value? <=> text?
+			<= Padding_option $hyoo_sketch_option
+				name @ \Padding
+				Control <= Padding_control $mol_switch
+					value? <=> padding? \text
+					options *
+						none \None
+						text \Text
+						block \Block
+						space \Space
+			<= Align_hor_option $hyoo_sketch_option
+				name @ \Align hor
+				Control <= Align_hor_control $mol_switch
+					value? <=> align_hor? \start
+					options <= align_options
+			<= Align_ver_option $hyoo_sketch_option
+				name @ \Align ver
+				Control <= Align_ver_control $mol_switch
+					value? <=> align_ver? \start
+					options <= align_options *
+						start \Start
+						center \Center
+						end \End
+			<= Size_option $hyoo_sketch_option
+				name @ \Size
+				Control <= Size_control $mol_switch
+					value? <=> size? \1rem
+					options *
+						0.75rem \Muted
+						1.0rem \Normal
+						1.25rem \Accent
+
+$mol_icon_television $mol_icon path \M21,17H3V5H21M21,3H3C1.9,3 1,3.9 1,5V17C1,18.1 1.9,19 3,19H8V21H16V19H21C22.1,19 23,18.1 23,17V5C23,3.9 22.1,3 21,3Z
+
+$mol_icon_television_play $mol_icon path \M21,3H3C1.89,3 1,3.89 1,5V17C1,18.1 1.9,19 3,19H8V21H16V19H21C22.1,19 23,18.1 23,17V5C23,3.89 22.1,3 21,3M21,17H3V5H21M16,11L9,15V7
+
+$mol_icon_play $mol_icon path \M8,5.14V19.14L19,12.14L8,5.14Z
+
+$mol_icon_play_circle $mol_icon path \M10,16.5V7.5L16,12M12,2C6.48,2 2,6.48 2,12C2,17.52 6.48,22 12,22C17.52,22 22,17.52 22,12C22,6.48 17.52,2 12,2Z
 
 $hyoo_sketch_editor_paper $mol_view
 	grid NaN
@@ -472,11 +525,9 @@ $hyoo_sketch_editor $mol_page
 			preview <= preview
 			selected? <=> paper_selected? false
 			sub / <= Elements $mol_view sub <= elements /
-	Element* $hyoo_sketch_element_base
-		element <= element* $hyoo_sketch_element
-		grid <= grid
-		selected? <=> element_selected*? false
-		editing <= editing true
+	Element_base* $hyoo_sketch_element_base
+	Element_text* $hyoo_sketch_element_text
+	
 
 - $hyoo_sketch_page $mol_page
 	head /
