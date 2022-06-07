@@ -5171,11 +5171,11 @@ var $;
         duplicate() {
             const obj = this.domain().element($mol_guid());
             obj.page(this.page());
-            obj.name(this.name() + '*');
+            obj.name(this.name());
             obj.type(this.type());
             obj.width(this.width());
             obj.height(this.height());
-            obj.top(this.top());
+            obj.top(this.top() + this.height() + this.page().grid());
             obj.left(this.left());
             obj.order(this.order());
             return obj;
@@ -7505,6 +7505,9 @@ var $;
         domain() {
             return this.element().domain();
         }
+        page() {
+            return this.element().page();
+        }
         element() {
             const obj = new this.$.$hyoo_sketch_element();
             return obj;
@@ -7552,6 +7555,11 @@ var $;
             return {
                 position: this.Position_options()
             };
+        }
+        plugins() {
+            return [
+                this.Hotkey()
+            ];
         }
         width(next) {
             if (next !== undefined)
@@ -7691,6 +7699,48 @@ var $;
                 this.Option_order()
             ];
         }
+        duplicate(next) {
+            if (next !== undefined)
+                return next;
+            return null;
+        }
+        delete(next) {
+            if (next !== undefined)
+                return next;
+            return null;
+        }
+        move_left(next) {
+            if (next !== undefined)
+                return next;
+            return null;
+        }
+        move_up(next) {
+            if (next !== undefined)
+                return next;
+            return null;
+        }
+        move_right(next) {
+            if (next !== undefined)
+                return next;
+            return null;
+        }
+        move_down(next) {
+            if (next !== undefined)
+                return next;
+            return null;
+        }
+        Hotkey() {
+            const obj = new this.$.$mol_hotkey();
+            obj.key = () => ({
+                D: (next) => this.duplicate(next),
+                delete: (next) => this.delete(next),
+                left: (next) => this.move_left(next),
+                up: (next) => this.move_up(next),
+                right: (next) => this.move_right(next),
+                down: (next) => this.move_down(next)
+            });
+            return obj;
+        }
     }
     __decorate([
         $mol_mem
@@ -7770,6 +7820,27 @@ var $;
     __decorate([
         $mol_mem
     ], $hyoo_sketch_element_base.prototype, "Option_order", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_base.prototype, "duplicate", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_base.prototype, "delete", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_base.prototype, "move_left", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_base.prototype, "move_up", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_base.prototype, "move_right", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_base.prototype, "move_down", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_base.prototype, "Hotkey", null);
     $.$hyoo_sketch_element_base = $hyoo_sketch_element_base;
 })($ || ($ = {}));
 //hyoo/sketch/element/base/-view.tree/base.view.tree.ts
@@ -7901,6 +7972,25 @@ var $;
             }
             left(next) {
                 return this.element().left(next) || super.left();
+            }
+            duplicate(event) {
+                const copy = this.element().duplicate();
+                this.page().element_add(copy);
+            }
+            delete() {
+                this.page().element_delete(this.element());
+            }
+            move_up() {
+                this.top(this.top() - this.page().grid());
+            }
+            move_down() {
+                this.top(this.top() + this.page().grid());
+            }
+            move_left() {
+                this.left(this.left() - this.page().grid());
+            }
+            move_right() {
+                this.left(this.left() + this.page().grid());
             }
         }
         $$.$hyoo_sketch_element_base = $hyoo_sketch_element_base;

@@ -2440,6 +2440,7 @@ declare namespace $.$$ {
 declare namespace $ {
     class $hyoo_sketch_element_base extends $mol_view {
         domain(): $hyoo_sketch_domain;
+        page(): $hyoo_sketch_page;
         element(): $hyoo_sketch_element;
         state(): $mol_state_shared;
         style(): {
@@ -2462,6 +2463,7 @@ declare namespace $ {
         Options(): {
             position: readonly any[];
         };
+        plugins(): readonly any[];
         width(next?: any): number;
         height(next?: any): number;
         left(next?: any): number;
@@ -2487,6 +2489,13 @@ declare namespace $ {
         Order_control(): $$.$mol_number;
         Option_order(): $hyoo_sketch_option;
         Position_options(): readonly any[];
+        duplicate(next?: any): any;
+        delete(next?: any): any;
+        move_left(next?: any): any;
+        move_up(next?: any): any;
+        move_right(next?: any): any;
+        move_down(next?: any): any;
+        Hotkey(): $$.$mol_hotkey;
     }
 }
 
@@ -2504,6 +2513,12 @@ declare namespace $.$$ {
         height(next?: number): number;
         top(next?: number): number;
         left(next?: number): number;
+        duplicate(event: KeyboardEvent): void;
+        delete(): void;
+        move_up(): void;
+        move_down(): void;
+        move_left(): void;
+        move_right(): void;
     }
 }
 
