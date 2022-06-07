@@ -78,6 +78,31 @@ namespace $.$$ {
 			return this.element().left(next) || super.left()
 		}
 
+		duplicate(event: KeyboardEvent) {
+			const copy = this.element().duplicate()
+			this.page().element_add(copy)
+		}
+
+		delete() {
+			this.page().element_delete( this.element() )
+		}
+
+		move_up() {
+			this.top( this.top() - this.page().grid() )
+		}
+
+		move_down() {
+			this.top( this.top() + this.page().grid() )
+		}
+
+		move_left() {
+			this.left( this.left() - this.page().grid() )
+		}
+
+		move_right() {
+			this.left( this.left() + this.page().grid() )
+		}
+
 	}
 
 }

@@ -51,11 +51,11 @@ namespace $ {
 		duplicate() {
 			const obj = this.domain().element( $mol_guid() )
 			obj.page( this.page() )
-			obj.name( this.name() + '*' )
+			obj.name( this.name() )
 			obj.type( this.type() )
 			obj.width( this.width() )
 			obj.height( this.height() )
-			obj.top( this.top() )
+			obj.top( this.top() + this.height() + this.page().grid() )
 			obj.left( this.left() )
 			obj.order( this.order() )
 			return obj
