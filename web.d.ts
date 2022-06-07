@@ -1585,19 +1585,19 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
-    class $hyoo_sketch_element_meta extends $mol_object2 {
-        domain(): $hyoo_sketch_domain;
-        state(): $mol_state_shared;
-        name(next?: string): string;
-        type(next?: string): string;
-    }
     class $hyoo_sketch_element extends $mol_object2 {
         id(): string;
         domain(): $hyoo_sketch_domain;
         state(): $mol_state_shared;
         page(next?: $hyoo_sketch_page): $hyoo_sketch_page;
-        meta(): $hyoo_sketch_element_meta;
-        duplicate(): this;
+        name(next?: string): string;
+        type(next?: string): string;
+        width(next?: number): number;
+        height(next?: number): number;
+        top(next?: number): number;
+        left(next?: number): number;
+        order(next?: number): number;
+        duplicate(): $hyoo_sketch_element;
     }
 }
 
@@ -2317,25 +2317,13 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
-    class $mol_icon_television extends $mol_icon {
+    class $mol_icon_resize extends $mol_icon {
         path(): string;
     }
 }
 
 declare namespace $ {
-    class $mol_icon_television_play extends $mol_icon {
-        path(): string;
-    }
-}
-
-declare namespace $ {
-    class $mol_icon_play extends $mol_icon {
-        path(): string;
-    }
-}
-
-declare namespace $ {
-    class $mol_icon_play_circle extends $mol_icon {
+    class $mol_icon_resize_bottom_right extends $mol_icon {
         path(): string;
     }
 }
@@ -2381,7 +2369,7 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
-    class $mol_bar extends $mol_view {
+    class $mol_row extends $mol_view {
     }
 }
 
@@ -2389,7 +2377,7 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    class $hyoo_sketch_option extends $mol_bar {
+    class $hyoo_sketch_option extends $mol_row {
         sub(): readonly any[];
         name(): string;
         Name(): $mol_view;
@@ -2398,6 +2386,98 @@ declare namespace $ {
 }
 
 declare namespace $.$$ {
+}
+
+declare namespace $ {
+    class $hyoo_sketch_element_base extends $mol_view {
+        domain(): $hyoo_sketch_domain;
+        element(): $hyoo_sketch_element;
+        style(): {
+            width: number;
+            height: number;
+            left: number;
+            top: number;
+            zIndex: string;
+        };
+        order(next?: any): number;
+        grid(next?: any): number;
+        attr(): {
+            hyoo_sketch_element_base_selected: boolean;
+            hyoo_sketch_element_base_editing: boolean;
+        };
+        event(): {
+            pointerdown: (next?: any) => any;
+        };
+        sub(): readonly any[];
+        Options(): {
+            position: readonly any[];
+        };
+        width(next?: any): number;
+        height(next?: any): number;
+        left(next?: any): number;
+        top(next?: any): number;
+        order_string(next?: any): string;
+        selected(next?: any): boolean;
+        editing(): boolean;
+        pointer_down(next?: any): any;
+        Element(): $mol_view;
+        resize_start(next?: any): any;
+        Icon(): $mol_icon_resize_bottom_right;
+        Resize(): $mol_view;
+        Editor(): $mol_view;
+        switch(): readonly any[];
+        Width_control(): $$.$mol_number;
+        Option_width(): $hyoo_sketch_option;
+        Height_control(): $$.$mol_number;
+        Option_height(): $hyoo_sketch_option;
+        Left_control(): $$.$mol_number;
+        Option_left(): $hyoo_sketch_option;
+        Top_control(): $$.$mol_number;
+        Option_top(): $hyoo_sketch_option;
+        Order_control(): $$.$mol_number;
+        Option_order(): $hyoo_sketch_option;
+        Position_options(): readonly any[];
+    }
+}
+
+declare namespace $.$$ {
+}
+
+declare namespace $.$$ {
+    class $hyoo_sketch_element_base extends $.$hyoo_sketch_element_base {
+        switch(): $mol_view[];
+        grid_near(value: number): number;
+        pointer_down(event: PointerEvent): void;
+        resize_start(event: PointerEvent): void;
+        width(next?: number): number;
+        height(next?: number): number;
+        top(next?: number): number;
+        left(next?: number): number;
+    }
+}
+
+declare namespace $ {
+    class $mol_icon_television extends $mol_icon {
+        path(): string;
+    }
+}
+
+declare namespace $ {
+    class $mol_icon_television_play extends $mol_icon {
+        path(): string;
+    }
+}
+
+declare namespace $ {
+    class $mol_icon_play extends $mol_icon {
+        path(): string;
+    }
+}
+
+declare namespace $ {
+    class $mol_icon_play_circle extends $mol_icon {
+        path(): string;
+    }
 }
 
 declare namespace $ {
@@ -2477,7 +2557,7 @@ declare namespace $ {
         height(): number;
         background_size(): string;
         preview(): boolean;
-        focused(next?: any): boolean;
+        selected(next?: any): boolean;
     }
 }
 
@@ -2502,12 +2582,17 @@ declare namespace $ {
         height(next?: any): number;
         grid(next?: any): number;
         page(): $hyoo_sketch_page;
-        focus(next?: any): string;
+        style(): {
+            minWidth: number;
+        };
+        selected(next?: any): string;
+        title(): string;
         tools(): readonly any[];
-        head(): readonly any[];
         Page_options(): readonly any[];
         Options(): {};
         body(): readonly any[];
+        Element(id: any): $$.$hyoo_sketch_element_base;
+        editor_title(): string;
         Project_demo_icon(): $mol_icon_television_play;
         project_demo_pages(): string;
         Project_demo(): $$.$mol_link;
@@ -2515,16 +2600,21 @@ declare namespace $ {
         preview(val?: any): boolean;
         Page_preview(): $mol_check_icon;
         page_name(next?: any): string;
-        Title(): $$.$mol_string;
+        Name(): $$.$mol_string;
+        Page_name(): $hyoo_sketch_option;
         Width(): $$.$mol_number;
         Page_width(): $hyoo_sketch_option;
         Height(): $$.$mol_number;
         Page_height(): $hyoo_sketch_option;
         Grid(): $$.$mol_switch;
         Page_grid(): $hyoo_sketch_option;
-        paper_focused(next?: any): boolean;
+        paper_selected(next?: any): boolean;
+        elements(): readonly any[];
         Elements(): $mol_view;
         Paper(): $$.$hyoo_sketch_editor_paper;
+        element(id: any): $hyoo_sketch_element;
+        element_selected(id: any, next?: any): boolean;
+        editing(): boolean;
     }
 }
 
@@ -2533,14 +2623,21 @@ declare namespace $.$$ {
 
 declare namespace $.$$ {
     class $hyoo_sketch_editor extends $.$hyoo_sketch_editor {
+        element(id: string): $hyoo_sketch_element;
+        elements(): $hyoo_sketch_element_base[];
         page_name(next?: string): string;
-        focus(id?: string): string;
-        paper_focused(next?: boolean): boolean;
+        editor_title(): string;
+        selected(id?: string): string;
+        paper_selected(next?: boolean): boolean;
+        element_selected(id: string, next?: boolean): boolean;
         Options(): {
+            position: readonly any[];
+        } | {
             page: readonly any[];
         } | {
             page?: undefined;
         };
+        editing(): boolean;
     }
 }
 
@@ -2577,11 +2674,37 @@ declare namespace $ {
 }
 
 declare namespace $.$$ {
+}
+
+declare namespace $.$$ {
     class $hyoo_sketch_option_page extends $.$hyoo_sketch_option_page {
         keys(): string[];
         items(): $mol_list[];
         tab_title(key: string): string;
         tab_rows(key: string): $mol_view[];
+    }
+}
+
+declare namespace $ {
+    class $hyoo_sketch_palette extends $mol_page {
+        page(): $hyoo_sketch_page;
+        title(): string;
+        body(): readonly any[];
+        type_list(): readonly any[];
+        row_title(id: any): string;
+        element_add(id: any, next?: any): any;
+        Row(id: any): $mol_button_minor;
+        rows(): readonly any[];
+        List(): $$.$mol_list;
+    }
+}
+
+declare namespace $.$$ {
+    class $hyoo_sketch_palette extends $.$hyoo_sketch_palette {
+        domain(): $hyoo_sketch_domain;
+        rows(): $mol_button_minor[];
+        row_title(type: string): string;
+        element_add(type: string): void;
     }
 }
 
@@ -2600,12 +2723,15 @@ declare namespace $ {
         Project(): $$.$hyoo_sketch_project_page;
         page_opened(): $hyoo_sketch_page;
         Options(): {
+            position: readonly any[];
+        } | {
             page: readonly any[];
         } | {
             page?: undefined;
         };
         Editor(): $$.$hyoo_sketch_editor;
-        Option(): $$.$hyoo_sketch_option_page;
+        Option_page(): $$.$hyoo_sketch_option_page;
+        Palette(): $$.$hyoo_sketch_palette;
     }
 }
 
@@ -2620,7 +2746,7 @@ declare namespace $.$$ {
         };
         project_opened(): $hyoo_sketch_project;
         page_opened(): $hyoo_sketch_page;
-        pages(): ($hyoo_sketch_project_list | $hyoo_sketch_project_page | $hyoo_sketch_editor | $hyoo_sketch_option_page)[];
+        pages(): ($hyoo_sketch_project_list | $hyoo_sketch_project_page | $hyoo_sketch_editor | $hyoo_sketch_option_page | $hyoo_sketch_palette)[];
     }
 }
 

@@ -235,13 +235,9 @@ $hyoo_sketch_project_page $mol_page
 			focus null
 		title <= page_name* \
 
-$mol_icon_television $mol_icon path \M21,17H3V5H21M21,3H3C1.9,3 1,3.9 1,5V17C1,18.1 1.9,19 3,19H8V21H16V19H21C22.1,19 23,18.1 23,17V5C23,3.9 22.1,3 21,3Z
+$mol_icon_resize $mol_icon path \M10.59,12L14.59,8H11V6H18V13H16V9.41L12,13.41V16H20V4H8V12H10.59M22,2V18H12V22H2V12H6V2H22M10,14H4V20H10V14Z
 
-$mol_icon_television_play $mol_icon path \M21,3H3C1.89,3 1,3.89 1,5V17C1,18.1 1.9,19 3,19H8V21H16V19H21C22.1,19 23,18.1 23,17V5C23,3.89 22.1,3 21,3M21,17H3V5H21M16,11L9,15V7
-
-$mol_icon_play $mol_icon path \M8,5.14V19.14L19,12.14L8,5.14Z
-
-$mol_icon_play_circle $mol_icon path \M10,16.5V7.5L16,12M12,2C6.48,2 2,6.48 2,12C2,17.52 6.48,22 12,22C17.52,22 22,17.52 22,12C22,6.48 17.52,2 12,2Z
+$mol_icon_resize_bottom_right $mol_icon path \M22,22H20V20H22V22M22,18H20V16H22V18M18,22H16V20H18V22M18,18H16V16H18V18M14,22H12V20H14V22M22,14H20V12H22V14Z
 
 $mol_icon_minus $mol_icon path \M19,13H5V11H19V13Z
 
@@ -266,12 +262,131 @@ $mol_number $mol_view
 			enabled <= inc_enabled <= enabled true
 			sub / <= inc_icon $mol_icon_plus
 
-$mol_bar $mol_view
+$mol_row $mol_view
 
-$hyoo_sketch_option $mol_bar
+$hyoo_sketch_option $mol_row
 	sub /
 		<= Name $mol_view sub / <= name \
 		<= Control $mol_view
+
+$hyoo_sketch_element_base $mol_view
+	element $hyoo_sketch_element
+		domain => domain
+	style *
+		^
+		width <= width? 320
+		height <= height? 40
+		left <= left? 0
+		top <= top? 0
+		zIndex <= order_string? \
+	order? 1
+	grid? 8
+	attr *
+		^
+		hyoo_sketch_element_base_selected <= selected? false
+		hyoo_sketch_element_base_editing <= editing true
+	event *
+		pointerdown? <=> pointer_down? null
+	sub <= switch /
+		<= Editor $mol_view
+			sub /
+				<= Element $mol_view
+				<= Resize $mol_view
+					event *
+						pointerdown? <=> resize_start? null
+					sub /
+						<= Icon $mol_icon_resize_bottom_right
+	Options *
+		position <= Position_options /
+			<= Option_width $hyoo_sketch_option
+				name @ \Width
+				Control <= Width_control $mol_number
+					value? <=> width?
+			<= Option_height $hyoo_sketch_option
+				name @ \Height
+				Control <= Height_control $mol_number
+					value? <=> height?
+			<= Option_left $hyoo_sketch_option
+				name @ \Left
+				Control <= Left_control $mol_number
+					value? <=> left?
+			<= Option_top $hyoo_sketch_option
+				name @ \Top
+				Control <= Top_control $mol_number
+					value? <=> top?
+			<= Option_order $hyoo_sketch_option
+				name @ \Order
+				Control <= Order_control $mol_number
+					value? <=> order?
+- $hyoo_sketch_element2 $mol_view
+	element $hyoo_sketch_element2_model
+		width? => width?
+		height? => height?
+		x? => x?
+		y? => y?
+		z? => z?
+	grid 8
+	preview false
+	style *
+		^
+		width <= width?
+		height <= height?
+		left <= x?
+		top <= y?
+		zIndex <= z_string \1
+	sub <= kinds /
+		<= Editor $hyoo_sketch_element2_editor
+			pointer_down? <=> pointer_down? null
+			focused <= focused? false
+			sub /
+				<= Wrap $mol_view
+					style *
+						maxWidth <= width?
+					sub / <= Element $mol_view
+				<= Resizer $mol_view
+					event *
+						pointerdown? <=> resize_start? null
+					sub /
+						<= Icon $mol_icon_resize_bottom_right
+		<= Preview $mol_view
+	Options $mol_form
+		form_fields <= options /
+			<= X_field $mol_form_field
+				name @ \x
+				control <= X_control $mol_number
+					value? <=> x?
+			<= Y_field $mol_form_field
+				name @ \y
+				control <= Y_control $mol_number
+					value? <=> y?
+			<= Z_field $mol_form_field
+				name @ \z
+				control <= Z_control $mol_number
+					value? <=> z?
+			<= Width_field $mol_form_field
+				name @ \width
+				control <= Width_control $mol_number
+					value? <=> width?
+			<= Height_field $mol_form_field
+				name @ \height
+				control <= Height_control $mol_number
+					value? <=> height?
+
+- $hyoo_sketch_element2_editor $mol_view
+	attr *
+		^
+		hyoo_sketch_element2_focused <= focused? false
+	event *
+		^
+		pointerdown?event <=> pointer_down?event null
+
+$mol_icon_television $mol_icon path \M21,17H3V5H21M21,3H3C1.9,3 1,3.9 1,5V17C1,18.1 1.9,19 3,19H8V21H16V19H21C22.1,19 23,18.1 23,17V5C23,3.9 22.1,3 21,3Z
+
+$mol_icon_television_play $mol_icon path \M21,3H3C1.89,3 1,3.89 1,5V17C1,18.1 1.9,19 3,19H8V21H16V19H21C22.1,19 23,18.1 23,17V5C23,3.89 22.1,3 21,3M21,17H3V5H21M16,11L9,15V7
+
+$mol_icon_play $mol_icon path \M8,5.14V19.14L19,12.14L8,5.14Z
+
+$mol_icon_play_circle $mol_icon path \M10,16.5V7.5L16,12M12,2C6.48,2 2,6.48 2,12C2,17.52 6.48,22 12,22C17.52,22 22,17.52 22,12C22,6.48 17.52,2 12,2Z
 
 $mol_check_list $mol_view
 	Option* $mol_check
@@ -301,7 +416,7 @@ $hyoo_sketch_editor_paper $mol_view
 	attr *
 		^
 		hyoo_sketch_editor_paper_preview <= preview false
-		hyoo_sketch_editor_paper_focused <= focused? false
+		hyoo_sketch_editor_paper_focused <= selected? false
 
 $hyoo_sketch_editor $mol_page
 	page $hyoo_sketch_page
@@ -310,7 +425,11 @@ $hyoo_sketch_editor $mol_page
 		width? => width?
 		height? => height?
 		grid? => grid?
-	focus? \
+	style *
+		^
+		minWidth 340
+	selected? \
+	title <= editor_title \
 	tools /
 		<= Project_demo $mol_link
 			hint @ \Start demo from this page
@@ -322,18 +441,17 @@ $hyoo_sketch_editor $mol_page
 			hint @ \Switch page to preview
 			Icon <= Page_preview_icon $mol_icon_play_circle
 			checked?val <=> preview?val false
-	head /
-		<= Title $mol_string
-			hint @ \Page name
-			value? <=> page_name? \
-		<= Tools
 	Page_options /
+		<= Page_name $hyoo_sketch_option
+			name @ \Name
+			Control <= Name $mol_string
+				value? <=> page_name? \
 		<= Page_width $hyoo_sketch_option
-			name @ \W
+			name @ \Width
 			Control <= Width $mol_number
 				value? <=> width?
 		<= Page_height $hyoo_sketch_option
-			name @ \H
+			name @ \Height
 			Control <= Height $mol_number
 				value? <=> height?
 		<= Page_grid $hyoo_sketch_option
@@ -352,8 +470,13 @@ $hyoo_sketch_editor $mol_page
 			height <= height
 			grid <= grid
 			preview <= preview
-			focused? <=> paper_focused? false
-			sub / <= Elements $mol_view
+			selected? <=> paper_selected? false
+			sub / <= Elements $mol_view sub <= elements /
+	Element* $hyoo_sketch_element_base
+		element <= element* $hyoo_sketch_element
+		grid <= grid
+		selected? <=> element_selected*? false
+		editing <= editing true
 
 - $hyoo_sketch_page $mol_page
 	head /
@@ -449,6 +572,21 @@ $hyoo_sketch_option_page $mol_page
 		title <= tab_title* \
 		rows <= tab_rows* /$mol_view
 
+$hyoo_sketch_palette $mol_page
+	page $hyoo_sketch_page
+	title @ \Palette
+	body /
+		<= List $mol_list
+			rows <= rows /
+				<= Row*0 $mol_button_minor
+					title <= row_title* \
+					click? <=> element_add*? null
+	type_list /
+		\text
+		\button
+		\link
+		\input
+
 $hyoo_sketch $mol_book2
 	domain $hyoo_sketch_domain
 		user => user
@@ -465,8 +603,10 @@ $hyoo_sketch $mol_book2
 		<= Editor $hyoo_sketch_editor
 			page <= page_opened $hyoo_sketch_page
 			Options => Options
-		<= Option $hyoo_sketch_option_page
+		<= Option_page $hyoo_sketch_option_page
 			Options <= Options
+		<= Palette $hyoo_sketch_palette
+			page <= page_opened
 		- <= Page_page $hyoo_sketch_page
 			page <= page $hyoo_sketch_page_model
 			Element_options => Element_focused_options
