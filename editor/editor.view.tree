@@ -5,7 +5,11 @@ $hyoo_sketch_editor $mol_page
 		width? => width?
 		height? => height?
 		grid? => grid?
-	focus? \
+	style *
+		^
+		minWidth 340
+	selected? \
+	title <= editor_title \
 	tools /
 		<= Project_demo $mol_link
 			hint @ \Start demo from this page
@@ -17,18 +21,17 @@ $hyoo_sketch_editor $mol_page
 			hint @ \Switch page to preview
 			Icon <= Page_preview_icon $mol_icon_play_circle
 			checked?val <=> preview?val false
-	head /
-		<= Title $mol_string
-			hint @ \Page name
-			value? <=> page_name? \
-		<= Tools
 	Page_options /
+		<= Page_name $hyoo_sketch_option
+			name @ \Name
+			Control <= Name $mol_string
+				value? <=> page_name? \
 		<= Page_width $hyoo_sketch_option
-			name @ \W
+			name @ \Width
 			Control <= Width $mol_number
 				value? <=> width?
 		<= Page_height $hyoo_sketch_option
-			name @ \H
+			name @ \Height
 			Control <= Height $mol_number
 				value? <=> height?
 		<= Page_grid $hyoo_sketch_option
@@ -47,8 +50,13 @@ $hyoo_sketch_editor $mol_page
 			height <= height
 			grid <= grid
 			preview <= preview
-			focused? <=> paper_focused? false
-			sub / <= Elements $mol_view
+			selected? <=> paper_selected? false
+			sub / <= Elements $mol_view sub <= elements /
+	Element* $hyoo_sketch_element_base
+		element <= element* $hyoo_sketch_element
+		grid <= grid
+		selected? <=> element_selected*? false
+		editing <= editing true
 
 - $hyoo_sketch_page $mol_page
 	head /

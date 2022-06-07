@@ -1,0 +1,14 @@
+$hyoo_sketch_palette $mol_page
+	page $hyoo_sketch_page
+	title @ \Palette
+	body /
+		<= List $mol_list
+			rows <= rows /
+				<= Row*0 $mol_button_minor
+					title <= row_title* \
+					click? <=> element_add*? null
+	type_list /
+		\text
+		\button
+		\link
+		\input

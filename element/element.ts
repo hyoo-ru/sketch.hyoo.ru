@@ -1,25 +1,5 @@
 namespace $ {
 
-	export class $hyoo_sketch_element_meta extends $mol_object2 {
-
-		domain(): $hyoo_sketch_domain {
-			return this.$.$mol_fail( new Error( 'Not defined' ) )
-		}
-
-		state(): $mol_state_shared {
-			return this.$.$mol_fail( new Error( 'Not defined' ) )
-		}
-
-		name( next?: string ) {
-			return String( this.state().sub( 'name' ).value( next ) ?? '' )
-		}
-
-		type( next?: string ) {
-			return String( this.state().sub( 'type' ).value( next ) ?? '' )
-		}
-
-	}
-
 	export class $hyoo_sketch_element extends $mol_object2 {
 		
 		id(): string {
@@ -40,16 +20,45 @@ namespace $ {
 			return this.domain().page( String(id) )
 		}
 
-		@ $mol_mem
-		meta() {
-			const obj = new $hyoo_sketch_element_meta
-			obj.state = $mol_const( this.state() )
-			obj.domain = $mol_const( this.domain() )
-			return obj
+		name( next?: string ) {
+			return String( this.state().sub( 'name' ).value( next ) ?? '' )
+		}
+
+		type( next?: string ) {
+			return String( this.state().sub( 'type' ).value( next ) ?? '' )
+		}
+
+		width(next?: number) {
+			return Number(this.state().sub('width').value(next) ?? 0)
+		}
+
+		height(next?: number) {
+			return Number(this.state().sub('height').value(next) ?? 0)
+		}
+
+		top(next?: number) {
+			return Number(this.state().sub('top').value(next) ?? 0)
+		}
+
+		left(next?: number) {
+			return Number(this.state().sub('left').value(next) ?? 0)
+		}
+
+		order(next?: number) {
+			return Number(this.state().sub('order').value(next) ?? 0)
 		}
 
 		duplicate() {
-			return this
+			const obj = this.domain().element( $mol_guid() )
+			obj.page( this.page() )
+			obj.name( this.name() + '*' )
+			obj.type( this.type() )
+			obj.width( this.width() )
+			obj.height( this.height() )
+			obj.top( this.top() )
+			obj.left( this.left() )
+			obj.order( this.order() )
+			return obj
 		}
 	}
 	

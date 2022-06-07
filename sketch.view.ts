@@ -29,8 +29,9 @@ namespace $.$$ {
 				this.Projects(),
 				... this.arg().project ? [this.Project()] : [],
 				... this.arg().page ? [
+					this.Palette(),
 					this.Editor(),
-					this.Option(),
+					this.Option_page(),
 				] : [],
 			]
 		}

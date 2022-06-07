@@ -32,7 +32,7 @@ namespace $ {
 			obj.id = $mol_const( id )
 			obj.domain = $mol_const( this )
 			
-			return obj.meta().type()
+			return obj.type()
 		}
 
 		@ $mol_mem_key

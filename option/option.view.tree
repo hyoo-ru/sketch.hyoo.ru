@@ -1,4 +1,4 @@
-$hyoo_sketch_option $mol_bar
+$hyoo_sketch_option $mol_row
 	sub /
 		<= Name $mol_view sub / <= name \
 		<= Control $mol_view

@@ -7,7 +7,7 @@ namespace $.$$ {
 		}
 
 		pointer_down() {
-			this.focused( true )
+			this.selected( true )
 		}
 
 	}

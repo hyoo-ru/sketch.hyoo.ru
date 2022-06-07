@@ -7,36 +7,21 @@ namespace $.$$ {
 
 		alignItems: 'center',
 
-		margin: {
-			left: $mol_gap.block,
-			right: $mol_gap.block,
+		margin: 0,
+		padding: 0,
+
+		flex: {
+			wrap: 'nowrap',
 		},
 
 		Name: {
 			margin: {
 				right: $mol_gap.space,
-			},	
+			},
+			flex: {
+				basis: rem(5),
+			},
 		},
-
-		// Control: {
-		// 	$mol_number: {
-		// 		maxWidth: rem(7),
-		// 	},
-
-		// 	$mol_string: {
-		// 		maxWidth: rem(12),
-		// 	},
-
-		// 	$mol_switch: {
-		// 		margin: {
-		// 			left: $mol_gap.space,
-		// 		},
-		// 		$mol_check: {
-		// 			alignItems: 'center',
-		// 		},
-		// 	},
-
-		// },
 
 	} )
 

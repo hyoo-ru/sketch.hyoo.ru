@@ -7,7 +7,7 @@ namespace $.$$ {
 
 		Body: {
 			padding: $mol_gap.block,
-			// justifyContent: 'center',
+			alignItems: 'center',
 		},
 
 	} )

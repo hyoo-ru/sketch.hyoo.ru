@@ -2,32 +2,60 @@ namespace $.$$ {
 
 	export class $hyoo_sketch_editor extends $.$hyoo_sketch_editor {
 
+		element(id: string) {
+			return this.domain().element(id)
+		}
+
+		elements() {
+			return this.page().elements().map( obj => this.Element( obj.id() ) )
+		}
+
 		page_name(next?: string) {
 			return this.page().name(next)
 		}
 
-		@ $mol_mem
-		focus(id?: string) {
-			return this.$.$mol_state_arg.value('focus', id) ?? ''
+		editor_title() {
+			return `${this.project().name()} - ${this.page().name()}`
 		}
 
-		paper_focused(next?: boolean) {
-			if (next === undefined) {
-				return this.focus() === this.page().id()
-			}
+		@ $mol_mem
+		selected(id?: string) {
+			return this.$.$mol_state_arg.value('selected', id) ?? ''
+		}
 
-			this.focus( this.page().id() )
-			return next
+		paper_selected(next?: boolean) {
+			return this.element_selected( this.page().id(), next )
+		}
+
+		@ $mol_mem_key
+		element_selected(id: string, next?: boolean) {
+			if (this.preview()) return false
+
+			if (next !== undefined) {
+				if (next) this.selected(id)
+				return true
+			}
+			return id === this.selected()
 		}
 
 		Options() {
-			if (this.paper_focused() || !this.focus()) {
+			if (this.paper_selected() || !this.selected()) {
 				return {
 					'page': this.Page_options(),
 				}
 			}
+
+			if (this.selected()) {
+				return this.Element( this.selected() ).Options()
+			}
+
 			return {}
 		}
+
+		editing() {
+			return !this.preview()
+		}
+
 
 	}
 

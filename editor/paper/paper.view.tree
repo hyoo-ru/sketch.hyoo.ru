@@ -11,4 +11,4 @@ $hyoo_sketch_editor_paper $mol_view
 	attr *
 		^
 		hyoo_sketch_editor_paper_preview <= preview false
-		hyoo_sketch_editor_paper_focused <= focused? false
+		hyoo_sketch_editor_paper_focused <= selected? false
