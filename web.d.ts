@@ -2405,6 +2405,7 @@ declare namespace $ {
         attr(): {
             hyoo_sketch_element_base_selected: boolean;
             hyoo_sketch_element_base_editing: boolean;
+            tabindex: string;
         };
         event(): {
             pointerdown: (next?: any) => any;
@@ -2463,12 +2464,12 @@ declare namespace $.$$ {
         height(next?: number): number;
         top(next?: number): number;
         left(next?: number): number;
-        duplicate(event: KeyboardEvent): void;
-        delete(): void;
-        move_up(): void;
-        move_down(): void;
-        move_left(): void;
-        move_right(): void;
+        duplicate(event: KeyboardEvent): $hyoo_sketch_element;
+        delete(event: KeyboardEvent): void;
+        move_up(event: KeyboardEvent): void;
+        move_down(event: KeyboardEvent): void;
+        move_left(event: KeyboardEvent): void;
+        move_right(event: KeyboardEvent): void;
     }
 }
 
@@ -2590,6 +2591,7 @@ declare namespace $.$$ {
         padding(next?: string): string;
         align_ver(next?: string): string;
         align_hor(next?: string): string;
+        size(next?: string): string;
     }
 }
 

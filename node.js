@@ -7908,7 +7908,8 @@ var $;
             return {
                 ...super.attr(),
                 hyoo_sketch_element_base_selected: this.selected(),
-                hyoo_sketch_element_base_editing: this.editing()
+                hyoo_sketch_element_base_editing: this.editing(),
+                tabindex: "0"
             };
         }
         event() {
@@ -8222,6 +8223,7 @@ var $;
         $mol_style_define($.$hyoo_sketch_element_base, {
             position: 'absolute',
             transition: 'none',
+            outline: 'none',
             flex: {
                 grow: 1,
             },
@@ -8344,20 +8346,26 @@ var $;
             duplicate(event) {
                 const copy = this.element().duplicate();
                 this.page().element_add(copy);
+                return copy;
             }
-            delete() {
+            delete(event) {
+                event.preventDefault();
                 this.page().element_delete(this.element());
             }
-            move_up() {
+            move_up(event) {
+                event.preventDefault();
                 this.top(this.top() - this.page().grid());
             }
-            move_down() {
+            move_down(event) {
+                event.preventDefault();
                 this.top(this.top() + this.page().grid());
             }
-            move_left() {
+            move_left(event) {
+                event.preventDefault();
                 this.left(this.left() - this.page().grid());
             }
-            move_right() {
+            move_right(event) {
+                event.preventDefault();
                 this.left(this.left() + this.page().grid());
             }
         }
@@ -8735,7 +8743,7 @@ var $;
         size(next) {
             if (next !== undefined)
                 return next;
-            return "1rem";
+            return "1.0rem";
         }
         Size_control() {
             const obj = new this.$.$mol_switch();
@@ -8837,6 +8845,9 @@ var $;
             }
             align_hor(next) {
                 return String(this.state().sub('text_align_hor').value(next) ?? super.align_hor());
+            }
+            size(next) {
+                return String(this.state().sub('text_size').value(next) ?? super.size());
             }
         }
         $$.$hyoo_sketch_element_text = $hyoo_sketch_element_text;
