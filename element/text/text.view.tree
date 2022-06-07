@@ -1,0 +1,45 @@
+$hyoo_sketch_element_text $hyoo_sketch_element_base
+	Element $mol_paragraph
+		style *
+			padding <= padding_style \0px
+			justifyContent <= align_hor
+			alignItems <= align_ver
+			fontSize <= size
+		title <= text? \Text
+	Options *
+		^
+		text <= Text_options /
+			<= Text_option $hyoo_sketch_option
+				name @ \Text
+				Control <= Text_control $mol_string
+					value? <=> text?
+			<= Padding_option $hyoo_sketch_option
+				name @ \Padding
+				Control <= Padding_control $mol_switch
+					value? <=> padding? \text
+					options *
+						none \None
+						text \Text
+						block \Block
+						space \Space
+			<= Align_hor_option $hyoo_sketch_option
+				name @ \Align hor
+				Control <= Align_hor_control $mol_switch
+					value? <=> align_hor? \start
+					options <= align_options
+			<= Align_ver_option $hyoo_sketch_option
+				name @ \Align ver
+				Control <= Align_ver_control $mol_switch
+					value? <=> align_ver? \start
+					options <= align_options *
+						start \Start
+						center \Center
+						end \End
+			<= Size_option $hyoo_sketch_option
+				name @ \Size
+				Control <= Size_control $mol_switch
+					value? <=> size? \1rem
+					options *
+						0.75rem \Muted
+						1.0rem \Normal
+						1.25rem \Accent

@@ -25,7 +25,7 @@ namespace $ {
 		}
 
 		type( next?: string ) {
-			return String( this.state().sub( 'type' ).value( next ) ?? '' )
+			return String( this.state().sub( 'type' ).value( next ) ?? 'base' )
 		}
 
 		width(next?: number) {

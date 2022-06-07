@@ -7,6 +7,7 @@ namespace $.$$ {
 			return Object.keys( this.Options() )
 		}
 
+		@ $mol_mem
 		items() {
 			if (!this.keys().length) return []
 

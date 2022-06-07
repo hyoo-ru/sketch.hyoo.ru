@@ -6,6 +6,19 @@ namespace $.$$ {
 			return this.domain().element(id)
 		}
 
+		@ $mol_mem_key
+		Element(id: string) {
+			const type = this.element(id).type()
+			const obj = this[ `Element_${type}` ](id)
+			
+			obj.element = () => this.element(id)
+			obj.grid = () => this.grid()
+			obj.selected = (next?: any) => this.element_selected(id, next)
+			obj.editing = () => this.editing()
+			
+			return obj
+		}
+
 		elements() {
 			return this.page().elements().map( obj => this.Element( obj.id() ) )
 		}

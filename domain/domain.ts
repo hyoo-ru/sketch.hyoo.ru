@@ -27,15 +27,6 @@ namespace $ {
 		}
 
 		@ $mol_mem_key
-		element_type( id: string ) {
-			const obj = new $hyoo_sketch_element
-			obj.id = $mol_const( id )
-			obj.domain = $mol_const( this )
-			
-			return obj.type()
-		}
-
-		@ $mol_mem_key
 		element( id: string ) {
 			const obj = new $hyoo_sketch_element
 			obj.id = $mol_const( id )

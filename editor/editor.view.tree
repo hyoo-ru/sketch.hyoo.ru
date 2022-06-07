@@ -52,11 +52,9 @@ $hyoo_sketch_editor $mol_page
 			preview <= preview
 			selected? <=> paper_selected? false
 			sub / <= Elements $mol_view sub <= elements /
-	Element* $hyoo_sketch_element_base
-		element <= element* $hyoo_sketch_element
-		grid <= grid
-		selected? <=> element_selected*? false
-		editing <= editing true
+	Element_base* $hyoo_sketch_element_base
+	Element_text* $hyoo_sketch_element_text
+	
 
 - $hyoo_sketch_page $mol_page
 	head /

@@ -1,6 +1,7 @@
 $hyoo_sketch_element_base $mol_view
 	element $hyoo_sketch_element
 		domain => domain
+	state $mol_state_shared
 	style *
 		^
 		width <= width? 320

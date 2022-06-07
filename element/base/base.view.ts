@@ -2,6 +2,10 @@ namespace $.$$ {
 
 	export class $hyoo_sketch_element_base extends $.$hyoo_sketch_element_base {
 
+		state() {
+			return this.element().state()
+		}
+
 		switch() {
 			return this.editing() ? [this.Editor()] : [this.Element()]
 		}
