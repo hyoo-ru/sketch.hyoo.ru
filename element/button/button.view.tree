@@ -2,10 +2,15 @@ $hyoo_sketch_element_button $hyoo_sketch_element_base
 	Button_major $mol_button_major
 		style * width \100%
 		title <= button_title
+		click? <=> click? null
 	Button_minor $mol_button_minor
 		style * width \100%
 		title <= button_title
+		click? <=> click?
 	Element $mol_button
+	Nav $hyoo_sketch_element_nav
+		element <= element
+		nav_options => nav_options
 	Options *
 		^
 		button <= button_options /
@@ -20,3 +25,4 @@ $hyoo_sketch_element_button $hyoo_sketch_element_base
 					options *
 						major @ \Major
 						minor @ \Minor
+		nav <= nav_options
