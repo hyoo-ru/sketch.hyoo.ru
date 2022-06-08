@@ -2452,13 +2452,18 @@ declare namespace $ {
         Options(): {
             position: readonly any[];
         };
-        plugins(): readonly any[];
         width(next?: any): number;
         height(next?: any): number;
         left(next?: any): number;
         top(next?: any): number;
         order_string(next?: any): string;
         Element(): $mol_view;
+        duplicate(next?: any): $$.$hyoo_sketch_element_base;
+        delete(next?: any): any;
+        move_up(next?: any): any;
+        move_down(next?: any): any;
+        move_left(next?: any): any;
+        move_right(next?: any): any;
         pointer_down(next?: any): any;
         selected(next?: any): boolean;
         editing(): boolean;
@@ -2476,13 +2481,6 @@ declare namespace $ {
         Order_control(): $$.$mol_number;
         Option_order(): $hyoo_sketch_option;
         Position_options(): readonly any[];
-        duplicate(next?: any): any;
-        delete(next?: any): any;
-        move_left(next?: any): any;
-        move_up(next?: any): any;
-        move_right(next?: any): any;
-        move_down(next?: any): any;
-        Hotkey(): $$.$mol_hotkey;
     }
     class $hyoo_sketch_element_base_editor extends $mol_view {
         attr(): {
@@ -2490,8 +2488,16 @@ declare namespace $ {
             hyoo_sketch_element_base_editing: boolean;
             tabindex: string;
         };
+        plugins(): readonly any[];
         selected(next?: any): boolean;
         editing(): boolean;
+        duplicate(next?: any): any;
+        delete(next?: any): any;
+        move_left(next?: any): any;
+        move_up(next?: any): any;
+        move_right(next?: any): any;
+        move_down(next?: any): any;
+        Hotkey(): $$.$mol_hotkey;
     }
 }
 
@@ -2504,7 +2510,7 @@ declare namespace $.$$ {
 declare namespace $.$$ {
     class $hyoo_sketch_element_base extends $.$hyoo_sketch_element_base {
         state(): $mol_state_shared;
-        switch(): $mol_view[];
+        switch(): $mol_view[] | $hyoo_sketch_element_base_editor[];
         grid_near(value: number): number;
         pointer_down(event: PointerEvent): void;
         resize_start(event: PointerEvent): void;
@@ -2754,8 +2760,8 @@ declare namespace $.$$ {
     class $hyoo_sketch_editor extends $.$hyoo_sketch_editor {
         element(id: string): $hyoo_sketch_element;
         Element(id: string): $hyoo_sketch_element_base;
-        element_render(obj: $hyoo_sketch_element_base): $mol_view;
-        elements(): $mol_view[];
+        element_render(obj: $hyoo_sketch_element_base): $mol_view | $hyoo_sketch_element_base_editor;
+        elements(): ($mol_view | $hyoo_sketch_element_base_editor)[];
         page_name(next?: string): string;
         editor_title(): string;
         selected(id?: string): string;

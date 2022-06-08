@@ -286,8 +286,14 @@ $hyoo_sketch_element_base $mol_view
 		style * ^ position
 		sub / <= Element $mol_view
 	Editor $hyoo_sketch_element_base_editor
-		style * ^ position
+		duplicate? <=> duplicate? $hyoo_sketch_element_base
+		delete? <=> delete? null
+		move_up? <=> move_up? null
+		move_down? <=> move_down? null
+		move_left? <=> move_left? null
+		move_right? <=> move_right? null
 		event * pointerdown? <=> pointer_down? null
+		style * ^ position
 		selected <= selected? false
 		editing <= editing true
 		sub /
@@ -317,6 +323,13 @@ $hyoo_sketch_element_base $mol_view
 				name @ \Order
 				Control <= Order_control $mol_number
 					value? <=> order?
+
+$hyoo_sketch_element_base_editor $mol_view
+	attr *
+		^
+		hyoo_sketch_element_base_selected <= selected? false
+		hyoo_sketch_element_base_editing <= editing true
+		tabindex \0
 	plugins /
 		<= Hotkey $mol_hotkey
 			key *
@@ -326,13 +339,6 @@ $hyoo_sketch_element_base $mol_view
 				up? <=> move_up? null
 				right? <=> move_right? null
 				down? <=> move_down? null
-
-$hyoo_sketch_element_base_editor $mol_view
-	attr *
-		^
-		hyoo_sketch_element_base_selected <= selected? false
-		hyoo_sketch_element_base_editing <= editing true
-		tabindex \0
 
 $mol_paragraph $mol_view
 	line_height 24

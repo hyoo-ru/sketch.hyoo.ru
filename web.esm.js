@@ -7528,11 +7528,17 @@ var $;
         }
         Editor() {
             const obj = new this.$.$hyoo_sketch_element_base_editor();
-            obj.style = () => ({
-                ...this.position()
-            });
+            obj.duplicate = (next) => this.duplicate(next);
+            obj.delete = (next) => this.delete(next);
+            obj.move_up = (next) => this.move_up(next);
+            obj.move_down = (next) => this.move_down(next);
+            obj.move_left = (next) => this.move_left(next);
+            obj.move_right = (next) => this.move_right(next);
             obj.event = () => ({
                 pointerdown: (next) => this.pointer_down(next)
+            });
+            obj.style = () => ({
+                ...this.position()
             });
             obj.selected = () => this.selected();
             obj.editing = () => this.editing();
@@ -7546,11 +7552,6 @@ var $;
             return {
                 position: this.Position_options()
             };
-        }
-        plugins() {
-            return [
-                this.Hotkey()
-            ];
         }
         width(next) {
             if (next !== undefined)
@@ -7580,6 +7581,37 @@ var $;
         Element() {
             const obj = new this.$.$mol_view();
             return obj;
+        }
+        duplicate(next) {
+            if (next !== undefined)
+                return next;
+            const obj = new this.$.$hyoo_sketch_element_base();
+            return obj;
+        }
+        delete(next) {
+            if (next !== undefined)
+                return next;
+            return null;
+        }
+        move_up(next) {
+            if (next !== undefined)
+                return next;
+            return null;
+        }
+        move_down(next) {
+            if (next !== undefined)
+                return next;
+            return null;
+        }
+        move_left(next) {
+            if (next !== undefined)
+                return next;
+            return null;
+        }
+        move_right(next) {
+            if (next !== undefined)
+                return next;
+            return null;
         }
         pointer_down(next) {
             if (next !== undefined)
@@ -7677,48 +7709,6 @@ var $;
                 this.Option_order()
             ];
         }
-        duplicate(next) {
-            if (next !== undefined)
-                return next;
-            return null;
-        }
-        delete(next) {
-            if (next !== undefined)
-                return next;
-            return null;
-        }
-        move_left(next) {
-            if (next !== undefined)
-                return next;
-            return null;
-        }
-        move_up(next) {
-            if (next !== undefined)
-                return next;
-            return null;
-        }
-        move_right(next) {
-            if (next !== undefined)
-                return next;
-            return null;
-        }
-        move_down(next) {
-            if (next !== undefined)
-                return next;
-            return null;
-        }
-        Hotkey() {
-            const obj = new this.$.$mol_hotkey();
-            obj.key = () => ({
-                D: (next) => this.duplicate(next),
-                delete: (next) => this.delete(next),
-                left: (next) => this.move_left(next),
-                up: (next) => this.move_up(next),
-                right: (next) => this.move_right(next),
-                down: (next) => this.move_down(next)
-            });
-            return obj;
-        }
     }
     __decorate([
         $mol_mem
@@ -7756,6 +7746,24 @@ var $;
     __decorate([
         $mol_mem
     ], $hyoo_sketch_element_base.prototype, "Element", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_base.prototype, "duplicate", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_base.prototype, "delete", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_base.prototype, "move_up", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_base.prototype, "move_down", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_base.prototype, "move_left", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_base.prototype, "move_right", null);
     __decorate([
         $mol_mem
     ], $hyoo_sketch_element_base.prototype, "pointer_down", null);
@@ -7801,27 +7809,6 @@ var $;
     __decorate([
         $mol_mem
     ], $hyoo_sketch_element_base.prototype, "Option_order", null);
-    __decorate([
-        $mol_mem
-    ], $hyoo_sketch_element_base.prototype, "duplicate", null);
-    __decorate([
-        $mol_mem
-    ], $hyoo_sketch_element_base.prototype, "delete", null);
-    __decorate([
-        $mol_mem
-    ], $hyoo_sketch_element_base.prototype, "move_left", null);
-    __decorate([
-        $mol_mem
-    ], $hyoo_sketch_element_base.prototype, "move_up", null);
-    __decorate([
-        $mol_mem
-    ], $hyoo_sketch_element_base.prototype, "move_right", null);
-    __decorate([
-        $mol_mem
-    ], $hyoo_sketch_element_base.prototype, "move_down", null);
-    __decorate([
-        $mol_mem
-    ], $hyoo_sketch_element_base.prototype, "Hotkey", null);
     $.$hyoo_sketch_element_base = $hyoo_sketch_element_base;
     class $hyoo_sketch_element_base_editor extends $mol_view {
         attr() {
@@ -7832,6 +7819,11 @@ var $;
                 tabindex: "0"
             };
         }
+        plugins() {
+            return [
+                this.Hotkey()
+            ];
+        }
         selected(next) {
             if (next !== undefined)
                 return next;
@@ -7840,10 +7832,73 @@ var $;
         editing() {
             return true;
         }
+        duplicate(next) {
+            if (next !== undefined)
+                return next;
+            return null;
+        }
+        delete(next) {
+            if (next !== undefined)
+                return next;
+            return null;
+        }
+        move_left(next) {
+            if (next !== undefined)
+                return next;
+            return null;
+        }
+        move_up(next) {
+            if (next !== undefined)
+                return next;
+            return null;
+        }
+        move_right(next) {
+            if (next !== undefined)
+                return next;
+            return null;
+        }
+        move_down(next) {
+            if (next !== undefined)
+                return next;
+            return null;
+        }
+        Hotkey() {
+            const obj = new this.$.$mol_hotkey();
+            obj.key = () => ({
+                D: (next) => this.duplicate(next),
+                delete: (next) => this.delete(next),
+                left: (next) => this.move_left(next),
+                up: (next) => this.move_up(next),
+                right: (next) => this.move_right(next),
+                down: (next) => this.move_down(next)
+            });
+            return obj;
+        }
     }
     __decorate([
         $mol_mem
     ], $hyoo_sketch_element_base_editor.prototype, "selected", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_base_editor.prototype, "duplicate", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_base_editor.prototype, "delete", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_base_editor.prototype, "move_left", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_base_editor.prototype, "move_up", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_base_editor.prototype, "move_right", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_base_editor.prototype, "move_down", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_base_editor.prototype, "Hotkey", null);
     $.$hyoo_sketch_element_base_editor = $hyoo_sketch_element_base_editor;
 })($ || ($ = {}));
 //hyoo/sketch/element/base/-view.tree/base.view.tree.ts
