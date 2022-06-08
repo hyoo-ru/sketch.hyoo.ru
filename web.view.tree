@@ -297,7 +297,7 @@ $hyoo_sketch_element_base $mol_view
 		selected <= selected? false
 		editing <= editing true
 		sub /
-			<= Element
+			<= Element_wrap $mol_view sub / <= Element
 			<= Resize $mol_view
 				event * pointerdown? <=> resize_start? null
 				sub / <= Resize_icon $mol_icon_resize_bottom_right
@@ -419,11 +419,11 @@ $hyoo_sketch_element_icon $hyoo_sketch_element_base
 	Element $mol_view
 		sub /
 			<= Icon $mol_icon
-				path <= path \
+				path <= icon_path \
 	Not_found_icon $mol_icon_help_rhombus_outline
 	Options *
 		^
-		icon <= Icon_options /
+		icon <= icon_options /
 			<= Icon_name_option $hyoo_sketch_option
 				name @ \Name
 				Control <= Icon_name_control $mol_string
@@ -563,7 +563,7 @@ $hyoo_sketch_element_nav $hyoo_sketch_element_base
 			<= Nav_target_link_option $hyoo_sketch_option
 				name @ \Target link
 				Control <= Nav_target_link_control $mol_string
-					value? <=> nav_target_link? \
+					value? <=> nav_target_link? \https://mol.hyoo.ru
 
 $mol_button_major $mol_button_typed
 	attr *
@@ -573,16 +573,23 @@ $mol_button_major $mol_button_typed
 $hyoo_sketch_element_button $hyoo_sketch_element_base
 	Button_major $mol_button_major
 		style * width \100%
-		title <= button_title
 		click? <=> click? null
+		sub <= button_sub /
+			<= Button_icon $mol_icon
+			<= button_title
 	Button_minor $mol_button_minor
 		style * width \100%
 		title <= button_title
-		click? <=> click?
+		sub <= button_sub /
+			<= Button_icon $mol_icon
+			<= button_title
 	Element $mol_button
 	Nav $hyoo_sketch_element_nav
 		element <= element
 		nav_options => nav_options
+	Icon $hyoo_sketch_element_icon
+		element <= element
+		icon_options => icon_options
 	Options *
 		^
 		button <= button_options /
@@ -598,6 +605,117 @@ $hyoo_sketch_element_button $hyoo_sketch_element_base
 						major @ \Major
 						minor @ \Minor
 		nav <= nav_options
+		icon <= icon_options
+
+$mol_password $mol_view
+	type?val \password
+	sub <= content /
+		<= Pass $mol_string
+			type <= type
+			hint <= hint \
+			value?val <=> value?val \
+			submit?event <=> submit?event null
+			enabled <= enabled true
+		<= Show $mol_check_icon
+			checked?val <=> checked?val true
+			Icon <= Show_icon $mol_icon_eye
+
+$mol_icon_cross $mol_icon path \M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z
+
+$mol_search $mol_pop
+	query?val \
+	suggests /string
+	plugins /$mol_plugin
+		^
+		<= Hotkey $mol_hotkey
+			key * escape?val <=> clear?val null
+		<= Nav $mol_nav
+			keys_y <= nav_components /$mol_view
+			current_y?component <=> nav_focused?component null
+	showed?val <=> suggests_showed?val false
+	align_hor \right
+	Anchor $mol_view
+		sub <= anchor_content /
+			<= Query $mol_string
+				value?val <=> query?val \
+				hint <= hint @ \Search...
+				submit?event <=> submit?event null
+				enabled <= enabled true
+			<= Clear $mol_button_minor
+				hint @ \Clear
+				click?event <=> clear?event null
+				sub /
+					<= Clear_icon $mol_icon_cross
+	bubble_content /$mol_view_content
+		<= Menu $mol_list
+			rows <= menu_items /$mol_view
+	Suggest* $mol_button_minor
+		click?event <=> suggest_select*?event null
+		sub <= suggest_content* /$mol_view_content
+			<= Suggest_label* $mol_dimmer
+				haystack <= suggest_label* \
+				needle <= query?val \
+
+$hyoo_sketch_element_input $hyoo_sketch_element_base
+	String $mol_string
+		hint <= input_hint
+		value? <=> input_text?
+		enabled <= input_enabled_bool true
+	Number $mol_number
+		value? <=> input_number? 0
+		enabled <= input_enabled_bool
+	Password $mol_password
+		hint <= input_hint
+		value? <=> input_text?
+		enabled <= input_enabled_bool
+	Search $mol_search
+		query? <=> input_text?
+		enabled <= input_enabled_bool
+	Element $mol_view
+	Options *
+		^
+		input <= input_options /
+			<= Input_type_option $hyoo_sketch_option
+				name @ \Type
+				Control <= Input_type_control $mol_switch
+					value? <=> input_type? \String
+					options *
+						String @ \String
+						Number @ \Number
+						Password @ \Password
+						Search @ \Search
+			<= Input_hint_option $hyoo_sketch_option
+				name @ \Place holder
+				Control <= Input_hint_control $mol_string
+					value? <=> input_hint? \Type here
+			<= Input_text_option $hyoo_sketch_option
+				name @ \Text
+				Control <= Input_text_control $mol_string
+					value? <=> input_text? \
+			<= Input_enabled_option $hyoo_sketch_option
+				name @ \Enabled
+				Control <= Input_enabled_control $mol_switch
+					value? <=> input_enabled? \on
+					options *
+						on @ \On
+						off @ \Off
+
+$hyoo_sketch_element_link $hyoo_sketch_element_base
+	Element $mol_link
+		uri \#
+		hint <= link_hint
+		title <= link_title
+	Options *
+		^
+		link <= link_options /
+			<= Link_hint_option $hyoo_sketch_option
+				name @ \Hint
+				Control <= Link_hint_control $mol_string
+					value? <=> link_hint? \I am link
+			<= Link_title_option $hyoo_sketch_option
+				name @ \Title
+				Control <= Link_title_control $mol_string
+					value? <=> link_title? \Link
 
 $mol_icon_television $mol_icon path \M21,17H3V5H21M21,3H3C1.9,3 1,3.9 1,5V17C1,18.1 1.9,19 3,19H8V21H16V19H21C22.1,19 23,18.1 23,17V5C23,3.9 22.1,3 21,3Z
 
@@ -681,6 +799,8 @@ $hyoo_sketch_editor $mol_page
 	Element_icon* $hyoo_sketch_element_icon
 	Element_nav* $hyoo_sketch_element_nav
 	Element_button* $hyoo_sketch_element_button
+	Element_input* $hyoo_sketch_element_input
+	Element_link* $hyoo_sketch_element_link
 
 $mol_deck $mol_list
 	items /$mol_view
@@ -711,7 +831,7 @@ $hyoo_sketch_palette $mol_page
 					click? <=> element_add*? null
 	type_list /
 		\text
-		\icon
+		- \icon
 		- \nav
 		\button
 		\link
