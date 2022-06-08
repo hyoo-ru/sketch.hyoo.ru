@@ -26,7 +26,7 @@ $hyoo_sketch_element_base $mol_view
 		selected <= selected? false
 		editing <= editing true
 		sub /
-			<= Element
+			<= Element_wrap $mol_view sub / <= Element
 			<= Resize $mol_view
 				event * pointerdown? <=> resize_start? null
 				sub / <= Resize_icon $mol_icon_resize_bottom_right

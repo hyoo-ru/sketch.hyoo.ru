@@ -72,7 +72,6 @@ namespace $.$$ {
 
 		@ $mol_mem
 		preview(next?: boolean) {
-			console.log(next)
 			return this.$.$mol_state_arg.value('preview', next ? '' : null) === ''
 		}
 

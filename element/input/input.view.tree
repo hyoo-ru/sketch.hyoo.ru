@@ -4,16 +4,13 @@ $hyoo_sketch_element_input $hyoo_sketch_element_base
 		value? <=> input_text?
 		enabled <= input_enabled_bool true
 	Number $mol_number
-		style * width \100%
 		value? <=> input_text?
 		enabled <= input_enabled_bool
 	Password $mol_password
-		style * width \100%
 		hint <= input_hint
 		value? <=> input_text?
 		enabled <= input_enabled_bool
 	Search $mol_search
-		hint <= input_hint
 		query? <=> input_text?
 		enabled <= input_enabled_bool
 	Element $mol_view

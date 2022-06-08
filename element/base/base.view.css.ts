@@ -30,14 +30,24 @@ namespace $.$$ {
 
 		Preview: {
 			position: 'absolute',
+			'>': {
+				$mol_view: {
+					width: per(100),
+					height: per(100),
+				}
+			}
 		},
 
-		Element: {
+		Element_wrap: {
 			width: per(100),
 			height: per(100),
-			flex: {
-				grow: 1,
-			},
+			pointerEvents: 'none',
+			'>': {
+				$mol_view: {
+					width: per(100),
+					height: per(100),
+				}
+			}
 		},
 
 		Resize: {
