@@ -3,31 +3,27 @@ $hyoo_sketch_element_base $mol_view
 		domain => domain
 		page => page
 	state $mol_state_shared
-	style *
-		^
+	order? 1
+	grid? 8
+	position *
 		width <= width? 320
 		height <= height? 40
 		left <= left? 0
 		top <= top? 0
 		zIndex <= order_string? \
-	order? 1
-	grid? 8
-	attr *
-		^
-		hyoo_sketch_element_base_selected <= selected? false
-		hyoo_sketch_element_base_editing <= editing true
-		tabindex \0
-	event *
-		pointerdown? <=> pointer_down? null
-	sub <= switch /
-		<= Editor $mol_view
-			sub /
-				<= Element $mol_view
-				<= Resize $mol_view
-					event *
-						pointerdown? <=> resize_start? null
-					sub /
-						<= Icon $mol_icon_resize_bottom_right
+	Preview $mol_view
+		style * ^ position
+		sub / <= Element $mol_view
+	Editor $hyoo_sketch_element_base_editor
+		style * ^ position
+		event * pointerdown? <=> pointer_down? null
+		selected <= selected? false
+		editing <= editing true
+		sub /
+			<= Element
+			<= Resize $mol_view
+				event * pointerdown? <=> resize_start? null
+				sub / <= Icon $mol_icon_resize_bottom_right
 	Options *
 		position <= Position_options /
 			<= Option_width $hyoo_sketch_option
@@ -59,3 +55,10 @@ $hyoo_sketch_element_base $mol_view
 				up? <=> move_up? null
 				right? <=> move_right? null
 				down? <=> move_down? null
+
+$hyoo_sketch_element_base_editor $mol_view
+	attr *
+		^
+		hyoo_sketch_element_base_selected <= selected? false
+		hyoo_sketch_element_base_editing <= editing true
+		tabindex \0

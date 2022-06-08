@@ -16,12 +16,14 @@ namespace $.$$ {
 		}
 
 		pointer_down(event: PointerEvent) {
+			if (this.editing() === false) return
+
 			event.stopPropagation()
 			this.selected( true )
 			
 			const left = this.left()
 			const top = this.top()
-			const node = this.dom_node() as HTMLElement
+			const node = this.Editor().dom_node() as HTMLElement
 
 			const move = (e: PointerEvent) => {
 				this.left( this.grid_near( left + (e.pageX - event.pageX) ) )
@@ -44,7 +46,7 @@ namespace $.$$ {
 
 			const width = this.width();
 			const height = this.height();
-			const node = this.dom_node() as HTMLElement
+			const node = this.Resize().dom_node() as HTMLElement
 
 			const resize = (e: PointerEvent) => {
 				this.width( this.grid_near( width + (e.pageX - event.pageX) ) )

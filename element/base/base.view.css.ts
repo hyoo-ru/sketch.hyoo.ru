@@ -4,12 +4,37 @@ namespace $.$$ {
 
 	$mol_style_define( $.$hyoo_sketch_element_base , {
 
-		position: 'absolute',
-		transition: 'none',
-		outline: 'none',
+		Editor: {
+			position: 'absolute',
+			transition: 'none',
+			outline: 'none',
+			border: {
+				width: px(1),
+				style: 'dotted',
+				color: $mol_theme.control,
+			},
+			cursor: 'pointer',
+			userSelect: 'none',
+			boxSizing: 'content-box',
+			'@': {
+				hyoo_sketch_element_base_selected: {
+					'true': {
+						border: {
+							style: 'solid',
+							color: $mol_theme.current,
+						},
+					},
+				},
+			}
+		},
 
-		flex: {
-			grow: 1,
+		Preview: {
+			position: 'absolute',
+		},
+
+		Element: {
+			width: per(100),
+			height: per(100),
 		},
 
 		Resize: {
@@ -19,46 +44,12 @@ namespace $.$$ {
 			alignItems: 'center',
 			justifyContent: 'center',
 			cursor: 'nwse-resize',
+			width: px(24),
+			height: px(24),
 			$mol_icon: {
 				width: px(24),
 				height: px(24),
 				margin: 0,
-			},
-		},
-
-		Editor: {
-			width: per(100),
-			height: per(100),
-		},
-
-		Element: {
-			width: per(100),
-			height: per(100),
-		},
-
-		'@': {
-			hyoo_sketch_element_base_selected: {
-				'true': {
-					border: {
-						style: 'solid',
-						color: $mol_theme.current,
-					},
-				},
-			},
-			hyoo_sketch_element_base_editing: {
-				'true': {
-					Element: {
-						pointerEvents: 'none',
-					},
-					border: {
-						width: px(1),
-						style: 'dotted',
-						color: $mol_theme.control,
-					},
-					cursor: 'pointer',
-					userSelect: 'none',
-					boxSizing: 'content-box',
-				},
 			},
 		},
 
