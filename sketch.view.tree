@@ -14,19 +14,12 @@ $hyoo_sketch $mol_book2
 		<= Editor $hyoo_sketch_editor
 			page <= page_opened $hyoo_sketch_page
 			Options => Options
+			Element* => Element*
 		<= Option_page $hyoo_sketch_option_page
 			Options <= Options
 		<= Palette $hyoo_sketch_palette
 			page <= page_opened
-		- <= Page_page $hyoo_sketch_page
-			page <= page $hyoo_sketch_page_model
-			Element_options => Element_focused_options
-			Element_switch* => Demo_element*
-		- <= Option_page $mol_page
-			title @ \Options
-			body / <= Element_options $mol_view
-		- <= Icon_search_page $mol_icon_demo
-	- Demo_page* $mol_page
+	Demo_page* $mol_page
 		title <= demo_page_title* \
 		Head null
 		body / 

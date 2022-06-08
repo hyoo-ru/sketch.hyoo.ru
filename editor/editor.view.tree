@@ -16,7 +16,7 @@ $hyoo_sketch_editor $mol_page
 			sub / <= Project_demo_icon $mol_icon_television_play
 			target \_blank
 			arg *
-				demo <= project_demo_pages \
+				demo <= page_current_id \
 		<= Page_preview $mol_check_icon
 			hint @ \Switch page to preview
 			Icon <= Page_preview_icon $mol_icon_play_circle
