@@ -12,6 +12,14 @@
 	"$hyoo_sketch_element_base_Option_width_name": "Width",
 	"$hyoo_sketch_element_icon_Icon_name_option_name": "Name",
 	"$hyoo_sketch_element_icon_Icon_search_option_name": "Search icon here",
+	"$hyoo_sketch_element_nav_Nav_action_control_options_close": "Close page",
+	"$hyoo_sketch_element_nav_Nav_action_control_options_external": "Open external link",
+	"$hyoo_sketch_element_nav_Nav_action_control_options_none": "None",
+	"$hyoo_sketch_element_nav_Nav_action_control_options_open": "Open page",
+	"$hyoo_sketch_element_nav_Nav_action_control_options_replace": "Replace page",
+	"$hyoo_sketch_element_nav_Nav_action_option_name": "Action",
+	"$hyoo_sketch_element_nav_Nav_target_link_option_name": "Target link",
+	"$hyoo_sketch_element_nav_Nav_target_page_option_name": "Target page",
 	"$hyoo_sketch_element_text_Align_hor_option_name": "Align hor",
 	"$hyoo_sketch_element_text_Align_ver_option_name": "Align ver",
 	"$hyoo_sketch_element_text_Padding_option_name": "Padding",
@@ -27,5 +35,8 @@
 	"$hyoo_sketch_project_page_Title_hint": "Project name",
 	"$hyoo_sketch_project_page_page_name_default": "Page",
 	"$hyoo_sketch_title": "Sketch",
-	"$mol_lights_toggle_hint": "Toggle lights"
+	"$mol_lights_toggle_hint": "Toggle lights",
+	"$mol_select_Filter_hint": "Filter..",
+	"$mol_select_hint": "Pick..",
+	"$mol_select_no_options_message": "No options"
 }

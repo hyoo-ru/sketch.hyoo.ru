@@ -436,6 +436,135 @@ $hyoo_sketch_element_icon $hyoo_sketch_element_base
 					target \_blank
 					sub / <= Icon_search_icon $mol_icon_magnify
 
+$mol_pop $mol_view
+	showed?val false
+	align_vert \
+	align_hor \
+	sub /
+		<= Anchor null
+	sub_visible /
+		<= Anchor
+		<= Bubble $mol_pop_bubble
+			align <= align \bottom_center
+			content <= bubble_content /$mol_view_content
+			height_max <= height_max 9999
+
+$mol_pop_bubble $mol_scroll
+	sub <= content /$mol_view_content
+	style *
+		^
+		maxHeight <= height_max 9999
+	attr *
+		^
+		mol_pop_align <= align \
+		tabindex 0
+
+$mol_pick $mol_pop
+	event *
+		^
+		keydown?event <=> keydown?event null
+	Anchor <= Trigger $mol_check
+		minimal_width 40
+		minimal_height 40
+		enabled <= trigger_enabled true
+		checked?val <=> showed?val
+		sub <= trigger_content /$mol_view_content
+		hint <= hint \
+
+$mol_icon_dots_vertical $mol_icon path \M12,16C13.1,16 14,16.9 14,18C14,19.1 13.1,20 12,20C10.9,20 10,19.1 10,18C10,16.9 10.9,16 12,16M12,10C13.1,10 14,10.9 14,12C14,13.1 13.1,14 12,14C10.9,14 10,13.1 10,12C10,10.9 10.9,10 12,10M12,4C13.1,4 14,4.9 14,6C14,7.1 13.1,8 12,8C10.9,8 10,7.1 10,6C10,4.9 10.9,4 12,4Z
+
+$mol_dimmer $mol_paragraph
+	haystack \
+	needle \
+	sub <= parts /$mol_view_content
+	Low* $mol_paragraph
+		sub /
+			<= string* \
+	High* $mol_paragraph
+		sub /
+			<= string* \
+
+$mol_nav $mol_plugin
+	cycle?val false
+	-
+	mod_ctrl false
+	mod_shift false
+	mod_alt false
+	-
+	keys_x?val /
+	keys_y?val /
+	-
+	current_x?val null
+	current_y?val null
+	-
+	event_up?event null
+	event_down?event null
+	event_left?event null
+	event_right?event null
+	event *
+		^
+		keydown?event <=> event_key?event null
+
+$mol_select $mol_pick
+	dictionary?val *
+	options /string
+	value?val \
+	option_label_default \
+	Option_row* $mol_button_minor
+		event_click?event <=> event_select*?event null
+		sub <= option_content* /
+			<= Option_label* $mol_dimmer
+				haystack <= option_label* \
+				needle <= filter_pattern?val \
+	No_options $mol_view
+		sub /
+			<= no_options_message @ \No options
+	plugins /
+		^
+		<= Nav $mol_nav
+			keys_y <= nav_components /$mol_view
+			current_y?component <=> option_focused?component null
+			cycle?val <=> nav_cycle?val true
+	hint @ \Pick..
+	bubble_content /
+		<= Filter
+		<= Menu $mol_list
+			rows <= menu_content /$mol_view
+	Filter $mol_string
+		value?val <=> filter_pattern?val \
+		hint @ \Filter..
+		submit?event <=> submit?event null
+		enabled <= enabled true
+	Trigger_icon $mol_icon_dots_vertical
+
+$hyoo_sketch_element_nav $hyoo_sketch_element_base
+	Element $mol_view
+		sub / \nav
+	nav_pages_param \demo
+	Options *
+		^
+		nav <= nav_options /
+			<= Nav_action_option $hyoo_sketch_option
+				name @ \Action
+				Control <= Nav_action_control $mol_switch
+					value? <=> nav_action? \none
+					options *
+						none @ \None
+						open @ \Open page
+						replace @ \Replace page
+						close @ \Close page
+						external @ \Open external link
+			<= Nav_target_page_option $hyoo_sketch_option
+				name @ \Target page
+				Control <= Nav_target_page_control $mol_select
+					align \top_right
+					value? <=> nav_target_page? \
+					dictionary <= project_pages *
+			<= Nav_target_link_option $hyoo_sketch_option
+				name @ \Target link
+				Control <= Nav_target_link_control $mol_string
+					value? <=> nav_target_link? \
+
 $mol_icon_television $mol_icon path \M21,17H3V5H21M21,3H3C1.9,3 1,3.9 1,5V17C1,18.1 1.9,19 3,19H8V21H16V19H21C22.1,19 23,18.1 23,17V5C23,3.9 22.1,3 21,3Z
 
 $mol_icon_television_play $mol_icon path \M21,3H3C1.89,3 1,3.89 1,5V17C1,18.1 1.9,19 3,19H8V21H16V19H21C22.1,19 23,18.1 23,17V5C23,3.89 22.1,3 21,3M21,17H3V5H21M16,11L9,15V7
@@ -516,6 +645,7 @@ $hyoo_sketch_editor $mol_page
 	Element_base* $hyoo_sketch_element_base
 	Element_text* $hyoo_sketch_element_text
 	Element_icon* $hyoo_sketch_element_icon
+	Element_nav* $hyoo_sketch_element_nav
 
 $mol_deck $mol_list
 	items /$mol_view
@@ -547,6 +677,7 @@ $hyoo_sketch_palette $mol_page
 	type_list /
 		\text
 		\icon
+		\nav
 		\button
 		\link
 		\input
