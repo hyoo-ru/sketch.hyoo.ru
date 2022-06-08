@@ -29,7 +29,7 @@ $hyoo_sketch_element_base $mol_view
 			<= Element
 			<= Resize $mol_view
 				event * pointerdown? <=> resize_start? null
-				sub / <= Icon $mol_icon_resize_bottom_right
+				sub / <= Resize_icon $mol_icon_resize_bottom_right
 	Options *
 		position <= Position_options /
 			<= Option_width $hyoo_sketch_option

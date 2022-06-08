@@ -1,0 +1,7 @@
+[hyoo_sketch_element_icon_icon] {
+	margin: 0;
+}
+
+[hyoo_sketch_element_icon_icon]:hover {
+	transform: scale(1.5);
+}

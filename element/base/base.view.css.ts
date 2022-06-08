@@ -46,11 +46,12 @@ namespace $.$$ {
 			cursor: 'nwse-resize',
 			width: px(24),
 			height: px(24),
-			$mol_icon: {
-				width: px(24),
-				height: px(24),
-				margin: 0,
-			},
+		},
+
+		Resize_icon: {
+			width: px(24),
+			height: px(24),
+			margin: 0,
 		},
 
 	} )
