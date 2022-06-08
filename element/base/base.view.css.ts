@@ -35,6 +35,9 @@ namespace $.$$ {
 		Element: {
 			width: per(100),
 			height: per(100),
+			flex: {
+				grow: 1,
+			},
 		},
 
 		Resize: {

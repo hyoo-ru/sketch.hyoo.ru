@@ -1,0 +1,22 @@
+$hyoo_sketch_element_button $hyoo_sketch_element_base
+	Button_major $mol_button_major
+		style * width \100%
+		title <= button_title
+	Button_minor $mol_button_minor
+		style * width \100%
+		title <= button_title
+	Element $mol_button
+	Options *
+		^
+		button <= button_options /
+			<= Button_title_option $hyoo_sketch_option
+				name @ \Title
+				Control <= Button_title_control $mol_string
+					value? <=> button_title? \Button
+			<= Button_type_option $hyoo_sketch_option
+				name @ \Type
+				Control <= Button_type_control $mol_switch
+					value? <=> button_type? \major
+					options *
+						major @ \Major
+						minor @ \Minor

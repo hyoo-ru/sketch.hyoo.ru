@@ -10,7 +10,7 @@ $hyoo_sketch_palette $mol_page
 	type_list /
 		\text
 		\icon
-		\nav
+		- \nav
 		\button
 		\link
 		\input
