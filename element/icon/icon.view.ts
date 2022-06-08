@@ -2,9 +2,11 @@ namespace $.$$ {
 
 	export class $hyoo_sketch_element_icon extends $.$hyoo_sketch_element_icon {
 
-		path() {
+		icon_path() {
 			const name = this.icon_name().trim()
-			if (!name || !name.startsWith('$mol_icon_')) return this.Not_found_icon().path()
+			if (!name || !name.startsWith('$mol_icon_')) {
+				return this.Not_found_icon().path()
+			}
 
 			if (this.$[ name ]) {
 				return ( new ( this.$[ name ] as typeof $mol_icon ) ).path()

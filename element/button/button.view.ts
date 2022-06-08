@@ -40,6 +40,13 @@ namespace $.$$ {
 			}
 		}
 
+		button_sub() {
+			return [
+				... this.Icon().icon_name() ? [this.Icon().Icon()] : [],
+				this.button_title(),
+			]
+		}
+
 	}
 
 }

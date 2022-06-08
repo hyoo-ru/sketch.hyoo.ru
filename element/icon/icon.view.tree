@@ -2,11 +2,11 @@ $hyoo_sketch_element_icon $hyoo_sketch_element_base
 	Element $mol_view
 		sub /
 			<= Icon $mol_icon
-				path <= path \
+				path <= icon_path \
 	Not_found_icon $mol_icon_help_rhombus_outline
 	Options *
 		^
-		icon <= Icon_options /
+		icon <= icon_options /
 			<= Icon_name_option $hyoo_sketch_option
 				name @ \Name
 				Control <= Icon_name_control $mol_string

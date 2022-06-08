@@ -9,7 +9,7 @@ $hyoo_sketch_palette $mol_page
 					click? <=> element_add*? null
 	type_list /
 		\text
-		\icon
+		- \icon
 		- \nav
 		\button
 		\link
