@@ -28,36 +28,14 @@ namespace $ {
 			return String( this.state().sub( 'type' ).value( next ) ?? 'base' )
 		}
 
-		width(next?: number) {
-			return Number(this.state().sub('width').value(next) ?? 0)
-		}
-
-		height(next?: number) {
-			return Number(this.state().sub('height').value(next) ?? 0)
-		}
-
-		top(next?: number) {
-			return Number(this.state().sub('top').value(next) ?? 0)
-		}
-
-		left(next?: number) {
-			return Number(this.state().sub('left').value(next) ?? 0)
-		}
-
-		order(next?: number) {
-			return Number(this.state().sub('order').value(next) ?? 0)
-		}
-
 		duplicate() {
 			const obj = this.domain().element( $mol_guid() )
+			obj.type( this.type() )
 			obj.page( this.page() )
 			obj.name( this.name() )
-			obj.type( this.type() )
-			obj.width( this.width() )
-			obj.height( this.height() )
-			obj.top( this.top() + this.height() + this.page().grid() )
-			obj.left( this.left() )
-			obj.order( this.order() )
+
+			this.page().element_add( obj )
+
 			return obj
 		}
 	}

@@ -63,25 +63,37 @@ namespace $.$$ {
 		}
 
 		width(next?: number) {
-			return this.element().width(next) || super.width()
+			return Number(this.state().sub('width').value(next) || super.width())
 		}
 
 		height(next?: number) {
-			return this.element().height(next) || super.height()
+			return Number(this.state().sub('height').value(next) || super.height())
 		}
 
 		top(next?: number) {
-			return this.element().top(next) || super.top()
+			return Number(this.state().sub('top').value(next) || super.top())
 		}
 
 		left(next?: number) {
-			return this.element().left(next) || super.left()
+			return Number(this.state().sub('left').value(next) || super.left())
 		}
 
-		duplicate(event: KeyboardEvent) {
-			const copy = this.element().duplicate()
-			this.page().element_add(copy)
-			return copy
+		order(next?: number) {
+			return Number(this.state().sub('order').value(next) || super.order())
+		}
+
+		duplicate() {
+			const element = this.element().duplicate()
+			const obj = new this.$.$hyoo_sketch_element_base
+			obj.element = $mol_const(element)
+
+			obj.width( this.width() )
+			obj.height( this.height() )
+			obj.top( this.top() + this.height() + this.page().grid() )
+			obj.left( this.left() )
+			obj.order( this.order() )
+
+			return obj
 		}
 
 		delete(event: KeyboardEvent) {
