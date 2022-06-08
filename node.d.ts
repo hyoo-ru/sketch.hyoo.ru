@@ -3136,6 +3136,51 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
+    class $mol_button_major extends $mol_button_typed {
+        attr(): {
+            mol_theme: string;
+            disabled: boolean;
+            role: string;
+            tabindex: number;
+            title: string;
+        };
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+    class $hyoo_sketch_element_button extends $hyoo_sketch_element_base {
+        Button_major(): $mol_button_major;
+        Button_minor(): $mol_button_minor;
+        Element(): $$.$mol_button;
+        Options(): {
+            button: readonly any[];
+            position: readonly any[];
+        };
+        button_title(next?: any): string;
+        Button_title_control(): $$.$mol_string;
+        Button_title_option(): $hyoo_sketch_option;
+        button_type(next?: any): string;
+        Button_type_control(): $$.$mol_switch;
+        Button_type_option(): $hyoo_sketch_option;
+        button_options(): readonly any[];
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $.$$ {
+    class $hyoo_sketch_element_button extends $.$hyoo_sketch_element_button {
+        Element(): $mol_button;
+        button_title(next?: string): string;
+        button_type(next?: string): string;
+    }
+}
+
+declare namespace $ {
     class $mol_icon_television extends $mol_icon {
         path(): string;
     }
@@ -3217,6 +3262,7 @@ declare namespace $ {
         Element_text(id: any): $$.$hyoo_sketch_element_text;
         Element_icon(id: any): $$.$hyoo_sketch_element_icon;
         Element_nav(id: any): $$.$hyoo_sketch_element_nav;
+        Element_button(id: any): $$.$hyoo_sketch_element_button;
         editor_title(): string;
         Project_demo_icon(): $mol_icon_television_play;
         project_demo_pages(): string;

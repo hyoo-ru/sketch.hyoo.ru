@@ -216,6 +216,8 @@
     "$mol_dimmer",
     "$mol_nav",
     "$mol_match",
+    "$hyoo_sketch_element_button",
+    "$mol_button_major",
     "$mol_icon_television_play",
     "$mol_icon_television",
     "$mol_icon_play_circle",

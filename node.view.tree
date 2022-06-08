@@ -565,6 +565,34 @@ $hyoo_sketch_element_nav $hyoo_sketch_element_base
 				Control <= Nav_target_link_control $mol_string
 					value? <=> nav_target_link? \
 
+$mol_button_major $mol_button_typed
+	attr *
+		^
+		mol_theme \$mol_theme_accent
+
+$hyoo_sketch_element_button $hyoo_sketch_element_base
+	Button_major $mol_button_major
+		style * width \100%
+		title <= button_title
+	Button_minor $mol_button_minor
+		style * width \100%
+		title <= button_title
+	Element $mol_button
+	Options *
+		^
+		button <= button_options /
+			<= Button_title_option $hyoo_sketch_option
+				name @ \Title
+				Control <= Button_title_control $mol_string
+					value? <=> button_title? \Button
+			<= Button_type_option $hyoo_sketch_option
+				name @ \Type
+				Control <= Button_type_control $mol_switch
+					value? <=> button_type? \major
+					options *
+						major @ \Major
+						minor @ \Minor
+
 $mol_icon_television $mol_icon path \M21,17H3V5H21M21,3H3C1.9,3 1,3.9 1,5V17C1,18.1 1.9,19 3,19H8V21H16V19H21C22.1,19 23,18.1 23,17V5C23,3.9 22.1,3 21,3Z
 
 $mol_icon_television_play $mol_icon path \M21,3H3C1.89,3 1,3.89 1,5V17C1,18.1 1.9,19 3,19H8V21H16V19H21C22.1,19 23,18.1 23,17V5C23,3.89 22.1,3 21,3M21,17H3V5H21M16,11L9,15V7
@@ -646,6 +674,7 @@ $hyoo_sketch_editor $mol_page
 	Element_text* $hyoo_sketch_element_text
 	Element_icon* $hyoo_sketch_element_icon
 	Element_nav* $hyoo_sketch_element_nav
+	Element_button* $hyoo_sketch_element_button
 
 $mol_deck $mol_list
 	items /$mol_view
@@ -677,7 +706,7 @@ $hyoo_sketch_palette $mol_page
 	type_list /
 		\text
 		\icon
-		\nav
+		- \nav
 		\button
 		\link
 		\input

@@ -8306,6 +8306,9 @@ var $;
             Element: {
                 width: per(100),
                 height: per(100),
+                flex: {
+                    grow: 1,
+                },
             },
             Resize: {
                 position: 'absolute',
@@ -10989,6 +10992,164 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    class $mol_button_major extends $mol_button_typed {
+        attr() {
+            return {
+                ...super.attr(),
+                mol_theme: "$mol_theme_accent"
+            };
+        }
+    }
+    $.$mol_button_major = $mol_button_major;
+})($ || ($ = {}));
+//mol/button/major/-view.tree/major.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_style_attach("mol/button/major/major.view.css", "[mol_button_major][disabled] {\n\topacity: .5;\n\tfilter: grayscale();\n}\n");
+})($ || ($ = {}));
+//mol/button/major/-css/major.view.css.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $hyoo_sketch_element_button extends $hyoo_sketch_element_base {
+        Button_major() {
+            const obj = new this.$.$mol_button_major();
+            obj.style = () => ({
+                width: "100%"
+            });
+            obj.title = () => this.button_title();
+            return obj;
+        }
+        Button_minor() {
+            const obj = new this.$.$mol_button_minor();
+            obj.style = () => ({
+                width: "100%"
+            });
+            obj.title = () => this.button_title();
+            return obj;
+        }
+        Element() {
+            const obj = new this.$.$mol_button();
+            return obj;
+        }
+        Options() {
+            return {
+                ...super.Options(),
+                button: this.button_options()
+            };
+        }
+        button_title(next) {
+            if (next !== undefined)
+                return next;
+            return "Button";
+        }
+        Button_title_control() {
+            const obj = new this.$.$mol_string();
+            obj.value = (next) => this.button_title(next);
+            return obj;
+        }
+        Button_title_option() {
+            const obj = new this.$.$hyoo_sketch_option();
+            obj.name = () => this.$.$mol_locale.text('$hyoo_sketch_element_button_Button_title_option_name');
+            obj.Control = () => this.Button_title_control();
+            return obj;
+        }
+        button_type(next) {
+            if (next !== undefined)
+                return next;
+            return "major";
+        }
+        Button_type_control() {
+            const obj = new this.$.$mol_switch();
+            obj.value = (next) => this.button_type(next);
+            obj.options = () => ({
+                major: this.$.$mol_locale.text('$hyoo_sketch_element_button_Button_type_control_options_major'),
+                minor: this.$.$mol_locale.text('$hyoo_sketch_element_button_Button_type_control_options_minor')
+            });
+            return obj;
+        }
+        Button_type_option() {
+            const obj = new this.$.$hyoo_sketch_option();
+            obj.name = () => this.$.$mol_locale.text('$hyoo_sketch_element_button_Button_type_option_name');
+            obj.Control = () => this.Button_type_control();
+            return obj;
+        }
+        button_options() {
+            return [
+                this.Button_title_option(),
+                this.Button_type_option()
+            ];
+        }
+    }
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_button.prototype, "Button_major", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_button.prototype, "Button_minor", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_button.prototype, "Element", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_button.prototype, "button_title", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_button.prototype, "Button_title_control", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_button.prototype, "Button_title_option", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_button.prototype, "button_type", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_button.prototype, "Button_type_control", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_button.prototype, "Button_type_option", null);
+    $.$hyoo_sketch_element_button = $hyoo_sketch_element_button;
+})($ || ($ = {}));
+//hyoo/sketch/element/button/-view.tree/button.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_style_attach("hyoo/sketch/element/button/button.view.css", "");
+})($ || ($ = {}));
+//hyoo/sketch/element/button/-css/button.view.css.ts
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $hyoo_sketch_element_button extends $.$hyoo_sketch_element_button {
+            Element() {
+                const button = this.button_type() === 'major' ? this.Button_major() : this.Button_minor();
+                return button;
+            }
+            button_title(next) {
+                return String(this.state().sub('button_title').value(next) ?? super.button_title());
+            }
+            button_type(next) {
+                return String(this.state().sub('button_type').value(next) ?? super.button_type());
+            }
+        }
+        __decorate([
+            $mol_mem
+        ], $hyoo_sketch_element_button.prototype, "Element", null);
+        $$.$hyoo_sketch_element_button = $hyoo_sketch_element_button;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//hyoo/sketch/element/button/button.view.ts
+;
+"use strict";
+var $;
+(function ($) {
     class $mol_icon_television extends $mol_icon {
         path() {
             return "M21,17H3V5H21M21,3H3C1.9,3 1,3.9 1,5V17C1,18.1 1.9,19 3,19H8V21H16V19H21C22.1,19 23,18.1 23,17V5C23,3.9 22.1,3 21,3Z";
@@ -11226,6 +11387,10 @@ var $;
             const obj = new this.$.$hyoo_sketch_element_nav();
             return obj;
         }
+        Element_button(id) {
+            const obj = new this.$.$hyoo_sketch_element_button();
+            return obj;
+        }
         editor_title() {
             return "";
         }
@@ -11363,6 +11528,9 @@ var $;
     __decorate([
         $mol_mem_key
     ], $hyoo_sketch_editor.prototype, "Element_nav", null);
+    __decorate([
+        $mol_mem_key
+    ], $hyoo_sketch_editor.prototype, "Element_button", null);
     __decorate([
         $mol_mem
     ], $hyoo_sketch_editor.prototype, "Project_demo_icon", null);
@@ -11698,7 +11866,6 @@ var $;
             return [
                 "text",
                 "icon",
-                "nav",
                 "button",
                 "link",
                 "input"
