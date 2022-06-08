@@ -24,4 +24,4 @@ $hyoo_sketch_element_nav $hyoo_sketch_element_base
 			<= Nav_target_link_option $hyoo_sketch_option
 				name @ \Target link
 				Control <= Nav_target_link_control $mol_string
-					value? <=> nav_target_link? \
+					value? <=> nav_target_link? \https://mol.hyoo.ru
