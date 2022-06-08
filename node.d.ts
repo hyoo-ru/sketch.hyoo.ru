@@ -1647,11 +1647,6 @@ declare namespace $ {
         page(next?: $hyoo_sketch_page): $hyoo_sketch_page;
         name(next?: string): string;
         type(next?: string): string;
-        width(next?: number): number;
-        height(next?: number): number;
-        top(next?: number): number;
-        left(next?: number): number;
-        order(next?: number): number;
         duplicate(): $hyoo_sketch_element;
     }
 }
@@ -2514,7 +2509,8 @@ declare namespace $.$$ {
         height(next?: number): number;
         top(next?: number): number;
         left(next?: number): number;
-        duplicate(event: KeyboardEvent): $hyoo_sketch_element;
+        order(next?: number): number;
+        duplicate(): $hyoo_sketch_element_base;
         delete(event: KeyboardEvent): void;
         move_up(event: KeyboardEvent): void;
         move_down(event: KeyboardEvent): void;
