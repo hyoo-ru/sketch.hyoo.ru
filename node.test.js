@@ -11021,6 +11021,7 @@ var $;
                 width: "100%"
             });
             obj.title = () => this.button_title();
+            obj.click = (next) => this.click(next);
             return obj;
         }
         Button_minor() {
@@ -11029,17 +11030,32 @@ var $;
                 width: "100%"
             });
             obj.title = () => this.button_title();
+            obj.click = (next) => this.click(next);
             return obj;
         }
         Element() {
             const obj = new this.$.$mol_button();
             return obj;
         }
+        nav_options() {
+            return this.Nav().nav_options();
+        }
+        Nav() {
+            const obj = new this.$.$hyoo_sketch_element_nav();
+            obj.element = () => this.element();
+            return obj;
+        }
         Options() {
             return {
                 ...super.Options(),
-                button: this.button_options()
+                button: this.button_options(),
+                nav: this.nav_options()
             };
+        }
+        click(next) {
+            if (next !== undefined)
+                return next;
+            return null;
         }
         button_title(next) {
             if (next !== undefined)
@@ -11095,6 +11111,12 @@ var $;
     ], $hyoo_sketch_element_button.prototype, "Element", null);
     __decorate([
         $mol_mem
+    ], $hyoo_sketch_element_button.prototype, "Nav", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_button.prototype, "click", null);
+    __decorate([
+        $mol_mem
     ], $hyoo_sketch_element_button.prototype, "button_title", null);
     __decorate([
         $mol_mem
@@ -11137,6 +11159,25 @@ var $;
             }
             button_type(next) {
                 return String(this.state().sub('button_type').value(next) ?? super.button_type());
+            }
+            click() {
+                const action = this.Nav().nav_action();
+                const target_page = this.Nav().nav_target_page();
+                const target_link = this.Nav().nav_target_link();
+                if (action === 'none')
+                    return;
+                if (action === 'open') {
+                    this.Nav().nav_page_open(target_page);
+                }
+                if (action === 'close') {
+                    this.Nav().nav_page_close(target_page || this.page().id());
+                }
+                if (action === 'replace') {
+                    this.Nav().nav_page_replace(target_page);
+                }
+                if (action === 'external') {
+                    $mol_dom_context.open(target_link, '_blank');
+                }
             }
         }
         __decorate([

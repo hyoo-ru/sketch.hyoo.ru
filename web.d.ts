@@ -3072,10 +3072,14 @@ declare namespace $ {
         Button_major(): $mol_button_major;
         Button_minor(): $mol_button_minor;
         Element(): $$.$mol_button;
+        nav_options(): $hyoo_sketch_option[];
+        Nav(): $$.$hyoo_sketch_element_nav;
         Options(): {
             button: readonly any[];
+            nav: $hyoo_sketch_option[];
             position: readonly any[];
         };
+        click(next?: any): any;
         button_title(next?: any): string;
         Button_title_control(): $$.$mol_string;
         Button_title_option(): $hyoo_sketch_option;
@@ -3094,6 +3098,7 @@ declare namespace $.$$ {
         Element(): $mol_button;
         button_title(next?: string): string;
         button_type(next?: string): string;
+        click(): void;
     }
 }
 
