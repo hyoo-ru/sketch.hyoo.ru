@@ -1,0 +1,16 @@
+$hyoo_sketch_element_link $hyoo_sketch_element_base
+	Element $mol_link
+		uri \#
+		hint <= link_hint
+		title <= link_title
+	Options *
+		^
+		link <= link_options /
+			<= Link_hint_option $hyoo_sketch_option
+				name @ \Hint
+				Control <= Link_hint_control $mol_string
+					value? <=> link_hint? \I am link
+			<= Link_title_option $hyoo_sketch_option
+				name @ \Title
+				Control <= Link_title_control $mol_string
+					value? <=> link_title? \Link

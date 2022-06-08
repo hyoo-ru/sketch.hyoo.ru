@@ -1,9 +1,0 @@
-[hyoo_sketch_element2_frame_mode="editor"] {
-	background-color: var(--mol_theme_back);
-	background-image:
-		linear-gradient(var(--mol_theme_line), transparent 1px),
-		linear-gradient(90deg, var(--mol_theme_line) , transparent 1px);
-	background-size: 10px 10px;
-	box-sizing: content-box;
-    background-position: -1px -1px;
-}

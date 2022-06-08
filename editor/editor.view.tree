@@ -58,3 +58,4 @@ $hyoo_sketch_editor $mol_page
 	Element_nav* $hyoo_sketch_element_nav
 	Element_button* $hyoo_sketch_element_button
 	Element_input* $hyoo_sketch_element_input
+	Element_link* $hyoo_sketch_element_link
