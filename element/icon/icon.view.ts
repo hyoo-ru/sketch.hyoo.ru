@@ -26,6 +26,10 @@ namespace $.$$ {
 			}
 		}
 
+		icon_name(next?: string) {
+			return String( this.state().sub('icon_name').value(next) ?? super.icon_name() )
+		}
+
 	}
 
 }

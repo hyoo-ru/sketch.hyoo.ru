@@ -55,3 +55,4 @@ $hyoo_sketch_editor $mol_page
 	Element_base* $hyoo_sketch_element_base
 	Element_text* $hyoo_sketch_element_text
 	Element_icon* $hyoo_sketch_element_icon
+	Element_nav* $hyoo_sketch_element_nav
