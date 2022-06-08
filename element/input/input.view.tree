@@ -1,0 +1,31 @@
+$hyoo_sketch_element_input $hyoo_sketch_element_base
+	String $mol_string
+		hint <= input_placeholder? \Type here
+		value? <=> input_text? \
+		enabled <= enabled? true
+	Number $mol_number
+		style * width \100%
+		value? <=> input_text?
+		enabled <= enabled
+	Password $mol_password
+		style * width \100%
+		hint <= input_placeholder
+		value? <=> input_text?
+		enabled <= enabled
+	Search $mol_search
+		hint <= input_placeholder
+		query? <=> input_text?
+		enabled <= enabled
+	Element $mol_view
+	Options *
+		^
+		input <= input_options /
+			<= Input_type_option $hyoo_sketch_option
+				name @ \Type
+				Control <= Input_type_control $mol_switch
+					value? <=> input_type? \String
+					options *
+						String @ \String
+						Number @ \Number
+						Password @ \Password
+						Search @ \Search

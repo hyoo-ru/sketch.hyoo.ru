@@ -57,3 +57,4 @@ $hyoo_sketch_editor $mol_page
 	Element_icon* $hyoo_sketch_element_icon
 	Element_nav* $hyoo_sketch_element_nav
 	Element_button* $hyoo_sketch_element_button
+	Element_input* $hyoo_sketch_element_input
