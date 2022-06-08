@@ -12,6 +12,22 @@ namespace $.$$ {
 			return String( this.state().sub('input_type').value(next) ?? super.input_type() )
 		}
 
+		input_hint(next?: string) {
+			return String( this.state().sub('input_hint').value(next) ?? super.input_hint() )
+		}
+
+		input_text(next?: string) {
+			return String( this.state().sub('input_text').value(next) ?? super.input_text() )
+		}
+
+		input_enabled(next?: string) {
+			return String( this.state().sub('input_enabled').value(next) ?? super.input_enabled() )
+		}
+
+		input_enabled_bool() {
+			return this.input_enabled() === 'on'
+		}
+
 	}
 
 }
