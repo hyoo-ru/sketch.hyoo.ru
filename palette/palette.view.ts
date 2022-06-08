@@ -14,9 +14,26 @@ namespace $.$$ {
 			return type
 		}
 
+		@ $mol_mem_key
+		Element_base(element: $hyoo_sketch_element) {
+			const obj = new $hyoo_sketch_element_base
+			obj.element = $mol_const(element)
+			return obj
+		}
+
+		@ $mol_mem
+		highest_top() {
+			const copy = this.page().elements().slice()
+			const top_list = copy.map( obj => this.Element_base(obj).top() + this.Element_base(obj).height() )
+			const sort = top_list.sort( (a, b) => b - a )
+			return sort[0]
+		}
+
 		element_add(type: string) {
 			const obj = this.domain().element( $mol_guid() )
 			obj.type( type )
+			this.Element_base(obj).top( this.highest_top() + this.page().grid() )
+			this.Element_base(obj).left( this.page().grid() )
 			this.page().element_add( obj )
 		}
 
