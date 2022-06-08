@@ -10,6 +10,8 @@
 	"$hyoo_sketch_element_base_Option_order_name": "Order",
 	"$hyoo_sketch_element_base_Option_top_name": "Top",
 	"$hyoo_sketch_element_base_Option_width_name": "Width",
+	"$hyoo_sketch_element_icon_Icon_name_option_name": "Name",
+	"$hyoo_sketch_element_icon_Icon_search_option_name": "Search icon here",
 	"$hyoo_sketch_element_text_Align_hor_option_name": "Align hor",
 	"$hyoo_sketch_element_text_Align_ver_option_name": "Align ver",
 	"$hyoo_sketch_element_text_Padding_option_name": "Padding",

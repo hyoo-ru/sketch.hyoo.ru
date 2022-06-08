@@ -189,6 +189,24 @@
     "$mol_switch",
     "$mol_check_list",
     "$mol_state_session",
+    "$hyoo_sketch_element_icon",
+    "$mol_icon_help_rhombus_outline",
+    "$mol_icon_help_rhombus",
+    "$mol_icon_help",
+    "$mol_icon_magnify",
+    "$mol_fetch",
+    "$mol_dom_parse",
+    "$mol_tree2_from_string",
+    "$mol_tree2_from",
+    "$mol_tree2",
+    "$mol_span",
+    "$mol_tree2_to_string",
+    "$mol_tree2_to",
+    "$mol_error_syntax",
+    "$mol_error",
+    "$mol_view_tree2",
+    "$mol_view_tree2_prop",
+    "$mol_view_tree2_class",
     "$mol_icon_television_play",
     "$mol_icon_television",
     "$mol_icon_play_circle",
@@ -201,6 +219,7 @@
   "dependencies": {
     "jsdom": "*",
     "fake-indexeddb": "*",
-    "chokidar": "*"
+    "chokidar": "*",
+    "node-fetch": "*"
   }
 }

@@ -2468,7 +2468,7 @@ declare namespace $ {
         selected(next?: any): boolean;
         editing(): boolean;
         resize_start(next?: any): any;
-        Icon(): $mol_icon_resize_bottom_right;
+        Resize_icon(): $mol_icon_resize_bottom_right;
         Resize(): $mol_view;
         Width_control(): $$.$mol_number;
         Option_width(): $hyoo_sketch_option;
@@ -2651,6 +2651,273 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
+    class $mol_icon_help extends $mol_icon {
+        path(): string;
+    }
+}
+
+declare namespace $ {
+    class $mol_icon_help_rhombus extends $mol_icon {
+        path(): string;
+    }
+}
+
+declare namespace $ {
+    class $mol_icon_help_rhombus_outline extends $mol_icon {
+        path(): string;
+    }
+}
+
+declare namespace $ {
+    class $mol_icon_magnify extends $mol_icon {
+        path(): string;
+    }
+}
+
+declare namespace $ {
+    class $hyoo_sketch_element_icon extends $hyoo_sketch_element_base {
+        Element(): $mol_view;
+        Not_found_icon(): $mol_icon_help_rhombus_outline;
+        Options(): {
+            icon: readonly any[];
+            position: readonly any[];
+        };
+        path(): string;
+        Icon(): $mol_icon;
+        icon_name(next?: any): string;
+        Icon_name_control(): $$.$mol_string;
+        Icon_name_option(): $hyoo_sketch_option;
+        Icon_search_icon(): $mol_icon_magnify;
+        Icon_search(): $$.$mol_link;
+        Icon_search_option(): $hyoo_sketch_option;
+        Icon_options(): readonly any[];
+    }
+}
+
+declare namespace $ {
+    function $mol_dom_parse(text: string, type?: DOMParserSupportedType): Document;
+}
+
+declare namespace $ {
+    class $mol_fetch_response extends $mol_object2 {
+        readonly native: Response;
+        constructor(native: Response);
+        headers(): Headers;
+        mime(): string | null;
+        stream(): ReadableStream<Uint8Array> | null;
+        text(): string;
+        json(): unknown;
+        buffer(): ArrayBuffer;
+        xml(): Document;
+        xhtml(): Document;
+        html(): Document;
+    }
+    class $mol_fetch extends $mol_object2 {
+        static request(input: RequestInfo, init?: RequestInit): Promise<Response> & {
+            destructor: () => void;
+        };
+        static response(input: RequestInfo, init?: RequestInit): $mol_fetch_response;
+        static stream(input: RequestInfo, init?: RequestInit): ReadableStream<Uint8Array> | null;
+        static text(input: RequestInfo, init?: RequestInit): string;
+        static json(input: RequestInfo, init?: RequestInit): unknown;
+        static buffer(input: RequestInfo, init?: RequestInit): void;
+        static xml(input: RequestInfo, init?: RequestInit): Document;
+        static xhtml(input: RequestInfo, init?: RequestInit): Document;
+        static html(input: RequestInfo, init?: RequestInit): Document;
+    }
+}
+
+declare namespace $ {
+    class $mol_span extends $mol_object2 {
+        readonly uri: string;
+        readonly source: string;
+        readonly row: number;
+        readonly col: number;
+        readonly length: number;
+        constructor(uri: string, source: string, row: number, col: number, length: number);
+        static unknown: $mol_span;
+        static begin(uri: string, source?: string): $mol_span;
+        static end(uri: string, source: string): $mol_span;
+        static entire(uri: string, source: string): $mol_span;
+        toString(): any;
+        toJSON(): {
+            uri: string;
+            row: number;
+            col: number;
+            length: number;
+        };
+        error(message: string, Class?: ErrorConstructor): Error;
+        span(row: number, col: number, length: number): $mol_span;
+        after(length?: number): $mol_span;
+        slice(begin: number, end?: number): $mol_span;
+    }
+}
+
+declare namespace $ {
+    class $mol_error_syntax extends SyntaxError {
+        reason: string;
+        line: string;
+        span: $mol_span;
+        constructor(reason: string, line: string, span: $mol_span);
+    }
+}
+
+declare namespace $ {
+    function $mol_tree2_from_string(this: $, str: string, uri?: string): $mol_tree2;
+}
+
+declare namespace $ {
+    function $mol_tree2_to_string(this: $, tree: $mol_tree2): string;
+}
+
+declare namespace $ {
+    type $mol_tree2_path = Array<string | number | null>;
+    type $mol_tree2_hack<Context> = (input: $mol_tree2, belt: $mol_tree2_belt<Context>, context: Context) => readonly $mol_tree2[];
+    type $mol_tree2_belt<Context> = Record<string, $mol_tree2_hack<Context>>;
+    class $mol_tree2 extends Object {
+        readonly type: string;
+        readonly value: string;
+        readonly kids: readonly $mol_tree2[];
+        readonly span: $mol_span;
+        constructor(type: string, value: string, kids: readonly $mol_tree2[], span: $mol_span);
+        static list(kids: readonly $mol_tree2[], span?: $mol_span): $mol_tree2;
+        list(kids: readonly $mol_tree2[]): $mol_tree2;
+        static data(value: string, kids?: readonly $mol_tree2[], span?: $mol_span): $mol_tree2;
+        data(value: string, kids?: readonly $mol_tree2[]): $mol_tree2;
+        static struct(type: string, kids?: readonly $mol_tree2[], span?: $mol_span): $mol_tree2;
+        struct(type: string, kids?: readonly $mol_tree2[]): $mol_tree2;
+        clone(kids: readonly $mol_tree2[], span?: $mol_span): $mol_tree2;
+        text(): string;
+        static fromString(str: string, uri?: string): $mol_tree2;
+        toString(): string;
+        insert(value: $mol_tree2 | null, ...path: $mol_tree2_path): $mol_tree2;
+        select(...path: $mol_tree2_path): $mol_tree2;
+        filter(path: string[], value?: string): $mol_tree2;
+        hack<Context extends {
+            span?: $mol_span;
+            [key: string]: unknown;
+        } = {}>(belt: $mol_tree2_belt<Context>, context?: Context): $mol_tree2[];
+        error(message: string, Class?: ErrorConstructor): Error;
+    }
+    class $mol_tree2_empty extends $mol_tree2 {
+        constructor();
+    }
+}
+
+declare namespace $ {
+    class $mol_view_tree2_error extends Error {
+        readonly spans: readonly $mol_span[];
+        constructor(message: string, spans: readonly $mol_span[]);
+        toJSON(): {
+            message: string;
+            spans: readonly $mol_span[];
+        };
+    }
+    class $mol_view_tree2_error_suggestions {
+        readonly suggestions: readonly string[];
+        constructor(suggestions: readonly string[]);
+        toString(): string;
+        toJSON(): readonly string[];
+    }
+    function $mol_view_tree2_error_str(strings: readonly string[], ...parts: readonly ($mol_span | readonly $mol_span[] | string | number | $mol_view_tree2_error_suggestions)[]): $mol_view_tree2_error;
+}
+
+declare namespace $ {
+    function $mol_view_tree2_child(this: $, tree: $mol_tree2): $mol_tree2;
+}
+
+declare namespace $ {
+    function $mol_view_tree2_classes(defs: $mol_tree2): $mol_tree2;
+}
+
+declare namespace $ {
+    type $mol_view_tree2_locales = Record<string, string>;
+    class $mol_view_tree2_context extends $mol_object2 {
+        protected parents: readonly $mol_view_tree2_prop[];
+        protected locales: $mol_view_tree2_locales;
+        protected methods: $mol_tree2[];
+        readonly types: boolean;
+        protected added_nodes: Map<string, {
+            src: $mol_tree2;
+            name: $mol_tree2;
+            key: $mol_tree2 | undefined;
+            next: $mol_tree2 | undefined;
+        }>;
+        protected array?: $mol_tree2 | undefined;
+        constructor($: $, parents: readonly $mol_view_tree2_prop[], locales: $mol_view_tree2_locales, methods: $mol_tree2[], types?: boolean, added_nodes?: Map<string, {
+            src: $mol_tree2;
+            name: $mol_tree2;
+            key: $mol_tree2 | undefined;
+            next: $mol_tree2 | undefined;
+        }>, array?: $mol_tree2 | undefined);
+        protected clone(prefixes: readonly $mol_view_tree2_prop[], array?: $mol_tree2): $mol_view_tree2_context;
+        parent(prefix: $mol_view_tree2_prop): $mol_view_tree2_context;
+        root(): $mol_view_tree2_context;
+        locale_disable(array: $mol_tree2): $mol_view_tree2_context;
+        get_method({ name, src, key, next }: $mol_view_tree2_prop): {
+            src: $mol_tree2;
+            name: $mol_tree2;
+            key: $mol_tree2 | undefined;
+            next: $mol_tree2 | undefined;
+        } | undefined;
+        check_scope_vars({ name, key, next }: $mol_view_tree2_prop): undefined;
+        index(owner: $mol_view_tree2_prop): number;
+        method(index: number, method: $mol_tree2[]): void;
+        protected locale_nodes: Map<string, $mol_tree2>;
+        locale(operator: $mol_tree2): $mol_tree2;
+    }
+}
+
+declare namespace $ {
+    function $mol_view_tree2_normalize(this: $, defs: $mol_tree2): $mol_tree2;
+}
+
+declare namespace $ {
+    function $mol_view_tree2_prop_split(this: $, src: $mol_tree2): {
+        src: $mol_tree2;
+        name: $mol_tree2;
+        key: $mol_tree2 | undefined;
+        next: $mol_tree2 | undefined;
+    };
+}
+
+declare namespace $ {
+    type $mol_view_tree2_prop = ReturnType<typeof $mol_view_tree2_prop_split>;
+    function $mol_view_tree2_prop_name(this: $, prop: $mol_tree2): string;
+    function $mol_view_tree2_prop_key(this: $, prop: $mol_tree2): string | undefined;
+    function $mol_view_tree2_prop_next(this: $, prop: $mol_tree2): string | undefined;
+}
+
+declare namespace $ {
+    function $mol_view_tree2_prop_quote(name: $mol_tree2): $mol_tree2;
+}
+
+declare namespace $ {
+    let $mol_view_tree2_prop_signature: $mol_regexp<{
+        readonly name: string;
+        readonly key: string;
+        readonly next: string;
+    }>;
+}
+
+declare namespace $ {
+    function $mol_view_tree2_class_super(this: $, klass: $mol_tree2): $mol_tree2;
+}
+
+declare namespace $ {
+    function $mol_view_tree2_class_props(this: $, klass: $mol_tree2): $mol_tree2[];
+}
+
+declare namespace $ {
+}
+
+declare namespace $.$$ {
+    class $hyoo_sketch_element_icon extends $.$hyoo_sketch_element_icon {
+        path(): string;
+    }
+}
+
+declare namespace $ {
     class $mol_icon_television extends $mol_icon {
         path(): string;
     }
@@ -2730,6 +2997,7 @@ declare namespace $ {
         body(): readonly any[];
         Element_base(id: any): $$.$hyoo_sketch_element_base;
         Element_text(id: any): $$.$hyoo_sketch_element_text;
+        Element_icon(id: any): $$.$hyoo_sketch_element_icon;
         editor_title(): string;
         Project_demo_icon(): $mol_icon_television_play;
         project_demo_pages(): string;
