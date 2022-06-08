@@ -13,9 +13,6 @@ $mol_book2 $mol_scroll
 	minimal_width 0
 	Placeholder $mol_view
 
-$mol_theme_auto $mol_plugin
-	attr * mol_theme <= theme \
-
 $mol_page $mol_view
 	dom_name \article
 	sub /
@@ -35,6 +32,9 @@ $mol_page $mol_view
 		<= Foot $mol_view
 			dom_name \footer
 			sub <= foot /$mol_view
+
+$mol_theme_auto $mol_plugin
+	attr * mol_theme <= theme \
 
 $mol_svg $mol_view
 	dom_name \svg
@@ -634,7 +634,7 @@ $hyoo_sketch_editor $mol_page
 			sub / <= Project_demo_icon $mol_icon_television_play
 			target \_blank
 			arg *
-				demo <= project_demo_pages \
+				demo <= page_current_id \
 		<= Page_preview $mol_check_icon
 			hint @ \Switch page to preview
 			Icon <= Page_preview_icon $mol_icon_play_circle
@@ -727,19 +727,12 @@ $hyoo_sketch $mol_book2
 		<= Editor $hyoo_sketch_editor
 			page <= page_opened $hyoo_sketch_page
 			Options => Options
+			Element* => Element*
 		<= Option_page $hyoo_sketch_option_page
 			Options <= Options
 		<= Palette $hyoo_sketch_palette
 			page <= page_opened
-		- <= Page_page $hyoo_sketch_page
-			page <= page $hyoo_sketch_page_model
-			Element_options => Element_focused_options
-			Element_switch* => Demo_element*
-		- <= Option_page $mol_page
-			title @ \Options
-			body / <= Element_options $mol_view
-		- <= Icon_search_page $mol_icon_demo
-	- Demo_page* $mol_page
+	Demo_page* $mol_page
 		title <= demo_page_title* \
 		Head null
 		body / 
