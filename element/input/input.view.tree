@@ -4,7 +4,7 @@ $hyoo_sketch_element_input $hyoo_sketch_element_base
 		value? <=> input_text?
 		enabled <= input_enabled_bool true
 	Number $mol_number
-		value? <=> input_text?
+		value? <=> input_number? 0
 		enabled <= input_enabled_bool
 	Password $mol_password
 		hint <= input_hint

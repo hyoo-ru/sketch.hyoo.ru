@@ -8,6 +8,10 @@ namespace $.$$ {
 			return this[ type ]() as $mol_view
 		}
 
+		input_number(next?: number) {
+			return Number( this.input_text( String(next) ) )
+		}
+
 		input_type(next?: string) {
 			return String( this.state().sub('input_type').value(next) ?? super.input_type() )
 		}
