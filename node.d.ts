@@ -2861,6 +2861,12 @@ declare namespace $ {
             position: readonly any[];
         };
         padding_style(): string;
+        style(): {
+            padding: string;
+            justifyContent: string;
+            alignItems: string;
+            fontSize: string;
+        };
         Text_icon(): $mol_icon;
         text(next?: any): string;
         text_sub(): readonly any[];
@@ -2883,7 +2889,7 @@ declare namespace $ {
         size(next?: any): string;
         Size_control(): $$.$mol_switch;
         Size_option(): $hyoo_sketch_option;
-        Text_options(): readonly any[];
+        text_options(): readonly any[];
     }
 }
 
@@ -3155,29 +3161,38 @@ declare namespace $ {
 
 declare namespace $ {
     class $hyoo_sketch_element_button extends $hyoo_sketch_element_base {
+        nav_options(): $hyoo_sketch_option[];
+        Nav(): $$.$hyoo_sketch_element_nav;
+        text_options(): readonly any[];
+        text_sub(): readonly any[];
+        text_style(): {
+            padding: string;
+            justifyContent: string;
+            alignItems: string;
+            fontSize: string;
+        };
+        Text_option(): $hyoo_sketch_option;
+        Text(): $hyoo_sketch_element_button_text;
         Button_major(): $mol_button_major;
         Button_minor(): $mol_button_minor;
         Element(): $$.$mol_button;
-        nav_options(): $hyoo_sketch_option[];
-        Nav(): $$.$hyoo_sketch_element_nav;
-        icon_options(): readonly any[];
-        Icon(): $$.$hyoo_sketch_element_icon;
         Options(): {
             button: readonly any[];
+            text: readonly any[];
             nav: $hyoo_sketch_option[];
-            icon: readonly any[];
             position: readonly any[];
         };
         click(next?: any): any;
-        Button_icon(): $mol_icon;
-        button_sub(): readonly any[];
-        button_title(next?: any): string;
-        Button_title_control(): $$.$mol_string;
-        Button_title_option(): $hyoo_sketch_option;
         button_type(next?: any): string;
         Button_type_control(): $$.$mol_switch;
         Button_type_option(): $hyoo_sketch_option;
         button_options(): readonly any[];
+    }
+    class $hyoo_sketch_element_button_text extends $hyoo_sketch_element_text {
+        text(next?: any): string;
+        padding(next?: any): string;
+        align_hor(next?: any): string;
+        align_ver(next?: any): string;
     }
 }
 
@@ -3187,10 +3202,8 @@ declare namespace $ {
 declare namespace $.$$ {
     class $hyoo_sketch_element_button extends $.$hyoo_sketch_element_button {
         Element(): $mol_button;
-        button_title(next?: string): string;
         button_type(next?: string): string;
         click(): void;
-        button_sub(): (string | $mol_icon)[];
     }
 }
 
@@ -3327,30 +3340,39 @@ declare namespace $.$$ {
 
 declare namespace $ {
     class $hyoo_sketch_element_link extends $hyoo_sketch_element_base {
+        nav_options(): $hyoo_sketch_option[];
+        Nav(): $$.$hyoo_sketch_element_nav;
+        text_options(): readonly any[];
+        text_sub(): readonly any[];
+        text_style(): {
+            padding: string;
+            justifyContent: string;
+            alignItems: string;
+            fontSize: string;
+        };
+        Text_option(): $hyoo_sketch_option;
+        Text(): $hyoo_sketch_element_link_text;
         Link_external(): $$.$mol_link;
         Link_internal(): $$.$mol_link;
         Element(): $$.$mol_link;
-        icon_options(): readonly any[];
-        Icon(): $$.$hyoo_sketch_element_icon;
-        nav_options(): $hyoo_sketch_option[];
-        Nav(): $$.$hyoo_sketch_element_nav;
         Options(): {
             link: readonly any[];
             nav: $hyoo_sketch_option[];
-            icon: readonly any[];
+            text: readonly any[];
             position: readonly any[];
         };
         link_uri(): string;
-        Link_icon(): $mol_icon;
-        link_sub(): readonly any[];
         link_arg(): {};
         link_hint(next?: any): string;
         Link_hint_control(): $$.$mol_string;
         Link_hint_option(): $hyoo_sketch_option;
-        link_title(next?: any): string;
-        Link_title_control(): $$.$mol_string;
-        Link_title_option(): $hyoo_sketch_option;
         link_options(): readonly any[];
+    }
+    class $hyoo_sketch_element_link_text extends $hyoo_sketch_element_text {
+        text(next?: any): string;
+        padding(next?: any): string;
+        align_hor(next?: any): string;
+        align_ver(next?: any): string;
     }
 }
 
@@ -3360,13 +3382,46 @@ declare namespace $.$$ {
 declare namespace $.$$ {
     class $hyoo_sketch_element_link extends $.$hyoo_sketch_element_link {
         Element(): $mol_link;
-        link_sub(): (string | $mol_icon)[];
         link_hint(next?: string): string;
-        link_title(next?: string): string;
         link_arg(): {
             [x: string]: string;
         };
         link_uri(): string;
+    }
+}
+
+declare namespace $ {
+    class $mol_image2 extends $mol_view {
+        links(): readonly any[];
+        aspect(): number;
+        sub(): readonly any[];
+        height(): string;
+        background(): string;
+        Content(): $mol_view;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $.$$ {
+    class $mol_image2 extends $.$mol_image2 {
+        background(): string;
+        height(): string;
+    }
+}
+
+declare namespace $ {
+    class $hyoo_sketch_element_image extends $hyoo_sketch_element_base {
+        Element(): $$.$mol_image2;
+        Options(): {
+            image: readonly any[];
+            position: readonly any[];
+        };
+        image_link(next?: any): string;
+        Image_link_control(): $$.$mol_string;
+        Image_link_option(): $hyoo_sketch_option;
+        image_options(): readonly any[];
     }
 }
 
@@ -3455,6 +3510,7 @@ declare namespace $ {
         Element_button(id: any): $$.$hyoo_sketch_element_button;
         Element_input(id: any): $$.$hyoo_sketch_element_input;
         Element_link(id: any): $$.$hyoo_sketch_element_link;
+        Element_image(id: any): $hyoo_sketch_element_image;
         editor_title(): string;
         Project_demo_icon(): $mol_icon_television_play;
         page_current_id(): string;
