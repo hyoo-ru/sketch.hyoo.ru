@@ -1,0 +1,11 @@
+$hyoo_sketch_element_markdown $hyoo_sketch_element_base
+	Element $mol_text text <= text? <= text_default \
+		\# Hello world!
+		\How are you?
+		\**use markdwon here**
+	Options *
+		^
+		markdown <= markdown_options /
+			<= Text_option $mol_textarea
+				style * height \150px
+				value? <=> text?
