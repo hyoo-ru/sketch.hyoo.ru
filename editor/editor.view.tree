@@ -62,3 +62,5 @@ $hyoo_sketch_editor $mol_page
 	Element_image* $hyoo_sketch_element_image
 	Element_select* $hyoo_sketch_element_select
 	Element_check* $hyoo_sketch_element_check
+	Element_switch* $hyoo_sketch_element_switch
+	Element_options* $hyoo_sketch_element_options

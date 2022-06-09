@@ -17,3 +17,5 @@ $hyoo_sketch_palette $mol_page
 		\image
 		\select
 		\check
+		\switch
+		- \options
