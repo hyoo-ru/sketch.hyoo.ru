@@ -5,7 +5,7 @@ $hyoo_sketch_element_speck $hyoo_sketch_element_base
 			width \auto
 			height \auto
 			minWidth 10
-			minHeight 10
+			minHeight <= min_height \10
 		value <= speck_value? <= speck_value_default \8
 	Position_options /
 		<= Option_left

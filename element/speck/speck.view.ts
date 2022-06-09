@@ -16,6 +16,10 @@ namespace $.$$ {
 			return element
 		}
 
+		min_height() {
+			return 10 as any // typings bug
+		}
+
 	}
 
 }
