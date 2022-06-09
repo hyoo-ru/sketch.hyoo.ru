@@ -1,0 +1,16 @@
+$hyoo_sketch_element_textarea $hyoo_sketch_element_base
+	Element $mol_textarea
+		hint <= hint
+		value? <=> text?
+	Options *
+		^
+		textarea <= textarea_options /
+			<= Text_option $hyoo_sketch_option
+				name @ \Text
+				Control <= Text_control $mol_textarea
+					style * height \120px
+					value? <=> text? \
+			<= Hint_option $hyoo_sketch_option
+				name @ \Place holder
+				Control <= Hint_control $mol_string
+					value? <=> hint? \
