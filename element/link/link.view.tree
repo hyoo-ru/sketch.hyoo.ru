@@ -1,13 +1,23 @@
 $hyoo_sketch_element_link $hyoo_sketch_element_base
-	Element $mol_link
-		uri \#
+	Link_external $mol_link
+		uri <= link_uri \
 		hint <= link_hint
 		sub <= link_sub /
 			<= Link_icon $mol_icon
 			<= link_title
+	Link_internal $mol_link
+		arg <= link_arg *
+		hint <= link_hint
+		sub <= link_sub /
+			<= Link_icon $mol_icon
+			<= link_title
+	Element $mol_link
 	Icon $hyoo_sketch_element_icon
 		element <= element
 		icon_options => icon_options
+	Nav $hyoo_sketch_element_nav
+		element <= element
+		nav_options => nav_options
 	Options *
 		^
 		link <= link_options /
@@ -19,4 +29,5 @@ $hyoo_sketch_element_link $hyoo_sketch_element_base
 				name @ \Title
 				Control <= Link_title_control $mol_string
 					value? <=> link_title? \Link
+		nav <= nav_options
 		icon <= icon_options
