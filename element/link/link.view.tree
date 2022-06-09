@@ -1,23 +1,24 @@
 $hyoo_sketch_element_link $hyoo_sketch_element_base
-	Link_external $mol_link
-		uri <= link_uri \
-		hint <= link_hint
-		sub <= link_sub /
-			<= Link_icon $mol_icon
-			<= link_title
-	Link_internal $mol_link
-		arg <= link_arg *
-		hint <= link_hint
-		sub <= link_sub /
-			<= Link_icon $mol_icon
-			<= link_title
-	Element $mol_link
-	Icon $hyoo_sketch_element_icon
-		element <= element
-		icon_options => icon_options
 	Nav $hyoo_sketch_element_nav
 		element <= element
 		nav_options => nav_options
+	Text $hyoo_sketch_element_link_text
+		element <= element
+		text_options => text_options
+		text_sub => text_sub
+		style => text_style
+		Text_option => Text_option
+	Link_external $mol_link
+		style * ^ text_style
+		uri <= link_uri \
+		hint <= link_hint
+		sub <= text_sub
+	Link_internal $mol_link
+		style * ^ text_style
+		arg <= link_arg *
+		hint <= link_hint
+		sub <= text_sub
+	Element $mol_link
 	Options *
 		^
 		link <= link_options /
@@ -25,9 +26,11 @@ $hyoo_sketch_element_link $hyoo_sketch_element_base
 				name @ \Hint
 				Control <= Link_hint_control $mol_string
 					value? <=> link_hint? \I am link
-			<= Link_title_option $hyoo_sketch_option
-				name @ \Title
-				Control <= Link_title_control $mol_string
-					value? <=> link_title? \Link
+			<= Text_option
 		nav <= nav_options
-		icon <= icon_options
+		text <= text_options
+$hyoo_sketch_element_link_text $hyoo_sketch_element_text
+	text? \Link
+	padding? \text
+	align_hor? \start
+	align_ver? \center

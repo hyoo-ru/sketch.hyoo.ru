@@ -7,6 +7,7 @@ $hyoo_sketch_element_button $hyoo_sketch_element_base
 		text_options => text_options
 		text_sub => text_sub
 		style => text_style
+		Text_option => Text_option
 	Button_major $mol_button_major
 		style *
 			^ text_style
@@ -17,12 +18,12 @@ $hyoo_sketch_element_button $hyoo_sketch_element_base
 		style *
 			^ text_style
 			width \100%
-		title <= button_title
 		sub <= text_sub
 	Element $mol_button
 	Options *
 		^
 		button <= button_options /
+			<= Text_option
 			<= Button_type_option $hyoo_sketch_option
 				name @ \Type
 				Control <= Button_type_control $mol_switch
