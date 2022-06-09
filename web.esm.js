@@ -5338,7 +5338,6 @@ var $;
             obj.type(this.type());
             obj.page(this.page());
             obj.name(this.name());
-            this.page().element_add(obj);
             return obj;
         }
     }
@@ -7500,9 +7499,7 @@ var $;
             return obj;
         }
         order(next) {
-            if (next !== undefined)
-                return next;
-            return 1;
+            return this.order_default();
         }
         grid(next) {
             if (next !== undefined)
@@ -7528,9 +7525,15 @@ var $;
             ];
             return obj;
         }
+        duplicate(next) {
+            if (next !== undefined)
+                return next;
+            const obj = new this.$.$hyoo_sketch_element();
+            return obj;
+        }
         Editor() {
             const obj = new this.$.$hyoo_sketch_element_base_editor();
-            obj.duplicate = (next) => this.duplicate(next);
+            obj.duplicate = (next) => this.duplicate_event(next);
             obj.delete = (next) => this.delete(next);
             obj.move_up = (next) => this.move_up(next);
             obj.move_down = (next) => this.move_down(next);
@@ -7555,25 +7558,32 @@ var $;
                 position: this.Position_options()
             };
         }
-        width(next) {
-            if (next !== undefined)
-                return next;
+        order_default() {
+            return 1;
+        }
+        width_default() {
             return 320;
         }
-        height(next) {
-            if (next !== undefined)
-                return next;
+        width(next) {
+            return this.width_default();
+        }
+        height_default() {
             return 40;
         }
+        height(next) {
+            return this.height_default();
+        }
+        left_default() {
+            return 0;
+        }
         left(next) {
-            if (next !== undefined)
-                return next;
+            return this.left_default();
+        }
+        top_default() {
             return 0;
         }
         top(next) {
-            if (next !== undefined)
-                return next;
-            return 0;
+            return this.top_default();
         }
         order_string(next) {
             if (next !== undefined)
@@ -7584,11 +7594,10 @@ var $;
             const obj = new this.$.$mol_view();
             return obj;
         }
-        duplicate(next) {
+        duplicate_event(next) {
             if (next !== undefined)
                 return next;
-            const obj = new this.$.$hyoo_sketch_element_base();
-            return obj;
+            return null;
         }
         delete(next) {
             if (next !== undefined)
@@ -7727,28 +7736,16 @@ var $;
     ], $hyoo_sketch_element_base.prototype, "state", null);
     __decorate([
         $mol_mem
-    ], $hyoo_sketch_element_base.prototype, "order", null);
-    __decorate([
-        $mol_mem
     ], $hyoo_sketch_element_base.prototype, "grid", null);
     __decorate([
         $mol_mem
     ], $hyoo_sketch_element_base.prototype, "Preview", null);
     __decorate([
         $mol_mem
+    ], $hyoo_sketch_element_base.prototype, "duplicate", null);
+    __decorate([
+        $mol_mem
     ], $hyoo_sketch_element_base.prototype, "Editor", null);
-    __decorate([
-        $mol_mem
-    ], $hyoo_sketch_element_base.prototype, "width", null);
-    __decorate([
-        $mol_mem
-    ], $hyoo_sketch_element_base.prototype, "height", null);
-    __decorate([
-        $mol_mem
-    ], $hyoo_sketch_element_base.prototype, "left", null);
-    __decorate([
-        $mol_mem
-    ], $hyoo_sketch_element_base.prototype, "top", null);
     __decorate([
         $mol_mem
     ], $hyoo_sketch_element_base.prototype, "order_string", null);
@@ -7757,7 +7754,7 @@ var $;
     ], $hyoo_sketch_element_base.prototype, "Element", null);
     __decorate([
         $mol_mem
-    ], $hyoo_sketch_element_base.prototype, "duplicate", null);
+    ], $hyoo_sketch_element_base.prototype, "duplicate_event", null);
     __decorate([
         $mol_mem
     ], $hyoo_sketch_element_base.prototype, "delete", null);
@@ -8041,22 +8038,22 @@ var $;
                 node.setPointerCapture(event.pointerId);
             }
             width(next) {
-                return Number(this.state().sub('width').value(next) || super.width());
+                return Number(this.state().sub('width').value(next) || this.width_default());
             }
             height(next) {
-                return Number(this.state().sub('height').value(next) || super.height());
+                return Number(this.state().sub('height').value(next) || this.height_default());
             }
             top(next) {
-                return Number(this.state().sub('top').value(next) || super.top());
+                return Number(this.state().sub('top').value(next) || this.top_default());
             }
             left(next) {
-                return Number(this.state().sub('left').value(next) || super.left());
+                return Number(this.state().sub('left').value(next) || this.left_default());
             }
             order(next) {
-                return Number(this.state().sub('order').value(next) || super.order());
+                return Number(this.state().sub('order').value(next) || this.order_default());
             }
-            duplicate() {
-                const element = this.element().duplicate();
+            duplicate(elem) {
+                const element = elem ?? this.element().duplicate();
                 const obj = new this.$.$hyoo_sketch_element_base;
                 obj.element = $mol_const(element);
                 obj.width(this.width());
@@ -8064,7 +8061,11 @@ var $;
                 obj.top(this.top() + this.height() + this.page().grid());
                 obj.left(this.left());
                 obj.order(this.order());
-                return obj;
+                return element;
+            }
+            duplicate_event() {
+                const element = this.duplicate();
+                this.page().element_add(element);
             }
             delete(event) {
                 event.preventDefault();
@@ -8998,6 +8999,13 @@ var $;
             icon_name(next) {
                 return String(this.state().sub('icon_name').value(next) ?? super.icon_name());
             }
+            duplicate(elem) {
+                const element = elem ?? super.duplicate();
+                const obj = new $hyoo_sketch_element_icon;
+                obj.element = $mol_const(element);
+                obj.icon_name(this.icon_name());
+                return element;
+            }
         }
         $$.$hyoo_sketch_element_icon = $hyoo_sketch_element_icon;
     })($$ = $.$$ || ($.$$ = {}));
@@ -9228,16 +9236,17 @@ var $;
             const obj = new this.$.$mol_icon();
             return obj;
         }
-        text(next) {
-            if (next !== undefined)
-                return next;
-            return "Text";
-        }
         text_sub() {
             return [
                 this.Text_icon(),
                 this.text()
             ];
+        }
+        text_default() {
+            return "Text";
+        }
+        text(next) {
+            return this.text_default();
         }
         Text_control() {
             const obj = new this.$.$mol_string();
@@ -9250,10 +9259,11 @@ var $;
             obj.Control = () => this.Text_control();
             return obj;
         }
-        padding(next) {
-            if (next !== undefined)
-                return next;
+        padding_default() {
             return "text";
+        }
+        padding(next) {
+            return this.padding_default();
         }
         Padding_control() {
             const obj = new this.$.$mol_switch();
@@ -9272,10 +9282,11 @@ var $;
             obj.Control = () => this.Padding_control();
             return obj;
         }
-        align_hor(next) {
-            if (next !== undefined)
-                return next;
+        align_hor_default() {
             return "start";
+        }
+        align_hor(next) {
+            return this.align_hor_default();
         }
         Align_hor_control() {
             const obj = new this.$.$mol_switch();
@@ -9289,10 +9300,11 @@ var $;
             obj.Control = () => this.Align_hor_control();
             return obj;
         }
-        align_ver(next) {
-            if (next !== undefined)
-                return next;
+        align_ver_default() {
             return "start";
+        }
+        align_ver(next) {
+            return this.align_ver_default();
         }
         align_options() {
             return {
@@ -9313,10 +9325,11 @@ var $;
             obj.Control = () => this.Align_ver_control();
             return obj;
         }
-        size(next) {
-            if (next !== undefined)
-                return next;
+        size_default() {
             return "1.0rem";
+        }
+        size(next) {
+            return this.size_default();
         }
         Size_control() {
             const obj = new this.$.$mol_switch();
@@ -9356,16 +9369,10 @@ var $;
     ], $hyoo_sketch_element_text.prototype, "Text_icon", null);
     __decorate([
         $mol_mem
-    ], $hyoo_sketch_element_text.prototype, "text", null);
-    __decorate([
-        $mol_mem
     ], $hyoo_sketch_element_text.prototype, "Text_control", null);
     __decorate([
         $mol_mem
     ], $hyoo_sketch_element_text.prototype, "Text_option", null);
-    __decorate([
-        $mol_mem
-    ], $hyoo_sketch_element_text.prototype, "padding", null);
     __decorate([
         $mol_mem
     ], $hyoo_sketch_element_text.prototype, "Padding_control", null);
@@ -9374,25 +9381,16 @@ var $;
     ], $hyoo_sketch_element_text.prototype, "Padding_option", null);
     __decorate([
         $mol_mem
-    ], $hyoo_sketch_element_text.prototype, "align_hor", null);
-    __decorate([
-        $mol_mem
     ], $hyoo_sketch_element_text.prototype, "Align_hor_control", null);
     __decorate([
         $mol_mem
     ], $hyoo_sketch_element_text.prototype, "Align_hor_option", null);
     __decorate([
         $mol_mem
-    ], $hyoo_sketch_element_text.prototype, "align_ver", null);
-    __decorate([
-        $mol_mem
     ], $hyoo_sketch_element_text.prototype, "Align_ver_control", null);
     __decorate([
         $mol_mem
     ], $hyoo_sketch_element_text.prototype, "Align_ver_option", null);
-    __decorate([
-        $mol_mem
-    ], $hyoo_sketch_element_text.prototype, "size", null);
     __decorate([
         $mol_mem
     ], $hyoo_sketch_element_text.prototype, "Size_control", null);
@@ -9421,19 +9419,31 @@ var $;
                 return `var(--mol_gap_${this.padding()})`;
             }
             text(next) {
-                return String(this.state().sub('text_content').value(next) ?? super.text());
+                return String(this.state().sub('text_content').value(next) ?? this.text_default());
             }
             padding(next) {
-                return String(this.state().sub('text_padding').value(next) ?? super.padding());
+                return String(this.state().sub('text_padding').value(next) ?? this.padding_default());
             }
             align_ver(next) {
-                return String(this.state().sub('text_align_ver').value(next) ?? super.align_ver());
+                return String(this.state().sub('text_align_ver').value(next) ?? this.align_ver_default());
             }
             align_hor(next) {
-                return String(this.state().sub('text_align_hor').value(next) ?? super.align_hor());
+                return String(this.state().sub('text_align_hor').value(next) ?? this.align_hor_default());
             }
             size(next) {
-                return String(this.state().sub('text_size').value(next) ?? super.size());
+                return String(this.state().sub('text_size').value(next) ?? this.size_default());
+            }
+            duplicate(elem) {
+                const element = elem ?? super.duplicate();
+                const obj = new $hyoo_sketch_element_text;
+                obj.element = $mol_const(element);
+                obj.text(this.text());
+                obj.padding(this.padding());
+                obj.align_ver(this.align_ver());
+                obj.align_hor(this.align_hor());
+                obj.size(this.size());
+                this.Icon().duplicate(element);
+                return element;
             }
         }
         $$.$hyoo_sketch_element_text = $hyoo_sketch_element_text;
@@ -10518,6 +10528,15 @@ var $;
                 next.splice(index, 1, id);
                 return this.nav_pages(next);
             }
+            duplicate(elem) {
+                const element = elem ?? super.duplicate();
+                const obj = new $hyoo_sketch_element_nav;
+                obj.element = $mol_const(element);
+                obj.nav_action(this.nav_action());
+                obj.nav_target_page(this.nav_target_page());
+                obj.nav_target_link(this.nav_target_link());
+                return element;
+            }
         }
         __decorate([
             $mol_mem
@@ -10670,22 +10689,22 @@ var $;
     ], $hyoo_sketch_element_button.prototype, "Button_type_option", null);
     $.$hyoo_sketch_element_button = $hyoo_sketch_element_button;
     class $hyoo_sketch_element_button_text extends $hyoo_sketch_element_text {
-        text(next) {
+        text_default(next) {
             if (next !== undefined)
                 return next;
             return "Button";
         }
-        padding(next) {
+        padding_default(next) {
             if (next !== undefined)
                 return next;
             return "text";
         }
-        align_hor(next) {
+        align_hor_default(next) {
             if (next !== undefined)
                 return next;
             return "center";
         }
-        align_ver(next) {
+        align_ver_default(next) {
             if (next !== undefined)
                 return next;
             return "center";
@@ -10693,16 +10712,16 @@ var $;
     }
     __decorate([
         $mol_mem
-    ], $hyoo_sketch_element_button_text.prototype, "text", null);
+    ], $hyoo_sketch_element_button_text.prototype, "text_default", null);
     __decorate([
         $mol_mem
-    ], $hyoo_sketch_element_button_text.prototype, "padding", null);
+    ], $hyoo_sketch_element_button_text.prototype, "padding_default", null);
     __decorate([
         $mol_mem
-    ], $hyoo_sketch_element_button_text.prototype, "align_hor", null);
+    ], $hyoo_sketch_element_button_text.prototype, "align_hor_default", null);
     __decorate([
         $mol_mem
-    ], $hyoo_sketch_element_button_text.prototype, "align_ver", null);
+    ], $hyoo_sketch_element_button_text.prototype, "align_ver_default", null);
     $.$hyoo_sketch_element_button_text = $hyoo_sketch_element_button_text;
 })($ || ($ = {}));
 //hyoo/sketch/element/button/-view.tree/button.view.tree.ts
@@ -10745,6 +10764,15 @@ var $;
                 if (action === 'external') {
                     $mol_dom_context.open(target_link, '_blank');
                 }
+            }
+            duplicate(elem) {
+                const element = elem ?? super.duplicate();
+                const obj = new $hyoo_sketch_element_button;
+                obj.element = $mol_const(element);
+                obj.button_type(this.button_type());
+                this.Text().duplicate(element);
+                this.Nav().duplicate(element);
+                return element;
             }
         }
         __decorate([
@@ -11401,6 +11429,16 @@ var $;
             input_enabled_bool() {
                 return this.input_enabled() === 'on';
             }
+            duplicate(elem) {
+                const element = elem ?? super.duplicate();
+                const obj = new $hyoo_sketch_element_input;
+                obj.element = $mol_const(element);
+                obj.input_type(this.input_type());
+                obj.input_hint(this.input_hint());
+                obj.input_text(this.input_text());
+                obj.input_enabled(this.input_enabled());
+                return element;
+            }
         }
         $$.$hyoo_sketch_element_input = $hyoo_sketch_element_input;
     })($$ = $.$$ || ($.$$ = {}));
@@ -11523,22 +11561,22 @@ var $;
     ], $hyoo_sketch_element_link.prototype, "Link_hint_option", null);
     $.$hyoo_sketch_element_link = $hyoo_sketch_element_link;
     class $hyoo_sketch_element_link_text extends $hyoo_sketch_element_text {
-        text(next) {
+        text_default(next) {
             if (next !== undefined)
                 return next;
             return "Link";
         }
-        padding(next) {
+        padding_default(next) {
             if (next !== undefined)
                 return next;
             return "text";
         }
-        align_hor(next) {
+        align_hor_default(next) {
             if (next !== undefined)
                 return next;
             return "start";
         }
-        align_ver(next) {
+        align_ver_default(next) {
             if (next !== undefined)
                 return next;
             return "center";
@@ -11546,16 +11584,16 @@ var $;
     }
     __decorate([
         $mol_mem
-    ], $hyoo_sketch_element_link_text.prototype, "text", null);
+    ], $hyoo_sketch_element_link_text.prototype, "text_default", null);
     __decorate([
         $mol_mem
-    ], $hyoo_sketch_element_link_text.prototype, "padding", null);
+    ], $hyoo_sketch_element_link_text.prototype, "padding_default", null);
     __decorate([
         $mol_mem
-    ], $hyoo_sketch_element_link_text.prototype, "align_hor", null);
+    ], $hyoo_sketch_element_link_text.prototype, "align_hor_default", null);
     __decorate([
         $mol_mem
-    ], $hyoo_sketch_element_link_text.prototype, "align_ver", null);
+    ], $hyoo_sketch_element_link_text.prototype, "align_ver_default", null);
     $.$hyoo_sketch_element_link_text = $hyoo_sketch_element_link_text;
 })($ || ($ = {}));
 //hyoo/sketch/element/link/-view.tree/link.view.tree.ts
@@ -11609,6 +11647,15 @@ var $;
             }
             link_uri() {
                 return this.Nav().nav_action() === 'external' ? this.Nav().nav_target_link() : '#';
+            }
+            duplicate(elem) {
+                const element = elem ?? super.duplicate();
+                const obj = new $hyoo_sketch_element_link;
+                obj.element = $mol_const(element);
+                obj.link_hint(this.link_hint());
+                this.Text().duplicate(element);
+                this.Nav().duplicate(element);
+                return element;
             }
         }
         __decorate([
@@ -11707,10 +11754,17 @@ var $;
                 image: this.image_options()
             };
         }
-        image_link(next) {
-            if (next !== undefined)
-                return next;
+        width_default() {
+            return 128;
+        }
+        height_default() {
+            return 128;
+        }
+        image_link_default() {
             return "https://thiscatdoesnotexist.com";
+        }
+        image_link(next) {
+            return this.image_link_default();
         }
         Image_link_control() {
             const obj = new this.$.$mol_string();
@@ -11734,9 +11788,6 @@ var $;
     ], $hyoo_sketch_element_image.prototype, "Element", null);
     __decorate([
         $mol_mem
-    ], $hyoo_sketch_element_image.prototype, "image_link", null);
-    __decorate([
-        $mol_mem
     ], $hyoo_sketch_element_image.prototype, "Image_link_control", null);
     __decorate([
         $mol_mem
@@ -11752,7 +11803,14 @@ var $;
     (function ($$) {
         class $hyoo_sketch_element_image extends $.$hyoo_sketch_element_image {
             image_link(next) {
-                return String(this.state().sub('image_link').value(next) ?? super.image_link());
+                return String(this.state().sub('image_link').value(next) ?? this.image_link_default());
+            }
+            duplicate(elem) {
+                const element = elem ?? super.duplicate();
+                const obj = new $hyoo_sketch_element_image;
+                obj.element = $mol_const(element);
+                obj.image_link(this.image_link());
+                return element;
             }
         }
         $$.$hyoo_sketch_element_image = $hyoo_sketch_element_image;

@@ -274,19 +274,20 @@ $hyoo_sketch_element_base $mol_view
 		domain => domain
 		page => page
 	state $mol_state_shared
-	order? 1
+	order? <= order_default 1
 	grid? 8
 	position *
-		width <= width? 320
-		height <= height? 40
-		left <= left? 0
-		top <= top? 0
+		width <= width? <= width_default 320
+		height <= height? <= height_default 40
+		left <= left? <= left_default 0
+		top <= top? <= top_default 0
 		zIndex <= order_string? \
 	Preview $mol_view
 		style * ^ position
 		sub / <= Element $mol_view
+	duplicate? $hyoo_sketch_element
 	Editor $hyoo_sketch_element_base_editor
-		duplicate? <=> duplicate? $hyoo_sketch_element_base
+		duplicate? <=> duplicate_event? null
 		delete? <=> delete? null
 		move_up? <=> move_up? null
 		move_down? <=> move_down? null
@@ -393,7 +394,7 @@ $hyoo_sketch_element_text $hyoo_sketch_element_base
 			fontSize <= size
 		sub <= text_sub /
 			<= Text_icon $mol_icon
-			<= text? \Text
+			<= text?
 	Icon $hyoo_sketch_element_icon
 		element <= element
 		icon_options => icon_options
@@ -403,11 +404,11 @@ $hyoo_sketch_element_text $hyoo_sketch_element_base
 			<= Text_option $hyoo_sketch_option
 				name @ \Text
 				Control <= Text_control $mol_string
-					value? <=> text?
+					value? <=> text? <= text_default \Text
 			<= Padding_option $hyoo_sketch_option
 				name @ \Padding
 				Control <= Padding_control $mol_switch
-					value? <=> padding? \text
+					value? <=> padding? <= padding_default \text
 					options *
 						none \None
 						text \Text
@@ -416,12 +417,12 @@ $hyoo_sketch_element_text $hyoo_sketch_element_base
 			<= Align_hor_option $hyoo_sketch_option
 				name @ \Align hor
 				Control <= Align_hor_control $mol_switch
-					value? <=> align_hor? \start
+					value? <=> align_hor? <= align_hor_default \start
 					options <= align_options
 			<= Align_ver_option $hyoo_sketch_option
 				name @ \Align ver
 				Control <= Align_ver_control $mol_switch
-					value? <=> align_ver? \start
+					value? <=> align_ver? <= align_ver_default \start
 					options <= align_options *
 						start \Start
 						center \Center
@@ -429,7 +430,7 @@ $hyoo_sketch_element_text $hyoo_sketch_element_base
 			<= Size_option $hyoo_sketch_option
 				name @ \Size
 				Control <= Size_control $mol_switch
-					value? <=> size? \1.0rem
+					value? <=> size? <= size_default \1.0rem
 					options *
 						0.75rem \Muted
 						1.0rem \Normal
@@ -612,10 +613,10 @@ $hyoo_sketch_element_button $hyoo_sketch_element_base
 		text <= text_options
 		nav <= nav_options
 $hyoo_sketch_element_button_text $hyoo_sketch_element_text
-	text? \Button
-	padding? \text
-	align_hor? \center
-	align_ver? \center
+	text_default? \Button
+	padding_default? \text
+	align_hor_default? \center
+	align_ver_default? \center
 
 $mol_password $mol_view
 	type?val \password
@@ -742,10 +743,10 @@ $hyoo_sketch_element_link $hyoo_sketch_element_base
 		nav <= nav_options
 		text <= text_options
 $hyoo_sketch_element_link_text $hyoo_sketch_element_text
-	text? \Link
-	padding? \text
-	align_hor? \start
-	align_ver? \center
+	text_default? \Link
+	padding_default? \text
+	align_hor_default? \start
+	align_ver_default? \center
 
 $mol_image2 $mol_view
 	links /
@@ -758,14 +759,16 @@ $mol_image2 $mol_view
 
 $hyoo_sketch_element_image $hyoo_sketch_element_base
 	Element $mol_image2
-		links / <= image_link? \https://thiscatdoesnotexist.com
+		links / <= image_link?
 	Options *
 		^
 		image <= image_options /
 			<= Image_link_option $hyoo_sketch_option
 				name @ \Link
 				Control <= Image_link_control $mol_string
-					value? <=> image_link?
+					value? <=> image_link? <= image_link_default \https://thiscatdoesnotexist.com
+	width_default 128
+	height_default 128
 
 $mol_icon_television $mol_icon path \M21,17H3V5H21M21,3H3C1.9,3 1,3.9 1,5V17C1,18.1 1.9,19 3,19H8V21H16V19H21C22.1,19 23,18.1 23,17V5C23,3.9 22.1,3 21,3Z
 
