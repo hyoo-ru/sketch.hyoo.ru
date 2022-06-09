@@ -4,7 +4,9 @@ namespace $ {
 		
 		@ $mol_mem
 		state() {
-			return new this.$.$mol_state_shared
+			const obj = new this.$.$mol_state_shared
+			obj.db_sync = ()=>null
+			return obj
 		}
 		
 		@ $mol_mem

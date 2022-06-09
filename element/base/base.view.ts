@@ -101,7 +101,7 @@ namespace $.$$ {
 		duplicate_event() {
 			const element = this.duplicate()
 			this.page().element_add(element)
-			this.$.$mol_state_arg.value('selected', element.id())
+			// this.$.$mol_state_arg.value('selected', element.id())
 		}
 
 		delete(event: KeyboardEvent) {
