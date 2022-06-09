@@ -65,3 +65,4 @@ $hyoo_sketch_editor $mol_page
 	Element_switch* $hyoo_sketch_element_switch
 	Element_options* $hyoo_sketch_element_options
 	Element_textarea* $hyoo_sketch_element_textarea
+	Element_date* $hyoo_sketch_element_date
