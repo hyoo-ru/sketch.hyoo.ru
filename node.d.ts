@@ -3455,6 +3455,94 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
+    class $mol_select_list extends $mol_view {
+        value(val?: any): readonly string[];
+        dictionary(): {};
+        Badge(id: any): $mol_button_minor;
+        Pick(): $$.$mol_select;
+        badge_title(id: any): string;
+        remove(id: any, event?: any): any;
+        badge_hint(): string;
+        enabled(): boolean;
+        drop_enabled(): boolean;
+        align_hor(): string;
+        options(): readonly string[];
+        options_pickable(): readonly string[];
+        pick(val?: any): string;
+        option_title(id: any): string;
+        pick_enabled(): boolean;
+        pick_hint(): string;
+        Pick_icon(): $mol_icon_plus;
+    }
+}
+
+declare namespace $.$$ {
+}
+
+declare namespace $.$$ {
+    class $mol_select_list extends $.$mol_select_list {
+        value(val?: string[]): readonly string[];
+        pick(key?: string): string;
+        options(): readonly string[];
+        options_pickable(): readonly string[];
+        option_title(key: string): string;
+        badge_title(index: number): string;
+        pick_enabled(): boolean;
+        sub(): ($mol_button_minor | $mol_select)[];
+        title(): string;
+        remove(index: number): void;
+    }
+}
+
+declare namespace $ {
+    class $hyoo_sketch_element_select extends $hyoo_sketch_element_base {
+        List(): $$.$mol_select_list;
+        Single(): $$.$mol_select;
+        Elemet(): $mol_view;
+        Options(): {
+            select: readonly any[];
+            position: readonly any[];
+        };
+        select_list_value(next?: any): readonly any[];
+        select_option_dict(): {};
+        select_single_value(next?: any): string;
+        select_option_list(): readonly string[];
+        select_type_default(): string;
+        select_type(next?: any): string;
+        Select_type_control(): $$.$mol_switch;
+        Select_type_option(): $hyoo_sketch_option;
+        select_option_clear(id: any, next?: any): any;
+        Clear_icon(id: any): $mol_icon_cross;
+        clear_sub(id: any): readonly any[];
+        Select_option_row_clear(id: any): $mol_button_minor;
+        select_option_row(id: any, next?: any): string;
+        Select_option_row_string(id: any): $$.$mol_string;
+        Select_option_row(id: any): $mol_view;
+        select_option_rows(): readonly any[];
+        Select_option_control(): $$.$mol_list;
+        Select_option_option(): $hyoo_sketch_option;
+        select_options(): readonly any[];
+    }
+}
+
+declare namespace $.$$ {
+}
+
+declare namespace $.$$ {
+    class $hyoo_sketch_element_select extends $.$hyoo_sketch_element_select {
+        Element(): $mol_view;
+        select_type(next?: string): string;
+        select_option_list(next?: string[]): string[];
+        select_option_rows(): $mol_view[];
+        select_option_row(index: number, next?: string): string;
+        select_option_dict(): {};
+        select_option_clear(index: number): void;
+        clear_sub(index: number): $mol_icon_cross[];
+        duplicate(elem?: $hyoo_sketch_element): $hyoo_sketch_element;
+    }
+}
+
+declare namespace $ {
     class $mol_icon_television extends $mol_icon {
         path(): string;
     }
@@ -3540,6 +3628,7 @@ declare namespace $ {
         Element_input(id: any): $$.$hyoo_sketch_element_input;
         Element_link(id: any): $$.$hyoo_sketch_element_link;
         Element_image(id: any): $$.$hyoo_sketch_element_image;
+        Element_select(id: any): $$.$hyoo_sketch_element_select;
         editor_title(): string;
         Project_demo_icon(): $mol_icon_television_play;
         page_current_id(): string;

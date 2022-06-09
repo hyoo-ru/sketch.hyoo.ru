@@ -12344,6 +12344,462 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    class $mol_select_list extends $mol_view {
+        value(val) {
+            if (val !== undefined)
+                return val;
+            return [];
+        }
+        dictionary() {
+            return {};
+        }
+        Badge(id) {
+            const obj = new this.$.$mol_button_minor();
+            obj.title = () => this.badge_title(id);
+            obj.click = (event) => this.remove(id, event);
+            obj.hint = () => this.badge_hint();
+            obj.enabled = () => this.drop_enabled();
+            return obj;
+        }
+        Pick() {
+            const obj = new this.$.$mol_select();
+            obj.align_hor = () => this.align_hor();
+            obj.options = () => this.options_pickable();
+            obj.value = (val) => this.pick(val);
+            obj.option_label = (id) => this.option_title(id);
+            obj.trigger_enabled = () => this.pick_enabled();
+            obj.hint = () => this.pick_hint();
+            obj.Trigger_icon = () => this.Pick_icon();
+            return obj;
+        }
+        badge_title(id) {
+            return "badge";
+        }
+        remove(id, event) {
+            if (event !== undefined)
+                return event;
+            return null;
+        }
+        badge_hint() {
+            return this.$.$mol_locale.text('$mol_select_list_badge_hint');
+        }
+        enabled() {
+            return true;
+        }
+        drop_enabled() {
+            return this.enabled();
+        }
+        align_hor() {
+            return "right";
+        }
+        options() {
+            return [];
+        }
+        options_pickable() {
+            return this.options();
+        }
+        pick(val) {
+            if (val !== undefined)
+                return val;
+            return "";
+        }
+        option_title(id) {
+            return "";
+        }
+        pick_enabled() {
+            return this.enabled();
+        }
+        pick_hint() {
+            return this.$.$mol_locale.text('$mol_select_list_pick_hint');
+        }
+        Pick_icon() {
+            const obj = new this.$.$mol_icon_plus();
+            return obj;
+        }
+    }
+    __decorate([
+        $mol_mem
+    ], $mol_select_list.prototype, "value", null);
+    __decorate([
+        $mol_mem_key
+    ], $mol_select_list.prototype, "Badge", null);
+    __decorate([
+        $mol_mem
+    ], $mol_select_list.prototype, "Pick", null);
+    __decorate([
+        $mol_mem_key
+    ], $mol_select_list.prototype, "remove", null);
+    __decorate([
+        $mol_mem
+    ], $mol_select_list.prototype, "pick", null);
+    __decorate([
+        $mol_mem
+    ], $mol_select_list.prototype, "Pick_icon", null);
+    $.$mol_select_list = $mol_select_list;
+})($ || ($ = {}));
+//mol/select/list/-view.tree/list.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        const { rem } = $mol_style_unit;
+        $mol_style_define($mol_select_list, {
+            flex: {
+                wrap: 'wrap',
+                shrink: 1,
+                grow: 1,
+            },
+        });
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//mol/select/list/list.view.css.ts
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $mol_select_list extends $.$mol_select_list {
+            value(val) {
+                return super.value(val);
+            }
+            pick(key) {
+                if (!key)
+                    return '';
+                this.value([...this.value(), key]);
+                new $mol_after_frame(() => {
+                    if (!this.pick_enabled())
+                        return;
+                    this.Pick().Trigger().focused(true);
+                    this.Pick().open();
+                });
+                return '';
+            }
+            options() {
+                return Object.keys(this.dictionary());
+            }
+            options_pickable() {
+                if (!this.enabled())
+                    return [];
+                const exists = new Set(this.value());
+                return this.options().filter(key => !exists.has(key));
+            }
+            option_title(key) {
+                const value = this.dictionary()[key];
+                return value == null ? key : value;
+            }
+            badge_title(index) {
+                return this.option_title(this.value()[index]);
+            }
+            pick_enabled() {
+                return this.options_pickable().length > 0;
+            }
+            sub() {
+                return [
+                    this.Pick(),
+                    ...this.value()
+                        .map((_, index) => this.Badge(index))
+                        .reverse(),
+                ];
+            }
+            title() {
+                return this.value().map(key => this.option_title(key)).join(' + ');
+            }
+            remove(index) {
+                const value = this.value();
+                this.value([
+                    ...value.slice(0, index),
+                    ...value.slice(index + 1),
+                ]);
+            }
+        }
+        __decorate([
+            $mol_mem
+        ], $mol_select_list.prototype, "pick", null);
+        __decorate([
+            $mol_mem
+        ], $mol_select_list.prototype, "options", null);
+        __decorate([
+            $mol_mem
+        ], $mol_select_list.prototype, "options_pickable", null);
+        __decorate([
+            $mol_mem
+        ], $mol_select_list.prototype, "pick_enabled", null);
+        __decorate([
+            $mol_mem
+        ], $mol_select_list.prototype, "sub", null);
+        __decorate([
+            $mol_mem
+        ], $mol_select_list.prototype, "title", null);
+        __decorate([
+            $mol_action
+        ], $mol_select_list.prototype, "remove", null);
+        $$.$mol_select_list = $mol_select_list;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//mol/select/list/list.view.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $hyoo_sketch_element_select extends $hyoo_sketch_element_base {
+        List() {
+            const obj = new this.$.$mol_select_list();
+            obj.value = (next) => this.select_list_value(next);
+            obj.dictionary = () => this.select_option_dict();
+            return obj;
+        }
+        Single() {
+            const obj = new this.$.$mol_select();
+            obj.value = (next) => this.select_single_value(next);
+            obj.options = () => this.select_option_list();
+            return obj;
+        }
+        Elemet() {
+            const obj = new this.$.$mol_view();
+            return obj;
+        }
+        Options() {
+            return {
+                ...super.Options(),
+                select: this.select_options()
+            };
+        }
+        select_list_value(next) {
+            if (next !== undefined)
+                return next;
+            return [];
+        }
+        select_option_dict() {
+            return {};
+        }
+        select_single_value(next) {
+            if (next !== undefined)
+                return next;
+            return "";
+        }
+        select_option_list() {
+            return [];
+        }
+        select_type_default() {
+            return "Single";
+        }
+        select_type(next) {
+            return this.select_type_default();
+        }
+        Select_type_control() {
+            const obj = new this.$.$mol_switch();
+            obj.value = (next) => this.select_type(next);
+            obj.options = () => ({
+                Single: this.$.$mol_locale.text('$hyoo_sketch_element_select_Select_type_control_options_Single'),
+                List: this.$.$mol_locale.text('$hyoo_sketch_element_select_Select_type_control_options_List')
+            });
+            return obj;
+        }
+        Select_type_option() {
+            const obj = new this.$.$hyoo_sketch_option();
+            obj.name = () => this.$.$mol_locale.text('$hyoo_sketch_element_select_Select_type_option_name');
+            obj.Control = () => this.Select_type_control();
+            return obj;
+        }
+        select_option_clear(id, next) {
+            if (next !== undefined)
+                return next;
+            return null;
+        }
+        Clear_icon(id) {
+            const obj = new this.$.$mol_icon_cross();
+            return obj;
+        }
+        clear_sub(id) {
+            return [
+                this.Clear_icon(id)
+            ];
+        }
+        Select_option_row_clear(id) {
+            const obj = new this.$.$mol_button_minor();
+            obj.click = (next) => this.select_option_clear(id, next);
+            obj.sub = () => this.clear_sub(id);
+            return obj;
+        }
+        select_option_row(id, next) {
+            if (next !== undefined)
+                return next;
+            return "";
+        }
+        Select_option_row_string(id) {
+            const obj = new this.$.$mol_string();
+            obj.value = (next) => this.select_option_row(id, next);
+            return obj;
+        }
+        Select_option_row(id) {
+            const obj = new this.$.$mol_view();
+            obj.sub = () => [
+                this.Select_option_row_clear(id),
+                this.Select_option_row_string(id)
+            ];
+            return obj;
+        }
+        select_option_rows() {
+            return [
+                this.Select_option_row("0")
+            ];
+        }
+        Select_option_control() {
+            const obj = new this.$.$mol_list();
+            obj.rows = () => this.select_option_rows();
+            return obj;
+        }
+        Select_option_option() {
+            const obj = new this.$.$hyoo_sketch_option();
+            obj.name = () => this.$.$mol_locale.text('$hyoo_sketch_element_select_Select_option_option_name');
+            obj.Control = () => this.Select_option_control();
+            return obj;
+        }
+        select_options() {
+            return [
+                this.Select_type_option(),
+                this.Select_option_option()
+            ];
+        }
+    }
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_select.prototype, "List", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_select.prototype, "Single", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_select.prototype, "Elemet", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_select.prototype, "select_list_value", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_select.prototype, "select_single_value", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_select.prototype, "Select_type_control", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_select.prototype, "Select_type_option", null);
+    __decorate([
+        $mol_mem_key
+    ], $hyoo_sketch_element_select.prototype, "select_option_clear", null);
+    __decorate([
+        $mol_mem_key
+    ], $hyoo_sketch_element_select.prototype, "Clear_icon", null);
+    __decorate([
+        $mol_mem_key
+    ], $hyoo_sketch_element_select.prototype, "Select_option_row_clear", null);
+    __decorate([
+        $mol_mem_key
+    ], $hyoo_sketch_element_select.prototype, "select_option_row", null);
+    __decorate([
+        $mol_mem_key
+    ], $hyoo_sketch_element_select.prototype, "Select_option_row_string", null);
+    __decorate([
+        $mol_mem_key
+    ], $hyoo_sketch_element_select.prototype, "Select_option_row", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_select.prototype, "Select_option_control", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_select.prototype, "Select_option_option", null);
+    $.$hyoo_sketch_element_select = $hyoo_sketch_element_select;
+})($ || ($ = {}));
+//hyoo/sketch/element/select/-view.tree/select.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        $mol_style_define($.$hyoo_sketch_element_select, {
+            Select_option_row: {
+                margin: {
+                    bottom: $mol_gap.space,
+                },
+            },
+        });
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//hyoo/sketch/element/select/select.view.css.ts
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $hyoo_sketch_element_select extends $.$hyoo_sketch_element_select {
+            Element() {
+                return this[this.select_type()]();
+            }
+            select_type(next) {
+                return String(this.state().sub('select_type').value(next) ?? this.select_type_default());
+            }
+            select_option_list(next) {
+                const list = this.state().sub('select_option_list').list(next) ?? [];
+                return list.map(val => String(val));
+            }
+            select_option_rows() {
+                const list = this.select_option_list();
+                return [...list, ''].map((_, i) => this.Select_option_row(i));
+            }
+            select_option_row(index, next) {
+                if (next === undefined) {
+                    return this.select_option_list()[index] ?? '';
+                }
+                let list = this.select_option_list().slice();
+                list[index] = next;
+                if (!next) {
+                    list.splice(index, 1);
+                }
+                this.select_option_list(list);
+                return next;
+            }
+            select_option_dict() {
+                return this.select_option_list().reduce((dict, val) => {
+                    dict[val] = val;
+                    return dict;
+                }, {});
+            }
+            select_option_clear(index) {
+                this.select_option_row(index, '');
+            }
+            clear_sub(index) {
+                return this.select_option_list()[index] ? [this.Clear_icon(index)] : [];
+            }
+            duplicate(elem) {
+                const element = elem ?? super.duplicate();
+                const obj = new $hyoo_sketch_element_select;
+                obj.element = $mol_const(element);
+                obj.select_type(this.select_type());
+                obj.select_option_list(this.select_option_list());
+                return element;
+            }
+        }
+        __decorate([
+            $mol_mem
+        ], $hyoo_sketch_element_select.prototype, "select_option_rows", null);
+        __decorate([
+            $mol_mem_key
+        ], $hyoo_sketch_element_select.prototype, "select_option_row", null);
+        __decorate([
+            $mol_mem
+        ], $hyoo_sketch_element_select.prototype, "select_option_dict", null);
+        $$.$hyoo_sketch_element_select = $hyoo_sketch_element_select;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//hyoo/sketch/element/select/select.view.ts
+;
+"use strict";
+var $;
+(function ($) {
     class $mol_icon_television extends $mol_icon {
         path() {
             return "M21,17H3V5H21M21,3H3C1.9,3 1,3.9 1,5V17C1,18.1 1.9,19 3,19H8V21H16V19H21C22.1,19 23,18.1 23,17V5C23,3.9 22.1,3 21,3Z";
@@ -12597,6 +13053,10 @@ var $;
             const obj = new this.$.$hyoo_sketch_element_image();
             return obj;
         }
+        Element_select(id) {
+            const obj = new this.$.$hyoo_sketch_element_select();
+            return obj;
+        }
         editor_title() {
             return "";
         }
@@ -12746,6 +13206,9 @@ var $;
     __decorate([
         $mol_mem_key
     ], $hyoo_sketch_editor.prototype, "Element_image", null);
+    __decorate([
+        $mol_mem_key
+    ], $hyoo_sketch_editor.prototype, "Element_select", null);
     __decorate([
         $mol_mem
     ], $hyoo_sketch_editor.prototype, "Project_demo_icon", null);
@@ -13092,7 +13555,8 @@ var $;
                 "button",
                 "link",
                 "input",
-                "image"
+                "image",
+                "select"
             ];
         }
         row_title(id) {

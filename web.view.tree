@@ -770,6 +770,54 @@ $hyoo_sketch_element_image $hyoo_sketch_element_base
 	width_default 128
 	height_default 128
 
+$mol_select_list $mol_view
+	value?val /string
+	dictionary *
+	Badge* $mol_button_minor
+		title <= badge_title* \badge
+		click?event <=> remove*?event null
+		hint <= badge_hint @ \Drop
+		enabled <= drop_enabled <= enabled true
+	Pick $mol_select
+		align_hor <= align_hor \right
+		options <= options_pickable <= options /string
+		value?val <=> pick?val \
+		option_label* <= option_title* \
+		trigger_enabled <= pick_enabled <= enabled true
+		hint <= pick_hint @ \Add..
+		Trigger_icon <= Pick_icon $mol_icon_plus
+
+$hyoo_sketch_element_select $hyoo_sketch_element_base
+	List $mol_select_list
+		value? <=> select_list_value? /
+		dictionary <= select_option_dict *
+	Single $mol_select
+		value? <=> select_single_value? \
+		options <= select_option_list /string
+	Elemet $mol_view
+	Options *
+		^
+		select <= select_options /
+			<= Select_type_option $hyoo_sketch_option
+				name @ \Type
+				Control <= Select_type_control $mol_switch
+					value? <=> select_type? <= select_type_default \Single
+					options *
+						Single @ \Single
+						List @ \List
+			<= Select_option_option $hyoo_sketch_option
+				name @ \Options
+				Control <= Select_option_control $mol_list
+					rows <= select_option_rows /
+						<= Select_option_row*0 $mol_view
+							sub /
+								<= Select_option_row_clear* $mol_button_minor
+									click? <=> select_option_clear*? null
+									sub <= clear_sub* / <= Clear_icon* $mol_icon_cross
+								<= Select_option_row_string* $mol_string
+									value? <=> select_option_row*? \
+
+
 $mol_icon_television $mol_icon path \M21,17H3V5H21M21,3H3C1.9,3 1,3.9 1,5V17C1,18.1 1.9,19 3,19H8V21H16V19H21C22.1,19 23,18.1 23,17V5C23,3.9 22.1,3 21,3Z
 
 $mol_icon_television_play $mol_icon path \M21,3H3C1.89,3 1,3.89 1,5V17C1,18.1 1.9,19 3,19H8V21H16V19H21C22.1,19 23,18.1 23,17V5C23,3.89 22.1,3 21,3M21,17H3V5H21M16,11L9,15V7
@@ -855,6 +903,7 @@ $hyoo_sketch_editor $mol_page
 	Element_input* $hyoo_sketch_element_input
 	Element_link* $hyoo_sketch_element_link
 	Element_image* $hyoo_sketch_element_image
+	Element_select* $hyoo_sketch_element_select
 
 $mol_deck $mol_list
 	items /$mol_view
@@ -891,6 +940,7 @@ $hyoo_sketch_palette $mol_page
 		\link
 		\input
 		\image
+		\select
 
 $hyoo_sketch $mol_book2
 	domain $hyoo_sketch_domain
