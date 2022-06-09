@@ -3372,6 +3372,47 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
+    class $hyoo_sketch_element_options extends $hyoo_sketch_element_base {
+        option_list_default(): readonly any[];
+        option_current(next?: any): string;
+        Options(): {
+            options: readonly any[];
+            position: readonly any[];
+        };
+        option_clear(id: any, next?: any): any;
+        Row_clear_icon(id: any): $mol_icon_cross;
+        Row_clear(id: any): $mol_button_minor;
+        option_row(id: any, next?: any): string;
+        Row_string(id: any): $$.$mol_string;
+        row_sub(id: any): readonly any[];
+        Row(id: any): $mol_view;
+        rows(): readonly any[];
+        Option_list_control(): $$.$mol_list;
+        Option_list_option(): $hyoo_sketch_option;
+        option_list(): readonly string[];
+        Option_current_control(): $$.$mol_select;
+        Option_current_option(): $hyoo_sketch_option;
+        options(): readonly any[];
+    }
+}
+
+declare namespace $.$$ {
+}
+
+declare namespace $.$$ {
+    class $hyoo_sketch_element_options extends $.$hyoo_sketch_element_options {
+        option_list(next?: string[]): string[];
+        option_current(next?: string): string;
+        option_dict(): {};
+        rows(): $mol_view[];
+        row_sub(index: number): ($mol_button_minor | $mol_string)[];
+        option_row(index: number, next?: string): string;
+        option_clear(index: number): void;
+        duplicate(elem: $hyoo_sketch_element): $hyoo_sketch_element;
+    }
+}
+
+declare namespace $ {
     class $mol_select_list extends $mol_view {
         value(val?: any): readonly string[];
         dictionary(): {};
@@ -3413,6 +3454,10 @@ declare namespace $.$$ {
 
 declare namespace $ {
     class $hyoo_sketch_element_select extends $hyoo_sketch_element_base {
+        option_list(): string[];
+        option_dict(): {};
+        options(): readonly any[];
+        Option_list(): $$.$hyoo_sketch_element_options;
         List(): $$.$mol_select_list;
         Single(): $$.$mol_select;
         Elemet(): $mol_view;
@@ -3421,40 +3466,19 @@ declare namespace $ {
             position: readonly any[];
         };
         select_list_value(next?: any): readonly any[];
-        select_option_dict(): {};
         select_single_value(next?: any): string;
-        select_option_list(): readonly string[];
         select_type_default(): string;
         select_type(next?: any): string;
         Select_type_control(): $$.$mol_switch;
         Select_type_option(): $hyoo_sketch_option;
-        select_option_clear(id: any, next?: any): any;
-        Clear_icon(id: any): $mol_icon_cross;
-        clear_sub(id: any): readonly any[];
-        Select_option_row_clear(id: any): $mol_button_minor;
-        select_option_row(id: any, next?: any): string;
-        Select_option_row_string(id: any): $$.$mol_string;
-        Select_option_row(id: any): $mol_view;
-        select_option_rows(): readonly any[];
-        Select_option_control(): $$.$mol_list;
-        Select_option_option(): $hyoo_sketch_option;
         select_options(): readonly any[];
     }
-}
-
-declare namespace $.$$ {
 }
 
 declare namespace $.$$ {
     class $hyoo_sketch_element_select extends $.$hyoo_sketch_element_select {
         Element(): $mol_view;
         select_type(next?: string): string;
-        select_option_list(next?: string[]): string[];
-        select_option_rows(): $mol_view[];
-        select_option_row(index: number, next?: string): string;
-        select_option_dict(): {};
-        select_option_clear(index: number): void;
-        clear_sub(index: number): $mol_icon_cross[];
         duplicate(elem?: $hyoo_sketch_element): $hyoo_sketch_element;
     }
 }
@@ -3511,6 +3535,26 @@ declare namespace $.$$ {
         check_checked(next?: boolean): boolean;
         duplicate(elem?: $hyoo_sketch_element): $hyoo_sketch_element;
         check_options(): any[];
+    }
+}
+
+declare namespace $ {
+    class $hyoo_sketch_element_switch extends $hyoo_sketch_element_base {
+        option_dict(): {};
+        value(next?: any): string;
+        options(): readonly any[];
+        Option_list(): $$.$hyoo_sketch_element_options;
+        Element(): $$.$mol_switch;
+        Options(): {
+            switch: readonly any[];
+            position: readonly any[];
+        };
+    }
+}
+
+declare namespace $.$$ {
+    class $hyoo_sketch_element_switch extends $.$hyoo_sketch_element_switch {
+        duplicate(elem?: $hyoo_sketch_element): $hyoo_sketch_element;
     }
 }
 
@@ -3602,6 +3646,8 @@ declare namespace $ {
         Element_image(id: any): $$.$hyoo_sketch_element_image;
         Element_select(id: any): $$.$hyoo_sketch_element_select;
         Element_check(id: any): $$.$hyoo_sketch_element_check;
+        Element_switch(id: any): $$.$hyoo_sketch_element_switch;
+        Element_options(id: any): $$.$hyoo_sketch_element_options;
         editor_title(): string;
         Project_demo_icon(): $mol_icon_television_play;
         page_current_id(): string;

@@ -770,6 +770,34 @@ $hyoo_sketch_element_image $hyoo_sketch_element_base
 	width_default 128
 	height_default 128
 
+$hyoo_sketch_element_options $hyoo_sketch_element_base
+	option_list_default /
+		\one
+		\two
+		\three
+	option_current? \
+	Options *
+		^
+		options <= options /
+			<= Option_list_option $hyoo_sketch_option
+				name @ \Options
+				Control <= Option_list_control $mol_list
+					rows <= rows /
+						<= Row*0 $mol_view
+							sub <= row_sub* /
+								<= Row_clear* $mol_button_minor
+									click? <=> option_clear*? null
+									sub / <= Row_clear_icon* $mol_icon_cross
+								<= Row_string* $mol_string
+									value? <=> option_row*? \
+			<= Option_current_option $hyoo_sketch_option
+				name @ \Value
+				Control <= Option_current_control $mol_select
+					align \top_center
+					value? <=> option_current?
+					options <= option_list /string
+
+
 $mol_select_list $mol_view
 	value?val /string
 	dictionary *
@@ -788,12 +816,17 @@ $mol_select_list $mol_view
 		Trigger_icon <= Pick_icon $mol_icon_plus
 
 $hyoo_sketch_element_select $hyoo_sketch_element_base
+	Option_list $hyoo_sketch_element_options
+		element <= element
+		option_list => option_list
+		option_dict => option_dict
+		options => options
 	List $mol_select_list
 		value? <=> select_list_value? /
-		dictionary <= select_option_dict *
+		dictionary <= option_dict
 	Single $mol_select
 		value? <=> select_single_value? \
-		options <= select_option_list /string
+		options <= option_list
 	Elemet $mol_view
 	Options *
 		^
@@ -805,17 +838,7 @@ $hyoo_sketch_element_select $hyoo_sketch_element_base
 					options *
 						Single @ \Single
 						List @ \List
-			<= Select_option_option $hyoo_sketch_option
-				name @ \Options
-				Control <= Select_option_control $mol_list
-					rows <= select_option_rows /
-						<= Select_option_row*0 $mol_view
-							sub /
-								<= Select_option_row_clear* $mol_button_minor
-									click? <=> select_option_clear*? null
-									sub <= clear_sub* / <= Clear_icon* $mol_icon_cross
-								<= Select_option_row_string* $mol_string
-									value? <=> select_option_row*? \
+			^ options
 
 
 $mol_icon_tick $mol_icon path \M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z
@@ -854,6 +877,19 @@ $hyoo_sketch_element_check $hyoo_sketch_element_base
 				Control <= Check_title_control $mol_string
 					value? <=> check_title? <= check_title_default \Check
 	width_default 128
+
+$hyoo_sketch_element_switch $hyoo_sketch_element_base
+	Option_list $hyoo_sketch_element_options
+		element <= element
+		option_dict => option_dict
+		option_current? => value?
+		options => options
+	Element $mol_switch
+		value? <=> value?
+		options <= option_dict
+	Options *
+		^
+		switch <= options
 
 $mol_icon_television $mol_icon path \M21,17H3V5H21M21,3H3C1.9,3 1,3.9 1,5V17C1,18.1 1.9,19 3,19H8V21H16V19H21C22.1,19 23,18.1 23,17V5C23,3.9 22.1,3 21,3Z
 
@@ -942,6 +978,8 @@ $hyoo_sketch_editor $mol_page
 	Element_image* $hyoo_sketch_element_image
 	Element_select* $hyoo_sketch_element_select
 	Element_check* $hyoo_sketch_element_check
+	Element_switch* $hyoo_sketch_element_switch
+	Element_options* $hyoo_sketch_element_options
 
 $mol_deck $mol_list
 	items /$mol_view
@@ -980,6 +1018,8 @@ $hyoo_sketch_palette $mol_page
 		\image
 		\select
 		\check
+		\switch
+		- \options
 
 $hyoo_sketch $mol_book2
 	domain $hyoo_sketch_domain
