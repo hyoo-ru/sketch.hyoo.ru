@@ -3389,8 +3389,8 @@ declare namespace $ {
         rows(): readonly any[];
         Option_list_control(): $$.$mol_list;
         Option_list_option(): $hyoo_sketch_option;
-        option_list(): readonly string[];
-        Option_current_control(): $$.$mol_select;
+        option_dict(): {};
+        Option_current_control(): $$.$mol_switch;
         Option_current_option(): $hyoo_sketch_option;
         options(): readonly any[];
     }

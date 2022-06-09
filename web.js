@@ -11897,14 +11897,13 @@ var $;
             obj.Control = () => this.Option_list_control();
             return obj;
         }
-        option_list() {
-            return [];
+        option_dict() {
+            return {};
         }
         Option_current_control() {
-            const obj = new this.$.$mol_select();
-            obj.align = () => "top_center";
+            const obj = new this.$.$mol_switch();
             obj.value = (next) => this.option_current(next);
-            obj.options = () => this.option_list();
+            obj.options = () => this.option_dict();
             return obj;
         }
         Option_current_option() {
