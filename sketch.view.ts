@@ -53,6 +53,17 @@ namespace $.$$ {
 			} )
 		}
 
+		@ $mol_mem
+		theme_hue() {
+			const val = this.project_opened().theme_hue()
+			const root = document.querySelector(":root")! as HTMLElement
+			root.style.setProperty("--mol_theme_hue", `${val}deg`)
+		}
+
+		auto() {
+			this.theme_hue()
+		}
+
 	}
 
 }

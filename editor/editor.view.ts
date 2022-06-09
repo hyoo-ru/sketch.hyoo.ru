@@ -60,6 +60,7 @@ namespace $.$$ {
 			if (this.paper_selected() || !this.selected()) {
 				return {
 					'page': this.Page_options(),
+					'theme': this.Theme_options(),
 				}
 			}
 
@@ -81,6 +82,10 @@ namespace $.$$ {
 
 		page_current_id() {
 			return this.page().id()
+		}
+
+		project_theme_hue(next?: number) {
+			return this.project().theme_hue(next)
 		}
 
 	}

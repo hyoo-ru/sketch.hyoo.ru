@@ -24,6 +24,10 @@ namespace $ {
 			return ids.map( id => this.domain().page( String(id) ) )
 		}
 
+		theme_hue( next?: number ) {
+			return Number( this.state().sub('theme_hue').value( next ) ?? 210 )
+		}
+
 		@ $mol_action
 		page_add( obj: $hyoo_sketch_page ) {
 			this.pages( [... this.pages(), obj] )

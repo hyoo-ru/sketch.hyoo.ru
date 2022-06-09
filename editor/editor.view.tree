@@ -43,6 +43,11 @@ $hyoo_sketch_editor $mol_page
 					8 \8
 					16 \16
 					32 \32
+	Theme_options /
+		<= Theme_hue $hyoo_sketch_option
+			name @ \Theme hue
+			Control <= Project_theme_hue_control $mol_number
+				value? <=> project_theme_hue? 210
 	Options *
 	body /
 		<= Paper $hyoo_sketch_editor_paper
