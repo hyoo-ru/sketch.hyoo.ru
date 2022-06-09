@@ -5820,6 +5820,9 @@ var $;
             const ids = this.state().sub('pages').list(next && next.map(obj => obj.id()));
             return ids.map(id => this.domain().page(String(id)));
         }
+        theme_hue(next) {
+            return Number(this.state().sub('theme_hue').value(next) ?? 210);
+        }
         page_add(obj) {
             this.pages([...this.pages(), obj]);
             obj.project(this);
@@ -18152,6 +18155,11 @@ var $;
                 this.Page_grid()
             ];
         }
+        Theme_options() {
+            return [
+                this.Theme_hue()
+            ];
+        }
         Options() {
             return {};
         }
@@ -18329,6 +18337,22 @@ var $;
             obj.Control = () => this.Grid();
             return obj;
         }
+        project_theme_hue(next) {
+            if (next !== undefined)
+                return next;
+            return 210;
+        }
+        Project_theme_hue_control() {
+            const obj = new this.$.$mol_number();
+            obj.value = (next) => this.project_theme_hue(next);
+            return obj;
+        }
+        Theme_hue() {
+            const obj = new this.$.$hyoo_sketch_option();
+            obj.name = () => this.$.$mol_locale.text('$hyoo_sketch_editor_Theme_hue_name');
+            obj.Control = () => this.Project_theme_hue_control();
+            return obj;
+        }
         paper_selected(next) {
             if (next !== undefined)
                 return next;
@@ -18462,6 +18486,15 @@ var $;
     ], $hyoo_sketch_editor.prototype, "Page_grid", null);
     __decorate([
         $mol_mem
+    ], $hyoo_sketch_editor.prototype, "project_theme_hue", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_editor.prototype, "Project_theme_hue_control", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_editor.prototype, "Theme_hue", null);
+    __decorate([
+        $mol_mem
     ], $hyoo_sketch_editor.prototype, "paper_selected", null);
     __decorate([
         $mol_mem
@@ -18540,6 +18573,7 @@ var $;
                 if (this.paper_selected() || !this.selected()) {
                     return {
                         'page': this.Page_options(),
+                        'theme': this.Theme_options(),
                     };
                 }
                 if (this.selected()) {
@@ -18555,6 +18589,9 @@ var $;
             }
             page_current_id() {
                 return this.page().id();
+            }
+            project_theme_hue(next) {
+                return this.project().theme_hue(next);
             }
         }
         __decorate([
@@ -19095,7 +19132,18 @@ var $;
                     return element.Preview();
                 });
             }
+            theme_hue() {
+                const val = this.project_opened().theme_hue();
+                const root = document.querySelector(":root");
+                root.style.setProperty("--mol_theme_hue", `${val}deg`);
+            }
+            auto() {
+                this.theme_hue();
+            }
         }
+        __decorate([
+            $mol_mem
+        ], $hyoo_sketch.prototype, "theme_hue", null);
         $$.$hyoo_sketch = $hyoo_sketch;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));

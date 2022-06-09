@@ -1640,6 +1640,7 @@ declare namespace $ {
         state(): $mol_state_shared;
         name(next?: string): string;
         pages(next?: $hyoo_sketch_page[]): $hyoo_sketch_page[];
+        theme_hue(next?: number): number;
         page_add(obj: $hyoo_sketch_page): void;
         page_delete(obj: $hyoo_sketch_page): void;
         page_duplicate(obj: $hyoo_sketch_page): void;
@@ -4984,6 +4985,7 @@ declare namespace $ {
         title(): string;
         tools(): readonly any[];
         Page_options(): readonly any[];
+        Theme_options(): readonly any[];
         Options(): {};
         body(): readonly any[];
         Element_base(id: any): $$.$hyoo_sketch_element_base;
@@ -5021,6 +5023,9 @@ declare namespace $ {
         Page_height(): $hyoo_sketch_option;
         Grid(): $$.$mol_switch;
         Page_grid(): $hyoo_sketch_option;
+        project_theme_hue(next?: any): number;
+        Project_theme_hue_control(): $$.$mol_number;
+        Theme_hue(): $hyoo_sketch_option;
         paper_selected(next?: any): boolean;
         elements(): readonly any[];
         Elements(): $mol_view;
@@ -5046,12 +5051,15 @@ declare namespace $.$$ {
             position: readonly any[];
         } | {
             page: readonly any[];
+            theme: readonly any[];
         } | {
             page?: undefined;
+            theme?: undefined;
         };
         preview(next?: boolean): boolean;
         editing(): boolean;
         page_current_id(): string;
+        project_theme_hue(next?: number): number;
     }
 }
 
@@ -5143,8 +5151,10 @@ declare namespace $ {
             position: readonly any[];
         } | {
             page: readonly any[];
+            theme: readonly any[];
         } | {
             page?: undefined;
+            theme?: undefined;
         };
         Element(id: any): $$.$hyoo_sketch_element_base;
         Editor(): $$.$hyoo_sketch_editor;
@@ -5172,6 +5182,8 @@ declare namespace $.$$ {
         demo_page_title(id: string): string;
         demo_page_width(id: string): number;
         demo_page_elements(id: string): $mol_view[];
+        theme_hue(): void;
+        auto(): void;
     }
 }
 
