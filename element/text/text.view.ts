@@ -2,6 +2,13 @@ namespace $.$$ {
 
 	export class $hyoo_sketch_element_text extends $.$hyoo_sketch_element_text {
 
+		text_sub() {
+			return [
+				... this.Icon().icon_name() ? [this.Icon().Icon()] : [],
+				this.text(),
+			]
+		}
+
 		padding_style() {
 			if (this.padding() === 'none') return '0px'
 

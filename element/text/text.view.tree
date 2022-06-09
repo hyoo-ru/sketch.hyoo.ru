@@ -1,11 +1,16 @@
 $hyoo_sketch_element_text $hyoo_sketch_element_base
-	Element $mol_paragraph
+	Element $mol_view
 		style *
 			padding <= padding_style \0px
 			justifyContent <= align_hor
 			alignItems <= align_ver
 			fontSize <= size
-		title <= text? \Text
+		sub <= text_sub /
+			<= Text_icon $mol_icon
+			<= text? \Text
+	Icon $hyoo_sketch_element_icon
+		element <= element
+		icon_options => icon_options
 	Options *
 		^
 		text <= Text_options /
@@ -43,3 +48,4 @@ $hyoo_sketch_element_text $hyoo_sketch_element_base
 						0.75rem \Muted
 						1.0rem \Normal
 						1.25rem \Accent
+			^ icon_options
