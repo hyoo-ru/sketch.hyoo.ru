@@ -35,6 +35,7 @@ namespace $.$$ {
 			this.Element_base(obj).top( this.highest_top() + this.page().grid() )
 			this.Element_base(obj).left( this.page().grid() )
 			this.page().element_add( obj )
+			this.$.$mol_state_arg.value('selected', obj.id())
 		}
 
 	}

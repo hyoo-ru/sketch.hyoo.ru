@@ -3,6 +3,13 @@ $hyoo_sketch_project_list $mol_page
 	title @ \Projects
 	project_name_default @ \New project
 	tools /
+		<= Source $mol_link_source
+			uri \https://github.com/hyoo-ru/sketch.hyoo.ru
+		<= Settings_link $mol_link
+			arg * settings \
+			hint @ \Open Settings
+			sub /
+				<= Settings_icon $mol_icon_settings
 		<= Lights $mol_lights_toggle
 		<= Project_add $mol_button_minor
 			hint @ \Add project
@@ -12,5 +19,9 @@ $hyoo_sketch_project_list $mol_page
 		<= List $mol_list
 			rows <= projects /
 	Project* $mol_link
-		arg * project <= project_id* \
+		arg *
+			project <= project_id* \
+			page null
+			selected null
+			preview null
 		title <= project_name* \

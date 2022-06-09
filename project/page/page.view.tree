@@ -1,4 +1,5 @@
 $hyoo_sketch_project_page $mol_page
+	title @ \Pages
 	project $hyoo_sketch_project
 		name? => project_name?
 	page_name_default @ \Page
@@ -11,16 +12,16 @@ $hyoo_sketch_project_page $mol_page
 			hint @ \Add page
 			click? <=> page_add? null
 			sub / <= Page_add_icon $mol_icon_plus
-	head /
-		<= Title $mol_string
-			value?val <=> project_name?val
-			hint @ \Project name
-		<= Tools
 	body /
 		<= List $mol_list
 			rows <= pages /
-	Link* $mol_link
-		arg *
-			page <= page_id* \
-			focus null
-		title <= page_name* \
+	Row* $mol_bar
+		sub /
+			<= Link* $mol_link
+				arg *
+					page <= page_id* \
+					selected null
+				title <= page_name* \
+			<= Copy* $mol_button_minor
+				click? <=> page_copy*? null
+				sub / <= Copy_icon* $mol_icon_content_copy

@@ -11,7 +11,7 @@ namespace $.$$ {
 		}
 
 		pages() {
-			return this.project().pages().map( obj => this.Link( obj.id() ) )
+			return this.project().pages().map( obj => this.Row( obj.id() ) )
 		}
 
 		page_id(id: string) {
@@ -44,6 +44,12 @@ namespace $.$$ {
 			}
 
 			return next
+		}
+
+		page_copy(id: string) {
+			const page = this.domain().page(id)
+			const copy = page.duplicate()
+			this.project().page_add(copy)
 		}
 
 	}

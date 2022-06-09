@@ -61,6 +61,8 @@ namespace $.$$ {
 				return {
 					'page': this.Page_options(),
 					'theme': this.Theme_options(),
+					'project': this.Project_options(),
+					'delete': this.Delete_options(),
 				}
 			}
 
@@ -86,6 +88,15 @@ namespace $.$$ {
 
 		project_theme_hue(next?: number) {
 			return this.project().theme_hue(next)
+		}
+
+		project_name(next?: string) {
+			return this.project().name(next)
+		}
+
+		page_delete() {
+			this.project().page_delete(this.page())
+			this.$.$mol_state_arg.value('page', null)
 		}
 
 	}

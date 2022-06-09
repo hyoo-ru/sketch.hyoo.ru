@@ -53,6 +53,7 @@ $hyoo_sketch_element_base $mol_view
 				name @ \Order
 				Control <= Order_control $mol_number
 					value? <=> order?
+	duplicate_top_shift true
 
 $hyoo_sketch_element_base_editor $mol_view
 	attr *

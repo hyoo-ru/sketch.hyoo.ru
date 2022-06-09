@@ -17,6 +17,12 @@ namespace $.$$ {
 			}
 		},
 
+		Link: {
+			flex: {
+				grow: 1,
+			},
+		},
+
 	} )
 
 }

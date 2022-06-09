@@ -48,20 +48,24 @@ namespace $ {
 		}
 
 		@ $mol_action
-		element_duplicate( obj: $hyoo_sketch_element ) {
-			const copy = obj.duplicate()
-			this.element_add( obj )
-		}
-
-		@ $mol_action
 		duplicate() {
-			const obj = this.domain().page( $mol_guid() )
-			this.elements().map( elem => obj.element_duplicate( elem ) )
-			obj.width( this.width() )
-			obj.height( this.height() )
-			obj.grid( this.grid() )
-			obj.name( this.name() + '*' )
-			return obj
+			const page_copy = this.domain().page( $mol_guid() )
+
+			const editor = new $hyoo_sketch_editor
+			editor.page = $mol_const(this)
+
+			for (const obj of this.elements()) {
+				const element = editor.Element(obj.id())
+				element.duplicate_top_shift = $mol_const(false)
+				const element_copy = element.duplicate()
+				page_copy.element_add(element_copy)
+			}
+
+			page_copy.width( this.width() )
+			page_copy.height( this.height() )
+			page_copy.grid( this.grid() )
+			page_copy.name( this.name() + '*' )
+			return page_copy
 		}
 
 		project(next?: $hyoo_sketch_project) {

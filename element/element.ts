@@ -16,6 +16,7 @@ namespace $ {
 		}
 
 		page(next?: $hyoo_sketch_page) {
+			console.log(1)
 			const id = this.state().sub('page').value(next && next.id())!
 			return this.domain().page( String(id) )
 		}

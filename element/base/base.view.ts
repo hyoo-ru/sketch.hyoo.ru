@@ -91,7 +91,7 @@ namespace $.$$ {
 
 			obj.width( this.width() )
 			obj.height( this.height() )
-			obj.top( this.top() + this.height() + this.page().grid() )
+			obj.top( this.duplicate_top_shift() ? this.top() + this.height() + this.page().grid() : this.top() )
 			obj.left( this.left() )
 			obj.order( this.order() )
 
@@ -101,11 +101,13 @@ namespace $.$$ {
 		duplicate_event() {
 			const element = this.duplicate()
 			this.page().element_add(element)
+			this.$.$mol_state_arg.value('selected', element.id())
 		}
 
 		delete(event: KeyboardEvent) {
 			event.preventDefault()
 			this.page().element_delete( this.element() )
+			this.$.$mol_state_arg.value('selected', null)
 		}
 
 		move_up(event: KeyboardEvent) {

@@ -3,11 +3,11 @@ $hyoo_sketch $mol_book2
 		user => user
 		project* => project*
 		page* => page*
-	title @ \Sketch
 	plugins /
 		<= Theme $mol_theme_auto
 	pages /
 		<= Projects $hyoo_sketch_project_list
+			title @ \Sketch
 			person <= user
 		<= Project $hyoo_sketch_project_page
 			project <= project_opened $hyoo_sketch_project
