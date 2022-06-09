@@ -48,6 +48,8 @@
 	"$hyoo_sketch_element_text_Padding_option_name": "Padding",
 	"$hyoo_sketch_element_text_Size_option_name": "Size",
 	"$hyoo_sketch_element_text_Text_option_name": "Text",
+	"$hyoo_sketch_element_textarea_Hint_option_name": "Place holder",
+	"$hyoo_sketch_element_textarea_Text_option_name": "Text",
 	"$hyoo_sketch_option_page_title": "Options",
 	"$hyoo_sketch_palette_title": "Palette",
 	"$hyoo_sketch_project_list_Project_add_hint": "Add project",
@@ -65,5 +67,7 @@
 	"$mol_select_hint": "Pick..",
 	"$mol_select_list_badge_hint": "Drop",
 	"$mol_select_list_pick_hint": "Add..",
-	"$mol_select_no_options_message": "No options"
+	"$mol_select_no_options_message": "No options",
+	"$mol_text_code_Copy_hint": "Copy whole code",
+	"$mol_text_header_Link_hint": "Permalink to this section"
 }
