@@ -1,6 +1,6 @@
 $hyoo_sketch_element_image $hyoo_sketch_element_base
 	Element $mol_image2
-		links / <= image_link \https://thiscatdoesnotexist.com
+		links / <= image_link? \https://thiscatdoesnotexist.com
 	Options *
 		^
 		image <= image_options /
