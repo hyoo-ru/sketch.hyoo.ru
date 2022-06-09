@@ -1,0 +1,31 @@
+$hyoo_sketch_element_check $hyoo_sketch_element_base
+	Check_box $mol_check_box
+		title <= check_title
+		checked? <=> check_checked?
+	Check_icon $mol_check_icon
+		Icon <= Checked_icon
+		checked? <=> check_checked?
+	Element $mol_view
+	Icon $hyoo_sketch_element_icon
+		Icon => Checked_icon
+		element <= element
+		icon_options => icon_options
+	Options *
+		^
+		check <= check_options /
+			<= Check_type_option $hyoo_sketch_option
+				name @ \Type
+				Control <= Check_type_control $mol_switch
+					value? <=> check_type? <= check_type_default \Check_box
+					options *
+						Check_box \Box
+						Check_icon \Icon
+			<= Check_checked_option $hyoo_sketch_option
+				name @ \Checked
+				Control <= Check_checked_control $mol_check_box
+					checked? <=> check_checked? <= check_checked_default true
+			<= Check_title_option $hyoo_sketch_option
+				name @ \Title
+				Control <= Check_title_control $mol_string
+					value? <=> check_title? <= check_title_default \Check
+	width_default 128
