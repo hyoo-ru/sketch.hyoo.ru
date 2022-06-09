@@ -1,0 +1,14 @@
+$hyoo_sketch_element_map $hyoo_sketch_element_base
+	Element $hyoo_sketch_element_map_my
+		center /
+			55.755058875094946
+			37.63368014294435
+		zoom 11
+		objects /
+			<= Place $mol_map_yandex_mark
+				title <= place_title \
+				address <= place_addres \Moscow
+				content <= place_content \Its Moscow
+	width_default 336
+	height_default 224
+$hyoo_sketch_element_map_my $mol_map_yandex

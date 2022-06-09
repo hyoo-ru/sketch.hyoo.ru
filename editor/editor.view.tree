@@ -69,3 +69,4 @@ $hyoo_sketch_editor $mol_page
 	Element_attach* $hyoo_sketch_element_attach
 	Element_markdown* $hyoo_sketch_element_markdown
 	Element_speck* $hyoo_sketch_element_speck
+	Element_map* $hyoo_sketch_element_map
