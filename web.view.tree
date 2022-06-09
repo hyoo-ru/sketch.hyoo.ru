@@ -818,6 +818,43 @@ $hyoo_sketch_element_select $hyoo_sketch_element_base
 									value? <=> select_option_row*? \
 
 
+$mol_icon_tick $mol_icon path \M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z
+
+$mol_check_box $mol_check
+	Icon $mol_icon_tick
+
+$hyoo_sketch_element_check $hyoo_sketch_element_base
+	Check_box $mol_check_box
+		title <= check_title
+		checked? <=> check_checked?
+	Check_icon $mol_check_icon
+		Icon <= Checked_icon
+		checked? <=> check_checked?
+	Element $mol_view
+	Icon $hyoo_sketch_element_icon
+		Icon => Checked_icon
+		element <= element
+		icon_options => icon_options
+	Options *
+		^
+		check <= check_options /
+			<= Check_type_option $hyoo_sketch_option
+				name @ \Type
+				Control <= Check_type_control $mol_switch
+					value? <=> check_type? <= check_type_default \Check_box
+					options *
+						Check_box \Box
+						Check_icon \Icon
+			<= Check_checked_option $hyoo_sketch_option
+				name @ \Checked
+				Control <= Check_checked_control $mol_check_box
+					checked? <=> check_checked? <= check_checked_default true
+			<= Check_title_option $hyoo_sketch_option
+				name @ \Title
+				Control <= Check_title_control $mol_string
+					value? <=> check_title? <= check_title_default \Check
+	width_default 128
+
 $mol_icon_television $mol_icon path \M21,17H3V5H21M21,3H3C1.9,3 1,3.9 1,5V17C1,18.1 1.9,19 3,19H8V21H16V19H21C22.1,19 23,18.1 23,17V5C23,3.9 22.1,3 21,3Z
 
 $mol_icon_television_play $mol_icon path \M21,3H3C1.89,3 1,3.89 1,5V17C1,18.1 1.9,19 3,19H8V21H16V19H21C22.1,19 23,18.1 23,17V5C23,3.89 22.1,3 21,3M21,17H3V5H21M16,11L9,15V7
@@ -904,6 +941,7 @@ $hyoo_sketch_editor $mol_page
 	Element_link* $hyoo_sketch_element_link
 	Element_image* $hyoo_sketch_element_image
 	Element_select* $hyoo_sketch_element_select
+	Element_check* $hyoo_sketch_element_check
 
 $mol_deck $mol_list
 	items /$mol_view
@@ -941,6 +979,7 @@ $hyoo_sketch_palette $mol_page
 		\input
 		\image
 		\select
+		\check
 
 $hyoo_sketch $mol_book2
 	domain $hyoo_sketch_domain

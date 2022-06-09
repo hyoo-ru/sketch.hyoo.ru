@@ -12792,6 +12792,220 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    class $mol_icon_tick extends $mol_icon {
+        path() {
+            return "M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z";
+        }
+    }
+    $.$mol_icon_tick = $mol_icon_tick;
+})($ || ($ = {}));
+//mol/icon/tick/-view.tree/tick.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_check_box extends $mol_check {
+        Icon() {
+            const obj = new this.$.$mol_icon_tick();
+            return obj;
+        }
+    }
+    __decorate([
+        $mol_mem
+    ], $mol_check_box.prototype, "Icon", null);
+    $.$mol_check_box = $mol_check_box;
+})($ || ($ = {}));
+//mol/check/box/-view.tree/box.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_style_attach("mol/check/box/box.view.css", "[mol_check_box_icon] {\n\tborder-radius: var(--mol_gap_round);\n\tbox-shadow: 0 0 0 1px var(--mol_theme_line);\n\tcolor: var(--mol_theme_shade);\n}\n\n[mol_check]:not([mol_check_checked]) > [mol_check_box_icon] {\n\tfill: transparent;\n}\n\n[mol_check]:not([disabled]) > [mol_check_box_icon] {\n\tbackground: var(--mol_theme_field);\n\tcolor: var(--mol_theme_text);\n}\n\n[mol_check_box_title] {\n\tmargin-left: .5rem;\n}\n");
+})($ || ($ = {}));
+//mol/check/box/-css/box.view.css.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $hyoo_sketch_element_check extends $hyoo_sketch_element_base {
+        Check_box() {
+            const obj = new this.$.$mol_check_box();
+            obj.title = () => this.check_title();
+            obj.checked = (next) => this.check_checked(next);
+            return obj;
+        }
+        Check_icon() {
+            const obj = new this.$.$mol_check_icon();
+            obj.Icon = () => this.Checked_icon();
+            obj.checked = (next) => this.check_checked(next);
+            return obj;
+        }
+        Element() {
+            const obj = new this.$.$mol_view();
+            return obj;
+        }
+        Checked_icon() {
+            return this.Icon().Icon();
+        }
+        icon_options() {
+            return this.Icon().icon_options();
+        }
+        Icon() {
+            const obj = new this.$.$hyoo_sketch_element_icon();
+            obj.element = () => this.element();
+            return obj;
+        }
+        Options() {
+            return {
+                ...super.Options(),
+                check: this.check_options()
+            };
+        }
+        width_default() {
+            return 128;
+        }
+        check_type_default() {
+            return "Check_box";
+        }
+        check_type(next) {
+            return this.check_type_default();
+        }
+        Check_type_control() {
+            const obj = new this.$.$mol_switch();
+            obj.value = (next) => this.check_type(next);
+            obj.options = () => ({
+                Check_box: "Box",
+                Check_icon: "Icon"
+            });
+            return obj;
+        }
+        Check_type_option() {
+            const obj = new this.$.$hyoo_sketch_option();
+            obj.name = () => this.$.$mol_locale.text('$hyoo_sketch_element_check_Check_type_option_name');
+            obj.Control = () => this.Check_type_control();
+            return obj;
+        }
+        check_checked_default() {
+            return true;
+        }
+        check_checked(next) {
+            return this.check_checked_default();
+        }
+        Check_checked_control() {
+            const obj = new this.$.$mol_check_box();
+            obj.checked = (next) => this.check_checked(next);
+            return obj;
+        }
+        Check_checked_option() {
+            const obj = new this.$.$hyoo_sketch_option();
+            obj.name = () => this.$.$mol_locale.text('$hyoo_sketch_element_check_Check_checked_option_name');
+            obj.Control = () => this.Check_checked_control();
+            return obj;
+        }
+        check_title_default() {
+            return "Check";
+        }
+        check_title(next) {
+            return this.check_title_default();
+        }
+        Check_title_control() {
+            const obj = new this.$.$mol_string();
+            obj.value = (next) => this.check_title(next);
+            return obj;
+        }
+        Check_title_option() {
+            const obj = new this.$.$hyoo_sketch_option();
+            obj.name = () => this.$.$mol_locale.text('$hyoo_sketch_element_check_Check_title_option_name');
+            obj.Control = () => this.Check_title_control();
+            return obj;
+        }
+        check_options() {
+            return [
+                this.Check_type_option(),
+                this.Check_checked_option(),
+                this.Check_title_option()
+            ];
+        }
+    }
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_check.prototype, "Check_box", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_check.prototype, "Check_icon", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_check.prototype, "Element", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_check.prototype, "Icon", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_check.prototype, "Check_type_control", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_check.prototype, "Check_type_option", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_check.prototype, "Check_checked_control", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_check.prototype, "Check_checked_option", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_check.prototype, "Check_title_control", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_check.prototype, "Check_title_option", null);
+    $.$hyoo_sketch_element_check = $hyoo_sketch_element_check;
+})($ || ($ = {}));
+//hyoo/sketch/element/check/-view.tree/check.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $hyoo_sketch_element_check extends $.$hyoo_sketch_element_check {
+            Element() {
+                return this[this.check_type()]();
+            }
+            check_type(next) {
+                return String(this.state().sub('check_type').value(next) ?? this.check_type_default());
+            }
+            check_title(next) {
+                return String(this.state().sub('check_title').value(next) ?? this.check_title_default());
+            }
+            check_checked(next) {
+                return Boolean(this.state().sub('check_checked').value(next) ?? this.check_checked_default());
+            }
+            duplicate(elem) {
+                const element = elem ?? super.duplicate();
+                const obj = new $hyoo_sketch_element_check;
+                obj.element = $mol_const(element);
+                obj.check_type(this.check_type());
+                obj.check_title(this.check_title());
+                obj.check_checked(this.check_checked());
+                this.Icon().duplicate(element);
+                return element;
+            }
+            check_options() {
+                const type = this.check_type();
+                return [
+                    this.Check_type_option(),
+                    this.Check_checked_option(),
+                    ...type === 'Check_box' ? [this.Check_title_option()] : this.icon_options(),
+                ];
+            }
+        }
+        $$.$hyoo_sketch_element_check = $hyoo_sketch_element_check;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//hyoo/sketch/element/check/check.view.ts
+;
+"use strict";
+var $;
+(function ($) {
     class $mol_icon_television extends $mol_icon {
         path() {
             return "M21,17H3V5H21M21,3H3C1.9,3 1,3.9 1,5V17C1,18.1 1.9,19 3,19H8V21H16V19H21C22.1,19 23,18.1 23,17V5C23,3.9 22.1,3 21,3Z";
@@ -13049,6 +13263,10 @@ var $;
             const obj = new this.$.$hyoo_sketch_element_select();
             return obj;
         }
+        Element_check(id) {
+            const obj = new this.$.$hyoo_sketch_element_check();
+            return obj;
+        }
         editor_title() {
             return "";
         }
@@ -13201,6 +13419,9 @@ var $;
     __decorate([
         $mol_mem_key
     ], $hyoo_sketch_editor.prototype, "Element_select", null);
+    __decorate([
+        $mol_mem_key
+    ], $hyoo_sketch_editor.prototype, "Element_check", null);
     __decorate([
         $mol_mem
     ], $hyoo_sketch_editor.prototype, "Project_demo_icon", null);
@@ -13548,7 +13769,8 @@ var $;
                 "link",
                 "input",
                 "image",
-                "select"
+                "select",
+                "check"
             ];
         }
         row_title(id) {

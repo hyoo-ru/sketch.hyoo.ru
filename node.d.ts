@@ -3543,6 +3543,61 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
+    class $mol_icon_tick extends $mol_icon {
+        path(): string;
+    }
+}
+
+declare namespace $ {
+    class $mol_check_box extends $mol_check {
+        Icon(): $mol_icon_tick;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+    class $hyoo_sketch_element_check extends $hyoo_sketch_element_base {
+        Check_box(): $mol_check_box;
+        Check_icon(): $mol_check_icon;
+        Element(): $mol_view;
+        Checked_icon(): $mol_icon;
+        icon_options(): readonly any[];
+        Icon(): $$.$hyoo_sketch_element_icon;
+        Options(): {
+            check: readonly any[];
+            position: readonly any[];
+        };
+        width_default(): number;
+        check_type_default(): string;
+        check_type(next?: any): string;
+        Check_type_control(): $$.$mol_switch;
+        Check_type_option(): $hyoo_sketch_option;
+        check_checked_default(): boolean;
+        check_checked(next?: any): boolean;
+        Check_checked_control(): $mol_check_box;
+        Check_checked_option(): $hyoo_sketch_option;
+        check_title_default(): string;
+        check_title(next?: any): string;
+        Check_title_control(): $$.$mol_string;
+        Check_title_option(): $hyoo_sketch_option;
+        check_options(): readonly any[];
+    }
+}
+
+declare namespace $.$$ {
+    class $hyoo_sketch_element_check extends $.$hyoo_sketch_element_check {
+        Element(): $mol_view;
+        check_type(next?: string): string;
+        check_title(next?: string): string;
+        check_checked(next?: boolean): boolean;
+        duplicate(elem?: $hyoo_sketch_element): $hyoo_sketch_element;
+        check_options(): any[];
+    }
+}
+
+declare namespace $ {
     class $mol_icon_television extends $mol_icon {
         path(): string;
     }
@@ -3629,6 +3684,7 @@ declare namespace $ {
         Element_link(id: any): $$.$hyoo_sketch_element_link;
         Element_image(id: any): $$.$hyoo_sketch_element_image;
         Element_select(id: any): $$.$hyoo_sketch_element_select;
+        Element_check(id: any): $$.$hyoo_sketch_element_check;
         editor_title(): string;
         Project_demo_icon(): $mol_icon_television_play;
         page_current_id(): string;
