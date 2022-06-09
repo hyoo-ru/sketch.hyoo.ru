@@ -3322,16 +3322,23 @@ declare namespace $.$$ {
 
 declare namespace $ {
     class $hyoo_sketch_element_link extends $hyoo_sketch_element_base {
+        Link_external(): $$.$mol_link;
+        Link_internal(): $$.$mol_link;
         Element(): $$.$mol_link;
         icon_options(): readonly any[];
         Icon(): $$.$hyoo_sketch_element_icon;
+        nav_options(): $hyoo_sketch_option[];
+        Nav(): $$.$hyoo_sketch_element_nav;
         Options(): {
             link: readonly any[];
+            nav: $hyoo_sketch_option[];
             icon: readonly any[];
             position: readonly any[];
         };
+        link_uri(): string;
         Link_icon(): $mol_icon;
         link_sub(): readonly any[];
+        link_arg(): {};
         link_hint(next?: any): string;
         Link_hint_control(): $$.$mol_string;
         Link_hint_option(): $hyoo_sketch_option;
@@ -3347,9 +3354,14 @@ declare namespace $.$$ {
 
 declare namespace $.$$ {
     class $hyoo_sketch_element_link extends $.$hyoo_sketch_element_link {
+        Element(): $mol_link;
         link_sub(): (string | $mol_icon)[];
         link_hint(next?: string): string;
         link_title(next?: string): string;
+        link_arg(): {
+            [x: string]: string;
+        };
+        link_uri(): string;
     }
 }
 

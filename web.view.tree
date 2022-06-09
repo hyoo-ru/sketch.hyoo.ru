@@ -701,15 +701,25 @@ $hyoo_sketch_element_input $hyoo_sketch_element_base
 						off @ \Off
 
 $hyoo_sketch_element_link $hyoo_sketch_element_base
-	Element $mol_link
-		uri \#
+	Link_external $mol_link
+		uri <= link_uri \
 		hint <= link_hint
 		sub <= link_sub /
 			<= Link_icon $mol_icon
 			<= link_title
+	Link_internal $mol_link
+		arg <= link_arg *
+		hint <= link_hint
+		sub <= link_sub /
+			<= Link_icon $mol_icon
+			<= link_title
+	Element $mol_link
 	Icon $hyoo_sketch_element_icon
 		element <= element
 		icon_options => icon_options
+	Nav $hyoo_sketch_element_nav
+		element <= element
+		nav_options => nav_options
 	Options *
 		^
 		link <= link_options /
@@ -721,6 +731,7 @@ $hyoo_sketch_element_link $hyoo_sketch_element_base
 				name @ \Title
 				Control <= Link_title_control $mol_string
 					value? <=> link_title? \Link
+		nav <= nav_options
 		icon <= icon_options
 
 $mol_icon_television $mol_icon path \M21,17H3V5H21M21,3H3C1.9,3 1,3.9 1,5V17C1,18.1 1.9,19 3,19H8V21H16V19H21C22.1,19 23,18.1 23,17V5C23,3.9 22.1,3 21,3Z

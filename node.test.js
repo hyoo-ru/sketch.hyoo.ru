@@ -11891,11 +11891,22 @@ var $;
 var $;
 (function ($) {
     class $hyoo_sketch_element_link extends $hyoo_sketch_element_base {
-        Element() {
+        Link_external() {
             const obj = new this.$.$mol_link();
-            obj.uri = () => "#";
+            obj.uri = () => this.link_uri();
             obj.hint = () => this.link_hint();
             obj.sub = () => this.link_sub();
+            return obj;
+        }
+        Link_internal() {
+            const obj = new this.$.$mol_link();
+            obj.arg = () => this.link_arg();
+            obj.hint = () => this.link_hint();
+            obj.sub = () => this.link_sub();
+            return obj;
+        }
+        Element() {
+            const obj = new this.$.$mol_link();
             return obj;
         }
         icon_options() {
@@ -11906,12 +11917,24 @@ var $;
             obj.element = () => this.element();
             return obj;
         }
+        nav_options() {
+            return this.Nav().nav_options();
+        }
+        Nav() {
+            const obj = new this.$.$hyoo_sketch_element_nav();
+            obj.element = () => this.element();
+            return obj;
+        }
         Options() {
             return {
                 ...super.Options(),
                 link: this.link_options(),
+                nav: this.nav_options(),
                 icon: this.icon_options()
             };
+        }
+        link_uri() {
+            return "";
         }
         Link_icon() {
             const obj = new this.$.$mol_icon();
@@ -11922,6 +11945,9 @@ var $;
                 this.Link_icon(),
                 this.link_title()
             ];
+        }
+        link_arg() {
+            return {};
         }
         link_hint(next) {
             if (next !== undefined)
@@ -11964,10 +11990,19 @@ var $;
     }
     __decorate([
         $mol_mem
+    ], $hyoo_sketch_element_link.prototype, "Link_external", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_link.prototype, "Link_internal", null);
+    __decorate([
+        $mol_mem
     ], $hyoo_sketch_element_link.prototype, "Element", null);
     __decorate([
         $mol_mem
     ], $hyoo_sketch_element_link.prototype, "Icon", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_link.prototype, "Nav", null);
     __decorate([
         $mol_mem
     ], $hyoo_sketch_element_link.prototype, "Link_icon", null);
@@ -12013,6 +12048,10 @@ var $;
     var $$;
     (function ($$) {
         class $hyoo_sketch_element_link extends $.$hyoo_sketch_element_link {
+            Element() {
+                const action = this.Nav().nav_action();
+                return action === 'external' || action === 'none' ? this.Link_external() : this.Link_internal();
+            }
             link_sub() {
                 return [
                     ...this.Icon().icon_name() ? [this.Icon().Icon()] : [],
@@ -12025,7 +12064,36 @@ var $;
             link_title(next) {
                 return String(this.state().sub('link_title').value(next) ?? super.link_title());
             }
+            link_arg() {
+                const action = this.Nav().nav_action();
+                const target_page = this.Nav().nav_target_page();
+                const target_link = this.Nav().nav_target_link();
+                let link = [];
+                const pages = this.Nav().nav_pages();
+                if (action === 'open') {
+                    link = [...pages.filter(id => id !== target_page), target_page];
+                }
+                if (action === 'close') {
+                    link = pages.filter(id => id !== target_page);
+                }
+                if (action === 'replace') {
+                    link = pages.map(id => id === this.page().id() ? target_page : id);
+                }
+                console.log({ link });
+                return {
+                    [this.Nav().nav_pages_param()]: link.join(','),
+                };
+            }
+            link_uri() {
+                return this.Nav().nav_action() === 'external' ? this.Nav().nav_target_link() : '#';
+            }
         }
+        __decorate([
+            $mol_mem
+        ], $hyoo_sketch_element_link.prototype, "link_arg", null);
+        __decorate([
+            $mol_mem
+        ], $hyoo_sketch_element_link.prototype, "link_uri", null);
         $$.$hyoo_sketch_element_link = $hyoo_sketch_element_link;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
