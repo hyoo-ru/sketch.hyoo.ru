@@ -20,8 +20,7 @@ $hyoo_sketch_element_options $hyoo_sketch_element_base
 									value? <=> option_row*? \
 			<= Option_current_option $hyoo_sketch_option
 				name @ \Value
-				Control <= Option_current_control $mol_select
-					align \top_center
+				Control <= Option_current_control $mol_switch
 					value? <=> option_current?
-					options <= option_list /string
+					options <= option_dict *
 
