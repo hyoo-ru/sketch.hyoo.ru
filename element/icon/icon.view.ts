@@ -32,6 +32,16 @@ namespace $.$$ {
 			return String( this.state().sub('icon_name').value(next) ?? super.icon_name() )
 		}
 
+		duplicate(elem?: $hyoo_sketch_element) {
+			const element = elem ?? super.duplicate()
+			const obj = new $hyoo_sketch_element_icon
+			obj.element = $mol_const(element)
+
+			obj.icon_name( this.icon_name() )
+
+			return element
+		}
+
 	}
 
 }

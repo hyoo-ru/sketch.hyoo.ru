@@ -3,19 +3,20 @@ $hyoo_sketch_element_base $mol_view
 		domain => domain
 		page => page
 	state $mol_state_shared
-	order? 1
+	order? <= order_default 1
 	grid? 8
 	position *
-		width <= width? 320
-		height <= height? 40
-		left <= left? 0
-		top <= top? 0
+		width <= width? <= width_default 320
+		height <= height? <= height_default 40
+		left <= left? <= left_default 0
+		top <= top? <= top_default 0
 		zIndex <= order_string? \
 	Preview $mol_view
 		style * ^ position
 		sub / <= Element $mol_view
+	duplicate? $hyoo_sketch_element
 	Editor $hyoo_sketch_element_base_editor
-		duplicate? <=> duplicate? $hyoo_sketch_element_base
+		duplicate? <=> duplicate_event? null
 		delete? <=> delete? null
 		move_up? <=> move_up? null
 		move_down? <=> move_down? null

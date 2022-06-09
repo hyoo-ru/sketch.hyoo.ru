@@ -7,7 +7,7 @@ $hyoo_sketch_element_text $hyoo_sketch_element_base
 			fontSize <= size
 		sub <= text_sub /
 			<= Text_icon $mol_icon
-			<= text? \Text
+			<= text?
 	Icon $hyoo_sketch_element_icon
 		element <= element
 		icon_options => icon_options
@@ -17,11 +17,11 @@ $hyoo_sketch_element_text $hyoo_sketch_element_base
 			<= Text_option $hyoo_sketch_option
 				name @ \Text
 				Control <= Text_control $mol_string
-					value? <=> text?
+					value? <=> text? <= text_default \Text
 			<= Padding_option $hyoo_sketch_option
 				name @ \Padding
 				Control <= Padding_control $mol_switch
-					value? <=> padding? \text
+					value? <=> padding? <= padding_default \text
 					options *
 						none \None
 						text \Text
@@ -30,12 +30,12 @@ $hyoo_sketch_element_text $hyoo_sketch_element_base
 			<= Align_hor_option $hyoo_sketch_option
 				name @ \Align hor
 				Control <= Align_hor_control $mol_switch
-					value? <=> align_hor? \start
+					value? <=> align_hor? <= align_hor_default \start
 					options <= align_options
 			<= Align_ver_option $hyoo_sketch_option
 				name @ \Align ver
 				Control <= Align_ver_control $mol_switch
-					value? <=> align_ver? \start
+					value? <=> align_ver? <= align_ver_default \start
 					options <= align_options *
 						start \Start
 						center \Center
@@ -43,7 +43,7 @@ $hyoo_sketch_element_text $hyoo_sketch_element_base
 			<= Size_option $hyoo_sketch_option
 				name @ \Size
 				Control <= Size_control $mol_switch
-					value? <=> size? \1.0rem
+					value? <=> size? <= size_default \1.0rem
 					options *
 						0.75rem \Muted
 						1.0rem \Normal

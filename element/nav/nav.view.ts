@@ -59,6 +59,18 @@ namespace $.$$ {
 			return this.nav_pages( next )
 		}
 
+		duplicate(elem: $hyoo_sketch_element) {
+			const element = elem ?? super.duplicate()
+			const obj = new $hyoo_sketch_element_nav
+			obj.element = $mol_const(element)
+
+			obj.nav_action(this.nav_action())
+			obj.nav_target_page(this.nav_target_page())
+			obj.nav_target_link(this.nav_target_link())
+
+			return element
+		}
+
 	}
 
 }

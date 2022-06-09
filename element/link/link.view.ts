@@ -46,6 +46,19 @@ namespace $.$$ {
 			return this.Nav().nav_action() === 'external' ? this.Nav().nav_target_link() : '#'
 		}
 
+		duplicate(elem?: $hyoo_sketch_element) {
+			const element = elem ?? super.duplicate()
+			const obj = new $hyoo_sketch_element_link
+			obj.element = $mol_const(element)
+
+			obj.link_hint(this.link_hint())
+
+			this.Text().duplicate(element)
+			this.Nav().duplicate(element)
+
+			return element
+		}
+
 	}
 
 }

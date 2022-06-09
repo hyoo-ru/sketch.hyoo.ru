@@ -30,7 +30,7 @@ $hyoo_sketch_element_link $hyoo_sketch_element_base
 		nav <= nav_options
 		text <= text_options
 $hyoo_sketch_element_link_text $hyoo_sketch_element_text
-	text? \Link
-	padding? \text
-	align_hor? \start
-	align_ver? \center
+	text_default? \Link
+	padding_default? \text
+	align_hor_default? \start
+	align_ver_default? \center

@@ -34,8 +34,6 @@ namespace $ {
 			obj.page( this.page() )
 			obj.name( this.name() )
 
-			this.page().element_add( obj )
-
 			return obj
 		}
 	}

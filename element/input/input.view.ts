@@ -32,6 +32,19 @@ namespace $.$$ {
 			return this.input_enabled() === 'on'
 		}
 
+		duplicate(elem?: $hyoo_sketch_element) {
+			const element = elem ?? super.duplicate()
+			const obj = new $hyoo_sketch_element_input
+			obj.element = $mol_const(element)
+
+			obj.input_type(this.input_type())
+			obj.input_hint(this.input_hint())
+			obj.input_text(this.input_text())
+			obj.input_enabled(this.input_enabled())
+
+			return element
+		}
+
 	}
 
 }

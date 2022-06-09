@@ -36,6 +36,19 @@ namespace $.$$ {
 			}
 		}
 
+		duplicate(elem?: $hyoo_sketch_element) {
+			const element = elem ?? super.duplicate()
+			const obj = new $hyoo_sketch_element_button
+			obj.element = $mol_const(element)
+
+			obj.button_type(this.button_type())
+
+			this.Text().duplicate(element)
+			this.Nav().duplicate(element)
+
+			return element
+		}
+
 	}
 
 }

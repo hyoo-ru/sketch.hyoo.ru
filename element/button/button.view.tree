@@ -34,7 +34,7 @@ $hyoo_sketch_element_button $hyoo_sketch_element_base
 		text <= text_options
 		nav <= nav_options
 $hyoo_sketch_element_button_text $hyoo_sketch_element_text
-	text? \Button
-	padding? \text
-	align_hor? \center
-	align_ver? \center
+	text_default? \Button
+	padding_default? \text
+	align_hor_default? \center
+	align_ver_default? \center
