@@ -4578,6 +4578,88 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
+    class $mol_icon_upload extends $mol_icon {
+        path(): string;
+    }
+}
+
+declare namespace $ {
+    class $mol_button_open extends $mol_button_minor {
+        sub(): readonly any[];
+        Icon(): $mol_icon_upload;
+        files(next?: any): readonly any[];
+        accept(): string;
+        multiple(): boolean;
+        Native(): $$.$mol_button_open_native;
+    }
+    class $mol_button_open_native extends $mol_view {
+        dom_name(): string;
+        files(next?: any): readonly any[];
+        attr(): {
+            type: string;
+            accept: string;
+            multiple: boolean;
+        };
+        event(): {
+            change: (next?: any) => any;
+        };
+        accept(): string;
+        multiple(): boolean;
+        picked(next?: any): any;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $.$$ {
+    class $mol_button_open_native extends $.$mol_button_open_native {
+        dom_node(): HTMLInputElement;
+        picked(): void;
+    }
+}
+
+declare namespace $ {
+    class $mol_attach extends $mol_view {
+        items(val?: any): readonly string[];
+        sub(): readonly any[];
+        Add(): $mol_button_open;
+        Item(id: any): $mol_button_minor;
+        content(): readonly $mol_view[];
+        Content(): $mol_row;
+        attach_title(): string;
+        attach_new(val?: any): any;
+        item_drop(id: any, event?: any): any;
+        item_uri(id: any): string;
+        Image(id: any): $mol_image;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $.$$ {
+    class $mol_attach extends $.$mol_attach {
+        attach_new(files: File[]): void;
+        content(): ($mol_button_minor | $mol_button_open)[];
+        item_uri(index: number): string;
+        item_drop(index: number, event?: Event): void;
+    }
+}
+
+declare namespace $ {
+    class $hyoo_sketch_element_attach extends $hyoo_sketch_element_base {
+        Element(): $$.$mol_attach;
+        width_default(): number;
+        height_default(): number;
+        files(next?: any): readonly any[];
+    }
+}
+
+declare namespace $.$$ {
+}
+
+declare namespace $ {
     class $mol_icon_television extends $mol_icon {
         path(): string;
     }
@@ -4669,6 +4751,7 @@ declare namespace $ {
         Element_options(id: any): $$.$hyoo_sketch_element_options;
         Element_textarea(id: any): $$.$hyoo_sketch_element_textarea;
         Element_date(id: any): $$.$hyoo_sketch_element_date;
+        Element_attach(id: any): $hyoo_sketch_element_attach;
         editor_title(): string;
         Project_demo_icon(): $mol_icon_television_play;
         page_current_id(): string;
