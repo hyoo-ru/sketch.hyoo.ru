@@ -11903,14 +11903,33 @@ var $;
             const obj = new this.$.$mol_link();
             obj.uri = () => "#";
             obj.hint = () => this.link_hint();
-            obj.title = () => this.link_title();
+            obj.sub = () => this.link_sub();
+            return obj;
+        }
+        icon_options() {
+            return this.Icon().icon_options();
+        }
+        Icon() {
+            const obj = new this.$.$hyoo_sketch_element_icon();
+            obj.element = () => this.element();
             return obj;
         }
         Options() {
             return {
                 ...super.Options(),
-                link: this.link_options()
+                link: this.link_options(),
+                icon: this.icon_options()
             };
+        }
+        Link_icon() {
+            const obj = new this.$.$mol_icon();
+            return obj;
+        }
+        link_sub() {
+            return [
+                this.Link_icon(),
+                this.link_title()
+            ];
         }
         link_hint(next) {
             if (next !== undefined)
@@ -11956,6 +11975,12 @@ var $;
     ], $hyoo_sketch_element_link.prototype, "Element", null);
     __decorate([
         $mol_mem
+    ], $hyoo_sketch_element_link.prototype, "Icon", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_link.prototype, "Link_icon", null);
+    __decorate([
+        $mol_mem
     ], $hyoo_sketch_element_link.prototype, "link_hint", null);
     __decorate([
         $mol_mem
@@ -11981,7 +12006,27 @@ var $;
 (function ($) {
     var $$;
     (function ($$) {
+        $mol_style_define($hyoo_sketch_element_link, {
+            Element: {
+                alignItems: 'center',
+            },
+        });
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//hyoo/sketch/element/link/link.view.css.ts
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
         class $hyoo_sketch_element_link extends $.$hyoo_sketch_element_link {
+            link_sub() {
+                return [
+                    ...this.Icon().icon_name() ? [this.Icon().Icon()] : [],
+                    this.link_title(),
+                ];
+            }
             link_hint(next) {
                 return String(this.state().sub('link_hint').value(next) ?? super.link_hint());
             }

@@ -3323,10 +3323,15 @@ declare namespace $.$$ {
 declare namespace $ {
     class $hyoo_sketch_element_link extends $hyoo_sketch_element_base {
         Element(): $$.$mol_link;
+        icon_options(): readonly any[];
+        Icon(): $$.$hyoo_sketch_element_icon;
         Options(): {
             link: readonly any[];
+            icon: readonly any[];
             position: readonly any[];
         };
+        Link_icon(): $mol_icon;
+        link_sub(): readonly any[];
         link_hint(next?: any): string;
         Link_hint_control(): $$.$mol_string;
         Link_hint_option(): $hyoo_sketch_option;
@@ -3338,7 +3343,11 @@ declare namespace $ {
 }
 
 declare namespace $.$$ {
+}
+
+declare namespace $.$$ {
     class $hyoo_sketch_element_link extends $.$hyoo_sketch_element_link {
+        link_sub(): (string | $mol_icon)[];
         link_hint(next?: string): string;
         link_title(next?: string): string;
     }
