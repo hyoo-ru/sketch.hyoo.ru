@@ -4454,7 +4454,9 @@ var $;
 (function ($) {
     class $hyoo_sketch_domain extends $mol_object2 {
         state() {
-            return new this.$.$mol_state_shared;
+            const obj = new this.$.$mol_state_shared;
+            obj.db_sync = () => null;
+            return obj;
         }
         user() {
             let id = this.$.$mol_store_local.value('user');
@@ -7097,7 +7099,6 @@ var $;
             duplicate_event() {
                 const element = this.duplicate();
                 this.page().element_add(element);
-                this.$.$mol_state_arg.value('selected', element.id());
             }
             delete(event) {
                 event.preventDefault();
