@@ -1,0 +1,14 @@
+$hyoo_sketch_element_header $hyoo_sketch_element_base
+	Page $mol_page
+		title <= title
+		Head => Head
+	Element <= Head
+	height_default 56
+	width_default 340
+	Options *
+		^
+		header <= header_options /
+			<= Title_option $hyoo_sketch_option
+				name @ \Title
+				Control <= Title_control $mol_string
+					value? <=> title? <= title_default \Page title

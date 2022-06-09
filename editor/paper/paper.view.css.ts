@@ -4,6 +4,8 @@ namespace $.$$ {
 
 	$mol_style_define( $.$hyoo_sketch_editor_paper , {
 
+		boxSizing: 'content-box',
+
 		background: {
 			color: $mol_theme.back,
 		},
