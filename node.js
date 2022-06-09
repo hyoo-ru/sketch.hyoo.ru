@@ -18606,7 +18606,8 @@ var $;
         tools() {
             return [
                 this.Project_pin(),
-                this.Page_add()
+                this.Page_add(),
+                this.Project_close()
             ];
         }
         body() {
@@ -18653,6 +18654,23 @@ var $;
             obj.click = (next) => this.page_add(next);
             obj.sub = () => [
                 this.Page_add_icon()
+            ];
+            return obj;
+        }
+        Project_close_icon() {
+            const obj = new this.$.$mol_icon_cross();
+            return obj;
+        }
+        Project_close() {
+            const obj = new this.$.$mol_link();
+            obj.hint = () => this.$.$mol_locale.text('$hyoo_sketch_project_page_Project_close_hint');
+            obj.arg = () => ({
+                page: null,
+                project: null,
+                selected: null
+            });
+            obj.sub = () => [
+                this.Project_close_icon()
             ];
             return obj;
         }
@@ -18721,6 +18739,12 @@ var $;
     __decorate([
         $mol_mem
     ], $hyoo_sketch_project_page.prototype, "Page_add", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_project_page.prototype, "Project_close_icon", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_project_page.prototype, "Project_close", null);
     __decorate([
         $mol_mem
     ], $hyoo_sketch_project_page.prototype, "List", null);

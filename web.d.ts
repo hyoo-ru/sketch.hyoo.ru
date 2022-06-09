@@ -5085,6 +5085,8 @@ declare namespace $ {
         page_add(next?: any): any;
         Page_add_icon(): $mol_icon_plus;
         Page_add(): $mol_button_minor;
+        Project_close_icon(): $mol_icon_cross;
+        Project_close(): $$.$mol_link;
         pages(): readonly any[];
         List(): $$.$mol_list;
         page_id(id: any): string;

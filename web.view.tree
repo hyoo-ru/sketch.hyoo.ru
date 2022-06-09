@@ -1530,6 +1530,13 @@ $hyoo_sketch_project_page $mol_page
 			hint @ \Add page
 			click? <=> page_add? null
 			sub / <= Page_add_icon $mol_icon_plus
+		<= Project_close $mol_link
+			hint @ \Close project
+			arg *
+				page null
+				project null
+				selected null
+			sub / <= Project_close_icon $mol_icon_cross
 	body /
 		<= List $mol_list
 			rows <= pages /
