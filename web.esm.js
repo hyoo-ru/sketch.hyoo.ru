@@ -11803,7 +11803,10 @@ var $;
     (function ($$) {
         class $hyoo_sketch_element_image extends $.$hyoo_sketch_element_image {
             image_link(next) {
-                return String(this.state().sub('image_link').value(next) ?? this.image_link_default());
+                return String((this.state().sub('image_link').value(next) ?? this.image_link_default()) || this.image_link_placeholder());
+            }
+            image_link_placeholder() {
+                return `http://placehold.jp/${this.width()}x${this.height()}.png`;
             }
             duplicate(elem) {
                 const element = elem ?? super.duplicate();

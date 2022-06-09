@@ -3366,6 +3366,7 @@ declare namespace $ {
 declare namespace $.$$ {
     class $hyoo_sketch_element_image extends $.$hyoo_sketch_element_image {
         image_link(next?: string): string;
+        image_link_placeholder(): string;
         duplicate(elem: $hyoo_sketch_element): $hyoo_sketch_element;
     }
 }
