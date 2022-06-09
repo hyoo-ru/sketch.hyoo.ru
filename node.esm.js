@@ -17020,6 +17020,73 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    class $hyoo_sketch_element_markdown extends $hyoo_sketch_element_base {
+        Element() {
+            const obj = new this.$.$mol_text();
+            obj.text = () => this.text();
+            return obj;
+        }
+        Options() {
+            return {
+                ...super.Options(),
+                markdown: this.markdown_options()
+            };
+        }
+        text_default() {
+            return "# Hello world!\nHow are you?\n**use markdwon here**";
+        }
+        text(next) {
+            return this.text_default();
+        }
+        Text_option() {
+            const obj = new this.$.$mol_textarea();
+            obj.style = () => ({
+                height: "150px"
+            });
+            obj.value = (next) => this.text(next);
+            return obj;
+        }
+        markdown_options() {
+            return [
+                this.Text_option()
+            ];
+        }
+    }
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_markdown.prototype, "Element", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_markdown.prototype, "Text_option", null);
+    $.$hyoo_sketch_element_markdown = $hyoo_sketch_element_markdown;
+})($ || ($ = {}));
+//hyoo/sketch/element/markdown/-view.tree/markdown.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $hyoo_sketch_element_markdown extends $.$hyoo_sketch_element_markdown {
+            text(next) {
+                return this.state().sub('markdown_text').text(next) || this.text_default();
+            }
+            duplicate(elem) {
+                const element = elem ?? super.duplicate();
+                const obj = new $hyoo_sketch_element_markdown;
+                obj.element = $mol_const(element);
+                obj.text(this.text());
+                return element;
+            }
+        }
+        $$.$hyoo_sketch_element_markdown = $hyoo_sketch_element_markdown;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//hyoo/sketch/element/markdown/markdown.view.ts
+;
+"use strict";
+var $;
+(function ($) {
     class $mol_icon_television extends $mol_icon {
         path() {
             return "M21,17H3V5H21M21,3H3C1.9,3 1,3.9 1,5V17C1,18.1 1.9,19 3,19H8V21H16V19H21C22.1,19 23,18.1 23,17V5C23,3.9 22.1,3 21,3Z";
@@ -17301,6 +17368,10 @@ var $;
             const obj = new this.$.$hyoo_sketch_element_attach();
             return obj;
         }
+        Element_markdown(id) {
+            const obj = new this.$.$hyoo_sketch_element_markdown();
+            return obj;
+        }
         editor_title() {
             return "";
         }
@@ -17471,6 +17542,9 @@ var $;
     __decorate([
         $mol_mem_key
     ], $hyoo_sketch_editor.prototype, "Element_attach", null);
+    __decorate([
+        $mol_mem_key
+    ], $hyoo_sketch_editor.prototype, "Element_markdown", null);
     __decorate([
         $mol_mem
     ], $hyoo_sketch_editor.prototype, "Project_demo_icon", null);
@@ -17823,7 +17897,8 @@ var $;
                 "switch",
                 "textarea",
                 "date",
-                "attach"
+                "attach",
+                "markdown"
             ];
         }
         row_title(id) {

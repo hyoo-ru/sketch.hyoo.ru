@@ -4660,6 +4660,27 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
+    class $hyoo_sketch_element_markdown extends $hyoo_sketch_element_base {
+        Element(): $$.$mol_text;
+        Options(): {
+            markdown: readonly any[];
+            position: readonly any[];
+        };
+        text_default(): string;
+        text(next?: any): string;
+        Text_option(): $$.$mol_textarea;
+        markdown_options(): readonly any[];
+    }
+}
+
+declare namespace $.$$ {
+    class $hyoo_sketch_element_markdown extends $.$hyoo_sketch_element_markdown {
+        text(next?: string): string;
+        duplicate(elem?: $hyoo_sketch_element): $hyoo_sketch_element;
+    }
+}
+
+declare namespace $ {
     class $mol_icon_television extends $mol_icon {
         path(): string;
     }
@@ -4752,6 +4773,7 @@ declare namespace $ {
         Element_textarea(id: any): $$.$hyoo_sketch_element_textarea;
         Element_date(id: any): $$.$hyoo_sketch_element_date;
         Element_attach(id: any): $hyoo_sketch_element_attach;
+        Element_markdown(id: any): $$.$hyoo_sketch_element_markdown;
         editor_title(): string;
         Project_demo_icon(): $mol_icon_television_play;
         page_current_id(): string;
