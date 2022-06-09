@@ -16579,6 +16579,857 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    class $hyoo_sketch_element_speck extends $hyoo_sketch_element_base {
+        Resize() {
+            return null;
+        }
+        Element() {
+            const obj = new this.$.$mol_speck();
+            obj.style = () => ({
+                width: "auto",
+                height: "auto",
+                minWidth: 10,
+                minHeight: this.min_height()
+            });
+            obj.value = () => this.speck_value();
+            return obj;
+        }
+        Position_options() {
+            return [
+                this.Option_left(),
+                this.Option_top(),
+                this.Option_order()
+            ];
+        }
+        Options() {
+            return {
+                ...super.Options(),
+                speck: this.speck_options()
+            };
+        }
+        width_default() {
+            return 20;
+        }
+        height_default() {
+            return 20;
+        }
+        min_height() {
+            return "10";
+        }
+        speck_value_default() {
+            return "8";
+        }
+        speck_value(next) {
+            return this.speck_value_default();
+        }
+        Speck_value_control() {
+            const obj = new this.$.$mol_string();
+            obj.value = (next) => this.speck_value(next);
+            return obj;
+        }
+        Speck_value_options() {
+            const obj = new this.$.$hyoo_sketch_option();
+            obj.name = () => this.$.$mol_locale.text('$hyoo_sketch_element_speck_Speck_value_options_name');
+            obj.Control = () => this.Speck_value_control();
+            return obj;
+        }
+        speck_options() {
+            return [
+                this.Speck_value_options()
+            ];
+        }
+    }
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_speck.prototype, "Element", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_speck.prototype, "Speck_value_control", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_speck.prototype, "Speck_value_options", null);
+    $.$hyoo_sketch_element_speck = $hyoo_sketch_element_speck;
+})($ || ($ = {}));
+//hyoo/sketch/element/speck/-view.tree/speck.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $hyoo_sketch_element_speck extends $.$hyoo_sketch_element_speck {
+            speck_value(next) {
+                return String(this.state().sub('speck_value').value(next) ?? this.speck_value_default());
+            }
+            duplicate(elem) {
+                const element = elem ?? super.duplicate();
+                const obj = new $hyoo_sketch_element_speck;
+                obj.element = $mol_const(element);
+                obj.speck_value(this.speck_value());
+                return element;
+            }
+            min_height() {
+                return 10;
+            }
+        }
+        $$.$hyoo_sketch_element_speck = $hyoo_sketch_element_speck;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//hyoo/sketch/element/speck/speck.view.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_vector extends Array {
+        get length() {
+            return super.length;
+        }
+        constructor(...values) { super(...values); }
+        map(convert, self) {
+            return super.map(convert, self);
+        }
+        merged(patches, combine) {
+            return this.map((value, index) => combine(value, patches[index]));
+        }
+        limited(limits) {
+            return this.merged(limits, (value, [min, max]) => (value < min) ? min : (value > max) ? max : value);
+        }
+        added0(diff) {
+            return this.map(value => value + diff);
+        }
+        added1(diff) {
+            return this.merged(diff, (a, b) => a + b);
+        }
+        multed0(mult) {
+            return this.map(value => value * mult);
+        }
+        multed1(mults) {
+            return this.merged(mults, (a, b) => a * b);
+        }
+        powered0(mult) {
+            return this.map(value => value ** mult);
+        }
+        expanded1(point) {
+            return this.merged(point, (range, value) => range.expanded0(value));
+        }
+        expanded2(point) {
+            return this.merged(point, (range1, range2) => {
+                let next = range1;
+                const Range = range1.constructor;
+                if (range1[0] > range2[0])
+                    next = new Range(range2[0], next.max);
+                if (range1[1] < range2[1])
+                    next = new Range(next.min, range2[1]);
+                return next;
+            });
+        }
+        center() {
+            const Result = this[0].constructor;
+            return new Result(...this[0].map((_, i) => this.reduce((sum, point) => sum + point[i], 0) / this.length));
+        }
+        distance() {
+            let distance = 0;
+            for (let i = 1; i < this.length; ++i) {
+                distance += this[i - 1].reduce((sum, min, j) => sum + (min - this[i][j]) ** 2, 0) ** (1 / this[i].length);
+            }
+            return distance;
+        }
+        transponed() {
+            return this[0].map((_, i) => this.map(row => row[i]));
+        }
+        get x() { return this[0]; }
+        set x(next) { this[0] = next; }
+        get y() { return this[1]; }
+        set y(next) { this[1] = next; }
+        get z() { return this[2]; }
+        set z(next) { this[2] = next; }
+    }
+    $.$mol_vector = $mol_vector;
+    class $mol_vector_1d extends $mol_vector {
+    }
+    $.$mol_vector_1d = $mol_vector_1d;
+    class $mol_vector_2d extends $mol_vector {
+    }
+    $.$mol_vector_2d = $mol_vector_2d;
+    class $mol_vector_3d extends $mol_vector {
+    }
+    $.$mol_vector_3d = $mol_vector_3d;
+    class $mol_vector_range extends $mol_vector {
+        0;
+        1;
+        constructor(min, max) {
+            super(min, max);
+            this[0] = min;
+            this[1] = max;
+        }
+        get min() { return this[0]; }
+        set min(next) { this[0] = next; }
+        get max() { return this[1]; }
+        set max(next) { this[1] = next; }
+        get inversed() {
+            return new this.constructor(this.max, this.min);
+        }
+        expanded0(value) {
+            const Range = this.constructor;
+            let range = this;
+            if (value > range.max)
+                range = new Range(range.min, value);
+            if (value < range.min)
+                range = new Range(value, range.max);
+            return range;
+        }
+    }
+    $.$mol_vector_range = $mol_vector_range;
+    $.$mol_vector_range_full = new $mol_vector_range(Number.NEGATIVE_INFINITY, Number.POSITIVE_INFINITY);
+    class $mol_vector_matrix extends $mol_vector {
+        added2(diff) {
+            return this.merged(diff, (a, b) => a.map((a2, index) => a2 + b[index]));
+        }
+        multed2(diff) {
+            return this.merged(diff, (a, b) => a.map((a2, index) => a2 * b[index]));
+        }
+    }
+    $.$mol_vector_matrix = $mol_vector_matrix;
+})($ || ($ = {}));
+//mol/vector/vector.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_map_yandex_mark extends $mol_object {
+        pos() {
+            const obj = new this.$.$mol_vector_2d(0, 0);
+            return obj;
+        }
+        box() {
+            const obj = new this.$.$mol_vector_2d(this.box_lat(), this.box_lon());
+            return obj;
+        }
+        hint() {
+            return "";
+        }
+        title() {
+            return this.address();
+        }
+        content() {
+            return "";
+        }
+        object() {
+            return null;
+        }
+        box_lat() {
+            const obj = new this.$.$mol_vector_range(0, 0);
+            return obj;
+        }
+        box_lon() {
+            const obj = new this.$.$mol_vector_range(0, 0);
+            return obj;
+        }
+        address() {
+            return "";
+        }
+    }
+    __decorate([
+        $mol_mem
+    ], $mol_map_yandex_mark.prototype, "pos", null);
+    __decorate([
+        $mol_mem
+    ], $mol_map_yandex_mark.prototype, "box", null);
+    __decorate([
+        $mol_mem
+    ], $mol_map_yandex_mark.prototype, "box_lat", null);
+    __decorate([
+        $mol_mem
+    ], $mol_map_yandex_mark.prototype, "box_lon", null);
+    $.$mol_map_yandex_mark = $mol_map_yandex_mark;
+})($ || ($ = {}));
+//mol/map/yandex/mark/-view.tree/mark.view.tree.ts
+;
+"use strict";
+//mol/type/unary/unary.ts
+;
+"use strict";
+//mol/type/param/param.ts
+;
+"use strict";
+//mol/type/tail/tail.ts
+;
+"use strict";
+//mol/data/value/value.ts
+;
+"use strict";
+var $;
+(function ($) {
+    function $mol_data_setup(value, config) {
+        return Object.assign(value, {
+            config,
+            Value: null
+        });
+    }
+    $.$mol_data_setup = $mol_data_setup;
+})($ || ($ = {}));
+//mol/data/setup/setup.ts
+;
+"use strict";
+var $;
+(function ($) {
+    function $mol_func_is_class(func) {
+        return Object.getOwnPropertyDescriptor(func, 'prototype')?.writable === false;
+    }
+    $.$mol_func_is_class = $mol_func_is_class;
+})($ || ($ = {}));
+//mol/func/is/class/class.ts
+;
+"use strict";
+//mol/type/foot/foot.ts
+;
+"use strict";
+var $;
+(function ($) {
+    function $mol_data_pipe(...funcs) {
+        return $mol_data_setup(function (input) {
+            let value = input;
+            for (const func of funcs)
+                value = $mol_func_is_class(func) ? new func(value) : func.call(this, value);
+            return value;
+        }, { funcs });
+    }
+    $.$mol_data_pipe = $mol_data_pipe;
+})($ || ($ = {}));
+//mol/data/pipe/pipe.ts
+;
+"use strict";
+var $;
+(function ($) {
+    function $mol_diff_path(...paths) {
+        const limit = Math.min(...paths.map(path => path.length));
+        lookup: for (var i = 0; i < limit; ++i) {
+            const first = paths[0][i];
+            for (let j = 1; j < paths.length; ++j) {
+                if (paths[j][i] !== first)
+                    break lookup;
+            }
+        }
+        return {
+            prefix: paths[0].slice(0, i),
+            suffix: paths.map(path => path.slice(i)),
+        };
+    }
+    $.$mol_diff_path = $mol_diff_path;
+})($ || ($ = {}));
+//mol/diff/path/path.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_error_mix extends Error {
+        errors;
+        constructor(message, ...errors) {
+            super(message);
+            this.errors = errors;
+            if (errors.length) {
+                const stacks = [...errors.map(error => error.stack), this.stack];
+                const diff = $mol_diff_path(...stacks.map(stack => {
+                    if (!stack)
+                        return [];
+                    return stack.split('\n').reverse();
+                }));
+                const head = diff.prefix.reverse().join('\n');
+                const tails = diff.suffix.map(path => path.reverse().map(line => line.replace(/^(?!\s+at)/, '\tat (.) ')).join('\n')).join('\n\tat (.) -----\n');
+                this.stack = `Error: ${this.constructor.name}\n\tat (.) /"""\\\n${tails}\n\tat (.) \\___/\n${head}`;
+                this.message += errors.map(error => '\n' + error.message).join('');
+            }
+        }
+        toJSON() {
+            return this.message;
+        }
+    }
+    $.$mol_error_mix = $mol_error_mix;
+})($ || ($ = {}));
+//mol/error/mix/mix.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_data_error extends $mol_error_mix {
+    }
+    $.$mol_data_error = $mol_data_error;
+})($ || ($ = {}));
+//mol/data/error/error.ts
+;
+"use strict";
+var $;
+(function ($) {
+    $.$mol_data_string = (val) => {
+        if (typeof val === 'string')
+            return val;
+        return $mol_fail(new $mol_data_error(`${val} is not a string`));
+    };
+})($ || ($ = {}));
+//mol/data/string/string.ts
+;
+"use strict";
+var $;
+(function ($) {
+    function $mol_data_array(sub) {
+        return $mol_data_setup((val) => {
+            if (!Array.isArray(val))
+                return $mol_fail(new $mol_data_error(`${val} is not an array`));
+            return val.map((item, index) => {
+                try {
+                    return sub(item);
+                }
+                catch (error) {
+                    if (error instanceof Promise)
+                        return $mol_fail_hidden(error);
+                    error.message = `[${index}] ${error.message}`;
+                    return $mol_fail(error);
+                }
+            });
+        }, sub);
+    }
+    $.$mol_data_array = $mol_data_array;
+})($ || ($ = {}));
+//mol/data/array/array.ts
+;
+"use strict";
+//mol/type/partial/undefined/undefined.ts
+;
+"use strict";
+var $;
+(function ($) {
+    function $mol_data_record(sub) {
+        return $mol_data_setup((val) => {
+            let res = {};
+            for (const field in sub) {
+                try {
+                    res[field] = sub[field](val[field]);
+                }
+                catch (error) {
+                    if (error instanceof Promise)
+                        return $mol_fail_hidden(error);
+                    error.message = `[${JSON.stringify(field)}] ${error.message}`;
+                    return $mol_fail(error);
+                }
+            }
+            return res;
+        }, sub);
+    }
+    $.$mol_data_record = $mol_data_record;
+})($ || ($ = {}));
+//mol/data/record/record.ts
+;
+"use strict";
+var $;
+(function ($) {
+    const Numb = $mol_data_pipe($mol_data_string, parseFloat);
+    const Response = $mol_data_array($mol_data_record({
+        boundingbox: $mol_data_array(Numb),
+        lat: Numb,
+        lon: Numb,
+    }));
+    $.$mol_geo_search_attribution = 'https://osm.org/copyright';
+    function $mol_geo_search({ query, count = 1 }) {
+        const url = new URL('https://nominatim.openstreetmap.org/search');
+        url.searchParams.set('q', query);
+        url.searchParams.set('limit', count.toString());
+        url.searchParams.set('format', 'jsonv2');
+        const json = $mol_fetch.json(url.toString());
+        return Response(json).map(({ lon, lat, boundingbox: box }) => {
+            return {
+                coord: new $mol_vector_2d(lon, lat),
+                box: new $mol_vector_2d(new $mol_vector_range(box[2], box[3]), new $mol_vector_range(box[0], box[1])),
+            };
+        });
+    }
+    $.$mol_geo_search = $mol_geo_search;
+})($ || ($ = {}));
+//mol/geo/search/search.ts
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $mol_map_yandex_mark extends $.$mol_map_yandex_mark {
+            object() {
+                const ymaps = $mol_map_yandex.api();
+                return new ymaps.Placemark(this.pos(), {
+                    hintContent: this.hint(),
+                    iconContent: this.title(),
+                    balloonContent: this.content(),
+                }, {
+                    preset: "islands#redStretchyIcon",
+                });
+            }
+            found() {
+                return $mol_geo_search({ query: this.address() })[0] ?? null;
+            }
+            pos() {
+                return this.found()?.coord ?? super.pos();
+            }
+            box() {
+                return this.found()?.box ?? super.pos();
+            }
+        }
+        __decorate([
+            $mol_mem
+        ], $mol_map_yandex_mark.prototype, "object", null);
+        __decorate([
+            $mol_mem
+        ], $mol_map_yandex_mark.prototype, "found", null);
+        __decorate([
+            $mol_mem
+        ], $mol_map_yandex_mark.prototype, "box", null);
+        $$.$mol_map_yandex_mark = $mol_map_yandex_mark;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//mol/map/yandex/mark/mark.view.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_map_yandex extends $mol_view {
+        zoom(val) {
+            if (val !== undefined)
+                return val;
+            return 2;
+        }
+        center(val) {
+            if (val !== undefined)
+                return val;
+            return [
+                0,
+                0
+            ];
+        }
+        objects() {
+            return [];
+        }
+    }
+    __decorate([
+        $mol_mem
+    ], $mol_map_yandex.prototype, "zoom", null);
+    __decorate([
+        $mol_mem
+    ], $mol_map_yandex.prototype, "center", null);
+    $.$mol_map_yandex = $mol_map_yandex;
+})($ || ($ = {}));
+//mol/map/yandex/-view.tree/yandex.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_import extends $mol_object2 {
+        static module(uri) {
+            return $mol_wire_sync(this).module_async(uri);
+        }
+        static module_async(uri) {
+            return import(uri);
+        }
+        static script(uri) {
+            return $mol_wire_sync(this).script_async(uri);
+        }
+        static script_async(uri) {
+            const doc = $mol_dom_context.document;
+            const script = doc.createElement('script');
+            script.src = uri;
+            doc.head.appendChild(script);
+            return new Promise((done, fail) => {
+                script.onload = () => done($mol_dom_context);
+                script.onerror = () => fail(new Error(`Can not import ${uri}`));
+            });
+        }
+        static style(uri) {
+            return $mol_wire_sync(this).style_async(uri);
+        }
+        static style_async(uri) {
+            const doc = $mol_dom_context.document;
+            const style = doc.createElement('link');
+            style.rel = 'stylesheet';
+            style.href = uri;
+            doc.head.appendChild(style);
+            return new Promise((done, fail) => {
+                style.onload = () => done(style.sheet);
+                style.onerror = () => fail(new Error(`Can not import ${uri}`));
+            });
+        }
+    }
+    __decorate([
+        $mol_mem_key
+    ], $mol_import, "module", null);
+    __decorate([
+        $mol_mem_key
+    ], $mol_import, "script", null);
+    __decorate([
+        $mol_mem_key
+    ], $mol_import, "style", null);
+    $.$mol_import = $mol_import;
+})($ || ($ = {}));
+//mol/import/import.ts
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_style_attach("mol/map/yandex/yandex.view.css", "[mol_map_yandex] {\n\tflex: auto;\n\talign-self: stretch;\n\tfilter: var(--mol_theme_image);\n}\n");
+})($ || ($ = {}));
+//mol/map/yandex/-css/yandex.view.css.ts
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $mol_map_yandex extends $.$mol_map_yandex {
+            static api() {
+                return $mol_import.script(`https://api-maps.yandex.ru/2.1/?lang=${$mol_locale.lang()}`).ymaps;
+            }
+            wait_ready(ymaps) {
+                return new Promise(done => ymaps.ready(done));
+            }
+            api(next, force) {
+                const ymaps = $mol_map_yandex.api();
+                $mol_wire_sync(this).wait_ready(ymaps);
+                const api = new ymaps.Map(this.dom_node(), {
+                    center: [0, 0],
+                    zoom: 0,
+                });
+                api.copyrights.add($mol_geo_search_attribution);
+                api.controls.remove('fullscreenControl');
+                api.controls.remove('typeSelector');
+                api.events.add(['actionend'], (event) => {
+                    new $mol_after_tick($mol_fiber_root(() => {
+                        this.update(event);
+                    }));
+                });
+                return api;
+            }
+            update(event) {
+                this.zoom(this.api().getZoom());
+                this.center(this.api().getCenter());
+            }
+            bounds_updated() {
+                const box = this.objects()[0]?.box();
+                if (box) {
+                    this.api().setBounds([
+                        [box.x.min, box.y.min],
+                        [box.x.max, box.y.max],
+                    ]);
+                }
+                return true;
+            }
+            center(next, force) {
+                if (next !== undefined)
+                    return next;
+                const pos = this.objects()[0]?.pos();
+                if (pos)
+                    return pos;
+                return [0, 0];
+            }
+            render() {
+                const api = this.api();
+                api.setCenter(this.center(), this.zoom());
+                api.geoObjects.removeAll();
+                for (let obj of this.objects()) {
+                    api.geoObjects.add(obj.object());
+                }
+                this.dom_node_actual();
+            }
+        }
+        __decorate([
+            $mol_mem
+        ], $mol_map_yandex.prototype, "api", null);
+        __decorate([
+            $mol_mem
+        ], $mol_map_yandex.prototype, "bounds_updated", null);
+        __decorate([
+            $mol_mem
+        ], $mol_map_yandex.prototype, "center", null);
+        $$.$mol_map_yandex = $mol_map_yandex;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//mol/map/yandex/yandex.view.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $hyoo_sketch_element_map extends $hyoo_sketch_element_base {
+        Element() {
+            const obj = new this.$.$hyoo_sketch_element_map_my();
+            obj.center = () => [
+                55.755058875094946,
+                37.63368014294435
+            ];
+            obj.zoom = () => 11;
+            obj.objects = () => [
+                this.Place()
+            ];
+            return obj;
+        }
+        width_default() {
+            return 336;
+        }
+        height_default() {
+            return 224;
+        }
+        place_title() {
+            return "";
+        }
+        place_addres() {
+            return "Moscow";
+        }
+        place_content() {
+            return "Its Moscow";
+        }
+        Place() {
+            const obj = new this.$.$mol_map_yandex_mark();
+            obj.title = () => this.place_title();
+            obj.address = () => this.place_addres();
+            obj.content = () => this.place_content();
+            return obj;
+        }
+    }
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_map.prototype, "Element", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_map.prototype, "Place", null);
+    $.$hyoo_sketch_element_map = $hyoo_sketch_element_map;
+    class $hyoo_sketch_element_map_my extends $mol_map_yandex {
+    }
+    $.$hyoo_sketch_element_map_my = $hyoo_sketch_element_map_my;
+})($ || ($ = {}));
+//hyoo/sketch/element/map/-view.tree/map.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $hyoo_sketch_element_map extends $.$hyoo_sketch_element_map {
+        }
+        $$.$hyoo_sketch_element_map = $hyoo_sketch_element_map;
+        class $hyoo_sketch_element_map_my extends $.$hyoo_sketch_element_map_my {
+            api(next, force) {
+                const ymaps = $mol_map_yandex.api();
+                $mol_wire_sync(this).wait_ready(ymaps);
+                const api = new ymaps.Map(this.dom_node(), {
+                    center: [0, 0],
+                    zoom: 0,
+                }, {
+                    autoFitToViewport: 'always',
+                });
+                api.copyrights.add($mol_geo_search_attribution);
+                api.controls.remove('fullscreenControl');
+                api.controls.remove('typeSelector');
+                api.events.add(['actionend'], (event) => {
+                    new $mol_after_tick($mol_fiber_root(() => {
+                        this.update(event);
+                    }));
+                });
+                return api;
+            }
+        }
+        __decorate([
+            $mol_mem
+        ], $hyoo_sketch_element_map_my.prototype, "api", null);
+        $$.$hyoo_sketch_element_map_my = $hyoo_sketch_element_map_my;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//hyoo/sketch/element/map/map.view.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $hyoo_sketch_element_header extends $hyoo_sketch_element_base {
+        Head() {
+            return this.Page().Head();
+        }
+        Page() {
+            const obj = new this.$.$mol_page();
+            obj.title = () => this.title();
+            return obj;
+        }
+        Element() {
+            return this.Head();
+        }
+        height_default() {
+            return 56;
+        }
+        width_default() {
+            return 340;
+        }
+        Options() {
+            return {
+                ...super.Options(),
+                header: this.header_options()
+            };
+        }
+        title_default() {
+            return "Page title";
+        }
+        title(next) {
+            return this.title_default();
+        }
+        Title_control() {
+            const obj = new this.$.$mol_string();
+            obj.value = (next) => this.title(next);
+            return obj;
+        }
+        Title_option() {
+            const obj = new this.$.$hyoo_sketch_option();
+            obj.name = () => this.$.$mol_locale.text('$hyoo_sketch_element_header_Title_option_name');
+            obj.Control = () => this.Title_control();
+            return obj;
+        }
+        header_options() {
+            return [
+                this.Title_option()
+            ];
+        }
+    }
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_header.prototype, "Page", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_header.prototype, "Title_control", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_header.prototype, "Title_option", null);
+    $.$hyoo_sketch_element_header = $hyoo_sketch_element_header;
+})($ || ($ = {}));
+//hyoo/sketch/element/header/-view.tree/header.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $hyoo_sketch_element_header extends $.$hyoo_sketch_element_header {
+            title(next) {
+                return String(this.state().sub('header_title').value(next) ?? this.title_default());
+            }
+            title_default() {
+                return this.page().name() ?? super.title_default();
+            }
+            duplicate(elem) {
+                const element = elem ?? super.duplicate();
+                const obj = new $hyoo_sketch_element_header;
+                obj.element = $mol_const(element);
+                obj.title(this.title());
+                return element;
+            }
+        }
+        $$.$hyoo_sketch_element_header = $hyoo_sketch_element_header;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//hyoo/sketch/element/header/header.view.ts
+;
+"use strict";
+var $;
+(function ($) {
     class $mol_icon_television extends $mol_icon {
         path() {
             return "M21,17H3V5H21M21,3H3C1.9,3 1,3.9 1,5V17C1,18.1 1.9,19 3,19H8V21H16V19H21C22.1,19 23,18.1 23,17V5C23,3.9 22.1,3 21,3Z";
@@ -16699,6 +17550,7 @@ var $;
     (function ($$) {
         const { px } = $mol_style_unit;
         $mol_style_define($.$hyoo_sketch_editor_paper, {
+            boxSizing: 'content-box',
             background: {
                 color: $mol_theme.back,
             },
@@ -16862,6 +17714,18 @@ var $;
         }
         Element_markdown(id) {
             const obj = new this.$.$hyoo_sketch_element_markdown();
+            return obj;
+        }
+        Element_speck(id) {
+            const obj = new this.$.$hyoo_sketch_element_speck();
+            return obj;
+        }
+        Element_map(id) {
+            const obj = new this.$.$hyoo_sketch_element_map();
+            return obj;
+        }
+        Element_header(id) {
+            const obj = new this.$.$hyoo_sketch_element_header();
             return obj;
         }
         editor_title() {
@@ -17037,6 +17901,15 @@ var $;
     __decorate([
         $mol_mem_key
     ], $hyoo_sketch_editor.prototype, "Element_markdown", null);
+    __decorate([
+        $mol_mem_key
+    ], $hyoo_sketch_editor.prototype, "Element_speck", null);
+    __decorate([
+        $mol_mem_key
+    ], $hyoo_sketch_editor.prototype, "Element_map", null);
+    __decorate([
+        $mol_mem_key
+    ], $hyoo_sketch_editor.prototype, "Element_header", null);
     __decorate([
         $mol_mem
     ], $hyoo_sketch_editor.prototype, "Project_demo_icon", null);
@@ -17390,7 +18263,10 @@ var $;
                 "textarea",
                 "date",
                 "attach",
-                "markdown"
+                "markdown",
+                "speck",
+                "map",
+                "header"
             ];
         }
         row_title(id) {

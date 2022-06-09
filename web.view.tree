@@ -1330,6 +1330,82 @@ $hyoo_sketch_element_markdown $hyoo_sketch_element_base
 				style * height \150px
 				value? <=> text?
 
+$hyoo_sketch_element_speck $hyoo_sketch_element_base
+	Resize null
+	Element $mol_speck
+		style *
+			width \auto
+			height \auto
+			minWidth 10
+			minHeight <= min_height \10
+		value <= speck_value? <= speck_value_default \8
+	Position_options /
+		<= Option_left
+		<= Option_top
+		<= Option_order
+	Options *
+		^
+		speck <= speck_options /
+			<= Speck_value_options $hyoo_sketch_option
+				name @ \Value
+				Control <= Speck_value_control $mol_string
+					value? <=> speck_value?
+	width_default 20
+	height_default 20
+
+$mol_map_yandex_mark $mol_object
+	pos $mol_vector_2d /
+		0
+		0
+	box $mol_vector_2d /
+		<= box_lat $mol_vector_range /
+			0
+			0
+		<= box_lon $mol_vector_range /
+			0
+			0
+	hint \
+	title <= address \
+	content \
+	object null
+
+$mol_map_yandex $mol_view
+	zoom?val 2
+	center?val /
+		0
+		0
+	objects /$mol_map_yandex_mark
+
+$hyoo_sketch_element_map $hyoo_sketch_element_base
+	Element $hyoo_sketch_element_map_my
+		center /
+			55.755058875094946
+			37.63368014294435
+		zoom 11
+		objects /
+			<= Place $mol_map_yandex_mark
+				title <= place_title \
+				address <= place_addres \Moscow
+				content <= place_content \Its Moscow
+	width_default 336
+	height_default 224
+$hyoo_sketch_element_map_my $mol_map_yandex
+
+$hyoo_sketch_element_header $hyoo_sketch_element_base
+	Page $mol_page
+		title <= title
+		Head => Head
+	Element <= Head
+	height_default 56
+	width_default 340
+	Options *
+		^
+		header <= header_options /
+			<= Title_option $hyoo_sketch_option
+				name @ \Title
+				Control <= Title_control $mol_string
+					value? <=> title? <= title_default \Page title
+
 $mol_icon_television $mol_icon path \M21,17H3V5H21M21,3H3C1.9,3 1,3.9 1,5V17C1,18.1 1.9,19 3,19H8V21H16V19H21C22.1,19 23,18.1 23,17V5C23,3.9 22.1,3 21,3Z
 
 $mol_icon_television_play $mol_icon path \M21,3H3C1.89,3 1,3.89 1,5V17C1,18.1 1.9,19 3,19H8V21H16V19H21C22.1,19 23,18.1 23,17V5C23,3.89 22.1,3 21,3M21,17H3V5H21M16,11L9,15V7
@@ -1423,6 +1499,9 @@ $hyoo_sketch_editor $mol_page
 	Element_date* $hyoo_sketch_element_date
 	Element_attach* $hyoo_sketch_element_attach
 	Element_markdown* $hyoo_sketch_element_markdown
+	Element_speck* $hyoo_sketch_element_speck
+	Element_map* $hyoo_sketch_element_map
+	Element_header* $hyoo_sketch_element_header
 
 $mol_deck $mol_list
 	items /$mol_view
@@ -1467,6 +1546,9 @@ $hyoo_sketch_palette $mol_page
 		\date
 		\attach
 		\markdown
+		\speck
+		\map
+		\header
 
 $hyoo_sketch $mol_book2
 	domain $hyoo_sketch_domain

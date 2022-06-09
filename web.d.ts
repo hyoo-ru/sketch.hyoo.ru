@@ -4598,6 +4598,317 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
+    class $hyoo_sketch_element_speck extends $hyoo_sketch_element_base {
+        Resize(): any;
+        Element(): $mol_speck;
+        Position_options(): readonly any[];
+        Options(): {
+            speck: readonly any[];
+            position: readonly any[];
+        };
+        width_default(): number;
+        height_default(): number;
+        min_height(): string;
+        speck_value_default(): string;
+        speck_value(next?: any): string;
+        Speck_value_control(): $$.$mol_string;
+        Speck_value_options(): $hyoo_sketch_option;
+        speck_options(): readonly any[];
+    }
+}
+
+declare namespace $.$$ {
+    class $hyoo_sketch_element_speck extends $.$hyoo_sketch_element_speck {
+        speck_value(next?: string): string;
+        duplicate(elem?: $hyoo_sketch_element): $hyoo_sketch_element;
+        min_height(): any;
+    }
+}
+
+declare namespace $ {
+    class $mol_vector<Value, Length extends number> extends Array<Value> {
+        get length(): Length;
+        constructor(...values: Value[] & {
+            length: Length;
+        });
+        map<Res>(convert: (value: Value, index: number, array: this) => Res, self?: any): $mol_vector<Res, Length>;
+        merged<Patch>(patches: readonly Patch[] & {
+            length: Length;
+        }, combine: (value: Value, patch: Patch) => Value): this;
+        limited(this: $mol_vector<number, Length>, limits: readonly (readonly [number, number])[] & {
+            length: Length;
+        }): this;
+        added0(this: $mol_vector<number, Length>, diff: number): this;
+        added1(this: $mol_vector<number, Length>, diff: readonly number[] & {
+            length: Length;
+        }): this;
+        multed0(this: $mol_vector<number, Length>, mult: number): this;
+        multed1(this: $mol_vector<number, Length>, mults: readonly number[] & {
+            length: Length;
+        }): this;
+        powered0(this: $mol_vector<number, Length>, mult: number): this;
+        expanded1(this: $mol_vector<$mol_vector_range<number>, Length>, point: readonly number[] & {
+            length: Length;
+        }): this;
+        expanded2(this: $mol_vector<$mol_vector_range<number>, Length>, point: readonly (readonly [number, number])[] & {
+            length: Length;
+        }): this;
+        center<Item extends $mol_vector<number, number>>(this: $mol_vector<Item, Length>): Item;
+        distance(this: $mol_vector<$mol_vector<number, number>, Length>): number;
+        transponed(this: $mol_vector<$mol_vector<number, number>, Length>): $mol_vector<$mol_vector<number, Length>, typeof this[0]['length']>;
+        get x(): Value;
+        set x(next: Value);
+        get y(): Value;
+        set y(next: Value);
+        get z(): Value;
+        set z(next: Value);
+    }
+    class $mol_vector_1d<Value> extends $mol_vector<Value, 1> {
+    }
+    class $mol_vector_2d<Value> extends $mol_vector<Value, 2> {
+    }
+    class $mol_vector_3d<Value> extends $mol_vector<Value, 3> {
+    }
+    class $mol_vector_range<Value> extends $mol_vector<Value, 2> {
+        0: Value;
+        1: Value;
+        constructor(min: Value, max: Value);
+        get min(): Value;
+        set min(next: Value);
+        get max(): Value;
+        set max(next: Value);
+        get inversed(): $mol_vector_range<Value>;
+        expanded0(value: Value): $mol_vector_range<Value>;
+    }
+    let $mol_vector_range_full: $mol_vector_range<number>;
+    class $mol_vector_matrix<Width extends number, Height extends number> extends $mol_vector<readonly number[] & {
+        length: Width;
+    }, Height> {
+        added2(diff: readonly (readonly number[] & {
+            length: Width;
+        })[] & {
+            length: Height;
+        }): this;
+        multed2(diff: readonly (readonly number[] & {
+            length: Width;
+        })[] & {
+            length: Height;
+        }): this;
+    }
+}
+
+declare namespace $ {
+    class $mol_map_yandex_mark extends $mol_object {
+        pos(): $mol_vector_2d<number>;
+        box(): $mol_vector_2d<$mol_vector_range<number>>;
+        hint(): string;
+        title(): string;
+        content(): string;
+        object(): any;
+        box_lat(): $mol_vector_range<number>;
+        box_lon(): $mol_vector_range<number>;
+        address(): string;
+    }
+}
+
+declare namespace $ {
+    type $mol_type_unary_func = ((param: any) => any);
+    type $mol_type_unary_class = new (param: any) => any;
+    type $mol_type_unary = $mol_type_unary_func | $mol_type_unary_class;
+}
+
+declare namespace $ {
+    type $mol_type_param<Func, Index extends number> = Func extends (...params: infer Params) => any ? Params[Index] : Func extends new (...params: infer Params2) => any ? Params2[Index] : never;
+}
+
+declare namespace $ {
+    type $mol_type_tail<Tuple extends readonly any[]> = ((...tail: Tuple) => any) extends ((head: any, ...tail: infer Tail) => any) ? Tail : never;
+}
+
+declare namespace $ {
+    type $mol_data_value<Input = any, Output = any> = (val: Input) => Output;
+}
+
+declare namespace $ {
+    function $mol_data_setup<Value extends $mol_data_value, Config = never>(value: Value, config: Config): Value & {
+        config: Config;
+        Value: ReturnType<Value>;
+    };
+}
+
+declare namespace $ {
+    function $mol_func_is_class(func: Function): boolean;
+}
+
+declare namespace $ {
+    type $mol_type_foot<Tuple extends readonly any[]> = Tuple['length'] extends 0 ? never : Tuple[$mol_type_tail<Tuple>['length']];
+}
+
+declare namespace $ {
+    type Guard_value<Funcs extends $mol_type_unary[], Index extends keyof Funcs> = $mol_type_param<Index extends keyof $mol_type_tail<Funcs> ? $mol_type_tail<Funcs>[Index] : any, 0>;
+    type Guard<Funcs extends $mol_type_unary[]> = {
+        [Index in keyof Funcs]: (Funcs[Index] extends $mol_type_unary_func ? (input: $mol_type_param<Funcs[Index], 0>) => Guard_value<Funcs, Index> : new (input: $mol_type_param<Funcs[Index], 0>) => Guard_value<Funcs, Index>);
+    };
+    export function $mol_data_pipe<Funcs extends $mol_type_unary[]>(...funcs: Funcs & Guard<Funcs>): ((this: any, input: $mol_type_param<Funcs[0], 0>) => $mol_type_result<$mol_type_foot<Funcs>>) & {
+        config: {
+            funcs: Funcs & Guard<Funcs>;
+        };
+        Value: $mol_type_result<$mol_type_foot<Funcs>>;
+    };
+    export {};
+}
+
+declare namespace $ {
+    function $mol_diff_path<Item>(...paths: Item[][]): {
+        prefix: Item[];
+        suffix: Item[][];
+    };
+}
+
+declare namespace $ {
+    class $mol_error_mix extends Error {
+        errors: Error[];
+        constructor(message: string, ...errors: Error[]);
+        toJSON(): string;
+    }
+}
+
+declare namespace $ {
+    class $mol_data_error extends $mol_error_mix {
+    }
+}
+
+declare namespace $ {
+    let $mol_data_string: (val: string) => string;
+}
+
+declare namespace $ {
+    function $mol_data_array<Sub extends $mol_data_value>(sub: Sub): ((val: readonly Parameters<Sub>[0][] | unknown) => readonly ReturnType<Sub>[]) & {
+        config: Sub;
+        Value: readonly ReturnType<Sub>[];
+    };
+}
+
+declare namespace $ {
+    type $mol_type_partial_undefined<Val> = $mol_type_merge<Partial<Val> & Pick<Val, {
+        [Field in keyof Val]: undefined extends Val[Field] ? never : Field;
+    }[keyof Val]>>;
+}
+
+declare namespace $ {
+    function $mol_data_record<Sub extends Record<string, $mol_data_value<any>>>(sub: Sub): ((val: unknown) => Readonly<$mol_type_merge<Partial<{ [key in keyof Sub]: ReturnType<Sub[key]>; }> & Pick<{ [key in keyof Sub]: ReturnType<Sub[key]>; }, ({ [key in keyof Sub]: ReturnType<Sub[key]>; } extends infer T ? { [Field in keyof T]: undefined extends { [key in keyof Sub]: ReturnType<Sub[key]>; }[Field] ? never : Field; } : never)[keyof Sub]>>>) & {
+        config: Sub;
+        Value: Readonly<$mol_type_merge<Partial<{ [key in keyof Sub]: ReturnType<Sub[key]>; }> & Pick<{ [key in keyof Sub]: ReturnType<Sub[key]>; }, ({ [key in keyof Sub]: ReturnType<Sub[key]>; } extends infer T_1 ? { [Field in keyof T_1]: undefined extends { [key in keyof Sub]: ReturnType<Sub[key]>; }[Field] ? never : Field; } : never)[keyof Sub]>>>;
+    };
+}
+
+declare namespace $ {
+    let $mol_geo_search_attribution: string;
+    function $mol_geo_search({ query, count }: {
+        query: string;
+        count?: number;
+    }): {
+        coord: $mol_vector_2d<number>;
+        box: $mol_vector_2d<$mol_vector_range<number>>;
+    }[];
+}
+
+declare namespace $.$$ {
+    class $mol_map_yandex_mark extends $.$mol_map_yandex_mark {
+        object(): any;
+        found(): {
+            coord: $mol_vector_2d<number>;
+            box: $mol_vector_2d<$mol_vector_range<number>>;
+        };
+        pos(): $mol_vector_2d<number>;
+        box(): $mol_vector_2d<$mol_vector_range<number>>;
+    }
+}
+
+declare namespace $ {
+    class $mol_map_yandex extends $mol_view {
+        zoom(val?: any): number;
+        center(val?: any): readonly any[];
+        objects(): readonly $mol_map_yandex_mark[];
+    }
+}
+
+declare namespace $ {
+    class $mol_import extends $mol_object2 {
+        static module(uri: string): any;
+        static module_async(uri: string): Promise<any>;
+        static script(uri: string): any;
+        static script_async(uri: string): Promise<any>;
+        static style(uri: string): any;
+        static style_async(uri: string): any;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $.$$ {
+    class $mol_map_yandex extends $.$mol_map_yandex {
+        static api(): any;
+        wait_ready(ymaps: any): Promise<unknown>;
+        api(next?: any, force?: $mol_mem_force): any;
+        update(event?: any): void;
+        bounds_updated(): boolean;
+        center(next?: readonly [number, number], force?: $mol_mem_force): $mol_vector_2d<number> | readonly [number, number];
+        render(): void;
+    }
+}
+
+declare namespace $ {
+    class $hyoo_sketch_element_map extends $hyoo_sketch_element_base {
+        Element(): $$.$hyoo_sketch_element_map_my;
+        width_default(): number;
+        height_default(): number;
+        place_title(): string;
+        place_addres(): string;
+        place_content(): string;
+        Place(): $$.$mol_map_yandex_mark;
+    }
+    class $hyoo_sketch_element_map_my extends $mol_map_yandex {
+    }
+}
+
+declare namespace $.$$ {
+    class $hyoo_sketch_element_map extends $.$hyoo_sketch_element_map {
+    }
+    class $hyoo_sketch_element_map_my extends $.$hyoo_sketch_element_map_my {
+        api(next?: any, force?: $mol_mem_force): any;
+    }
+}
+
+declare namespace $ {
+    class $hyoo_sketch_element_header extends $hyoo_sketch_element_base {
+        Head(): $mol_view;
+        Page(): $mol_page;
+        Element(): $mol_view;
+        height_default(): number;
+        width_default(): number;
+        Options(): {
+            header: readonly any[];
+            position: readonly any[];
+        };
+        title_default(): string;
+        title(next?: any): string;
+        Title_control(): $$.$mol_string;
+        Title_option(): $hyoo_sketch_option;
+        header_options(): readonly any[];
+    }
+}
+
+declare namespace $.$$ {
+    class $hyoo_sketch_element_header extends $.$hyoo_sketch_element_header {
+        title(next?: string): string;
+        title_default(): string;
+        duplicate(elem?: $hyoo_sketch_element): $hyoo_sketch_element;
+    }
+}
+
+declare namespace $ {
     class $mol_icon_television extends $mol_icon {
         path(): string;
     }
@@ -4691,6 +5002,9 @@ declare namespace $ {
         Element_date(id: any): $$.$hyoo_sketch_element_date;
         Element_attach(id: any): $hyoo_sketch_element_attach;
         Element_markdown(id: any): $$.$hyoo_sketch_element_markdown;
+        Element_speck(id: any): $$.$hyoo_sketch_element_speck;
+        Element_map(id: any): $$.$hyoo_sketch_element_map;
+        Element_header(id: any): $$.$hyoo_sketch_element_header;
         editor_title(): string;
         Project_demo_icon(): $mol_icon_television_play;
         page_current_id(): string;
