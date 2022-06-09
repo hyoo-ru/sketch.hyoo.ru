@@ -7,6 +7,10 @@ namespace $.$$ {
 			return (list.length ? list : this.option_list_default()).map( val => String(val) )
 		}
 
+		option_current(next?: string) {
+			return String( this.state().sub('option_current').value(next) ?? this.option_list()[0] ?? '' )
+		}
+
 		option_dict() {
 			return this.option_list().reduce(( dict, val ) => {
 				dict[val] = val
@@ -51,6 +55,7 @@ namespace $.$$ {
 			obj.element = $mol_const(element)
 
 			obj.option_list(this.option_list())
+			obj.option_current(this.option_current())
 
 			return element
 		}

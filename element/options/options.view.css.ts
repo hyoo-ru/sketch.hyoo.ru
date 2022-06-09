@@ -1,8 +1,8 @@
 namespace $.$$ {
 
-	$mol_style_define( $.$hyoo_sketch_element_select, {
+	$mol_style_define( $.$hyoo_sketch_element_options , {
 
-		Select_option_row: {
+		Row: {
 
 			margin: {
 				bottom: $mol_gap.space,

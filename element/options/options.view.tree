@@ -3,6 +3,7 @@ $hyoo_sketch_element_options $hyoo_sketch_element_base
 		\one
 		\two
 		\three
+	option_current? \
 	Options *
 		^
 		options <= options /
@@ -17,3 +18,10 @@ $hyoo_sketch_element_options $hyoo_sketch_element_base
 									sub / <= Row_clear_icon* $mol_icon_cross
 								<= Row_string* $mol_string
 									value? <=> option_row*? \
+			<= Option_current_option $hyoo_sketch_option
+				name @ \Value
+				Control <= Option_current_control $mol_select
+					align \top_center
+					value? <=> option_current?
+					options <= option_list /string
+

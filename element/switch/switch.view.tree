@@ -1,9 +1,12 @@
 $hyoo_sketch_element_switch $hyoo_sketch_element_base
+	Option_list $hyoo_sketch_element_options
+		element <= element
+		option_dict => option_dict
+		option_current? => value?
+		options => options
 	Element $mol_switch
-		value? <=> switch_value? <= switch_value_default \one
-		options *
-			one \one
-			two \two
+		value? <=> value?
+		options <= option_dict
 	Options *
 		^
-		switch <= switch_options /
+		switch <= options
