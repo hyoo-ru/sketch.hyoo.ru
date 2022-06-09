@@ -1,6 +1,6 @@
 $hyoo_sketch_element_text $hyoo_sketch_element_base
 	Element $mol_view
-		style *
+		style <= style *
 			padding <= padding_style \0px
 			justifyContent <= align_hor
 			alignItems <= align_ver
@@ -13,7 +13,7 @@ $hyoo_sketch_element_text $hyoo_sketch_element_base
 		icon_options => icon_options
 	Options *
 		^
-		text <= Text_options /
+		text <= text_options /
 			<= Text_option $hyoo_sketch_option
 				name @ \Text
 				Control <= Text_control $mol_string

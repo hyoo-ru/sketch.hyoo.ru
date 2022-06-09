@@ -8,10 +8,6 @@ namespace $.$$ {
 			return button as $mol_button
 		}
 
-		button_title(next?: string) {
-			return String( this.state().sub('button_title').value(next) ?? super.button_title() )
-		}
-
 		button_type(next?: string) {
 			return String( this.state().sub('button_type').value(next) ?? super.button_type() )
 		}
@@ -38,13 +34,6 @@ namespace $.$$ {
 			if (action === 'external') {
 				$mol_dom_context.open(target_link, '_blank')
 			}
-		}
-
-		button_sub() {
-			return [
-				... this.Icon().icon_name() ? [this.Icon().Icon()] : [],
-				this.button_title(),
-			]
 		}
 
 	}

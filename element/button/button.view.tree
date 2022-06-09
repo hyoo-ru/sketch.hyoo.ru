@@ -1,30 +1,28 @@
 $hyoo_sketch_element_button $hyoo_sketch_element_base
-	Button_major $mol_button_major
-		style * width \100%
-		click? <=> click? null
-		sub <= button_sub /
-			<= Button_icon $mol_icon
-			<= button_title
-	Button_minor $mol_button_minor
-		style * width \100%
-		title <= button_title
-		sub <= button_sub /
-			<= Button_icon $mol_icon
-			<= button_title
-	Element $mol_button
 	Nav $hyoo_sketch_element_nav
 		element <= element
 		nav_options => nav_options
-	Icon $hyoo_sketch_element_icon
+	Text $hyoo_sketch_element_button_text
 		element <= element
-		icon_options => icon_options
+		text_options => text_options
+		text_sub => text_sub
+		style => text_style
+	Button_major $mol_button_major
+		style *
+			^ text_style
+			width \100%
+		click? <=> click? null
+		sub <= text_sub
+	Button_minor $mol_button_minor
+		style *
+			^ text_style
+			width \100%
+		title <= button_title
+		sub <= text_sub
+	Element $mol_button
 	Options *
 		^
 		button <= button_options /
-			<= Button_title_option $hyoo_sketch_option
-				name @ \Title
-				Control <= Button_title_control $mol_string
-					value? <=> button_title? \Button
 			<= Button_type_option $hyoo_sketch_option
 				name @ \Type
 				Control <= Button_type_control $mol_switch
@@ -32,5 +30,10 @@ $hyoo_sketch_element_button $hyoo_sketch_element_base
 					options *
 						major @ \Major
 						minor @ \Minor
+		text <= text_options
 		nav <= nav_options
-		icon <= icon_options
+$hyoo_sketch_element_button_text $hyoo_sketch_element_text
+	text? \Button
+	padding? \text
+	align_hor? \center
+	align_ver? \center
