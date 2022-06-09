@@ -3342,6 +3342,12 @@ declare namespace $ {
     }
 }
 
+declare namespace $.$$ {
+    class $hyoo_sketch_element_image extends $.$hyoo_sketch_element_image {
+        image_link(next?: string): string;
+    }
+}
+
 declare namespace $ {
     class $mol_icon_television extends $mol_icon {
         path(): string;
@@ -3427,7 +3433,7 @@ declare namespace $ {
         Element_button(id: any): $$.$hyoo_sketch_element_button;
         Element_input(id: any): $$.$hyoo_sketch_element_input;
         Element_link(id: any): $$.$hyoo_sketch_element_link;
-        Element_image(id: any): $hyoo_sketch_element_image;
+        Element_image(id: any): $$.$hyoo_sketch_element_image;
         editor_title(): string;
         Project_demo_icon(): $mol_icon_television_play;
         page_current_id(): string;

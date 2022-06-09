@@ -12268,6 +12268,21 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    var $$;
+    (function ($$) {
+        class $hyoo_sketch_element_image extends $.$hyoo_sketch_element_image {
+            image_link(next) {
+                return String(this.state().sub('image_link').value(next) ?? super.image_link());
+            }
+        }
+        $$.$hyoo_sketch_element_image = $hyoo_sketch_element_image;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//hyoo/sketch/element/image/image.view.ts
+;
+"use strict";
+var $;
+(function ($) {
     class $mol_icon_television extends $mol_icon {
         path() {
             return "M21,17H3V5H21M21,3H3C1.9,3 1,3.9 1,5V17C1,18.1 1.9,19 3,19H8V21H16V19H21C22.1,19 23,18.1 23,17V5C23,3.9 22.1,3 21,3Z";
