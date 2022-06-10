@@ -1352,7 +1352,7 @@ $hyoo_sketch_element_header $hyoo_sketch_element_base
 		title <= title
 		Head => Head
 	Element <= Head
-	height_default 56
+	height_default 64
 	width_default 340
 	Options *
 		^

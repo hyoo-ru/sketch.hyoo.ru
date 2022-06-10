@@ -7435,6 +7435,9 @@ var $;
             order(next) {
                 return Number(this.state().sub('order').value(next) || this.order_default());
             }
+            order_string() {
+                return this.order().toString();
+            }
             duplicate(elem) {
                 const element = elem ?? this.element().duplicate();
                 const obj = new this.$.$hyoo_sketch_element_base;
@@ -17427,7 +17430,7 @@ var $;
             return this.Head();
         }
         height_default() {
-            return 56;
+            return 64;
         }
         width_default() {
             return 340;

@@ -2285,6 +2285,7 @@ declare namespace $.$$ {
         top(next?: number): number;
         left(next?: number): number;
         order(next?: number): number;
+        order_string(): string;
         duplicate(elem?: $hyoo_sketch_element): $hyoo_sketch_element;
         duplicate_event(): void;
         delete(event: KeyboardEvent): void;
