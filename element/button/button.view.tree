@@ -18,6 +18,7 @@ $hyoo_sketch_element_button $hyoo_sketch_element_base
 		style *
 			^ text_style
 			width \100%
+		click? <=> click? null
 		sub <= text_sub
 	Element $mol_button
 	Options *
