@@ -5005,6 +5005,39 @@ declare namespace $ {
         project_theme_hue(next?: any): number;
         Project_theme_hue_control(): $$.$mol_number;
         Theme_hue(): $hyoo_sketch_option;
+        theme_back(next?: any): string;
+        Theme_back_control(): $$.$mol_string;
+        Theme_back(): $hyoo_sketch_option;
+        theme_text(next?: any): string;
+        Theme_text_control(): $$.$mol_string;
+        Theme_text(): $hyoo_sketch_option;
+        theme_field(next?: any): string;
+        Theme_field_control(): $$.$mol_string;
+        Theme_field(): $hyoo_sketch_option;
+        theme_card(next?: any): string;
+        Theme_card_control(): $$.$mol_string;
+        Theme_card(): $hyoo_sketch_option;
+        theme_hover(next?: any): string;
+        Theme_hover_control(): $$.$mol_string;
+        Theme_hover(): $hyoo_sketch_option;
+        theme_line(next?: any): string;
+        Theme_line_control(): $$.$mol_string;
+        Theme_line(): $hyoo_sketch_option;
+        theme_shade(next?: any): string;
+        Theme_shade_control(): $$.$mol_string;
+        Theme_shade(): $hyoo_sketch_option;
+        theme_control(next?: any): string;
+        Theme_control_control(): $$.$mol_string;
+        Theme_control(): $hyoo_sketch_option;
+        theme_current(next?: any): string;
+        Theme_current_control(): $$.$mol_string;
+        Theme_current(): $hyoo_sketch_option;
+        theme_special(next?: any): string;
+        Theme_special_control(): $$.$mol_string;
+        Theme_special(): $hyoo_sketch_option;
+        theme_focus(next?: any): string;
+        Theme_focus_control(): $$.$mol_string;
+        Theme_focus(): $hyoo_sketch_option;
         project_name(val?: any): string;
         Project_name_control(): $$.$mol_string;
         Project_name(): $hyoo_sketch_option;
@@ -5048,6 +5081,17 @@ declare namespace $.$$ {
         project_theme_hue(next?: number): number;
         project_name(next?: string): string;
         page_delete(): void;
+        theme_back(next?: string): string;
+        theme_text(next?: string): string;
+        theme_field(next?: string): string;
+        theme_card(next?: string): string;
+        theme_hover(next?: string): string;
+        theme_line(next?: string): string;
+        theme_shade(next?: string): string;
+        theme_control(next?: string): string;
+        theme_current(next?: string): string;
+        theme_special(next?: string): string;
+        theme_focus(next?: string): string;
     }
 }
 
@@ -5059,6 +5103,17 @@ declare namespace $ {
         name(next?: string): string;
         pages(next?: $hyoo_sketch_page[]): $hyoo_sketch_page[];
         theme_hue(next?: number): number;
+        theme_back(next?: string): string;
+        theme_text(next?: string): string;
+        theme_field(next?: string): string;
+        theme_card(next?: string): string;
+        theme_hover(next?: string): string;
+        theme_line(next?: string): string;
+        theme_shade(next?: string): string;
+        theme_control(next?: string): string;
+        theme_current(next?: string): string;
+        theme_special(next?: string): string;
+        theme_focus(next?: string): string;
         page_add(obj: $hyoo_sketch_page): void;
         page_delete(obj: $hyoo_sketch_page): void;
         page_duplicate(obj: $hyoo_sketch_page): void;
@@ -5327,7 +5382,8 @@ declare namespace $.$$ {
         demo_page_title(id: string): string;
         demo_page_width(id: string): number;
         demo_page_elements(id: string): $mol_view[];
-        theme_hue(): void;
+        css_var_define(key: string, next: string): string;
+        theme_set(): void;
         auto(): void;
     }
 }

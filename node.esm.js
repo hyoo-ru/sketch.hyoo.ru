@@ -17727,7 +17727,18 @@ var $;
         }
         Theme_options() {
             return [
-                this.Theme_hue()
+                this.Theme_hue(),
+                this.Theme_back(),
+                this.Theme_text(),
+                this.Theme_field(),
+                this.Theme_card(),
+                this.Theme_hover(),
+                this.Theme_line(),
+                this.Theme_shade(),
+                this.Theme_control(),
+                this.Theme_current(),
+                this.Theme_special(),
+                this.Theme_focus()
             ];
         }
         Project_options() {
@@ -17945,6 +17956,182 @@ var $;
             obj.Control = () => this.Project_theme_hue_control();
             return obj;
         }
+        theme_back(next) {
+            if (next !== undefined)
+                return next;
+            return "";
+        }
+        Theme_back_control() {
+            const obj = new this.$.$mol_string();
+            obj.value = (next) => this.theme_back(next);
+            return obj;
+        }
+        Theme_back() {
+            const obj = new this.$.$hyoo_sketch_option();
+            obj.name = () => this.$.$mol_locale.text('$hyoo_sketch_editor_Theme_back_name');
+            obj.Control = () => this.Theme_back_control();
+            return obj;
+        }
+        theme_text(next) {
+            if (next !== undefined)
+                return next;
+            return "";
+        }
+        Theme_text_control() {
+            const obj = new this.$.$mol_string();
+            obj.value = (next) => this.theme_text(next);
+            return obj;
+        }
+        Theme_text() {
+            const obj = new this.$.$hyoo_sketch_option();
+            obj.name = () => this.$.$mol_locale.text('$hyoo_sketch_editor_Theme_text_name');
+            obj.Control = () => this.Theme_text_control();
+            return obj;
+        }
+        theme_field(next) {
+            if (next !== undefined)
+                return next;
+            return "";
+        }
+        Theme_field_control() {
+            const obj = new this.$.$mol_string();
+            obj.value = (next) => this.theme_field(next);
+            return obj;
+        }
+        Theme_field() {
+            const obj = new this.$.$hyoo_sketch_option();
+            obj.name = () => this.$.$mol_locale.text('$hyoo_sketch_editor_Theme_field_name');
+            obj.Control = () => this.Theme_field_control();
+            return obj;
+        }
+        theme_card(next) {
+            if (next !== undefined)
+                return next;
+            return "";
+        }
+        Theme_card_control() {
+            const obj = new this.$.$mol_string();
+            obj.value = (next) => this.theme_card(next);
+            return obj;
+        }
+        Theme_card() {
+            const obj = new this.$.$hyoo_sketch_option();
+            obj.name = () => this.$.$mol_locale.text('$hyoo_sketch_editor_Theme_card_name');
+            obj.Control = () => this.Theme_card_control();
+            return obj;
+        }
+        theme_hover(next) {
+            if (next !== undefined)
+                return next;
+            return "";
+        }
+        Theme_hover_control() {
+            const obj = new this.$.$mol_string();
+            obj.value = (next) => this.theme_hover(next);
+            return obj;
+        }
+        Theme_hover() {
+            const obj = new this.$.$hyoo_sketch_option();
+            obj.name = () => this.$.$mol_locale.text('$hyoo_sketch_editor_Theme_hover_name');
+            obj.Control = () => this.Theme_hover_control();
+            return obj;
+        }
+        theme_line(next) {
+            if (next !== undefined)
+                return next;
+            return "";
+        }
+        Theme_line_control() {
+            const obj = new this.$.$mol_string();
+            obj.value = (next) => this.theme_line(next);
+            return obj;
+        }
+        Theme_line() {
+            const obj = new this.$.$hyoo_sketch_option();
+            obj.name = () => this.$.$mol_locale.text('$hyoo_sketch_editor_Theme_line_name');
+            obj.Control = () => this.Theme_line_control();
+            return obj;
+        }
+        theme_shade(next) {
+            if (next !== undefined)
+                return next;
+            return "";
+        }
+        Theme_shade_control() {
+            const obj = new this.$.$mol_string();
+            obj.value = (next) => this.theme_shade(next);
+            return obj;
+        }
+        Theme_shade() {
+            const obj = new this.$.$hyoo_sketch_option();
+            obj.name = () => this.$.$mol_locale.text('$hyoo_sketch_editor_Theme_shade_name');
+            obj.Control = () => this.Theme_shade_control();
+            return obj;
+        }
+        theme_control(next) {
+            if (next !== undefined)
+                return next;
+            return "";
+        }
+        Theme_control_control() {
+            const obj = new this.$.$mol_string();
+            obj.value = (next) => this.theme_control(next);
+            return obj;
+        }
+        Theme_control() {
+            const obj = new this.$.$hyoo_sketch_option();
+            obj.name = () => this.$.$mol_locale.text('$hyoo_sketch_editor_Theme_control_name');
+            obj.Control = () => this.Theme_control_control();
+            return obj;
+        }
+        theme_current(next) {
+            if (next !== undefined)
+                return next;
+            return "";
+        }
+        Theme_current_control() {
+            const obj = new this.$.$mol_string();
+            obj.value = (next) => this.theme_current(next);
+            return obj;
+        }
+        Theme_current() {
+            const obj = new this.$.$hyoo_sketch_option();
+            obj.name = () => this.$.$mol_locale.text('$hyoo_sketch_editor_Theme_current_name');
+            obj.Control = () => this.Theme_current_control();
+            return obj;
+        }
+        theme_special(next) {
+            if (next !== undefined)
+                return next;
+            return "";
+        }
+        Theme_special_control() {
+            const obj = new this.$.$mol_string();
+            obj.value = (next) => this.theme_special(next);
+            return obj;
+        }
+        Theme_special() {
+            const obj = new this.$.$hyoo_sketch_option();
+            obj.name = () => this.$.$mol_locale.text('$hyoo_sketch_editor_Theme_special_name');
+            obj.Control = () => this.Theme_special_control();
+            return obj;
+        }
+        theme_focus(next) {
+            if (next !== undefined)
+                return next;
+            return "";
+        }
+        Theme_focus_control() {
+            const obj = new this.$.$mol_string();
+            obj.value = (next) => this.theme_focus(next);
+            return obj;
+        }
+        Theme_focus() {
+            const obj = new this.$.$hyoo_sketch_option();
+            obj.name = () => this.$.$mol_locale.text('$hyoo_sketch_editor_Theme_focus_name');
+            obj.Control = () => this.Theme_focus_control();
+            return obj;
+        }
         project_name(val) {
             if (val !== undefined)
                 return val;
@@ -18115,6 +18302,105 @@ var $;
     ], $hyoo_sketch_editor.prototype, "Theme_hue", null);
     __decorate([
         $mol_mem
+    ], $hyoo_sketch_editor.prototype, "theme_back", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_editor.prototype, "Theme_back_control", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_editor.prototype, "Theme_back", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_editor.prototype, "theme_text", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_editor.prototype, "Theme_text_control", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_editor.prototype, "Theme_text", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_editor.prototype, "theme_field", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_editor.prototype, "Theme_field_control", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_editor.prototype, "Theme_field", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_editor.prototype, "theme_card", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_editor.prototype, "Theme_card_control", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_editor.prototype, "Theme_card", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_editor.prototype, "theme_hover", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_editor.prototype, "Theme_hover_control", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_editor.prototype, "Theme_hover", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_editor.prototype, "theme_line", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_editor.prototype, "Theme_line_control", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_editor.prototype, "Theme_line", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_editor.prototype, "theme_shade", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_editor.prototype, "Theme_shade_control", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_editor.prototype, "Theme_shade", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_editor.prototype, "theme_control", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_editor.prototype, "Theme_control_control", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_editor.prototype, "Theme_control", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_editor.prototype, "theme_current", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_editor.prototype, "Theme_current_control", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_editor.prototype, "Theme_current", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_editor.prototype, "theme_special", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_editor.prototype, "Theme_special_control", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_editor.prototype, "Theme_special", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_editor.prototype, "theme_focus", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_editor.prototype, "Theme_focus_control", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_editor.prototype, "Theme_focus", null);
+    __decorate([
+        $mol_mem
     ], $hyoo_sketch_editor.prototype, "project_name", null);
     __decorate([
         $mol_mem
@@ -18231,6 +18517,39 @@ var $;
                 this.project().page_delete(this.page());
                 this.$.$mol_state_arg.value('page', null);
             }
+            theme_back(next) {
+                return this.project().theme_back(next);
+            }
+            theme_text(next) {
+                return this.project().theme_text(next);
+            }
+            theme_field(next) {
+                return this.project().theme_field(next);
+            }
+            theme_card(next) {
+                return this.project().theme_card(next);
+            }
+            theme_hover(next) {
+                return this.project().theme_hover(next);
+            }
+            theme_line(next) {
+                return this.project().theme_line(next);
+            }
+            theme_shade(next) {
+                return this.project().theme_shade(next);
+            }
+            theme_control(next) {
+                return this.project().theme_control(next);
+            }
+            theme_current(next) {
+                return this.project().theme_current(next);
+            }
+            theme_special(next) {
+                return this.project().theme_special(next);
+            }
+            theme_focus(next) {
+                return this.project().theme_focus(next);
+            }
         }
         __decorate([
             $mol_mem_key
@@ -18274,6 +18593,39 @@ var $;
         }
         theme_hue(next) {
             return Number(this.state().sub('theme_hue').value(next) ?? 210);
+        }
+        theme_back(next) {
+            return String(this.state().sub('theme_back').value(next) ?? '');
+        }
+        theme_text(next) {
+            return String(this.state().sub('theme_text').value(next) ?? '');
+        }
+        theme_field(next) {
+            return String(this.state().sub('theme_field').value(next) ?? '');
+        }
+        theme_card(next) {
+            return String(this.state().sub('theme_card').value(next) ?? '');
+        }
+        theme_hover(next) {
+            return String(this.state().sub('theme_hover').value(next) ?? '');
+        }
+        theme_line(next) {
+            return String(this.state().sub('theme_line').value(next) ?? '');
+        }
+        theme_shade(next) {
+            return String(this.state().sub('theme_shade').value(next) ?? '');
+        }
+        theme_control(next) {
+            return String(this.state().sub('theme_control').value(next) ?? '');
+        }
+        theme_current(next) {
+            return String(this.state().sub('theme_current').value(next) ?? '');
+        }
+        theme_special(next) {
+            return String(this.state().sub('theme_special').value(next) ?? '');
+        }
+        theme_focus(next) {
+            return String(this.state().sub('theme_focus').value(next) ?? '');
         }
         page_add(obj) {
             this.pages([...this.pages(), obj]);
@@ -19403,18 +19755,43 @@ var $;
                     return element.Preview();
                 });
             }
-            theme_hue() {
-                const val = this.project_opened().theme_hue();
-                const root = document.querySelector(":root");
-                root.style.setProperty("--mol_theme_hue", `${val}deg`);
+            css_var_define(key, next) {
+                const root = document.querySelector("[mol_theme]");
+                root.style.setProperty(key, next, 'important');
+                return next;
+            }
+            theme_set() {
+                const project = this.project_opened();
+                const keys = [
+                    'back',
+                    'text',
+                    'field',
+                    'card',
+                    'hover',
+                    'line',
+                    'shade',
+                    'control',
+                    'current',
+                    'special',
+                    'focus',
+                ];
+                for (const key of keys) {
+                    const val = project[`theme_${key}`]().trim();
+                    if (!val)
+                        continue;
+                    this.css_var_define(`--mol_theme_${key}`, val);
+                }
             }
             auto() {
-                this.theme_hue();
+                this.theme_set();
             }
         }
         __decorate([
+            $mol_mem_key
+        ], $hyoo_sketch.prototype, "css_var_define", null);
+        __decorate([
             $mol_mem
-        ], $hyoo_sketch.prototype, "theme_hue", null);
+        ], $hyoo_sketch.prototype, "theme_set", null);
         $$.$hyoo_sketch = $hyoo_sketch;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
