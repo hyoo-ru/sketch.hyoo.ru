@@ -9,6 +9,8 @@
 	"$hyoo_sketch_editor_Page_width_name": "Width",
 	"$hyoo_sketch_editor_Project_demo_hint": "Start demo from this page",
 	"$hyoo_sketch_editor_Project_name_name": "Project",
+	"$hyoo_sketch_editor_Theme_accent_back_name": "accent_back color",
+	"$hyoo_sketch_editor_Theme_accent_hover_name": "accent_hover color",
 	"$hyoo_sketch_editor_Theme_back_name": "back color",
 	"$hyoo_sketch_editor_Theme_card_name": "card color",
 	"$hyoo_sketch_editor_Theme_control_name": "control color",

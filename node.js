@@ -17738,7 +17738,9 @@ var $;
                 this.Theme_control(),
                 this.Theme_current(),
                 this.Theme_special(),
-                this.Theme_focus()
+                this.Theme_focus(),
+                this.Theme_accent_back(),
+                this.Theme_accent_hover()
             ];
         }
         Project_options() {
@@ -18132,6 +18134,38 @@ var $;
             obj.Control = () => this.Theme_focus_control();
             return obj;
         }
+        theme_accent_back(next) {
+            if (next !== undefined)
+                return next;
+            return "";
+        }
+        Theme_accent_back_control() {
+            const obj = new this.$.$mol_string();
+            obj.value = (next) => this.theme_accent_back(next);
+            return obj;
+        }
+        Theme_accent_back() {
+            const obj = new this.$.$hyoo_sketch_option();
+            obj.name = () => this.$.$mol_locale.text('$hyoo_sketch_editor_Theme_accent_back_name');
+            obj.Control = () => this.Theme_accent_back_control();
+            return obj;
+        }
+        theme_accent_hover(next) {
+            if (next !== undefined)
+                return next;
+            return "";
+        }
+        Theme_accent_hover_control() {
+            const obj = new this.$.$mol_string();
+            obj.value = (next) => this.theme_accent_hover(next);
+            return obj;
+        }
+        Theme_accent_hover() {
+            const obj = new this.$.$hyoo_sketch_option();
+            obj.name = () => this.$.$mol_locale.text('$hyoo_sketch_editor_Theme_accent_hover_name');
+            obj.Control = () => this.Theme_accent_hover_control();
+            return obj;
+        }
         project_name(val) {
             if (val !== undefined)
                 return val;
@@ -18401,6 +18435,24 @@ var $;
     ], $hyoo_sketch_editor.prototype, "Theme_focus", null);
     __decorate([
         $mol_mem
+    ], $hyoo_sketch_editor.prototype, "theme_accent_back", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_editor.prototype, "Theme_accent_back_control", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_editor.prototype, "Theme_accent_back", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_editor.prototype, "theme_accent_hover", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_editor.prototype, "Theme_accent_hover_control", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_editor.prototype, "Theme_accent_hover", null);
+    __decorate([
+        $mol_mem
     ], $hyoo_sketch_editor.prototype, "project_name", null);
     __decorate([
         $mol_mem
@@ -18550,6 +18602,12 @@ var $;
             theme_focus(next) {
                 return this.project().theme_focus(next);
             }
+            theme_accent_back(next) {
+                return this.project().theme_accent_back(next);
+            }
+            theme_accent_hover(next) {
+                return this.project().theme_accent_hover(next);
+            }
         }
         __decorate([
             $mol_mem_key
@@ -18626,6 +18684,12 @@ var $;
         }
         theme_focus(next) {
             return String(this.state().sub('theme_focus').value(next) ?? '');
+        }
+        theme_accent_back(next) {
+            return String(this.state().sub('theme_accent_back').value(next) ?? '');
+        }
+        theme_accent_hover(next) {
+            return String(this.state().sub('theme_accent_hover').value(next) ?? '');
         }
         page_add(obj) {
             this.pages([...this.pages(), obj]);
@@ -19755,9 +19819,10 @@ var $;
                     return element.Preview();
                 });
             }
-            css_var_define(key, next) {
-                const root = document.querySelector("[mol_theme]");
-                root.style.setProperty(key, next, 'important');
+            css_var_define(selector, key, next) {
+                const root = document.querySelector(selector);
+                if (root)
+                    root.style.setProperty(key, next, 'important');
                 return next;
             }
             theme_set() {
@@ -19779,15 +19844,17 @@ var $;
                     const val = project[`theme_${key}`]().trim();
                     if (!val)
                         continue;
-                    this.css_var_define(`--mol_theme_${key}`, val);
+                    this.css_var_define('[mol_theme]', `--mol_theme_${key}`, val);
                 }
+                this.css_var_define('[mol_theme="$mol_theme_accent"]', `--mol_theme_back`, project.theme_accent_back());
+                this.css_var_define('[mol_theme="$mol_theme_accent"]', `--mol_theme_hover`, project.theme_accent_hover());
             }
             auto() {
                 this.theme_set();
             }
         }
         __decorate([
-            $mol_mem_key
+            $mol_mem_key2
         ], $hyoo_sketch.prototype, "css_var_define", null);
         __decorate([
             $mol_mem

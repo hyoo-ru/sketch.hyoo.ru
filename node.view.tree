@@ -1486,6 +1486,14 @@ $hyoo_sketch_editor $mol_page
 			name @ \focus color
 			Control <= Theme_focus_control $mol_string
 				value? <=> theme_focus? \
+		<= Theme_accent_back $hyoo_sketch_option
+			name @ \accent_back color
+			Control <= Theme_accent_back_control $mol_string
+				value? <=> theme_accent_back? \
+		<= Theme_accent_hover $hyoo_sketch_option
+			name @ \accent_hover color
+			Control <= Theme_accent_hover_control $mol_string
+				value? <=> theme_accent_hover? \
 	Project_options /
 		<= Project_name $hyoo_sketch_option
 			name @ \Project
