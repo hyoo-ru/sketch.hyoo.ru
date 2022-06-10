@@ -10641,6 +10641,7 @@ var $;
                 ...this.text_style(),
                 width: "100%"
             });
+            obj.click = (next) => this.click(next);
             obj.sub = () => this.text_sub();
             return obj;
         }
