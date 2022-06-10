@@ -18561,21 +18561,21 @@ var $;
         }
         type_list() {
             return [
-                "text",
-                "button",
-                "link",
-                "input",
-                "image",
-                "select",
-                "check",
-                "switch",
-                "textarea",
-                "date",
                 "attach",
+                "button",
+                "check",
+                "date",
+                "header",
+                "image",
+                "input",
+                "link",
                 "markdown",
-                "speck",
                 "map",
-                "header"
+                "select",
+                "speck",
+                "switch",
+                "text",
+                "textarea"
             ];
         }
         row_title(id) {

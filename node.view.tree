@@ -1585,24 +1585,24 @@ $hyoo_sketch_palette $mol_page
 					title <= row_title* \
 					click? <=> element_add*? null
 	type_list /
+		\attach
+		\button
+		\check
+		\date
+		\header
+		\image
+		\input
+		\link
+		\markdown
+		\map
+		\select
+		\speck
+		\switch
 		\text
+		\textarea
 		- \icon
 		- \nav
-		\button
-		\link
-		\input
-		\image
-		\select
-		\check
-		\switch
 		- \options
-		\textarea
-		\date
-		\attach
-		\markdown
-		\speck
-		\map
-		\header
 
 $hyoo_sketch $mol_book2
 	domain $hyoo_sketch_domain
