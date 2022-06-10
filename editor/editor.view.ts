@@ -99,6 +99,50 @@ namespace $.$$ {
 			this.$.$mol_state_arg.value('page', null)
 		}
 
+		theme_back(next?: string) {
+			return this.project().theme_back(next)
+		}
+
+		theme_text(next?: string) {
+			return this.project().theme_text(next)
+		}
+
+		theme_field(next?: string) {
+			return this.project().theme_field(next)
+		}
+
+		theme_card(next?: string) {
+			return this.project().theme_card(next)
+		}
+
+		theme_hover(next?: string) {
+			return this.project().theme_hover(next)
+		}
+
+		theme_line(next?: string) {
+			return this.project().theme_line(next)
+		}
+
+		theme_shade(next?: string) {
+			return this.project().theme_shade(next)
+		}
+
+		theme_control(next?: string) {
+			return this.project().theme_control(next)
+		}
+		
+		theme_current(next?: string) {
+			return this.project().theme_current(next)
+		}
+
+		theme_special(next?: string) {
+			return this.project().theme_special(next)
+		}
+
+		theme_focus(next?: string) {
+			return this.project().theme_focus(next)
+		}
+
 	}
 
 }

@@ -53,15 +53,38 @@ namespace $.$$ {
 			} )
 		}
 
+		@ $mol_mem_key
+		css_var_define(key: string, next: string) {
+			const root = document.querySelector("[mol_theme]")! as HTMLElement
+			root.style.setProperty(key, next, 'important')
+			return next
+		}
+
 		@ $mol_mem
-		theme_hue() {
-			const val = this.project_opened().theme_hue()
-			const root = document.querySelector(":root")! as HTMLElement
-			root.style.setProperty("--mol_theme_hue", `${val}deg`)
+		theme_set() {
+			const project = this.project_opened()
+			const keys = [
+				'back',
+				'text',
+				'field',
+				'card',
+				'hover',
+				'line',
+				'shade',
+				'control',
+				'current',
+				'special',
+				'focus',
+			]
+			for(const key of keys) {
+				const val = project[`theme_${key}`]().trim()
+				if (!val) continue
+				this.css_var_define(`--mol_theme_${key}`, val)
+			}
 		}
 
 		auto() {
-			this.theme_hue()
+			this.theme_set()
 		}
 
 	}
