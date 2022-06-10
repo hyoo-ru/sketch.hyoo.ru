@@ -84,6 +84,10 @@ namespace $.$$ {
 			return Number(this.state().sub('order').value(next) || this.order_default())
 		}
 
+		order_string() {
+			return this.order().toString()
+		}
+
 		duplicate(elem?: $hyoo_sketch_element) {
 			const element = elem ?? this.element().duplicate()
 			const obj = new this.$.$hyoo_sketch_element_base
