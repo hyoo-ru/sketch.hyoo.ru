@@ -72,6 +72,14 @@ namespace $ {
 			return String( this.state().sub('theme_focus').value( next ) ?? '' )
 		}
 
+		theme_accent_back( next?: string ) {
+			return String( this.state().sub('theme_accent_back').value( next ) ?? '' )
+		}
+
+		theme_accent_hover( next?: string ) {
+			return String( this.state().sub('theme_accent_hover').value( next ) ?? '' )
+		}
+
 		@ $mol_action
 		page_add( obj: $hyoo_sketch_page ) {
 			this.pages( [... this.pages(), obj] )

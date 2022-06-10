@@ -143,6 +143,14 @@ namespace $.$$ {
 			return this.project().theme_focus(next)
 		}
 
+		theme_accent_back(next?: string) {
+			return this.project().theme_accent_back(next)
+		}
+
+		theme_accent_hover(next?: string) {
+			return this.project().theme_accent_hover(next)
+		}
+
 	}
 
 }
