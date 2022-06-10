@@ -11785,9 +11785,47 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    class $mol_icon_tick extends $mol_icon {
+        path() {
+            return "M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z";
+        }
+    }
+    $.$mol_icon_tick = $mol_icon_tick;
+})($ || ($ = {}));
+//mol/icon/tick/-view.tree/tick.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_check_box extends $mol_check {
+        Icon() {
+            const obj = new this.$.$mol_icon_tick();
+            return obj;
+        }
+    }
+    __decorate([
+        $mol_mem
+    ], $mol_check_box.prototype, "Icon", null);
+    $.$mol_check_box = $mol_check_box;
+})($ || ($ = {}));
+//mol/check/box/-view.tree/box.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_style_attach("mol/check/box/box.view.css", "[mol_check_box_icon] {\n\tborder-radius: var(--mol_gap_round);\n\tbox-shadow: 0 0 0 1px var(--mol_theme_line);\n\tcolor: var(--mol_theme_shade);\n}\n\n[mol_check]:not([mol_check_checked]) > [mol_check_box_icon] {\n\tfill: transparent;\n}\n\n[mol_check]:not([disabled]) > [mol_check_box_icon] {\n\tbackground: var(--mol_theme_field);\n\tcolor: var(--mol_theme_text);\n}\n\n[mol_check_box_title] {\n\tmargin-left: .5rem;\n}\n");
+})($ || ($ = {}));
+//mol/check/box/-css/box.view.css.ts
+;
+"use strict";
+var $;
+(function ($) {
     class $hyoo_sketch_element_image extends $hyoo_sketch_element_base {
         Element() {
             const obj = new this.$.$mol_image2();
+            obj.style = () => ({
+                borderRadius: this.round()
+            });
             obj.links = () => [
                 this.image_link()
             ];
@@ -11804,6 +11842,9 @@ var $;
         }
         height_default() {
             return 128;
+        }
+        round() {
+            return "unset";
         }
         image_link_default() {
             return "https://thiscatdoesnotexist.com";
@@ -11822,9 +11863,27 @@ var $;
             obj.Control = () => this.Image_link_control();
             return obj;
         }
+        image_round(next) {
+            if (next !== undefined)
+                return next;
+            return false;
+        }
+        Image_round_control() {
+            const obj = new this.$.$mol_check_box();
+            obj.title = () => this.$.$mol_locale.text('$hyoo_sketch_element_image_Image_round_control_title');
+            obj.checked = (next) => this.image_round(next);
+            return obj;
+        }
+        Image_round_option() {
+            const obj = new this.$.$hyoo_sketch_option();
+            obj.name = () => this.$.$mol_locale.text('$hyoo_sketch_element_image_Image_round_option_name');
+            obj.Control = () => this.Image_round_control();
+            return obj;
+        }
         image_options() {
             return [
-                this.Image_link_option()
+                this.Image_link_option(),
+                this.Image_round_option()
             ];
         }
     }
@@ -11837,6 +11896,15 @@ var $;
     __decorate([
         $mol_mem
     ], $hyoo_sketch_element_image.prototype, "Image_link_option", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_image.prototype, "image_round", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_image.prototype, "Image_round_control", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_image.prototype, "Image_round_option", null);
     $.$hyoo_sketch_element_image = $hyoo_sketch_element_image;
 })($ || ($ = {}));
 //hyoo/sketch/element/image/-view.tree/image.view.tree.ts
@@ -11849,6 +11917,12 @@ var $;
         class $hyoo_sketch_element_image extends $.$hyoo_sketch_element_image {
             image_link(next) {
                 return String((this.state().sub('image_link').value(next) ?? this.image_link_default()) || this.image_link_placeholder());
+            }
+            image_round(next) {
+                return Boolean(this.state().sub('image_round').value(next) ?? false);
+            }
+            round() {
+                return this.image_round() ? '50%' : 'unset';
             }
             image_link_placeholder() {
                 return `http://placehold.jp/${this.width()}x${this.height()}.png`;
@@ -12406,41 +12480,6 @@ var $;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
 //hyoo/sketch/element/select/select.view.ts
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_icon_tick extends $mol_icon {
-        path() {
-            return "M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z";
-        }
-    }
-    $.$mol_icon_tick = $mol_icon_tick;
-})($ || ($ = {}));
-//mol/icon/tick/-view.tree/tick.view.tree.ts
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_check_box extends $mol_check {
-        Icon() {
-            const obj = new this.$.$mol_icon_tick();
-            return obj;
-        }
-    }
-    __decorate([
-        $mol_mem
-    ], $mol_check_box.prototype, "Icon", null);
-    $.$mol_check_box = $mol_check_box;
-})($ || ($ = {}));
-//mol/check/box/-view.tree/box.view.tree.ts
-;
-"use strict";
-var $;
-(function ($) {
-    $mol_style_attach("mol/check/box/box.view.css", "[mol_check_box_icon] {\n\tborder-radius: var(--mol_gap_round);\n\tbox-shadow: 0 0 0 1px var(--mol_theme_line);\n\tcolor: var(--mol_theme_shade);\n}\n\n[mol_check]:not([mol_check_checked]) > [mol_check_box_icon] {\n\tfill: transparent;\n}\n\n[mol_check]:not([disabled]) > [mol_check_box_icon] {\n\tbackground: var(--mol_theme_field);\n\tcolor: var(--mol_theme_text);\n}\n\n[mol_check_box_title] {\n\tmargin-left: .5rem;\n}\n");
-})($ || ($ = {}));
-//mol/check/box/-css/box.view.css.ts
 ;
 "use strict";
 var $;

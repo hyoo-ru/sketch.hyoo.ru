@@ -3231,6 +3231,21 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
+    class $mol_icon_tick extends $mol_icon {
+        path(): string;
+    }
+}
+
+declare namespace $ {
+    class $mol_check_box extends $mol_check {
+        Icon(): $mol_icon_tick;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
     class $hyoo_sketch_element_image extends $hyoo_sketch_element_base {
         Element(): $$.$mol_image2;
         Options(): {
@@ -3239,10 +3254,14 @@ declare namespace $ {
         };
         width_default(): number;
         height_default(): number;
+        round(): string;
         image_link_default(): string;
         image_link(next?: any): string;
         Image_link_control(): $$.$mol_string;
         Image_link_option(): $hyoo_sketch_option;
+        image_round(next?: any): boolean;
+        Image_round_control(): $mol_check_box;
+        Image_round_option(): $hyoo_sketch_option;
         image_options(): readonly any[];
     }
 }
@@ -3250,6 +3269,8 @@ declare namespace $ {
 declare namespace $.$$ {
     class $hyoo_sketch_element_image extends $.$hyoo_sketch_element_image {
         image_link(next?: string): string;
+        image_round(next?: boolean): boolean;
+        round(): "unset" | "50%";
         image_link_placeholder(): string;
         duplicate(elem: $hyoo_sketch_element): $hyoo_sketch_element;
     }
@@ -3365,21 +3386,6 @@ declare namespace $.$$ {
         select_type(next?: string): string;
         duplicate(elem?: $hyoo_sketch_element): $hyoo_sketch_element;
     }
-}
-
-declare namespace $ {
-    class $mol_icon_tick extends $mol_icon {
-        path(): string;
-    }
-}
-
-declare namespace $ {
-    class $mol_check_box extends $mol_check {
-        Icon(): $mol_icon_tick;
-    }
-}
-
-declare namespace $ {
 }
 
 declare namespace $ {
