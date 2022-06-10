@@ -6,6 +6,14 @@ namespace $.$$ {
 			return String( ( this.state().sub('image_link').value(next) ?? this.image_link_default() ) || this.image_link_placeholder() )
 		}
 
+		image_round(next?: boolean) {
+			return Boolean( this.state().sub('image_round').value(next) ?? false )
+		}
+
+		round() {
+			return this.image_round() ? '50%' : 'unset'
+		}
+
 		image_link_placeholder() {
 			return `http://placehold.jp/${this.width()}x${this.height()}.png`
 		}

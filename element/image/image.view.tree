@@ -1,5 +1,6 @@
 $hyoo_sketch_element_image $hyoo_sketch_element_base
 	Element $mol_image2
+		style * borderRadius <= round \unset
 		links / <= image_link?
 	Options *
 		^
@@ -8,5 +9,10 @@ $hyoo_sketch_element_image $hyoo_sketch_element_base
 				name @ \Link
 				Control <= Image_link_control $mol_string
 					value? <=> image_link? <= image_link_default \https://thiscatdoesnotexist.com
+			<= Image_round_option $hyoo_sketch_option
+				name @ \Round
+				Control <= Image_round_control $mol_check_box
+					title @ \Yes
+					checked? <=> image_round? false
 	width_default 128
 	height_default 128
