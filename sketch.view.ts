@@ -53,8 +53,8 @@ namespace $.$$ {
 			} )
 		}
 
-		@ $mol_mem_key2
-		css_var_define(selector: string, key: string, next: string) {
+		@ $mol_mem_key
+		css_var_define([selector, key]: [string, string], next: string) {
 			const root = document.querySelector(selector)! as HTMLElement
 			if (root) root.style.setProperty(key, next, 'important')
 			return next
@@ -79,10 +79,10 @@ namespace $.$$ {
 			for(const key of keys) {
 				const val = project[`theme_${key}`]().trim()
 				if (!val) continue
-				this.css_var_define('[mol_theme]', `--mol_theme_${key}`, val)
+				this.css_var_define(['[mol_theme]', `--mol_theme_${key}`], val)
 			}
-			this.css_var_define('[mol_theme="$mol_theme_accent"]', `--mol_theme_back`, project.theme_accent_back())
-			this.css_var_define('[mol_theme="$mol_theme_accent"]', `--mol_theme_hover`, project.theme_accent_hover())
+			this.css_var_define(['[mol_theme="$mol_theme_accent"]', `--mol_theme_back`], project.theme_accent_back())
+			this.css_var_define(['[mol_theme="$mol_theme_accent"]', `--mol_theme_hover`], project.theme_accent_hover())
 		}
 
 		auto() {
