@@ -268,6 +268,7 @@
     "$mol_wait",
     "$mol_promise",
     "$mol_embed_youtube",
+    "$mol_frame",
     "$hyoo_sketch_element_speck",
     "$hyoo_sketch_element_map",
     "$mol_map_yandex_mark",
