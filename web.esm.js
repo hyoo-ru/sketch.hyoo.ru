@@ -1201,9 +1201,6 @@ var $;
                         break reuse;
                     return existen;
                 }
-                if (existen && sub instanceof $mol_wire_task) {
-                    $mol_fail(new Error(`$mol_wire_task detects nonidempotency\n${existen}`));
-                }
                 return new $mol_wire_task(`${host?.[Symbol.toStringTag] ?? host}.${task.name}(#)`, task, host, args);
             };
         }
@@ -16692,7 +16689,7 @@ var $;
     class $mol_vector_range extends $mol_vector {
         0;
         1;
-        constructor(min, max) {
+        constructor(min, max = min) {
             super(min, max);
             this[0] = min;
             this[1] = max;
