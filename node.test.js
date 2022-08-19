@@ -4435,8 +4435,8 @@ var $;
         kill() {
             this.native.close();
             const request = $mol_dom_context.indexedDB.deleteDatabase(this.name);
-            request.onblocked = console.error;
-            return $mol_db_response(request).then(() => { });
+            request.onblocked = console.warn;
+            return $mol_db_response(request);
         }
         destructor() {
             this.native.close();
@@ -4469,6 +4469,8 @@ var $;
             return this;
         }
         abort() {
+            if (this.native.error)
+                return;
             this.native.abort();
         }
         commit() {
@@ -5957,11 +5959,15 @@ var $;
                 return new $mol_dom_listener(this.$.$mol_dom_context.document, 'selectionchange', $mol_wire_async(event => this.selection_change(event)));
             }
             selection_change(event) {
+                const prev = this.selection();
                 const el = this.dom_node();
-                this.selection([
+                const next = [
                     el.selectionStart,
                     el.selectionEnd,
-                ]);
+                ];
+                if ($mol_compare_deep(prev, next))
+                    return;
+                this.selection(next);
             }
             selection_start() {
                 return this.selection()[0];
@@ -23894,7 +23900,8 @@ var $;
                 }
             }
             finally {
-                db.kill();
+                trans.abort();
+                await db.kill();
             }
         },
         async 'multi path index'() {
@@ -23913,7 +23920,7 @@ var $;
             }
             finally {
                 trans.abort();
-                db.kill();
+                await db.kill();
             }
         },
         async 'multiple indexes'() {
@@ -23932,7 +23939,7 @@ var $;
             }
             finally {
                 trans.abort();
-                db.kill();
+                await db.kill();
             }
         },
     });
