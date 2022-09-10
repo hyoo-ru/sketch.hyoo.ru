@@ -2784,6 +2784,20 @@ declare namespace $.$$ {
         align(): string;
         align_vert(): "top" | "suspense" | "bottom";
         align_hor(): "left" | "suspense" | "right";
+        View_port(): $mol_view;
+        view_port(): {
+            width: number;
+            height: number;
+            left: number;
+            right: number;
+            top: number;
+            bottom: number;
+        } | {
+            left: number;
+            top: number;
+            width: number;
+            height: number;
+        };
     }
 }
 
