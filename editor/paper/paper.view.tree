@@ -1,12 +1,12 @@
 $hyoo_sketch_editor_paper $mol_view
-	grid NaN
+	grid +NaN
 	event *
 		^
 		pointerdown? <=> pointer_down? null
 	style *
 		^
-		width <= width NaN
-		height <= height NaN
+		width <= width +NaN
+		height <= height +NaN
 		backgroundSize <= background_size \
 	attr *
 		^

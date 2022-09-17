@@ -25,5 +25,5 @@ $hyoo_sketch $mol_book2
 		body / 
 			<= Demo_page_content* $mol_view
 				style *
-					width <= demo_page_width* NaN
+					width <= demo_page_width* +NaN
 				sub <= demo_page_elements* /
