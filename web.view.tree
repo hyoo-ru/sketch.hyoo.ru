@@ -104,7 +104,7 @@ $mol_string $mol_view
 		inputMode <= keyboard \text
 	attr *
 		^
-		maxlength <= length_max Infinity
+		maxlength <= length_max +Infinity
 		type <= type?val \text
 	event *
 		^
@@ -157,7 +157,7 @@ $mol_icon_plus $mol_icon path \M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z
 $mol_number $mol_view
 	precision_view <= precision 1
 	precision_change <= precision 1
-	value?val NaN
+	value?val +NaN
 	sub /
 		<= String $mol_string
 			- \ we don't want native number controls in mobile devices
@@ -421,7 +421,7 @@ $mol_icon_dots_vertical $mol_icon path \M12,16C13.1,16 14,16.9 14,18C14,19.1 13.
 $mol_paragraph $mol_view
 	line_height 24
 	letter_width 7
-	width_limit Infinity
+	width_limit +Infinity
 	sub / <= title
 
 $mol_dimmer $mol_paragraph
@@ -928,7 +928,7 @@ $mol_textarea $mol_stack
 			value?val <=> value?val \
 			hint <= hint \ 
 			enabled <= enabled true
-			length_max <= length_max Infinity
+			length_max <= length_max +Infinity
 			selection?val <=> selection?val /number
 		<= View $mol_text_code
 			text <= value
@@ -1038,7 +1038,7 @@ $mol_date $mol_pick
 							sub /
 								<= Next_icon $mol_icon_chevron_right
 	-
-	value_number?val NaN
+	value_number?val +NaN
 	value_moment?val $mol_time_moment
 
 $mol_date_calendar $mol_calendar
@@ -1431,14 +1431,14 @@ $mol_icon_play $mol_icon path \M8,5.14V19.14L19,12.14L8,5.14Z
 $mol_icon_play_circle $mol_icon path \M10,16.5V7.5L16,12M12,2C6.48,2 2,6.48 2,12C2,17.52 6.48,22 12,22C17.52,22 22,17.52 22,12C22,6.48 17.52,2 12,2Z
 
 $hyoo_sketch_editor_paper $mol_view
-	grid NaN
+	grid +NaN
 	event *
 		^
 		pointerdown? <=> pointer_down? null
 	style *
 		^
-		width <= width NaN
-		height <= height NaN
+		width <= width +NaN
+		height <= height +NaN
 		backgroundSize <= background_size \
 	attr *
 		^
@@ -1743,5 +1743,5 @@ $hyoo_sketch $mol_book2
 		body / 
 			<= Demo_page_content* $mol_view
 				style *
-					width <= demo_page_width* NaN
+					width <= demo_page_width* +NaN
 				sub <= demo_page_elements* /
