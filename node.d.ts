@@ -1221,10 +1221,6 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    let $mol_action: typeof $mol_wire_method;
-}
-
-declare namespace $ {
     class $hyoo_crowd_reg extends $hyoo_crowd_node {
         value(next?: unknown): {} | null;
         str(next?: string): string;
@@ -1379,6 +1375,10 @@ declare namespace $ {
         offset_by_point([self, offset]: [$mol_int62_string, number]): readonly [$mol_int62_string, number];
         selection(peer: $mol_int62_string, next?: number[]): number[];
     }
+}
+
+declare namespace $ {
+    let $mol_action: typeof $mol_wire_method;
 }
 
 declare namespace $ {
