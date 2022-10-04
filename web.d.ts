@@ -5274,6 +5274,79 @@ declare namespace $ {
 }
 
 declare namespace $ {
+    class $mol_icon_settings extends $mol_icon {
+        path(): string;
+    }
+}
+
+declare namespace $ {
+    class $mol_avatar extends $mol_icon {
+        view_box(): string;
+        id(): string;
+        path(): string;
+    }
+}
+
+declare namespace $ {
+    function $mol_hash_string(str: string, seed?: number): number;
+}
+
+declare namespace $ {
+}
+
+declare namespace $.$$ {
+    class $mol_avatar extends $.$mol_avatar {
+        path(): string;
+    }
+}
+
+declare namespace $ {
+    class $mol_icon_sync extends $mol_icon {
+        path(): string;
+    }
+}
+
+declare namespace $ {
+    class $mol_icon_sync_off extends $mol_icon {
+        path(): string;
+    }
+}
+
+declare namespace $ {
+    class $hyoo_sync_online extends $mol_link {
+        minimal_width(): number;
+        minimal_height(): number;
+        yard(): $hyoo_sync_yard<unknown>;
+        uri(): string;
+        sub(): readonly any[];
+        attr(): {
+            title: string;
+            href: string;
+            target: string;
+            download: string;
+            mol_link_current: boolean;
+        };
+        master_link(): string;
+        Well(): $$.$mol_avatar;
+        Fail(): $mol_icon_sync_off;
+        hint(): string;
+        message(): string;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $.$$ {
+    class $hyoo_sync_online extends $.$hyoo_sync_online {
+        message(): string;
+        sub(): $mol_icon_sync_off[];
+        hint(): string;
+        master_link(): string;
+    }
+}
+
+declare namespace $ {
     class $mol_icon_github_circle extends $mol_icon {
         path(): string;
     }
@@ -5284,12 +5357,6 @@ declare namespace $ {
         hint(): string;
         sub(): readonly any[];
         Icon(): $mol_icon_github_circle;
-    }
-}
-
-declare namespace $ {
-    class $mol_icon_settings extends $mol_icon {
-        path(): string;
     }
 }
 
@@ -5323,16 +5390,18 @@ declare namespace $ {
         project_name_default(): string;
         tools(): readonly any[];
         body(): readonly any[];
+        foot(): readonly any[];
         Project(id: any): $$.$mol_link;
-        Source(): $mol_link_source;
         Settings_icon(): $mol_icon_settings;
         Settings_link(): $$.$mol_link;
-        Lights(): $$.$mol_lights_toggle;
         project_add(next?: any): any;
         Project_add_icon(): $mol_icon_plus;
         Project_add(): $mol_button_minor;
         projects(): readonly any[];
         List(): $$.$mol_list;
+        Online(): $$.$hyoo_sync_online;
+        Source(): $mol_link_source;
+        Lights(): $$.$mol_lights_toggle;
         project_id(id: any): string;
         project_name(id: any): string;
     }
@@ -5344,6 +5413,7 @@ declare namespace $.$$ {
         projects(): $mol_link[];
         project_id(id: $mol_int62_string): `${string}_${string}`;
         project_name(id: $mol_int62_string): string;
+        yard(): $hyoo_sync_client;
     }
 }
 
