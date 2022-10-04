@@ -186,7 +186,7 @@ $hyoo_sketch_element_base $mol_view
 	element $hyoo_sketch_element
 		domain => domain
 		page => page
-	state $mol_state_shared
+		state => state
 	order? <= order_default 1
 	grid? 8
 	position *
@@ -931,6 +931,7 @@ $mol_textarea $mol_stack
 			spellcheck <= spellcheck true
 			length_max <= length_max +Infinity
 			selection?val <=> selection?val /number
+			bring => bring
 		<= View $mol_text_code
 			text <= value
 			render_visible_only false
@@ -1500,63 +1501,6 @@ $hyoo_sketch_editor $mol_page
 			Control <= Delete_control $mol_button_major
 				click? <=> page_delete? null
 				title @ \delete
-	Theme_options /
-		<= Theme_hue $hyoo_sketch_option
-			name @ \Theme hue
-			Control <= Project_theme_hue_control $mol_number
-				value? <=> project_theme_hue? 210
-		<= Theme_back $hyoo_sketch_option
-			name @ \back color
-			Control <= Theme_back_control $mol_string
-				value? <=> theme_back? \
-		<= Theme_text $hyoo_sketch_option
-			name @ \text color
-			Control <= Theme_text_control $mol_string
-				value? <=> theme_text? \
-		<= Theme_field $hyoo_sketch_option
-			name @ \field color
-			Control <= Theme_field_control $mol_string
-				value? <=> theme_field? \
-		<= Theme_card $hyoo_sketch_option
-			name @ \card color
-			Control <= Theme_card_control $mol_string
-				value? <=> theme_card? \
-		<= Theme_hover $hyoo_sketch_option
-			name @ \hover color
-			Control <= Theme_hover_control $mol_string
-				value? <=> theme_hover? \
-		<= Theme_line $hyoo_sketch_option
-			name @ \line color
-			Control <= Theme_line_control $mol_string
-				value? <=> theme_line? \
-		<= Theme_shade $hyoo_sketch_option
-			name @ \shade color
-			Control <= Theme_shade_control $mol_string
-				value? <=> theme_shade? \
-		<= Theme_control $hyoo_sketch_option
-			name @ \control color
-			Control <= Theme_control_control $mol_string
-				value? <=> theme_control? \
-		<= Theme_current $hyoo_sketch_option
-			name @ \current color
-			Control <= Theme_current_control $mol_string
-				value? <=> theme_current? \
-		<= Theme_special $hyoo_sketch_option
-			name @ \special color
-			Control <= Theme_special_control $mol_string
-				value? <=> theme_special? \
-		<= Theme_focus $hyoo_sketch_option
-			name @ \focus color
-			Control <= Theme_focus_control $mol_string
-				value? <=> theme_focus? \
-		<= Theme_accent_back $hyoo_sketch_option
-			name @ \accent_back color
-			Control <= Theme_accent_back_control $mol_string
-				value? <=> theme_accent_back? \
-		<= Theme_accent_hover $hyoo_sketch_option
-			name @ \accent_hover color
-			Control <= Theme_accent_hover_control $mol_string
-				value? <=> theme_accent_hover? \
 	Project_options /
 		<= Project_name $hyoo_sketch_option
 			name @ \Project
@@ -1609,6 +1553,7 @@ $mol_lights_toggle $mol_check_icon
 
 $hyoo_sketch_project_list $mol_page
 	person $hyoo_sketch_person
+		domain => domain
 	title @ \Projects
 	project_name_default @ \New project
 	tools /
@@ -1641,6 +1586,7 @@ $hyoo_sketch_project_page $mol_page
 	title @ \Pages
 	project $hyoo_sketch_project
 		name? => project_name?
+		domain => domain
 	page_name_default @ \Page
 	tools /
 		<= Project_pin $mol_check_icon
@@ -1692,6 +1638,7 @@ $hyoo_sketch_option_page $mol_page
 
 $hyoo_sketch_palette $mol_page
 	page $hyoo_sketch_page
+		domain => domain
 	title @ \Palette
 	body /
 		<= List $mol_list
