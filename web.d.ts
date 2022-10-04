@@ -5399,6 +5399,7 @@ declare namespace $ {
         Project_add(): $mol_button_minor;
         projects(): readonly any[];
         List(): $$.$mol_list;
+        yard(): $hyoo_sync_client;
         Online(): $$.$hyoo_sync_online;
         Source(): $mol_link_source;
         Lights(): $$.$mol_lights_toggle;

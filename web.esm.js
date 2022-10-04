@@ -19857,6 +19857,10 @@ var $;
             obj.rows = () => this.projects();
             return obj;
         }
+        yard() {
+            const obj = new this.$.$hyoo_sync_client();
+            return obj;
+        }
         Online() {
             const obj = new this.$.$hyoo_sync_online();
             obj.yard = () => this.yard();
@@ -19902,6 +19906,9 @@ var $;
     __decorate([
         $mol_mem
     ], $hyoo_sketch_project_list.prototype, "List", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_project_list.prototype, "yard", null);
     __decorate([
         $mol_mem
     ], $hyoo_sketch_project_list.prototype, "Online", null);
