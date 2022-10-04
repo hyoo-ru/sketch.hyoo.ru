@@ -21,6 +21,10 @@ namespace $.$$ {
 		project_name(id: $mol_int62_string) {
 			return this.domain().project( id ).name()
 		}
+		
+		yard() {
+			return this.domain().yard()
+		}
 
 	}
 
