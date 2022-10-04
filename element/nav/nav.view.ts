@@ -27,15 +27,15 @@ namespace $.$$ {
 		}
 
 		nav_action(next?: string) {
-			return String( this.state().sub('nav_action').value(next) ?? super.nav_action() )
+			return String( this.state().sub('nav_action', $hyoo_crowd_reg).value(next) ?? super.nav_action() )
 		}
 
 		nav_target_page(next?: string) {
-			return String( this.state().sub('nav_target_page').value(next) ?? super.nav_target_page() )
+			return String( this.state().sub('nav_target_page', $hyoo_crowd_reg).value(next) ?? super.nav_target_page() )
 		}
 
 		nav_target_link(next?: string) {
-			return String( this.state().sub('nav_target_link').value(next) ?? super.nav_target_link() )
+			return String( this.state().sub('nav_target_link', $hyoo_crowd_reg).value(next) ?? super.nav_target_link() )
 		}
 
 		nav_pages(next?: string[]) {

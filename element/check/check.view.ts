@@ -7,15 +7,15 @@ namespace $.$$ {
 		}
 
 		check_type(next?: string) {
-			return String( this.state().sub('check_type').value(next) ?? this.check_type_default() )
+			return String( this.state().sub('check_type', $hyoo_crowd_reg).value(next) ?? this.check_type_default() )
 		}
 
 		check_title(next?: string) {
-			return String( this.state().sub('check_title').value(next) ?? this.check_title_default() )
+			return String( this.state().sub('check_title', $hyoo_crowd_reg).value(next) ?? this.check_title_default() )
 		}
 
 		check_checked(next?: boolean) {
-			return Boolean( this.state().sub('check_checked').value(next) ?? this.check_checked_default() )
+			return Boolean( this.state().sub('check_checked', $hyoo_crowd_reg).value(next) ?? this.check_checked_default() )
 		}
 
 		duplicate(elem?: $hyoo_sketch_element) {

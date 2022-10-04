@@ -7,7 +7,7 @@ namespace $.$$ {
 		}
 
 		select_type(next?: string) {
-			return String( this.state().sub('select_type').value(next) ?? this.select_type_default() )
+			return String( this.state().sub('select_type', $hyoo_crowd_reg).value(next) ?? this.select_type_default() )
 		}
 
 		duplicate(elem?: $hyoo_sketch_element) {

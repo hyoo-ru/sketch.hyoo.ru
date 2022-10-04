@@ -3,53 +3,56 @@ namespace $ {
 	export class $hyoo_sketch_domain extends $mol_object2 {
 		
 		@ $mol_mem
-		state() {
-			const obj = new this.$.$mol_state_shared
-			obj.db_sync = ()=>null
-			return obj
+		static yard() {
+			return new this.$.$hyoo_sync_client
+		}
+
+		yard() {
+			return $hyoo_sketch_domain.yard()
 		}
 		
 		@ $mol_mem
 		user() {
-			let id = this.$.$mol_store_local.value( 'user' ) as string | null
-			if( !id ) {
-				id = Math.random().toString( 16 ).slice( 2 )
-				new $mol_after_tick( ()=> this.$.$mol_store_local.value( 'user', id ) )
-			}
-			
-			return this.person( id )
+			return this.person( this.yard().peer().id )
 		}
 		
 		@ $mol_mem_key
-		person( id: string ) {
-			const obj = new $hyoo_sketch_person
-			obj.id = $mol_const( id )
-			obj.domain = $mol_const( this )
-			return obj
+		person( id: $mol_int62_string ) {
+			return $hyoo_sketch_person.make({ id: $mol_const(id), domain: $mol_const(this) })
 		}
 
 		@ $mol_mem_key
-		element( id: string ) {
-			const obj = new $hyoo_sketch_element
-			obj.id = $mol_const( id )
-			obj.domain = $mol_const( this )
-			return obj
+		element( id: $mol_int62_string ) {
+			return $hyoo_sketch_element.make({ id: $mol_const(id), domain: $mol_const(this) })
+		}
+
+		@ $mol_action
+		element_new( page: $mol_int62_string ) {
+			const project_land = this.yard().land( this.page(page).project().id() )
+			const land = this.yard().land_grab( [...project_land.lords()], [...project_land.authors()] )
+			return this.element( land.id() )
 		}
 
 		@ $mol_mem_key
-		page( id: string ) {
-			const obj = new $hyoo_sketch_page
-			obj.id = $mol_const( id )
-			obj.domain = $mol_const( this )
-			return obj
+		page( id: $mol_int62_string ) {
+			return $hyoo_sketch_page.make({ id: $mol_const(id), domain: $mol_const(this) })
+		}
+
+		@ $mol_action
+		page_new( project: $mol_int62_string ) {
+			const project_land = this.yard().land( project )
+			const land = this.yard().land_grab( [...project_land.lords()], [...project_land.authors()] )
+			return this.page( land.id() )
 		}
 
 		@ $mol_mem_key
-		project( id: string ) {
-			const obj = new $hyoo_sketch_project
-			obj.id = $mol_const( id )
-			obj.domain = $mol_const( this )
-			return obj
+		project( id: $mol_int62_string ) {
+			return $hyoo_sketch_project.make({ id: $mol_const(id), domain: $mol_const(this) })
+		}
+
+		@ $mol_action
+		project_new() {
+			return this.project( this.yard().land_grab().id() )
 		}
 		
 	}

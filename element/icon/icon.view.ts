@@ -29,7 +29,7 @@ namespace $.$$ {
 		}
 
 		icon_name(next?: string) {
-			return String( this.state().sub('icon_name').value(next) ?? super.icon_name() )
+			return String( this.state().sub('icon_name', $hyoo_crowd_reg).value(next) ?? super.icon_name() )
 		}
 
 		duplicate(elem?: $hyoo_sketch_element) {

@@ -3,11 +3,11 @@ namespace $.$$ {
 	export class $hyoo_sketch_element_image extends $.$hyoo_sketch_element_image {
 
 		image_link(next?: string) {
-			return String( ( this.state().sub('image_link').value(next) ?? this.image_link_default() ) || this.image_link_placeholder() )
+			return String( ( this.state().sub('image_link', $hyoo_crowd_reg).value(next) ?? this.image_link_default() ) || this.image_link_placeholder() )
 		}
 
 		image_round(next?: boolean) {
-			return Boolean( this.state().sub('image_round').value(next) ?? false )
+			return Boolean( this.state().sub('image_round', $hyoo_crowd_reg).value(next) ?? false )
 		}
 
 		round() {

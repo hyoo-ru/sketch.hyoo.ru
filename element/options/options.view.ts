@@ -3,12 +3,12 @@ namespace $.$$ {
 	export class $hyoo_sketch_element_options extends $.$hyoo_sketch_element_options {
 
 		option_list(next?: string[]) {
-			const list = this.state().sub('option_list').list(next)
+			const list = this.state().sub('option_list', $hyoo_crowd_list).list(next)
 			return (list.length ? list : this.option_list_default()).map( val => String(val) )
 		}
 
 		option_current(next?: string) {
-			return String( this.state().sub('option_current').value(next) ?? this.option_list()[0] ?? '' )
+			return String( this.state().sub('option_current', $hyoo_crowd_reg).value(next) ?? this.option_list()[0] ?? '' )
 		}
 
 		option_dict() {

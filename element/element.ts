@@ -1,36 +1,26 @@
 namespace $ {
 
-	export class $hyoo_sketch_element extends $mol_object2 {
-		
-		id(): string {
-			return this.$.$mol_fail( new Error( 'Not defined' ) )
-		}
-		
-		domain(): $hyoo_sketch_domain {
-			return this.$.$mol_fail( new Error( 'Not defined' ) )
-		}
+	export class $hyoo_sketch_element extends $hyoo_sketch_entity {
 		
 		@ $mol_mem
-		state() {
-			return this.domain().state().doc( 'element' ).doc( this.id() )
-		}
-
 		page(next?: $hyoo_sketch_page) {
-			console.log(1)
-			const id = this.state().sub('page').value(next && next.id())!
-			return this.domain().page( String(id) )
+			const id = this.state().sub('page', $hyoo_crowd_reg).value(next && next.id())!
+			return this.domain().page( id as $mol_int62_string )
 		}
 
+		@ $mol_mem
 		name( next?: string ) {
-			return String( this.state().sub( 'name' ).value( next ) ?? '' )
+			return this.state().sub( 'name', $hyoo_crowd_reg ).str( next )
 		}
 
+		@ $mol_mem
 		type( next?: string ) {
-			return String( this.state().sub( 'type' ).value( next ) ?? 'base' )
+			return this.state().sub( 'type', $hyoo_crowd_reg ).str( next ) || 'base'
 		}
 
+		@ $mol_action
 		duplicate() {
-			const obj = this.domain().element( $mol_guid() )
+			const obj = this.domain().element_new( this.page().id() )
 			obj.type( this.type() )
 			obj.page( this.page() )
 			obj.name( this.name() )

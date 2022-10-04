@@ -1,5 +1,6 @@
 $hyoo_sketch_project_list $mol_page
 	person $hyoo_sketch_person
+		domain => domain
 	title @ \Projects
 	project_name_default @ \New project
 	tools /

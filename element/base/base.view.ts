@@ -2,10 +2,6 @@ namespace $.$$ {
 
 	export class $hyoo_sketch_element_base extends $.$hyoo_sketch_element_base {
 
-		state() {
-			return this.element().state()
-		}
-
 		switch() {
 			return this.editing() ? [this.Editor()] : [this.Element()]
 		}
@@ -65,23 +61,23 @@ namespace $.$$ {
 		}
 
 		width(next?: number) {
-			return Number(this.state().sub('width').value(next) || this.width_default())
+			return this.state().sub('width', $hyoo_crowd_reg).numb(next) || this.width_default()
 		}
 
 		height(next?: number) {
-			return Number(this.state().sub('height').value(next) || this.height_default())
+			return this.state().sub('height', $hyoo_crowd_reg).numb(next) || this.height_default()
 		}
 
 		top(next?: number) {
-			return Number(this.state().sub('top').value(next) || this.top_default())
+			return this.state().sub('top', $hyoo_crowd_reg).numb(next) || this.top_default()
 		}
 
 		left(next?: number) {
-			return Number(this.state().sub('left').value(next) || this.left_default())
+			return this.state().sub('left', $hyoo_crowd_reg).numb(next) || this.left_default()
 		}
 
 		order(next?: number) {
-			return Number(this.state().sub('order').value(next) || this.order_default())
+			return this.state().sub('order', $hyoo_crowd_reg).numb(next) || this.order_default()
 		}
 
 		order_string() {

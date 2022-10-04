@@ -2,12 +2,12 @@ namespace $.$$ {
 
 	export class $hyoo_sketch_editor extends $.$hyoo_sketch_editor {
 
-		element(id: string) {
+		element(id: $mol_int62_string) {
 			return this.domain().element(id)
 		}
 
 		@ $mol_mem_key
-		Element(id: string) {
+		Element(id: $mol_int62_string) {
 			const type = this.element(id).type()
 			const obj = this[ `Element_${type}` ](id) as $hyoo_sketch_element_base
 			
@@ -37,8 +37,8 @@ namespace $.$$ {
 		}
 
 		@ $mol_mem
-		selected(id?: string) {
-			return this.$.$mol_state_arg.value('selected', id) ?? ''
+		selected(id?: $mol_int62_string) {
+			return (this.$.$mol_state_arg.value('selected', id) ?? '') as $mol_int62_string
 		}
 
 		paper_selected(next?: boolean) {
@@ -46,7 +46,7 @@ namespace $.$$ {
 		}
 
 		@ $mol_mem_key
-		element_selected(id: string, next?: boolean) {
+		element_selected(id: $mol_int62_string, next?: boolean) {
 			if (this.preview()) return false
 
 			if (next !== undefined) {
@@ -60,7 +60,6 @@ namespace $.$$ {
 			if (this.paper_selected() || !this.selected()) {
 				return {
 					'page': this.Page_options(),
-					'theme': this.Theme_options(),
 					'project': this.Project_options(),
 					'delete': this.Delete_options(),
 				}
@@ -86,10 +85,6 @@ namespace $.$$ {
 			return this.page().id()
 		}
 
-		project_theme_hue(next?: number) {
-			return this.project().theme_hue(next)
-		}
-
 		project_name(next?: string) {
 			return this.project().name(next)
 		}
@@ -97,58 +92,6 @@ namespace $.$$ {
 		page_delete() {
 			this.project().page_delete(this.page())
 			this.$.$mol_state_arg.value('page', null)
-		}
-
-		theme_back(next?: string) {
-			return this.project().theme_back(next)
-		}
-
-		theme_text(next?: string) {
-			return this.project().theme_text(next)
-		}
-
-		theme_field(next?: string) {
-			return this.project().theme_field(next)
-		}
-
-		theme_card(next?: string) {
-			return this.project().theme_card(next)
-		}
-
-		theme_hover(next?: string) {
-			return this.project().theme_hover(next)
-		}
-
-		theme_line(next?: string) {
-			return this.project().theme_line(next)
-		}
-
-		theme_shade(next?: string) {
-			return this.project().theme_shade(next)
-		}
-
-		theme_control(next?: string) {
-			return this.project().theme_control(next)
-		}
-		
-		theme_current(next?: string) {
-			return this.project().theme_current(next)
-		}
-
-		theme_special(next?: string) {
-			return this.project().theme_special(next)
-		}
-
-		theme_focus(next?: string) {
-			return this.project().theme_focus(next)
-		}
-
-		theme_accent_back(next?: string) {
-			return this.project().theme_accent_back(next)
-		}
-
-		theme_accent_hover(next?: string) {
-			return this.project().theme_accent_hover(next)
 		}
 
 	}

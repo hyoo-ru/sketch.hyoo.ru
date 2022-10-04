@@ -16,23 +16,23 @@ namespace $.$$ {
 		}
 
 		text(next?: string) {
-			return String( this.state().sub('text_content').value(next) ?? this.text_default() )
+			return String( this.state().sub('text_content', $hyoo_crowd_reg).value(next) ?? this.text_default() )
 		}
 
 		padding(next?: string) {
-			return String( this.state().sub('text_padding').value(next) ?? this.padding_default() )
+			return String( this.state().sub('text_padding', $hyoo_crowd_reg).value(next) ?? this.padding_default() )
 		}
 
 		align_ver(next?: string) {
-			return String( this.state().sub('text_align_ver').value(next) ?? this.align_ver_default() )
+			return String( this.state().sub('text_align_ver', $hyoo_crowd_reg).value(next) ?? this.align_ver_default() )
 		}
 
 		align_hor(next?: string) {
-			return String( this.state().sub('text_align_hor').value(next) ?? this.align_hor_default() )
+			return String( this.state().sub('text_align_hor', $hyoo_crowd_reg).value(next) ?? this.align_hor_default() )
 		}
 
 		size(next?: string) {
-			return String( this.state().sub('text_size').value(next) ?? this.size_default() )
+			return String( this.state().sub('text_size', $hyoo_crowd_reg).value(next) ?? this.size_default() )
 		}
 
 		duplicate(elem?: $hyoo_sketch_element) {

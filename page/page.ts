@@ -1,61 +1,64 @@
 namespace $ {
 	
-	export class $hyoo_sketch_page extends $mol_object2 {
+	export class $hyoo_sketch_page extends $hyoo_sketch_entity {
 		
-		id(): string {
-			return this.$.$mol_fail( new Error( 'Not defined' ) )
-		}
-		
-		domain(): $hyoo_sketch_domain {
-			return this.$.$mol_fail( new Error( 'Not defined' ) )
+		@ $mol_mem
+		project(next?: $hyoo_sketch_project) {
+			const id = this.state().sub('project', $hyoo_crowd_reg).value(next && next.id())
+			return this.domain().project( id as $mol_int62_string )
 		}
 		
 		@ $mol_mem
-		state() {
-			return this.domain().state().doc( 'page' ).doc( this.id() )
-		}
-		
 		name( next?: string ) {
-			return String( this.state().sub( 'name' ).value( next ) ?? '' )
+			return this.state().sub( 'name', $hyoo_crowd_reg ).str( next )
 		}
 
+		@ $mol_mem
 		width( next?: number ) {
-			return Number( this.state().sub( 'width' ).value( next ) ?? 340 )
+			return this.state().sub( 'width', $hyoo_crowd_reg ).numb( next ) || 340
 		}
 
+		@ $mol_mem
 		height( next?: number ) {
-			return Number( this.state().sub( 'height' ).value( next ) ?? 640 )
+			return this.state().sub( 'height', $hyoo_crowd_reg ).numb( next ) || 640
 		}
 
+		@ $mol_mem
 		grid( next?: number ) {
-			return Number( this.state().sub( 'grid' ).value( next ) ?? 8 )
+			return this.state().sub( 'grid', $hyoo_crowd_reg ).numb( next ) || 8
 		}
 
+		@ $mol_mem
+		elements_node() {
+			return this.state().sub( 'elements', $hyoo_crowd_list )
+		}
+
+		@ $mol_mem
 		elements( next?: $hyoo_sketch_element[]) {
-			const ids = this.state().sub('elements').list( next && next.map( obj => obj.id() ) )
-			return ids.map( id => this.domain().element( String(id) ) )
+			const ids = this.elements_node().list( next && next.map( obj => obj.id() ) )
+			return ids.map( id => this.domain().element( id as $mol_int62_string ) )
 		}
 
 		@ $mol_action
 		element_add( obj: $hyoo_sketch_element ) {
-			this.elements( [ ... this.elements() , obj ] )
+			this.elements_node().add( obj.id() )
 			obj.page(this)
 		}
 
 		@ $mol_action
 		element_delete( obj: $hyoo_sketch_element ) {
-			this.elements( this.elements().filter( obj2 => obj2.id() !== obj.id() ) )
+			this.elements_node().drop( obj.id() )
 		}
 
 		@ $mol_action
 		duplicate() {
-			const page_copy = this.domain().page( $mol_guid() )
+			const page_copy = this.domain().page_new( this.project().id() )
 
 			const editor = new $hyoo_sketch_editor
 			editor.page = $mol_const(this)
 
 			for (const obj of this.elements()) {
-				const element = editor.Element(obj.id())
+				const element = editor.Element(obj)
 				element.duplicate_top_shift = $mol_const(false)
 				const element_copy = element.duplicate()
 				page_copy.element_add(element_copy)
@@ -68,11 +71,6 @@ namespace $ {
 			return page_copy
 		}
 
-		project(next?: $hyoo_sketch_project) {
-			const id = this.state().sub('project').value(next && next.id())
-			return this.domain().project( String(id) )
-		}
-		
 	}
 	
 }

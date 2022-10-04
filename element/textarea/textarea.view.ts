@@ -3,11 +3,11 @@ namespace $.$$ {
 	export class $hyoo_sketch_element_textarea extends $.$hyoo_sketch_element_textarea {
 
 		text(next?: string) {
-			return this.state().sub('textarea_text').text(next)
+			return this.state().sub('textarea_text', $hyoo_crowd_text).text(next)
 		}
 
 		hint(next?: string) {
-			return String( this.state().sub('textarea_hint').value(next) ?? '' )
+			return String( this.state().sub('textarea_hint', $hyoo_crowd_reg).value(next) ?? '' )
 		}
 
 		duplicate(elem?: $hyoo_sketch_element) {

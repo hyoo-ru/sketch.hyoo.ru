@@ -13,19 +13,19 @@ namespace $.$$ {
 		}
 
 		input_type(next?: string) {
-			return String( this.state().sub('input_type').value(next) ?? super.input_type() )
+			return String( this.state().sub('input_type', $hyoo_crowd_reg).value(next) ?? super.input_type() )
 		}
 
 		input_hint(next?: string) {
-			return String( this.state().sub('input_hint').value(next) ?? super.input_hint() )
+			return String( this.state().sub('input_hint', $hyoo_crowd_reg).value(next) ?? super.input_hint() )
 		}
 
 		input_text(next?: string) {
-			return String( this.state().sub('input_text').value(next) ?? super.input_text() )
+			return String( this.state().sub('input_text', $hyoo_crowd_reg).value(next) ?? super.input_text() )
 		}
 
 		input_enabled(next?: string) {
-			return String( this.state().sub('input_enabled').value(next) ?? super.input_enabled() )
+			return String( this.state().sub('input_enabled', $hyoo_crowd_reg).value(next) ?? super.input_enabled() )
 		}
 
 		input_enabled_bool() {

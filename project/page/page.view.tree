@@ -2,6 +2,7 @@ $hyoo_sketch_project_page $mol_page
 	title @ \Pages
 	project $hyoo_sketch_project
 		name? => project_name?
+		domain => domain
 	page_name_default @ \Page
 	tools /
 		<= Project_pin $mol_check_icon

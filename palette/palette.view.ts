@@ -2,10 +2,6 @@ namespace $.$$ {
 
 	export class $hyoo_sketch_palette extends $.$hyoo_sketch_palette {
 
-		domain() {
-			return this.page().domain()
-		}
-
 		rows() {
 			return this.type_list().map( type => this.Row(type) )
 		}	
@@ -30,7 +26,7 @@ namespace $.$$ {
 		}
 
 		element_add(type: string) {
-			const obj = this.domain().element( $mol_guid() )
+			const obj = this.domain().element_new( this.page().id() )
 			obj.type( type )
 			this.Element_base(obj).top( this.highest_top() + this.page().grid() )
 			this.Element_base(obj).left( this.page().grid() )

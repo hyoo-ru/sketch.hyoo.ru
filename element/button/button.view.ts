@@ -9,7 +9,7 @@ namespace $.$$ {
 		}
 
 		button_type(next?: string) {
-			return String( this.state().sub('button_type').value(next) ?? super.button_type() )
+			return this.state().sub('button_type', $hyoo_crowd_reg).str(next) || super.button_type()
 		}
 
 		click() {

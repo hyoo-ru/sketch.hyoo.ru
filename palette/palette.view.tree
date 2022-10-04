@@ -1,5 +1,6 @@
 $hyoo_sketch_palette $mol_page
 	page $hyoo_sketch_page
+		domain => domain
 	title @ \Palette
 	body /
 		<= List $mol_list

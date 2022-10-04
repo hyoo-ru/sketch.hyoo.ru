@@ -9,7 +9,7 @@ namespace $.$$ {
 		}
 
 		link_hint(next?: string) {
-			return String( this.state().sub('link_hint').value(next) ?? super.link_hint() )
+			return String( this.state().sub('link_hint', $hyoo_crowd_reg).value(next) ?? super.link_hint() )
 		}
 
 		@ $mol_mem

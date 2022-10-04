@@ -3,7 +3,7 @@ namespace $.$$ {
 	export class $hyoo_sketch_element_speck extends $.$hyoo_sketch_element_speck {
 
 		speck_value(next?: string) {
-			return String(this.state().sub('speck_value').value(next) ?? this.speck_value_default())
+			return String(this.state().sub('speck_value', $hyoo_crowd_reg).value(next) ?? this.speck_value_default())
 		}
 
 		duplicate(elem?: $hyoo_sketch_element) {

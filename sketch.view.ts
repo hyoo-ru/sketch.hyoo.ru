@@ -6,8 +6,8 @@ namespace $.$$ {
 			const dict = this.$.$mol_state_arg.dict()
 
 			return {
-				project: dict.project,
-				page: dict.page,
+				project: dict.project as $mol_int62_string,
+				page: dict.page as $mol_int62_string,
 			}
 		}
 
@@ -36,57 +36,21 @@ namespace $.$$ {
 			]
 		}
 
-		demo_page_title(id: string) {
+		demo_page_title(id: $mol_int62_string) {
 			return this.domain().page(id).name()
 		}
 
-		demo_page_width(id: string) {
+		demo_page_width(id: $mol_int62_string) {
 			return this.domain().page(id).width()
 		}
 
-		demo_page_elements(id: string) {
+		demo_page_elements(id: $mol_int62_string) {
 			const page = this.domain().page(id)
 			return page.elements().map( obj => {
 				const element = this.Element(obj.id()) 
 				element.editing = $mol_const(false)
 				return element.Preview()
 			} )
-		}
-
-		@ $mol_mem_key
-		css_var_define([selector, key]: [string, string], next: string) {
-			const root = document.querySelector(selector)! as HTMLElement
-			if (root) root.style.setProperty(key, next, 'important')
-			return next
-		}
-
-		@ $mol_mem
-		theme_set() {
-			const project = this.project_opened()
-			const keys = [
-				'back',
-				'text',
-				'field',
-				'card',
-				'hover',
-				'line',
-				'shade',
-				'control',
-				'current',
-				'special',
-				'focus',
-			]
-			for(const key of keys) {
-				const val = project[`theme_${key}`]().trim()
-				if (!val) continue
-				this.css_var_define(['[mol_theme]', `--mol_theme_${key}`], val)
-			}
-			this.css_var_define(['[mol_theme="$mol_theme_accent"]', `--mol_theme_back`], project.theme_accent_back())
-			this.css_var_define(['[mol_theme="$mol_theme_accent"]', `--mol_theme_hover`], project.theme_accent_hover())
-		}
-
-		auto() {
-			this.theme_set()
 		}
 
 	}
