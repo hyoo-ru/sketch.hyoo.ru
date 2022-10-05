@@ -318,7 +318,7 @@
     "$mol_lights",
     "$mol_media",
     "$hyoo_sketch_project_list",
-    "$mol_icon_settings",
+    "$mol_icon_account",
     "$hyoo_sync_online",
     "$mol_avatar",
     "$mol_hash_string",
@@ -333,9 +333,14 @@
     "$mol_icon_brightness",
     "$hyoo_sketch_project_page",
     "$mol_bar",
+    "$mol_expander",
+    "$mol_form_field",
+    "$mol_form",
+    "$mol_labeler",
     "$hyoo_sketch_option_page",
     "$mol_deck",
-    "$hyoo_sketch_palette"
+    "$hyoo_sketch_palette",
+    "$hyoo_sketch_person_page"
   ],
   "dependencies": {
     "jsdom": "*",

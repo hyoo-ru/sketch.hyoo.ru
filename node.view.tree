@@ -1501,11 +1501,6 @@ $hyoo_sketch_editor $mol_page
 			Control <= Delete_control $mol_button_major
 				click? <=> page_delete? null
 				title @ \delete
-	Project_options /
-		<= Project_name $hyoo_sketch_option
-			name @ \Project
-			Control <= Project_name_control $mol_string
-				value?val <=> project_name?val \
 	Options *
 	body /
 		<= Paper $hyoo_sketch_editor_paper
@@ -1535,7 +1530,7 @@ $hyoo_sketch_editor $mol_page
 	Element_map* $hyoo_sketch_element_map
 	Element_header* $hyoo_sketch_element_header
 
-$mol_icon_settings $mol_icon path \M12,15.5C10.07,15.5 8.5,13.93 8.5,12C8.5,10.07 10.07,8.5 12,8.5C13.93,8.5 15.5,10.07 15.5,12C15.5,13.93 13.93,15.5 12,15.5M19.43,12.97C19.47,12.65 19.5,12.33 19.5,12C19.5,11.67 19.47,11.34 19.43,11L21.54,9.37C21.73,9.22 21.78,8.95 21.66,8.73L19.66,5.27C19.54,5.05 19.27,4.96 19.05,5.05L16.56,6.05C16.04,5.66 15.5,5.32 14.87,5.07L14.5,2.42C14.46,2.18 14.25,2 14,2H10C9.75,2 9.54,2.18 9.5,2.42L9.13,5.07C8.5,5.32 7.96,5.66 7.44,6.05L4.95,5.05C4.73,4.96 4.46,5.05 4.34,5.27L2.34,8.73C2.21,8.95 2.27,9.22 2.46,9.37L4.57,11C4.53,11.34 4.5,11.67 4.5,12C4.5,12.33 4.53,12.65 4.57,12.97L2.46,14.63C2.27,14.78 2.21,15.05 2.34,15.27L4.34,18.73C4.46,18.95 4.73,19.03 4.95,18.95L7.44,17.94C7.96,18.34 8.5,18.68 9.13,18.93L9.5,21.58C9.54,21.82 9.75,22 10,22H14C14.25,22 14.46,21.82 14.5,21.58L14.87,18.93C15.5,18.67 16.04,18.34 16.56,17.94L19.05,18.95C19.27,19.03 19.54,18.95 19.66,18.73L21.66,15.27C21.78,15.05 21.73,14.78 21.54,14.63L19.43,12.97Z
+$mol_icon_account $mol_icon path \M12,4C14.21,4 16,5.79 16,8C16,10.21 14.21,12 12,12C9.79,12 8,10.21 8,8C8,5.79 9.79,4 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z
 
 $mol_avatar $mol_icon
 	view_box \0 0 24 24
@@ -1579,11 +1574,11 @@ $hyoo_sketch_project_list $mol_page
 	title @ \Projects
 	project_name_default @ \New project
 	tools /
-		<= Settings_link $mol_link
-			arg * settings \
-			hint @ \Open Settings
+		<= Person_link $mol_link
+			arg * person <= person_id \0_0
+			hint @ \User
 			sub /
-				<= Settings_icon $mol_icon_settings
+				<= Person_icon $mol_icon_account
 		<= Project_add $mol_button_minor
 			hint @ \Add project
 			click? <=> project_add? null
@@ -1607,21 +1602,47 @@ $hyoo_sketch_project_list $mol_page
 
 $mol_bar $mol_view
 
+$mol_expander $mol_list
+	rows /
+		<= Label $mol_view
+			sub /
+				<= Trigger $mol_check_expand
+					checked?val <=> expanded?val false
+					label <= label /
+						<= title
+				<= Tools null
+		<= Content $mol_list
+			rows <= content /
+
+$mol_labeler $mol_list
+	rows /
+		<= Label $mol_view
+			minimal_height 32
+			sub <= label /$mol_view_content
+				<= title
+		<= Content $mol_view
+			minimal_height 24
+			sub <= content /
+
+$mol_form_field $mol_labeler
+	bids /string
+	label /
+		<= name \
+		<= Bid $mol_view
+			sub / <= bid \
+	Content <= control null
+
 $hyoo_sketch_project_page $mol_page
-	title @ \Pages
 	project $hyoo_sketch_project
 		name? => project_name?
 		domain => domain
+	title <= project_name
 	page_name_default @ \Page
 	tools /
 		<= Project_pin $mol_check_icon
 			hint @ \Pin project
 			Icon <= Project_pin_icon $mol_icon_eye
 			checked?val <=> project_pin?val false
-		<= Page_add $mol_button_minor
-			hint @ \Add page
-			click? <=> page_add? null
-			sub / <= Page_add_icon $mol_icon_plus
 		<= Project_close $mol_link
 			hint @ \Close project
 			arg *
@@ -1630,8 +1651,54 @@ $hyoo_sketch_project_page $mol_page
 				selected null
 			sub / <= Project_close_icon $mol_icon_cross
 	body /
-		<= List $mol_list
-			rows <= pages /
+		<= Pages $mol_expander
+			title @ \Pages
+			content /
+				<= List $mol_list
+					rows <= pages /
+			expanded? <=> pages_expanded? true
+			Tools <= Settings_tools $mol_view
+				sub /
+					<= Page_add $mol_button_minor
+						hint @ \Add page
+						click? <=> page_add? null
+						sub / <= Page_add_icon $mol_icon_plus
+		<= Settings $mol_expander
+			title @ \Settings
+			expanded? <=> settings_expanded? true
+			content /
+				<= Project_name_field $mol_form_field
+					name @ \Project name
+					control <= Project_name_control $mol_string
+						value? <=> project_name?
+				<= Editor_add_field $mol_form_field
+					name @ \Add editor
+					bid @ \Permanently
+					Content <= Editor_add_form $mol_list
+						rows /
+							<= Editor_add_bar $mol_bar sub /
+								<= Editor_add_id $mol_string
+									hint @ \User ID
+									value? <=> editor_add_id? \
+								<= Editor_add_submit $mol_button_major
+									enabled <= editor_add_filled false
+									click? <=> editor_add_submit? null
+									sub /
+										<= Editor_add_icon $mol_icon_plus
+							<= Editor_fill_all $mol_button_minor
+								title @ \Allow anyone
+								click? <=> editor_fill_all? null
+				<= Editor_list_field $mol_form_field
+					name @ \Editors
+					Content <= Editor_list $mol_list
+						rows <= editor_list /
+							<= Editor_link*0_0 $mol_link
+								arg * person <= editor_id* \
+								sub /
+									<= Editor_avatar* $mol_avatar
+										id <= editor_id*
+									<= Editor_name* $mol_view
+										sub / <= editor_name* @ \All users
 	Row* $mol_bar
 		sub /
 			<= Link* $mol_link
@@ -1642,6 +1709,18 @@ $hyoo_sketch_project_page $mol_page
 			<= Copy* $mol_button_minor
 				click? <=> page_copy*? null
 				sub / <= Copy_icon* $mol_icon_content_copy
+
+$mol_form $mol_list
+	submit_blocked false
+	event *
+		^
+		keydown?event <=> keydown?event null
+	submit?event null
+	rows /
+		<= Body $mol_list
+			sub <= body <= form_fields /$mol_form_field
+		<= Foot $mol_row
+			sub <= foot <= buttons /$mol_view
 
 $mol_deck $mol_list
 	items /$mol_view
@@ -1691,6 +1770,26 @@ $hyoo_sketch_palette $mol_page
 		- \nav
 		- \options
 
+$hyoo_sketch_person_page $mol_page
+	person $hyoo_sketch_person
+		name? => name?
+		id => id
+		domain => domain
+	tools /
+		<= Id_copy $mol_button_copy
+			text <= id
+			hint @ \Copy user id
+		<= Close $mol_link
+			arg * person null
+			sub / <= Close_icon $mol_icon_cross
+	title @ \Person
+	body /
+		<= Name $mol_form_field
+			name @ \Name
+			control <= Name_control $mol_string
+				value? <=> name?
+				enabled <= editable false
+
 $hyoo_sketch $mol_book2
 	domain $hyoo_sketch_domain
 		user => user
@@ -1712,6 +1811,8 @@ $hyoo_sketch $mol_book2
 			Options <= Options
 		<= Palette $hyoo_sketch_palette
 			page <= page_opened
+		<= Person $hyoo_sketch_person_page
+			person <= person_opened $hyoo_sketch_person
 	Demo_page* $mol_page
 		title <= demo_page_title* \
 		Head null
