@@ -1,18 +1,14 @@
 $hyoo_sketch_project_page $mol_page
-	title @ \Pages
 	project $hyoo_sketch_project
 		name? => project_name?
 		domain => domain
+	title <= project_name
 	page_name_default @ \Page
 	tools /
 		<= Project_pin $mol_check_icon
 			hint @ \Pin project
 			Icon <= Project_pin_icon $mol_icon_eye
 			checked?val <=> project_pin?val false
-		<= Page_add $mol_button_minor
-			hint @ \Add page
-			click? <=> page_add? null
-			sub / <= Page_add_icon $mol_icon_plus
 		<= Project_close $mol_link
 			hint @ \Close project
 			arg *
@@ -21,8 +17,54 @@ $hyoo_sketch_project_page $mol_page
 				selected null
 			sub / <= Project_close_icon $mol_icon_cross
 	body /
-		<= List $mol_list
-			rows <= pages /
+		<= Pages $mol_expander
+			title @ \Pages
+			content /
+				<= List $mol_list
+					rows <= pages /
+			expanded? <=> pages_expanded? true
+			Tools <= Settings_tools $mol_view
+				sub /
+					<= Page_add $mol_button_minor
+						hint @ \Add page
+						click? <=> page_add? null
+						sub / <= Page_add_icon $mol_icon_plus
+		<= Settings $mol_expander
+			title @ \Settings
+			expanded? <=> settings_expanded? true
+			content /
+				<= Project_name_field $mol_form_field
+					name @ \Project name
+					control <= Project_name_control $mol_string
+						value? <=> project_name?
+				<= Editor_add_field $mol_form_field
+					name @ \Add editor
+					bid @ \Permanently
+					Content <= Editor_add_form $mol_list
+						rows /
+							<= Editor_add_bar $mol_bar sub /
+								<= Editor_add_id $mol_string
+									hint @ \User ID
+									value? <=> editor_add_id? \
+								<= Editor_add_submit $mol_button_major
+									enabled <= editor_add_filled false
+									click? <=> editor_add_submit? null
+									sub /
+										<= Editor_add_icon $mol_icon_plus
+							<= Editor_fill_all $mol_button_minor
+								title @ \Allow anyone
+								click? <=> editor_fill_all? null
+				<= Editor_list_field $mol_form_field
+					name @ \Editors
+					Content <= Editor_list $mol_list
+						rows <= editor_list /
+							<= Editor_link*0_0 $mol_link
+								arg * person <= editor_id* \
+								sub /
+									<= Editor_avatar* $mol_avatar
+										id <= editor_id*
+									<= Editor_name* $mol_view
+										sub / <= editor_name* @ \All users
 	Row* $mol_bar
 		sub /
 			<= Link* $mol_link

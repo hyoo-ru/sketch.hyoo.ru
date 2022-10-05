@@ -15,21 +15,21 @@ namespace $.$$ {
 		Project: {
 			flex: {
 				shrink: 0,
-				basis: rem(15),
+				basis: rem(18),
 			},
 		},
 
 		Palette: {
 			flex: {
 				shrink: 0,
-				basis: rem(10),
+				basis: rem(9),
 			},
 		},
 
 		Editor: {
 			flex: {
 				shrink: 0,
-				basis: calc( '100% - 45rem' ),
+				basis: calc( '100% - 47rem' ),
 			},
 		},
 

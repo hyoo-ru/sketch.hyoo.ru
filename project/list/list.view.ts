@@ -26,6 +26,10 @@ namespace $.$$ {
 			return this.domain().yard()
 		}
 
+		person_id() {
+			return this.domain().user().id()
+		}
+
 	}
 
 }

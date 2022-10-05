@@ -15,8 +15,13 @@ namespace $ {
 		}
 
 		@ $mol_mem
-		state(): $hyoo_crowd_struct {
-			return this.domain().yard().land( this.id() ).node( this.head(), $hyoo_crowd_struct )
+		land() {
+			return this.domain().yard().land( this.id() )
+		}
+
+		@ $mol_mem
+		state() {
+			return this.land().node( this.head(), $hyoo_crowd_struct )
 		}
 
 	}

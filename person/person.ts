@@ -4,7 +4,7 @@ namespace $ {
 		
 		@ $mol_mem
 		name( next?: string ) {
-			return this.state().sub( 'name', $hyoo_crowd_reg ).str( next )
+			return this.state().sub( 'title', $hyoo_crowd_reg ).str( next )
 		}
 		
 		@ $mol_mem

@@ -19,6 +19,8 @@ $hyoo_sketch $mol_book2
 			Options <= Options
 		<= Palette $hyoo_sketch_palette
 			page <= page_opened
+		<= Person $hyoo_sketch_person_page
+			person <= person_opened $hyoo_sketch_person
 	Demo_page* $mol_page
 		title <= demo_page_title* \
 		Head null

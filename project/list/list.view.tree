@@ -4,11 +4,11 @@ $hyoo_sketch_project_list $mol_page
 	title @ \Projects
 	project_name_default @ \New project
 	tools /
-		<= Settings_link $mol_link
-			arg * settings \
-			hint @ \Open Settings
+		<= Person_link $mol_link
+			arg * person <= person_id \0_0
+			hint @ \User
 			sub /
-				<= Settings_icon $mol_icon_settings
+				<= Person_icon $mol_icon_account
 		<= Project_add $mol_button_minor
 			hint @ \Add project
 			click? <=> project_add? null

@@ -48,6 +48,42 @@ namespace $.$$ {
 			this.project().page_add(copy)
 		}
 
+		editor_list() {
+			return [...this.project().land().lords()].map( id => this.Editor_link(id) )
+		}
+
+		editor_id(id: $mol_int62_string) {
+			return id
+		}
+
+		editor_name(id: $mol_int62_string) {
+			if (id === '0_0') return super.editor_name(id)
+			return this.domain().person(id).name()
+		}
+
+		editor_fill_all() {
+			this.editor_add_id('0_0')
+		}
+
+		editor_add_filled() {
+			return this.editor_add_id().length > 0
+		}
+
+		editor_add_submit() {
+			const peer = this.editor_add_id() as $mol_int62_string
+
+			this.project().land().level(peer, $hyoo_crowd_peer_level.mod)
+			for (const page of this.project().pages()) {
+				page.land().level(peer, $hyoo_crowd_peer_level.mod)
+				
+				for (const element of page.elements()) {
+					element.land().level(peer, $hyoo_crowd_peer_level.mod)
+				}
+			}
+			
+			this.editor_add_id('')
+		}
+
 	}
 
 }

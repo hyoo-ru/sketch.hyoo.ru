@@ -60,7 +60,6 @@ namespace $.$$ {
 			if (this.paper_selected() || !this.selected()) {
 				return {
 					'page': this.Page_options(),
-					'project': this.Project_options(),
 					'delete': this.Delete_options(),
 				}
 			}

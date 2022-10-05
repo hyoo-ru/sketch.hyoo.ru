@@ -50,11 +50,6 @@ $hyoo_sketch_editor $mol_page
 			Control <= Delete_control $mol_button_major
 				click? <=> page_delete? null
 				title @ \delete
-	Project_options /
-		<= Project_name $hyoo_sketch_option
-			name @ \Project
-			Control <= Project_name_control $mol_string
-				value?val <=> project_name?val \
 	Options *
 	body /
 		<= Paper $hyoo_sketch_editor_paper

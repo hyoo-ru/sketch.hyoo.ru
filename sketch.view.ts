@@ -8,6 +8,7 @@ namespace $.$$ {
 			return {
 				project: dict.project as $mol_int62_string,
 				page: dict.page as $mol_int62_string,
+				person: dict.person as $mol_int62_string,
 			}
 		}
 
@@ -19,6 +20,10 @@ namespace $.$$ {
 			return this.domain().page( this.arg().page )
 		}
 
+		person_opened() {
+			return this.domain().person( this.arg().person )
+		}
+
 		pages() {
 			const demo_pages = this.$.$mol_state_arg.value('demo')?.split(',') ?? []
 			if (demo_pages.length) {
@@ -27,6 +32,7 @@ namespace $.$$ {
 
 			return [
 				this.Projects(),
+				... this.arg().person ? [this.Person()] : [], 
 				... this.arg().project ? [this.Project()] : [],
 				... this.arg().page ? [
 					this.Palette(),
