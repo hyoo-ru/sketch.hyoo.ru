@@ -20,7 +20,7 @@ $hyoo_sketch_project_list $mol_page
 		<= Online $hyoo_sync_online
 			yard <= yard $hyoo_sync_client
 		<= Source $mol_link_source
-			uri \https://github.com/hyoo-ru/page.hyoo.ru/
+			uri \https://github.com/hyoo-ru/sketch.hyoo.ru/
 		<= Lights $mol_lights_toggle
 	Project* $mol_link
 		arg *
