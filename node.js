@@ -8531,7 +8531,7 @@ var $;
             return this.response(input, init).json();
         }
         static buffer(input, init) {
-            this.response(input, init).buffer();
+            return this.response(input, init).buffer();
         }
         static xml(input, init) {
             return this.response(input, init).xml();
@@ -19803,6 +19803,22 @@ var $;
             const copy = obj.duplicate();
             this.page_add(copy);
         }
+        editors() {
+            return [...this.land().lords()];
+        }
+        authors() {
+            const set = this.land().authors();
+            for (const page of this.pages()) {
+                page.land().authors().forEach(id => set.add(id));
+                for (const element of page.elements()) {
+                    element.land().authors().forEach(id => set.add(id));
+                }
+            }
+            return [...set].map(id => this.domain().person(id));
+        }
+        access_public() {
+            return this.editors().findIndex(id => id === '0_0') !== -1;
+        }
     }
     __decorate([
         $mol_mem
@@ -19822,6 +19838,15 @@ var $;
     __decorate([
         $mol_action
     ], $hyoo_sketch_project.prototype, "page_duplicate", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_project.prototype, "editors", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_project.prototype, "authors", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_project.prototype, "access_public", null);
     $.$hyoo_sketch_project = $hyoo_sketch_project;
 })($ || ($ = {}));
 //hyoo/sketch/project/project.ts
@@ -19849,6 +19874,24 @@ var $;
         project_delete(obj) {
             this.projects_node().drop(obj.id());
         }
+        current() {
+            return this.domain().user().id() === this.id();
+        }
+        online() {
+            const moment = this.online_time();
+            if (!moment)
+                return false;
+            const now = this.$.$mol_state_time.now(5_000);
+            console.log({ moment: moment.toString(), now, r: now - moment.valueOf() });
+            return (now - moment.valueOf() < 5_000);
+        }
+        online_time() {
+            const stamp = this.land().clock_data.last_stamp();
+            return stamp ? new $mol_time_moment(stamp) : null;
+        }
+        cursor_position(next) {
+            return this.state().sub('cursor_postion', $hyoo_crowd_reg).value(next);
+        }
     }
     __decorate([
         $mol_mem
@@ -19868,6 +19911,18 @@ var $;
     __decorate([
         $mol_action
     ], $hyoo_sketch_person.prototype, "project_delete", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_person.prototype, "current", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_person.prototype, "online", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_person.prototype, "online_time", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_person.prototype, "cursor_position", null);
     $.$hyoo_sketch_person = $hyoo_sketch_person;
 })($ || ($ = {}));
 //hyoo/sketch/person/person.ts
@@ -20613,6 +20668,99 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    class $hyoo_sketch_person_avatar extends $mol_view {
+        id() {
+            return this.person().id();
+        }
+        name() {
+            return this.person().name();
+        }
+        online() {
+            return this.person().online();
+        }
+        person() {
+            const obj = new this.$.$hyoo_sketch_person();
+            return obj;
+        }
+        sub() {
+            return [
+                this.Avatar(),
+                this.Name(),
+                this.Online()
+            ];
+        }
+        Avatar() {
+            const obj = new this.$.$mol_avatar();
+            obj.id = () => this.id();
+            return obj;
+        }
+        Name() {
+            const obj = new this.$.$mol_paragraph();
+            obj.title = () => this.name();
+            return obj;
+        }
+        Online() {
+            const obj = new this.$.$mol_speck();
+            obj.value = () => this.$.$mol_locale.text('$hyoo_sketch_person_avatar_Online_value');
+            return obj;
+        }
+    }
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_person_avatar.prototype, "person", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_person_avatar.prototype, "Avatar", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_person_avatar.prototype, "Name", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_person_avatar.prototype, "Online", null);
+    $.$hyoo_sketch_person_avatar = $hyoo_sketch_person_avatar;
+})($ || ($ = {}));
+//hyoo/sketch/person/avatar/-view.tree/avatar.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        $mol_style_define($hyoo_sketch_person_avatar, {
+            Online: {
+                position: 'static',
+            },
+            Avatar: {
+                margin: {
+                    right: $mol_gap.space,
+                }
+            }
+        });
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//hyoo/sketch/person/avatar/avatar.view.css.ts
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $hyoo_sketch_person_avatar extends $.$hyoo_sketch_person_avatar {
+            name_content() {
+                return [
+                    this.name(),
+                    ...this.person().online() ? [this.Online()] : []
+                ];
+            }
+        }
+        $$.$hyoo_sketch_person_avatar = $hyoo_sketch_person_avatar;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//hyoo/sketch/person/avatar/avatar.view.ts
+;
+"use strict";
+var $;
+(function ($) {
     class $hyoo_sketch_project_page extends $mol_page {
         project_name(next) {
             return this.project().name(next);
@@ -20641,6 +20789,9 @@ var $;
                 this.Pages(),
                 this.Settings()
             ];
+        }
+        label_allowed_anyone() {
+            return this.$.$mol_locale.text('$hyoo_sketch_project_page_label_allowed_anyone');
         }
         Row(id) {
             const obj = new this.$.$mol_bar();
@@ -20747,6 +20898,9 @@ var $;
             obj.control = () => this.Project_name_control();
             return obj;
         }
+        editor_add_bid() {
+            return this.$.$mol_locale.text('$hyoo_sketch_project_page_editor_add_bid');
+        }
         editor_add_id(next) {
             if (next !== undefined)
                 return next;
@@ -20758,7 +20912,7 @@ var $;
             obj.value = (next) => this.editor_add_id(next);
             return obj;
         }
-        editor_add_filled() {
+        editor_add_submut_enabled() {
             return false;
         }
         editor_add_submit(next) {
@@ -20772,7 +20926,7 @@ var $;
         }
         Editor_add_submit() {
             const obj = new this.$.$mol_button_major();
-            obj.enabled = () => this.editor_add_filled();
+            obj.enabled = () => this.editor_add_submut_enabled();
             obj.click = (next) => this.editor_add_submit(next);
             obj.sub = () => [
                 this.Editor_add_icon()
@@ -20798,37 +20952,34 @@ var $;
             obj.click = (next) => this.editor_fill_all(next);
             return obj;
         }
-        Editor_add_form() {
-            const obj = new this.$.$mol_list();
-            obj.rows = () => [
+        editor_add_rows() {
+            return [
                 this.Editor_add_bar(),
                 this.Editor_fill_all()
             ];
+        }
+        Editor_add_form() {
+            const obj = new this.$.$mol_list();
+            obj.rows = () => this.editor_add_rows();
             return obj;
         }
         Editor_add_field() {
             const obj = new this.$.$mol_form_field();
             obj.name = () => this.$.$mol_locale.text('$hyoo_sketch_project_page_Editor_add_field_name');
-            obj.bid = () => this.$.$mol_locale.text('$hyoo_sketch_project_page_Editor_add_field_bid');
+            obj.bid = () => this.editor_add_bid();
             obj.Content = () => this.Editor_add_form();
             return obj;
         }
         editor_id(id) {
             return "";
         }
-        Editor_avatar(id) {
-            const obj = new this.$.$mol_avatar();
-            obj.id = () => this.editor_id(id);
+        person(id) {
+            const obj = new this.$.$hyoo_sketch_person();
             return obj;
         }
-        editor_name(id) {
-            return this.$.$mol_locale.text('$hyoo_sketch_project_page_editor_name');
-        }
-        Editor_name(id) {
-            const obj = new this.$.$mol_view();
-            obj.sub = () => [
-                this.editor_name(id)
-            ];
+        Editor_avatar(id) {
+            const obj = new this.$.$hyoo_sketch_person_avatar();
+            obj.person = () => this.person(id);
             return obj;
         }
         Editor_link(id) {
@@ -20837,8 +20988,7 @@ var $;
                 person: this.editor_id(id)
             });
             obj.sub = () => [
-                this.Editor_avatar(id),
-                this.Editor_name(id)
+                this.Editor_avatar(id)
             ];
             return obj;
         }
@@ -20985,10 +21135,10 @@ var $;
     ], $hyoo_sketch_project_page.prototype, "Editor_add_field", null);
     __decorate([
         $mol_mem_key
-    ], $hyoo_sketch_project_page.prototype, "Editor_avatar", null);
+    ], $hyoo_sketch_project_page.prototype, "person", null);
     __decorate([
         $mol_mem_key
-    ], $hyoo_sketch_project_page.prototype, "Editor_name", null);
+    ], $hyoo_sketch_project_page.prototype, "Editor_avatar", null);
     __decorate([
         $mol_mem_key
     ], $hyoo_sketch_project_page.prototype, "Editor_link", null);
@@ -21161,6 +21311,9 @@ var $;
             user() {
                 return this.domain().user();
             }
+            person(id) {
+                return this.domain().person(id);
+            }
             pages() {
                 return this.project().pages().map(obj => this.Row(obj.id()));
             }
@@ -21196,21 +21349,28 @@ var $;
                 this.project().page_add(copy);
             }
             editor_list() {
-                return [...this.project().land().lords()].map(id => this.Editor_link(id));
+                const list = this.project().authors();
+                return list.filter(obj => obj.id() !== '0_0').map(obj => this.Editor_link(obj.id()));
             }
             editor_id(id) {
                 return id;
             }
-            editor_name(id) {
-                if (id === '0_0')
-                    return super.editor_name(id);
-                return this.domain().person(id).name();
+            editor_add_bid() {
+                if (this.project().access_public())
+                    return this.label_allowed_anyone();
+                return this.editor_add_id() ? super.editor_add_bid() : '';
             }
             editor_fill_all() {
                 this.editor_add_id('0_0');
             }
-            editor_add_filled() {
-                return this.editor_add_id().length > 0;
+            editor_add_submit_enabled() {
+                return this.editor_add_id().length > 0 && this.project().access_public() === false;
+            }
+            editor_add_rows() {
+                return [
+                    this.Editor_add_bar(),
+                    ...this.project().access_public() ? [] : [this.Editor_fill_all()]
+                ];
             }
             editor_add_submit() {
                 const peer = this.editor_add_id();
@@ -21624,7 +21784,112 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    class $hyoo_sketch extends $mol_book2 {
+    class $mol_icon_cursor_default extends $mol_icon {
+        path() {
+            return "M13.64,21.97C13.14,22.21 12.54,22 12.31,21.5L10.13,16.76L7.62,18.78C7.45,18.92 7.24,19 7,19C6.45,19 6,18.55 6,18V3C6,2.45 6.45,2 7,2C7.24,2 7.47,2.09 7.64,2.23L7.65,2.22L19.14,11.86C19.57,12.22 19.62,12.85 19.27,13.27C19.12,13.45 18.91,13.57 18.7,13.61L15.54,14.23L17.74,18.96C18,19.46 17.76,20.05 17.26,20.28L13.64,21.97Z";
+        }
+    }
+    $.$mol_icon_cursor_default = $mol_icon_cursor_default;
+})($ || ($ = {}));
+//mol/icon/cursor/default/-view.tree/default.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $hyoo_sketch_person_cursor extends $hyoo_sketch_person_avatar {
+        book_scroll_left() {
+            return 0;
+        }
+        book_scroll_top() {
+            return 0;
+        }
+        sub() {
+            return [
+                this.Cursor(),
+                this.Avatar(),
+                this.Name()
+            ];
+        }
+        Cursor() {
+            const obj = new this.$.$mol_icon_cursor_default();
+            return obj;
+        }
+    }
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_person_cursor.prototype, "Cursor", null);
+    $.$hyoo_sketch_person_cursor = $hyoo_sketch_person_cursor;
+})($ || ($ = {}));
+//hyoo/sketch/person/cursor/-view.tree/cursor.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        const { rem } = $mol_style_unit;
+        $mol_style_define($hyoo_sketch_person_cursor, {
+            position: 'absolute',
+            pointerEvents: 'none',
+            alignItems: 'flex-end',
+            transition: 'all 0.5s ease-out 0s',
+            Cursor: {
+                height: rem(1.5),
+                width: rem(1.5),
+            },
+        });
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//hyoo/sketch/person/cursor/cursor.view.css.ts
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $hyoo_sketch_person_cursor extends $.$hyoo_sketch_person_cursor {
+            position_set() {
+                const { clientHeight, clientWidth } = $mol_dom_context.document.documentElement;
+                const node = this.dom_node();
+                const pos = this.person().cursor_position();
+                node.style.left = (pos.x) * clientWidth + 'px';
+                node.style.top = (pos.y) * clientHeight + 'px';
+            }
+            auto() {
+                this.position_set();
+            }
+        }
+        __decorate([
+            $mol_mem
+        ], $hyoo_sketch_person_cursor.prototype, "position_set", null);
+        $$.$hyoo_sketch_person_cursor = $hyoo_sketch_person_cursor;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//hyoo/sketch/person/cursor/cursor.view.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $hyoo_sketch extends $mol_view {
+        sub() {
+            return [
+                this.Book(),
+                this.Cursors()
+            ];
+        }
+        Cursors() {
+            return this.Book().Cursors();
+        }
+        Book() {
+            const obj = new this.$.$hyoo_sketch_book();
+            return obj;
+        }
+    }
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch.prototype, "Book", null);
+    $.$hyoo_sketch = $hyoo_sketch;
+    class $hyoo_sketch_book extends $mol_book2 {
         user() {
             return this.domain().user();
         }
@@ -21642,6 +21907,12 @@ var $;
             return [
                 this.Theme()
             ];
+        }
+        event() {
+            return {
+                ...super.event(),
+                mousemove: (next) => this.cursor_move(next)
+            };
         }
         pages() {
             return [
@@ -21662,13 +21933,23 @@ var $;
             ];
             return obj;
         }
+        Cursors() {
+            const obj = new this.$.$mol_view();
+            obj.sub = () => this.cursors();
+            return obj;
+        }
         Theme() {
             const obj = new this.$.$mol_theme_auto();
             return obj;
         }
+        cursor_move(next) {
+            if (next !== undefined)
+                return next;
+            return null;
+        }
         Projects() {
             const obj = new this.$.$hyoo_sketch_project_list();
-            obj.title = () => this.$.$mol_locale.text('$hyoo_sketch_Projects_title');
+            obj.title = () => this.$.$mol_locale.text('$hyoo_sketch_book_Projects_title');
             obj.person = () => this.user();
             return obj;
         }
@@ -21732,47 +22013,75 @@ var $;
             obj.sub = () => this.demo_page_elements(id);
             return obj;
         }
+        person(id) {
+            const obj = new this.$.$hyoo_sketch_person();
+            return obj;
+        }
+        Cursor(id) {
+            const obj = new this.$.$hyoo_sketch_person_cursor();
+            obj.person = () => this.person(id);
+            obj.book_scroll_left = () => this.scroll_left();
+            obj.book_scroll_top = () => this.scroll_top();
+            return obj;
+        }
+        cursors() {
+            return [
+                this.Cursor("0_0")
+            ];
+        }
     }
     __decorate([
         $mol_mem
-    ], $hyoo_sketch.prototype, "domain", null);
+    ], $hyoo_sketch_book.prototype, "domain", null);
     __decorate([
         $mol_mem_key
-    ], $hyoo_sketch.prototype, "Demo_page", null);
+    ], $hyoo_sketch_book.prototype, "Demo_page", null);
     __decorate([
         $mol_mem
-    ], $hyoo_sketch.prototype, "Theme", null);
+    ], $hyoo_sketch_book.prototype, "Cursors", null);
     __decorate([
         $mol_mem
-    ], $hyoo_sketch.prototype, "Projects", null);
+    ], $hyoo_sketch_book.prototype, "Theme", null);
     __decorate([
         $mol_mem
-    ], $hyoo_sketch.prototype, "project_opened", null);
+    ], $hyoo_sketch_book.prototype, "cursor_move", null);
     __decorate([
         $mol_mem
-    ], $hyoo_sketch.prototype, "Project", null);
+    ], $hyoo_sketch_book.prototype, "Projects", null);
     __decorate([
         $mol_mem
-    ], $hyoo_sketch.prototype, "page_opened", null);
+    ], $hyoo_sketch_book.prototype, "project_opened", null);
     __decorate([
         $mol_mem
-    ], $hyoo_sketch.prototype, "Editor", null);
+    ], $hyoo_sketch_book.prototype, "Project", null);
     __decorate([
         $mol_mem
-    ], $hyoo_sketch.prototype, "Option_page", null);
+    ], $hyoo_sketch_book.prototype, "page_opened", null);
     __decorate([
         $mol_mem
-    ], $hyoo_sketch.prototype, "Palette", null);
+    ], $hyoo_sketch_book.prototype, "Editor", null);
     __decorate([
         $mol_mem
-    ], $hyoo_sketch.prototype, "person_opened", null);
+    ], $hyoo_sketch_book.prototype, "Option_page", null);
     __decorate([
         $mol_mem
-    ], $hyoo_sketch.prototype, "Person", null);
+    ], $hyoo_sketch_book.prototype, "Palette", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_book.prototype, "person_opened", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_book.prototype, "Person", null);
     __decorate([
         $mol_mem_key
-    ], $hyoo_sketch.prototype, "Demo_page_content", null);
-    $.$hyoo_sketch = $hyoo_sketch;
+    ], $hyoo_sketch_book.prototype, "Demo_page_content", null);
+    __decorate([
+        $mol_mem_key
+    ], $hyoo_sketch_book.prototype, "person", null);
+    __decorate([
+        $mol_mem_key
+    ], $hyoo_sketch_book.prototype, "Cursor", null);
+    $.$hyoo_sketch_book = $hyoo_sketch_book;
 })($ || ($ = {}));
 //hyoo/sketch/-view.tree/sketch.view.tree.ts
 ;
@@ -21783,7 +22092,7 @@ var $;
     (function ($$) {
         const { per, rem, px } = $mol_style_unit;
         const { calc } = $mol_style_func;
-        $mol_style_define($hyoo_sketch, {
+        $mol_style_define($hyoo_sketch_book, {
             Projects: {
                 flex: {
                     shrink: 0,
@@ -21815,6 +22124,13 @@ var $;
                 },
             },
         });
+        $mol_style_define($hyoo_sketch, {
+            Book: {
+                Cursors: {
+                    position: 'absolute',
+                },
+            },
+        });
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
 //hyoo/sketch/sketch.view.css.ts
@@ -21824,7 +22140,10 @@ var $;
 (function ($) {
     var $$;
     (function ($$) {
-        class $hyoo_sketch extends $.$hyoo_sketch {
+        class $hyoo_sketch_book extends $.$hyoo_sketch_book {
+            person(id) {
+                return this.domain().person(id);
+            }
             arg() {
                 const dict = this.$.$mol_state_arg.dict();
                 return {
@@ -21872,8 +22191,26 @@ var $;
                     return element.Preview();
                 });
             }
+            cursors() {
+                return this.project_opened().authors()
+                    .filter(obj => !!obj.cursor_position()
+                    && obj.cursor_position().page === this.page_opened()?.id())
+                    .map(person => this.Cursor(person.id()));
+            }
+            cursor_move(e) {
+                const { clientHeight, clientWidth } = $mol_dom_context.document.documentElement;
+                const pos = {
+                    x: (e.clientX) / clientWidth,
+                    y: (e.clientY) / clientHeight,
+                    page: this.page_opened()?.id()
+                };
+                this.domain().user().cursor_position(pos);
+            }
         }
-        $$.$hyoo_sketch = $hyoo_sketch;
+        __decorate([
+            $mol_mem
+        ], $hyoo_sketch_book.prototype, "cursors", null);
+        $$.$hyoo_sketch_book = $hyoo_sketch_book;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
 //hyoo/sketch/sketch.view.ts

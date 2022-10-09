@@ -1632,6 +1632,19 @@ $mol_form_field $mol_labeler
 			sub / <= bid \
 	Content <= control null
 
+$hyoo_sketch_person_avatar $mol_view
+	person $hyoo_sketch_person
+		id => id
+		name => name
+		online => online
+	sub /
+		<= Avatar $mol_avatar
+			id <= id
+		<= Name $mol_paragraph
+			title <= name
+		<= Online $mol_speck
+			value @ \online
+
 $hyoo_sketch_project_page $mol_page
 	project $hyoo_sketch_project
 		name? => project_name?
@@ -1673,15 +1686,15 @@ $hyoo_sketch_project_page $mol_page
 						value? <=> project_name?
 				<= Editor_add_field $mol_form_field
 					name @ \Add editor
-					bid @ \Permanently
+					bid <= editor_add_bid @ \Permanently
 					Content <= Editor_add_form $mol_list
-						rows /
+						rows <= editor_add_rows /
 							<= Editor_add_bar $mol_bar sub /
 								<= Editor_add_id $mol_string
 									hint @ \User ID
 									value? <=> editor_add_id? \
 								<= Editor_add_submit $mol_button_major
-									enabled <= editor_add_filled false
+									enabled <= editor_add_submut_enabled false
 									click? <=> editor_add_submit? null
 									sub /
 										<= Editor_add_icon $mol_icon_plus
@@ -1695,10 +1708,9 @@ $hyoo_sketch_project_page $mol_page
 							<= Editor_link*0_0 $mol_link
 								arg * person <= editor_id* \
 								sub /
-									<= Editor_avatar* $mol_avatar
-										id <= editor_id*
-									<= Editor_name* $mol_view
-										sub / <= editor_name* @ \All users
+									<= Editor_avatar* $hyoo_sketch_person_avatar
+										person <= person* $hyoo_sketch_person
+	label_allowed_anyone @ \Allowed all
 	Row* $mol_bar
 		sub /
 			<= Link* $mol_link
@@ -1790,13 +1802,32 @@ $hyoo_sketch_person_page $mol_page
 				value? <=> name?
 				enabled <= editable false
 
-$hyoo_sketch $mol_book2
+$mol_icon_cursor_default $mol_icon path \M13.64,21.97C13.14,22.21 12.54,22 12.31,21.5L10.13,16.76L7.62,18.78C7.45,18.92 7.24,19 7,19C6.45,19 6,18.55 6,18V3C6,2.45 6.45,2 7,2C7.24,2 7.47,2.09 7.64,2.23L7.65,2.22L19.14,11.86C19.57,12.22 19.62,12.85 19.27,13.27C19.12,13.45 18.91,13.57 18.7,13.61L15.54,14.23L17.74,18.96C18,19.46 17.76,20.05 17.26,20.28L13.64,21.97Z
+
+$hyoo_sketch_person_cursor $hyoo_sketch_person_avatar
+	book_scroll_left 0
+	book_scroll_top 0
+	sub /
+		<= Cursor $mol_icon_cursor_default
+		<= Avatar
+		<= Name
+
+$hyoo_sketch $mol_view
+	sub /
+		<= Book $hyoo_sketch_book
+			Cursors => Cursors
+		<= Cursors
+
+$hyoo_sketch_book $mol_book2
 	domain $hyoo_sketch_domain
 		user => user
 		project* => project*
 		page* => page*
 	plugins /
 		<= Theme $mol_theme_auto
+	event *
+		^
+		mousemove? <=> cursor_move? null
 	pages /
 		<= Projects $hyoo_sketch_project_list
 			title @ \Sketch
@@ -1821,3 +1852,9 @@ $hyoo_sketch $mol_book2
 				style *
 					width <= demo_page_width* +NaN
 				sub <= demo_page_elements* /
+	Cursors $mol_view
+		sub <= cursors /
+			<= Cursor*0_0 $hyoo_sketch_person_cursor
+				person <= person* $hyoo_sketch_person
+				book_scroll_left <= scroll_left
+				book_scroll_top <= scroll_top

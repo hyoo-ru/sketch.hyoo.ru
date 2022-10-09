@@ -2410,7 +2410,7 @@ declare namespace $ {
         static stream(input: RequestInfo, init?: RequestInit): ReadableStream<Uint8Array> | null;
         static text(input: RequestInfo, init?: RequestInit): string;
         static json(input: RequestInfo, init?: RequestInit): unknown;
-        static buffer(input: RequestInfo, init?: RequestInit): void;
+        static buffer(input: RequestInfo, init?: RequestInit): ArrayBuffer;
         static xml(input: RequestInfo, init?: RequestInit): Document;
         static xhtml(input: RequestInfo, init?: RequestInit): Document;
         static html(input: RequestInfo, init?: RequestInit): Document;
@@ -5315,6 +5315,9 @@ declare namespace $ {
         page_add(obj: $hyoo_sketch_page): void;
         page_delete(obj: $hyoo_sketch_page): void;
         page_duplicate(obj: $hyoo_sketch_page): void;
+        editors(): `${string}_${string}`[];
+        authors(): $hyoo_sketch_person[];
+        access_public(): boolean;
     }
 }
 
@@ -5326,6 +5329,18 @@ declare namespace $ {
         projects(next?: $hyoo_sketch_project[]): $hyoo_sketch_project[];
         project_add(obj: $hyoo_sketch_project): void;
         project_delete(obj: $hyoo_sketch_project): void;
+        current(): boolean;
+        online(): boolean;
+        online_time(): $mol_time_moment | null;
+        cursor_position(next?: {
+            x: number;
+            y: number;
+            page: $mol_int62_string;
+        }): {
+            x: number;
+            y: number;
+            page: $mol_int62_string;
+        } | undefined;
     }
 }
 
@@ -5541,6 +5556,28 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
+    class $hyoo_sketch_person_avatar extends $mol_view {
+        id(): `${string}_${string}`;
+        name(): string;
+        online(): boolean;
+        person(): $hyoo_sketch_person;
+        sub(): readonly any[];
+        Avatar(): $$.$mol_avatar;
+        Name(): $$.$mol_paragraph;
+        Online(): $mol_speck;
+    }
+}
+
+declare namespace $.$$ {
+}
+
+declare namespace $.$$ {
+    class $hyoo_sketch_person_avatar extends $.$hyoo_sketch_person_avatar {
+        name_content(): (string | $mol_speck)[];
+    }
+}
+
+declare namespace $ {
     class $hyoo_sketch_project_page extends $mol_page {
         project_name(next?: any): string;
         domain(): $hyoo_sketch_domain;
@@ -5549,6 +5586,7 @@ declare namespace $ {
         page_name_default(): string;
         tools(): readonly any[];
         body(): readonly any[];
+        label_allowed_anyone(): string;
         Row(id: any): $mol_bar;
         Project_pin_icon(): $mol_icon_eye;
         project_pin(val?: any): boolean;
@@ -5566,21 +5604,22 @@ declare namespace $ {
         settings_expanded(next?: any): boolean;
         Project_name_control(): $$.$mol_string;
         Project_name_field(): $$.$mol_form_field;
+        editor_add_bid(): string;
         editor_add_id(next?: any): string;
         Editor_add_id(): $$.$mol_string;
-        editor_add_filled(): boolean;
+        editor_add_submut_enabled(): boolean;
         editor_add_submit(next?: any): any;
         Editor_add_icon(): $mol_icon_plus;
         Editor_add_submit(): $mol_button_major;
         Editor_add_bar(): $mol_bar;
         editor_fill_all(next?: any): any;
         Editor_fill_all(): $mol_button_minor;
+        editor_add_rows(): readonly any[];
         Editor_add_form(): $$.$mol_list;
         Editor_add_field(): $$.$mol_form_field;
         editor_id(id: any): string;
-        Editor_avatar(id: any): $$.$mol_avatar;
-        editor_name(id: any): string;
-        Editor_name(id: any): $mol_view;
+        person(id: any): $hyoo_sketch_person;
+        Editor_avatar(id: any): $$.$hyoo_sketch_person_avatar;
         Editor_link(id: any): $$.$mol_link;
         editor_list(): readonly any[];
         Editor_list(): $$.$mol_list;
@@ -5631,6 +5670,7 @@ declare namespace $.$$ {
 declare namespace $.$$ {
     class $hyoo_sketch_project_page extends $.$hyoo_sketch_project_page {
         user(): $hyoo_sketch_person;
+        person(id: $mol_int62_string): $hyoo_sketch_person;
         pages(): $mol_bar[];
         page_id(id: $mol_int62_string): `${string}_${string}`;
         page_name(id: $mol_int62_string): string;
@@ -5640,9 +5680,10 @@ declare namespace $.$$ {
         page_copy(id: $mol_int62_string): void;
         editor_list(): $mol_link[];
         editor_id(id: $mol_int62_string): `${string}_${string}`;
-        editor_name(id: $mol_int62_string): string;
+        editor_add_bid(): string;
         editor_fill_all(): void;
-        editor_add_filled(): boolean;
+        editor_add_submit_enabled(): boolean;
+        editor_add_rows(): ($mol_button_minor | $mol_bar)[];
         editor_add_submit(): void;
     }
 }
@@ -5741,15 +5782,51 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
-    class $hyoo_sketch extends $mol_book2 {
+    class $mol_icon_cursor_default extends $mol_icon {
+        path(): string;
+    }
+}
+
+declare namespace $ {
+    class $hyoo_sketch_person_cursor extends $hyoo_sketch_person_avatar {
+        book_scroll_left(): number;
+        book_scroll_top(): number;
+        sub(): readonly any[];
+        Cursor(): $mol_icon_cursor_default;
+    }
+}
+
+declare namespace $.$$ {
+}
+
+declare namespace $.$$ {
+    class $hyoo_sketch_person_cursor extends $.$hyoo_sketch_person_cursor {
+        position_set(): void;
+        auto(): void;
+    }
+}
+
+declare namespace $ {
+    class $hyoo_sketch extends $mol_view {
+        sub(): readonly any[];
+        Cursors(): $mol_view;
+        Book(): $$.$hyoo_sketch_book;
+    }
+    class $hyoo_sketch_book extends $mol_book2 {
         user(): $hyoo_sketch_person;
         project(id: any): $hyoo_sketch_project;
         page(id: any): $hyoo_sketch_page;
         domain(): $hyoo_sketch_domain;
         plugins(): readonly any[];
+        event(): {
+            mousemove: (next?: any) => any;
+            scroll: (event?: any) => any;
+        };
         pages(): readonly any[];
         Demo_page(id: any): $mol_page;
+        Cursors(): $mol_view;
         Theme(): $$.$mol_theme_auto;
+        cursor_move(next?: any): any;
         Projects(): $$.$hyoo_sketch_project_list;
         project_opened(): $hyoo_sketch_project;
         Project(): $$.$hyoo_sketch_project_page;
@@ -5773,6 +5850,9 @@ declare namespace $ {
         demo_page_width(id: any): number;
         demo_page_elements(id: any): readonly any[];
         Demo_page_content(id: any): $mol_view;
+        person(id: any): $hyoo_sketch_person;
+        Cursor(id: any): $$.$hyoo_sketch_person_cursor;
+        cursors(): readonly any[];
     }
 }
 
@@ -5780,7 +5860,8 @@ declare namespace $.$$ {
 }
 
 declare namespace $.$$ {
-    class $hyoo_sketch extends $.$hyoo_sketch {
+    class $hyoo_sketch_book extends $.$hyoo_sketch_book {
+        person(id: $mol_int62_string): $hyoo_sketch_person;
         arg(): {
             project: `${string}_${string}`;
             page: `${string}_${string}`;
@@ -5793,6 +5874,8 @@ declare namespace $.$$ {
         demo_page_title(id: $mol_int62_string): string;
         demo_page_width(id: $mol_int62_string): number;
         demo_page_elements(id: $mol_int62_string): $mol_view[];
+        cursors(): $hyoo_sketch_person_cursor[];
+        cursor_move(e: MouseEvent): void;
     }
 }
 

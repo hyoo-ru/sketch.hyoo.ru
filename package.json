@@ -337,10 +337,14 @@
     "$mol_form_field",
     "$mol_form",
     "$mol_labeler",
+    "$hyoo_sketch_person_avatar",
     "$hyoo_sketch_option_page",
     "$mol_deck",
     "$hyoo_sketch_palette",
-    "$hyoo_sketch_person_page"
+    "$hyoo_sketch_person_page",
+    "$hyoo_sketch_person_cursor",
+    "$mol_icon_cursor_default",
+    "$mol_icon_cursor"
   ],
   "dependencies": {
     "jsdom": "*",
