@@ -6,6 +6,10 @@ namespace $.$$ {
 			return this.domain().user()
 		}
 
+		person(id: $mol_int62_string) {
+			return this.domain().person(id)
+		}
+
 		pages() {
 			return this.project().pages().map( obj => this.Row( obj.id() ) )
 		}
@@ -49,24 +53,32 @@ namespace $.$$ {
 		}
 
 		editor_list() {
-			return [...this.project().land().lords()].map( id => this.Editor_link(id) )
+			const list = this.project().authors()
+			return list.filter( obj => obj.id() !== '0_0' ).map( obj => this.Editor_link(obj.id()) )
 		}
 
 		editor_id(id: $mol_int62_string) {
 			return id
 		}
 
-		editor_name(id: $mol_int62_string) {
-			if (id === '0_0') return super.editor_name(id)
-			return this.domain().person(id).name()
+		editor_add_bid() {
+			if (this.project().access_public()) return this.label_allowed_anyone()
+			return this.editor_add_id() ? super.editor_add_bid() : ''
 		}
 
 		editor_fill_all() {
 			this.editor_add_id('0_0')
 		}
 
-		editor_add_filled() {
-			return this.editor_add_id().length > 0
+		editor_add_submit_enabled() {
+			return this.editor_add_id().length > 0 && this.project().access_public() === false
+		}
+
+		editor_add_rows() {
+			return [
+				this.Editor_add_bar(),
+				... this.project().access_public() ? [] : [this.Editor_fill_all()]
+			]
 		}
 
 		editor_add_submit() {

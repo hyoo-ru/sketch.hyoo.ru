@@ -1,5 +1,5 @@
 namespace $ {
-	
+
 	export class $hyoo_sketch_person extends $hyoo_sketch_entity {
 		
 		@ $mol_mem
@@ -32,7 +32,32 @@ namespace $ {
 		project_delete( obj: $hyoo_sketch_project ) {
 			this.projects_node().drop( obj.id() )
 		}
+
+		@ $mol_mem
+		current() {
+			return this.domain().user().id() === this.id()
+		}
+
+		@ $mol_mem
+		online() {
+			const moment = this.online_time()
+			if( !moment ) return false
+			
+			const now = this.$.$mol_state_time.now( 5_000 )
+			console.log({ moment: moment.toString(), now, r: now - moment.valueOf() })
+			return ( now - moment.valueOf() < 5_000 )
+		}
 		
+		@ $mol_mem
+		online_time() {
+			const stamp = this.land().clock_data.last_stamp()
+			return stamp ? new $mol_time_moment( stamp ) : null
+		}
+		
+		@ $mol_mem
+		cursor_position(next?: { x: number, y: number, page: $mol_int62_string }) {
+			return this.state().sub( 'cursor_postion', $hyoo_crowd_reg ).value(next) as typeof next
+		}
 	}
 	
 }

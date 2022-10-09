@@ -34,6 +34,29 @@ namespace $ {
 			const copy = obj.duplicate()
 			this.page_add( copy )
 		}
+
+		@ $mol_mem
+		editors() {
+			return [...this.land().lords()]
+		}
+
+		@ $mol_mem
+		authors() {
+			const set = this.land().authors()
+			for (const page of this.pages()) {
+				page.land().authors().forEach( id => set.add(id) )
+				for (const element of page.elements()) {
+					element.land().authors().forEach( id => set.add(id) )
+				}
+			}
+			return [...set].map( id => this.domain().person(id) )
+		}
+
+		@ $mol_mem
+		access_public() {
+			return this.editors().findIndex( id => id === '0_0' ) !== -1
+		}
+
 		
 	}
 	

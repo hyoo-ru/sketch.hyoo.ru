@@ -1,0 +1,7 @@
+$hyoo_sketch_person_cursor $hyoo_sketch_person_avatar
+	book_scroll_left 0
+	book_scroll_top 0
+	sub /
+		<= Cursor $mol_icon_cursor_default
+		<= Avatar
+		<= Name

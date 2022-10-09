@@ -1,0 +1,12 @@
+$hyoo_sketch_person_avatar $mol_view
+	person $hyoo_sketch_person
+		id => id
+		name => name
+		online => online
+	sub /
+		<= Avatar $mol_avatar
+			id <= id
+		<= Name $mol_paragraph
+			title <= name
+		<= Online $mol_speck
+			value @ \online

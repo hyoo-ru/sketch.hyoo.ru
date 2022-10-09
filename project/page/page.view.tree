@@ -39,15 +39,15 @@ $hyoo_sketch_project_page $mol_page
 						value? <=> project_name?
 				<= Editor_add_field $mol_form_field
 					name @ \Add editor
-					bid @ \Permanently
+					bid <= editor_add_bid @ \Permanently
 					Content <= Editor_add_form $mol_list
-						rows /
+						rows <= editor_add_rows /
 							<= Editor_add_bar $mol_bar sub /
 								<= Editor_add_id $mol_string
 									hint @ \User ID
 									value? <=> editor_add_id? \
 								<= Editor_add_submit $mol_button_major
-									enabled <= editor_add_filled false
+									enabled <= editor_add_submut_enabled false
 									click? <=> editor_add_submit? null
 									sub /
 										<= Editor_add_icon $mol_icon_plus
@@ -61,10 +61,9 @@ $hyoo_sketch_project_page $mol_page
 							<= Editor_link*0_0 $mol_link
 								arg * person <= editor_id* \
 								sub /
-									<= Editor_avatar* $mol_avatar
-										id <= editor_id*
-									<= Editor_name* $mol_view
-										sub / <= editor_name* @ \All users
+									<= Editor_avatar* $hyoo_sketch_person_avatar
+										person <= person* $hyoo_sketch_person
+	label_allowed_anyone @ \Allowed all
 	Row* $mol_bar
 		sub /
 			<= Link* $mol_link
