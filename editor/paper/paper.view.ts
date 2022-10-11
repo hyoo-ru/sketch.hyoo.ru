@@ -43,7 +43,8 @@ namespace $.$$ {
 		cursors() {
 			return this.page().project().authors()
 				.filter( obj =>
-					!!obj.cursor_position()
+					obj.id() !== this.page().domain().user().id()
+					&& !!obj.cursor_position()
 					&& obj.cursor_position()!.page === this.page()?.id()
 				)
 				.map( person => this.Cursor(person.id()) )
