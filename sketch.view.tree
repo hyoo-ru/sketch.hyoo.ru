@@ -1,10 +1,4 @@
-$hyoo_sketch $mol_view
-	sub /
-		<= Book $hyoo_sketch_book
-			Cursors => Cursors
-		<= Cursors
-
-$hyoo_sketch_book $mol_book2
+$hyoo_sketch $mol_book2
 	domain $hyoo_sketch_domain
 		user => user
 		project* => project*
@@ -38,9 +32,3 @@ $hyoo_sketch_book $mol_book2
 				style *
 					width <= demo_page_width* +NaN
 				sub <= demo_page_elements* /
-	Cursors $mol_view
-		sub <= cursors /
-			<= Cursor*0_0 $hyoo_sketch_person_cursor
-				person <= person* $hyoo_sketch_person
-				book_scroll_left <= scroll_left
-				book_scroll_top <= scroll_top

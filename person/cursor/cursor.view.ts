@@ -4,12 +4,11 @@ namespace $.$$ {
 
 		@ $mol_mem
 		position_set() {
-			const { clientHeight, clientWidth } = $mol_dom_context.document.documentElement
 			const node = this.dom_node() as HTMLElement
 			const pos = this.person().cursor_position()
 
-			node.style.left = ( pos!.x ) * clientWidth + 'px'
-			node.style.top = ( pos!.y )* clientHeight + 'px'
+			node.style.left = pos!.x + 'px'
+			node.style.top = pos!.y + 'px'
 		}
 
 		auto() {

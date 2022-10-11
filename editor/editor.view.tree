@@ -53,12 +53,13 @@ $hyoo_sketch_editor $mol_page
 	Options *
 	body /
 		<= Paper $hyoo_sketch_editor_paper
+			page <= page
 			width <= width
 			height <= height
 			grid <= grid
 			preview <= preview
 			selected? <=> paper_selected? false
-			sub / <= Elements $mol_view sub <= elements /
+			content / <= Elements $mol_view sub <= elements /
 	Element_base* $hyoo_sketch_element_base
 	Element_text* $hyoo_sketch_element_text
 	Element_icon* $hyoo_sketch_element_icon

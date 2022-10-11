@@ -3,7 +3,7 @@ namespace $.$$ {
 	const { per, rem, px } = $mol_style_unit
 	const { calc } = $mol_style_func
 
-	$mol_style_define( $hyoo_sketch_book , {
+	$mol_style_define( $hyoo_sketch , {
 
 		Projects: {
 			flex: {
@@ -41,15 +41,5 @@ namespace $.$$ {
 		},
 
 	} ) 
-
-	$mol_style_define( $hyoo_sketch , {
-
-		Book: {
-			Cursors: {
-				position: 'absolute',
-			},
-		},
-
-	} )
 
 }

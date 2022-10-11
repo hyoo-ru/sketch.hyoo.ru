@@ -1,6 +1,6 @@
 namespace $.$$ {
 
-	export class $hyoo_sketch_book extends $.$hyoo_sketch_book {
+	export class $hyoo_sketch extends $.$hyoo_sketch {
 
 		person(id: $mol_int62_string) {
 			return this.domain().person(id)
@@ -61,26 +61,6 @@ namespace $.$$ {
 				element.editing = $mol_const(false)
 				return element.Preview()
 			} )
-		}
-
-		@ $mol_mem
-		cursors() {
-			return this.project_opened().authors()
-				.filter( obj =>
-					!!obj.cursor_position()
-					&& obj.cursor_position()!.page === this.page_opened()?.id()
-				)
-				.map( person => this.Cursor(person.id()) )
-		}
-
-		cursor_move(e: MouseEvent) {
-			const { clientHeight, clientWidth } = $mol_dom_context.document.documentElement
-			const pos = {
-				x: ( e.clientX ) / clientWidth,
-				y: ( e.clientY ) / clientHeight,
-				page: this.page_opened()?.id()
-			}
-			this.domain().user().cursor_position(pos)
 		}
 
 	}

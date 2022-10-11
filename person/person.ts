@@ -55,7 +55,7 @@ namespace $ {
 		}
 		
 		@ $mol_mem
-		cursor_position(next?: { x: number, y: number, page: $mol_int62_string }) {
+		cursor_position(next?: { x: number, y: number, page: $mol_int62_string | null }) {
 			return this.state().sub( 'cursor_postion', $hyoo_crowd_reg ).value(next) as typeof next
 		}
 	}
