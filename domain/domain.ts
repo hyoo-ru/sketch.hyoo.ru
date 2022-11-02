@@ -29,7 +29,7 @@ namespace $ {
 		@ $mol_action
 		element_new( page: $mol_int62_string ) {
 			const project_land = this.yard().land( this.page(page).project().id() )
-			const land = this.yard().land_grab( [...project_land.lords()], [...project_land.authors()] )
+			const land = this.yard().land_grab( [...project_land.peers()], [...project_land.authors()] )
 			return this.element( land.id() )
 		}
 
@@ -41,7 +41,7 @@ namespace $ {
 		@ $mol_action
 		page_new( project: $mol_int62_string ) {
 			const project_land = this.yard().land( project )
-			const land = this.yard().land_grab( [...project_land.lords()], [...project_land.authors()] )
+			const land = this.yard().land_grab( [...project_land.peers()], [...project_land.authors()] )
 			return this.page( land.id() )
 		}
 
