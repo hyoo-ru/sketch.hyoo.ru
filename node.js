@@ -4184,7 +4184,7 @@ var $;
             this.pub.emit();
             return next;
         }
-        lords() {
+        peers() {
             this.pub.promote();
             const lords = [];
             for (const unit of this._unit_all.values()) {
@@ -5318,7 +5318,7 @@ var $;
         }
         element_new(page) {
             const project_land = this.yard().land(this.page(page).project().id());
-            const land = this.yard().land_grab([...project_land.lords()], [...project_land.authors()]);
+            const land = this.yard().land_grab([...project_land.peers()], [...project_land.authors()]);
             return this.element(land.id());
         }
         page(id) {
@@ -5326,7 +5326,7 @@ var $;
         }
         page_new(project) {
             const project_land = this.yard().land(project);
-            const land = this.yard().land_grab([...project_land.lords()], [...project_land.authors()]);
+            const land = this.yard().land_grab([...project_land.peers()], [...project_land.authors()]);
             return this.page(land.id());
         }
         project(id) {
@@ -6012,7 +6012,7 @@ var $;
             this.page_add(copy);
         }
         editors() {
-            return [...this.land().lords()];
+            return [...this.land().peers()];
         }
         authors() {
             const set = this.land().authors();
