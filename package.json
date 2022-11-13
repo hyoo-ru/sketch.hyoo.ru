@@ -164,6 +164,7 @@
     "$mol_string",
     "$mol_hotkey",
     "$mol_keyboard",
+    "$mol_layer",
     "$mol_icon_minus",
     "$mol_button_minor",
     "$mol_button",
