@@ -351,6 +351,6 @@
     "jsdom": "*",
     "fake-indexeddb": "*",
     "chokidar": "*",
-    "node-fetch": "*"
+    "undici": "*"
   }
 }
