@@ -126,10 +126,10 @@ declare namespace $ {
         get $(): $;
         set $(next: $);
         static create<Instance>(this: new (init?: (instance: any) => void) => Instance, init?: (instance: $mol_type_writable<Instance>) => void): Instance;
-        static [Symbol.toPrimitive](): unknown;
-        static toString(): unknown;
+        static [Symbol.toPrimitive](): string;
+        static toString(): string;
         destructor(): void;
-        toString(): any;
+        toString(): string;
         toJSON(): any;
     }
 }
@@ -550,7 +550,7 @@ declare namespace $ {
             top: number;
             bottom: number;
         } | null;
-        dom_id(): any;
+        dom_id(): string;
         dom_node(next?: Element): Element;
         dom_final(): Element | undefined;
         dom_tree(next?: Element): Element;
@@ -2997,15 +2997,15 @@ declare namespace $ {
     export class $mol_regexp<Groups extends Record<string, string>> extends RegExp {
         readonly groups: (Extract<keyof Groups, string>)[];
         constructor(source: string, flags?: string, groups?: (Extract<keyof Groups, string>)[]);
-        [Symbol.matchAll](str: string): IterableIterator<$mol_type_override<RegExpExecArray, {
+        [Symbol.matchAll](str: string): IterableIterator<RegExpMatchArray & $mol_type_override<RegExpMatchArray, {
             groups?: {
                 [key in keyof Groups]: string;
             };
         }>>;
-        [Symbol.match](str: string): null | string[];
+        [Symbol.match](str: string): null | RegExpMatchArray;
         [Symbol.split](str: string): string[];
         test(str: string): boolean;
-        exec(str: string): $mol_type_override<RegExpExecArray, {
+        exec(str: string): RegExpExecArray & $mol_type_override<RegExpExecArray, {
             groups?: {
                 [key in keyof Groups]: string;
             };
@@ -3068,8 +3068,10 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    let $mol_view_tree2_prop_signature: $mol_regexp<{} | {
-        [x: string]: string;
+    let $mol_view_tree2_prop_signature: $mol_regexp<{
+        readonly name: string;
+        readonly key: string;
+        readonly next: string;
     }>;
 }
 
@@ -4959,10 +4961,10 @@ declare namespace $.$$ {
         }[];
         block_type(index: number): string;
         rows(): ($mol_paragraph | $mol_text_code | $mol_grid | $mol_text | $mol_text_header)[];
-        param(): any;
+        param(): string;
         header_level(index: number): string;
         header_arg(index: number): {
-            [x: number]: string;
+            [x: string]: string;
         };
         pre_text(index: number): string;
         quote_text(index: number): string;
