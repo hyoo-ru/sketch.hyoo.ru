@@ -1758,6 +1758,7 @@ $hyoo_sketch_project_page $mol_page
 				sub / <= Copy_icon* $mol_icon_content_copy
 
 $mol_form $mol_list
+	submit_allowed true
 	submit_blocked false
 	event *
 		^
