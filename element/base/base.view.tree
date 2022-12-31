@@ -66,6 +66,7 @@ $hyoo_sketch_element_base_editor $mol_view
 			key *
 				D? <=> duplicate? null
 				delete? <=> delete? null
+				escape? <=> delete? null
 				left? <=> move_left? null
 				up? <=> move_up? null
 				right? <=> move_right? null
