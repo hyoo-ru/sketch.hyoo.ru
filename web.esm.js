@@ -9581,6 +9581,7 @@ var $;
             obj.key = () => ({
                 D: (next) => this.duplicate(next),
                 delete: (next) => this.delete(next),
+                backspace: (next) => this.delete(next),
                 left: (next) => this.move_left(next),
                 up: (next) => this.move_up(next),
                 right: (next) => this.move_right(next),
