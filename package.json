@@ -278,6 +278,7 @@
     "$mol_image",
     "$hyoo_sketch_element_markdown",
     "$mol_text_text",
+    "$mol_text_list",
     "$mol_grid",
     "$mol_float",
     "$mol_check_expand",
