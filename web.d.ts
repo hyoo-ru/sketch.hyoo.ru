@@ -397,6 +397,7 @@ declare namespace $ {
         static solo<Host, Args extends readonly unknown[], Result>(host: Host, task: (this: Host, ...args: Args) => Result): $mol_wire_atom<Host, Args, Result>;
         static plex<Host, Args extends readonly unknown[], Result>(host: Host, task: (this: Host, ...args: Args) => Result, key: Args[0]): $mol_wire_atom<Host, Args, Result>;
         static watching: Set<$mol_wire_atom<any, any, any>>;
+        static watcher: $mol_after_frame | null;
         static watch(): void;
         watch(): void;
         resync(args: Args): Error | Result | Promise<Error | Result>;
@@ -5710,6 +5711,7 @@ declare namespace $ {
     class $mol_expander extends $mol_list {
         rows(): readonly any[];
         expanded(val?: any): boolean;
+        expandable(): boolean;
         label(): readonly any[];
         Trigger(): $$.$mol_check_expand;
         Tools(): any;
@@ -5725,6 +5727,7 @@ declare namespace $ {
 declare namespace $.$$ {
     class $mol_expander extends $.$mol_expander {
         rows(): $mol_view[];
+        expandable(): boolean;
     }
 }
 
