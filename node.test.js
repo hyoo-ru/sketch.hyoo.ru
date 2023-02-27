@@ -3237,7 +3237,7 @@ var $;
 //mol/book2/book2.view.ts
 ;
 "use strict";
-let $hyoo_sync_revision = "b5b9292";
+let $hyoo_sync_revision = "44aabf8";
 //hyoo/sync/-meta.tree/revision.meta.tree.ts
 ;
 "use strict";
@@ -5728,7 +5728,6 @@ var $;
                 justifyContent: 'space-between',
                 flex: 'none',
                 margin: 0,
-                overflow: 'hidden',
                 background: {
                     color: $mol_theme.card,
                 },
@@ -10315,7 +10314,7 @@ var $;
             this.length = length;
             this[Symbol.toStringTag] = `${this.uri}#${this.row}:${this.col}/${this.length}`;
         }
-        static unknown = $mol_span.begin('unknown');
+        static unknown = $mol_span.begin('?');
         static begin(uri, source = '') {
             return new $mol_span(uri, source, 1, 1, 0);
         }
@@ -10385,7 +10384,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    function $mol_tree2_from_string(str, uri = 'unknown') {
+    function $mol_tree2_from_string(str, uri = '?') {
         const span = $mol_span.entire(uri, str);
         var root = $mol_tree2.list([], span);
         var stack = [root];
