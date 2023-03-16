@@ -3863,10 +3863,10 @@ declare namespace $ {
     class $mol_select_list extends $mol_view {
         value(val?: any): readonly string[];
         dictionary(): {};
-        Badges(): readonly $mol_view[];
         badges_list(): readonly $mol_view[];
         Badge(id: any): $mol_button_minor;
         sub(): readonly $mol_view[];
+        Badges(): readonly $mol_view[];
         badge_title(id: any): string;
         remove(id: any, event?: any): any;
         badge_hint(): string;
@@ -4169,8 +4169,8 @@ declare namespace $ {
     class $mol_button_copy extends $mol_button_minor {
         text(): string;
         sub(): readonly any[];
-        Icon(): $mol_icon_clipboard_outline;
         title(): string;
+        Icon(): $mol_icon_clipboard_outline;
     }
 }
 
@@ -4922,17 +4922,18 @@ declare namespace $ {
             src: string;
             srcdoc: any;
             allow: string;
-            allowfullscreen: boolean;
         };
+        fullscreen(): boolean;
         accelerometer(): boolean;
         autoplay(): boolean;
         encription(): boolean;
         gyroscope(): boolean;
         pip(): boolean;
+        clipboard_read(): boolean;
+        clipboard_write(): boolean;
         uri(val?: any): string;
         html(): any;
         allow(): string;
-        fullscreen(): boolean;
     }
 }
 
