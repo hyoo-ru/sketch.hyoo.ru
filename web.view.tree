@@ -870,8 +870,7 @@ $mol_select_list $mol_view
 			trigger_enabled <= pick_enabled <= enabled true
 			hint <= pick_hint @ \Add..
 			Trigger_icon <= Pick_icon $mol_icon_plus
-		^
-			badges_list
+		^ badges_list
 
 $hyoo_sketch_element_select $hyoo_sketch_element_base
 	Option_list $hyoo_sketch_element_options
@@ -1016,7 +1015,7 @@ $mol_text_code $mol_stack
 					highlight <= highlight \
 		<= Copy $mol_button_copy
 			hint @ \Copy whole code
-			text <= text
+			text <= text_export \
 
 $mol_textarea $mol_stack
 	attr *
