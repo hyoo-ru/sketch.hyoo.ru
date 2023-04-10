@@ -1983,7 +1983,7 @@ declare namespace $ {
     class $mol_fetch_response extends $mol_object2 {
         readonly native: Response;
         constructor(native: Response);
-        status(): "success" | "unknown" | "inform" | "redirect" | "wrong" | "failed";
+        status(): "unknown" | "success" | "inform" | "redirect" | "wrong" | "failed";
         code(): number;
         message(): string;
         headers(): Headers;
@@ -2013,8 +2013,8 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    function $mol_huggingface_run(this: $, space: string, method: string | number, ...data: readonly any[]): readonly string[];
-    function $mol_huggingface_async(space: string, method: number, ...data: readonly any[]): Promise<[string]> & {
+    function $mol_huggingface_run(this: $, space: string, method: string | number, ...data: readonly any[]): any[] | readonly string[];
+    function $mol_huggingface_async(space: string, method: number, ...data: readonly any[]): Promise<any[]> & {
         destructor: () => void;
     };
 }
@@ -2032,7 +2032,7 @@ declare namespace $ {
         static lang(next?: string): string;
         static source(lang: string): any;
         static texts(lang: string, next?: $mol_locale_dict): $mol_locale_dict;
-        static text(key: string): {} | null;
+        static text(key: string): string;
         static warn(key: string): null;
     }
 }
@@ -2459,7 +2459,7 @@ declare namespace $ {
 
 declare namespace $ {
     class $mol_link_source extends $mol_link {
-        hint(): {} | null;
+        hint(): string;
         sub(): readonly any[];
         Icon(): $mol_icon_github_circle;
     }
@@ -2519,7 +2519,7 @@ declare namespace $ {
 declare namespace $ {
     class $mol_lights_toggle extends $mol_check_icon {
         Icon(): $mol_icon_brightness_6;
-        hint(): {} | null;
+        hint(): string;
         checked(val?: any): boolean;
         Lights_icon(): $mol_icon_brightness_6;
         lights(val?: any): boolean;
@@ -2536,8 +2536,8 @@ declare namespace $ {
     class $hyoo_sketch_project_list extends $mol_page {
         domain(): $hyoo_sketch_domain;
         person(): $hyoo_sketch_person;
-        title(): {} | null;
-        project_name_default(): {} | null;
+        title(): string;
+        project_name_default(): string;
         tools(): readonly any[];
         body(): readonly any[];
         foot(): readonly any[];
@@ -3462,7 +3462,7 @@ declare namespace $ {
         Option_row(id: any): $mol_button_minor;
         No_options(): $mol_view;
         plugins(): readonly any[];
-        hint(): {} | null;
+        hint(): string;
         bubble_content(): readonly any[];
         Filter(): $$.$mol_string;
         Trigger_icon(): $mol_icon_dots_vertical;
@@ -3471,7 +3471,7 @@ declare namespace $ {
         filter_pattern(val?: any): string;
         Option_label(id: any): $$.$mol_dimmer;
         option_content(id: any): readonly any[];
-        no_options_message(): {} | null;
+        no_options_message(): string;
         nav_components(): readonly $mol_view[];
         option_focused(component?: any): any;
         nav_cycle(val?: any): boolean;
@@ -3658,7 +3658,7 @@ declare namespace $ {
         nav_focused(component?: any): any;
         Nav(): $$.$mol_nav;
         suggests_showed(val?: any): boolean;
-        hint(): {} | null;
+        hint(): string;
         submit(event?: any): any;
         enabled(): boolean;
         keyboard(): string;
@@ -3907,7 +3907,7 @@ declare namespace $ {
         Badges(): readonly $mol_view[];
         badge_title(id: any): string;
         remove(id: any, event?: any): any;
-        badge_hint(): {} | null;
+        badge_hint(): string;
         enabled(): boolean;
         drop_enabled(): boolean;
         align_hor(): string;
@@ -3916,7 +3916,7 @@ declare namespace $ {
         pick(val?: any): string;
         option_title(id: any): string;
         pick_enabled(): boolean;
-        pick_hint(): {} | null;
+        pick_hint(): string;
         Pick_icon(): $mol_icon_plus;
         Pick(): $$.$mol_select;
     }
@@ -4595,11 +4595,11 @@ declare namespace $ {
         month_moment(): $mol_time_moment;
         day_selected(id: any): boolean;
         day_click(id: any, event?: any): any;
-        prev_hint(): {} | null;
+        prev_hint(): string;
         prev(event?: any): any;
         Prev_icon(): $mol_icon_chevron_left;
         Prev(): $mol_button_minor;
-        next_hint(): {} | null;
+        next_hint(): string;
         next(event?: any): any;
         Next_icon(): $mol_icon_chevron_right;
         Next(): $mol_button_minor;
@@ -5884,10 +5884,10 @@ declare namespace $ {
         domain(): $hyoo_sketch_domain;
         project(): $hyoo_sketch_project;
         title(): string;
-        page_name_default(): {} | null;
+        page_name_default(): string;
         tools(): readonly any[];
         body(): readonly any[];
-        label_allowed_anyone(): {} | null;
+        label_allowed_anyone(): string;
         Row(id: any): $mol_bar;
         Project_pin_icon(): $mol_icon_eye;
         project_pin(val?: any): boolean;
@@ -5905,7 +5905,7 @@ declare namespace $ {
         settings_expanded(next?: any): boolean;
         Project_name_control(): $$.$mol_string;
         Project_name_field(): $$.$mol_form_field;
-        editor_add_bid(): {} | null;
+        editor_add_bid(): string;
         editor_add_id(next?: any): string;
         Editor_add_id(): $$.$mol_string;
         editor_add_submut_enabled(): boolean;
@@ -5951,7 +5951,7 @@ declare namespace $.$$ {
         page_copy(id: $mol_int62_string): void;
         editor_list(): $mol_link[];
         editor_id(id: $mol_int62_string): `${string}_${string}`;
-        editor_add_bid(): {} | null;
+        editor_add_bid(): string;
         editor_fill_all(): void;
         editor_add_submit_enabled(): boolean;
         editor_add_rows(): ($mol_button_minor | $mol_bar)[];
@@ -5980,7 +5980,7 @@ declare namespace $.$$ {
 
 declare namespace $ {
     class $hyoo_sketch_option_page extends $mol_page {
-        title(): {} | null;
+        title(): string;
         Options(): {};
         body(): readonly any[];
         Tab(id: any): $$.$mol_list;
@@ -6007,7 +6007,7 @@ declare namespace $ {
     class $hyoo_sketch_palette extends $mol_page {
         domain(): $hyoo_sketch_domain;
         page(): $hyoo_sketch_page;
-        title(): {} | null;
+        title(): string;
         body(): readonly any[];
         type_list(): readonly any[];
         row_title(id: any): string;
@@ -6035,7 +6035,7 @@ declare namespace $ {
         domain(): $hyoo_sketch_domain;
         person(): $hyoo_sketch_person;
         tools(): readonly any[];
-        title(): {} | null;
+        title(): string;
         body(): readonly any[];
         Id_copy(): $$.$mol_button_copy;
         Close_icon(): $mol_icon_cross;
