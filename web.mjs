@@ -19565,7 +19565,7 @@ var $;
     (function ($$) {
         class $hyoo_sketch_element_markdown extends $.$hyoo_sketch_element_markdown {
             text(next) {
-                return this.state().sub('markdown_text', $hyoo_crowd_text).text(next) || this.text_default();
+                return this.state().sub('markdown_text', $hyoo_crowd_text).text(next) ?? this.text_default();
             }
             duplicate(elem) {
                 const element = elem ?? super.duplicate();
