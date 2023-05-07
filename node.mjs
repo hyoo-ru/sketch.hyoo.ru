@@ -6338,7 +6338,7 @@ var $;
             const editor = new $hyoo_sketch_editor;
             editor.page = $mol_const(this);
             for (const obj of this.elements()) {
-                const element = editor.Element(obj);
+                const element = editor.Element(obj.id());
                 element.duplicate_top_shift = $mol_const(false);
                 const element_copy = element.duplicate();
                 page_copy.element_add(element_copy);
