@@ -13,26 +13,23 @@ namespace $.$$ {
 		}
 
 		click() {
-			const action = this.Nav().nav_action()
-			const target_page = this.Nav().nav_target_page()
-			const target_link = this.Nav().nav_target_link()
+			const actions = this.Nav().nav_actions()
+			for (const action of actions) {
+				if (action.type === 'open' && action.target_page) {
+					this.Nav().nav_page_open( action.target_page )
+				}
 
-			if (action === 'none') return
+				if (action.type === 'close') {
+					this.Nav().nav_page_close( action.target_page || this.page().id() )
+				}
 
-			if (action === 'open') {
-				this.Nav().nav_page_open( target_page )
-			}
+				if (action.type === 'replace' && action.source_page && action.target_page) {
+					this.Nav().nav_page_replace( action.source_page, action.target_page )
+				}
 
-			if (action === 'close') {
-				this.Nav().nav_page_close( target_page || this.page().id() )
-			}
-
-			if (action === 'replace') {
-				this.Nav().nav_page_replace( target_page )
-			}
-
-			if (action === 'external') {
-				$mol_dom_context.open(target_link, '_blank')
+				if (action.type === 'external') {
+					$mol_dom_context.open(action.target_link ?? 'example.com', '_blank')
+				}
 			}
 		}
 
