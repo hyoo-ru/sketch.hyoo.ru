@@ -40,6 +40,12 @@ namespace $.$$ {
 			},
 		},
 
+		Demo_page: {
+			Body: {
+				padding: 0,
+			}
+		},
+
 	} ) 
 
 }
