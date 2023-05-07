@@ -9978,6 +9978,8 @@ var $;
         Editor() {
             const obj = new this.$.$hyoo_sketch_element_base_editor();
             obj.duplicate = (next) => this.duplicate_event(next);
+            obj.copy = (next) => this.copy(next);
+            obj.paste = (next) => this.paste(next);
             obj.delete = (next) => this.delete(next);
             obj.move_up = (next) => this.move_up(next);
             obj.move_down = (next) => this.move_down(next);
@@ -10042,6 +10044,16 @@ var $;
             return obj;
         }
         duplicate_event(next) {
+            if (next !== undefined)
+                return next;
+            return null;
+        }
+        copy(next) {
+            if (next !== undefined)
+                return next;
+            return null;
+        }
+        paste(next) {
             if (next !== undefined)
                 return next;
             return null;
@@ -10201,6 +10213,12 @@ var $;
     ], $hyoo_sketch_element_base.prototype, "duplicate_event", null);
     __decorate([
         $mol_mem
+    ], $hyoo_sketch_element_base.prototype, "copy", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_base.prototype, "paste", null);
+    __decorate([
+        $mol_mem
     ], $hyoo_sketch_element_base.prototype, "delete", null);
     __decorate([
         $mol_mem
@@ -10290,6 +10308,16 @@ var $;
                 return next;
             return null;
         }
+        copy(next) {
+            if (next !== undefined)
+                return next;
+            return null;
+        }
+        paste(next) {
+            if (next !== undefined)
+                return next;
+            return null;
+        }
         delete(next) {
             if (next !== undefined)
                 return next;
@@ -10319,6 +10347,8 @@ var $;
             const obj = new this.$.$mol_hotkey();
             obj.key = () => ({
                 D: (next) => this.duplicate(next),
+                C: (next) => this.copy(next),
+                V: (next) => this.paste(next),
                 delete: (next) => this.delete(next),
                 backspace: (next) => this.delete(next),
                 left: (next) => this.move_left(next),
@@ -10335,6 +10365,12 @@ var $;
     __decorate([
         $mol_mem
     ], $hyoo_sketch_element_base_editor.prototype, "duplicate", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_base_editor.prototype, "copy", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_base_editor.prototype, "paste", null);
     __decorate([
         $mol_mem
     ], $hyoo_sketch_element_base_editor.prototype, "delete", null);
@@ -10356,6 +10392,58 @@ var $;
     $.$hyoo_sketch_element_base_editor = $hyoo_sketch_element_base_editor;
 })($ || ($ = {}));
 //hyoo/sketch/element/base/-view.tree/base.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_state_session extends $mol_object {
+        static 'native()';
+        static native() {
+            if (this['native()'])
+                return this['native()'];
+            check: try {
+                const native = $mol_dom_context.sessionStorage;
+                if (!native)
+                    break check;
+                native.setItem('', '');
+                native.removeItem('');
+                return this['native()'] = native;
+            }
+            catch (error) {
+                console.warn(error);
+            }
+            return this['native()'] = {
+                getItem(key) {
+                    return this[':' + key];
+                },
+                setItem(key, value) {
+                    this[':' + key] = value;
+                },
+                removeItem(key) {
+                    this[':' + key] = void 0;
+                }
+            };
+        }
+        static value(key, next) {
+            if (next === void 0)
+                return JSON.parse(this.native().getItem(key) || 'null');
+            if (next === null)
+                this.native().removeItem(key);
+            else
+                this.native().setItem(key, JSON.stringify(next));
+            return next;
+        }
+        prefix() { return ''; }
+        value(key, next) {
+            return $mol_state_session.value(this.prefix() + '.' + key, next);
+        }
+    }
+    __decorate([
+        $mol_mem_key
+    ], $mol_state_session, "value", null);
+    $.$mol_state_session = $mol_state_session;
+})($ || ($ = {}));
+//mol/state/session/session.ts
 ;
 "use strict";
 var $;
@@ -10440,6 +10528,17 @@ var $;
             }
             duplicate_event() {
                 const element = this.duplicate();
+                this.page().element_add(element);
+            }
+            copy() {
+                const element = this.duplicate();
+                this.$.$mol_state_session.value('copy', element.id());
+            }
+            paste() {
+                const element_id = $mol_int62_string_ensure(this.$.$mol_state_session.value('copy'));
+                if (!element_id)
+                    return;
+                const element = this.domain().element(element_id);
                 this.page().element_add(element);
             }
             delete(event) {
@@ -11482,58 +11581,6 @@ var $;
     $.$mol_switch = $mol_switch;
 })($ || ($ = {}));
 //mol/switch/-view.tree/switch.view.tree.ts
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_state_session extends $mol_object {
-        static 'native()';
-        static native() {
-            if (this['native()'])
-                return this['native()'];
-            check: try {
-                const native = $mol_dom_context.sessionStorage;
-                if (!native)
-                    break check;
-                native.setItem('', '');
-                native.removeItem('');
-                return this['native()'] = native;
-            }
-            catch (error) {
-                console.warn(error);
-            }
-            return this['native()'] = {
-                getItem(key) {
-                    return this[':' + key];
-                },
-                setItem(key, value) {
-                    this[':' + key] = value;
-                },
-                removeItem(key) {
-                    this[':' + key] = void 0;
-                }
-            };
-        }
-        static value(key, next) {
-            if (next === void 0)
-                return JSON.parse(this.native().getItem(key) || 'null');
-            if (next === null)
-                this.native().removeItem(key);
-            else
-                this.native().setItem(key, JSON.stringify(next));
-            return next;
-        }
-        prefix() { return ''; }
-        value(key, next) {
-            return $mol_state_session.value(this.prefix() + '.' + key, next);
-        }
-    }
-    __decorate([
-        $mol_mem_key
-    ], $mol_state_session, "value", null);
-    $.$mol_state_session = $mol_state_session;
-})($ || ($ = {}));
-//mol/state/session/session.ts
 ;
 "use strict";
 var $;
@@ -28077,6 +28124,25 @@ var $;
 ;
 "use strict";
 var $;
+(function ($) {
+    $mol_test({
+        'null by default'() {
+            const key = String(Math.random());
+            $mol_assert_equal($mol_state_session.value(key), null);
+        },
+        'storing'() {
+            const key = String(Math.random());
+            $mol_state_session.value(key, '$mol_state_session_test');
+            $mol_assert_equal($mol_state_session.value(key), '$mol_state_session_test');
+            $mol_state_session.value(key, null);
+            $mol_assert_equal($mol_state_session.value(key), null);
+        },
+    });
+})($ || ($ = {}));
+//mol/state/session/session.test.ts
+;
+"use strict";
+var $;
 (function ($_1) {
     var $$;
     (function ($$) {
@@ -28117,25 +28183,6 @@ var $;
     })($$ = $_1.$$ || ($_1.$$ = {}));
 })($ || ($ = {}));
 //mol/view/tree2/class/props.test.ts
-;
-"use strict";
-var $;
-(function ($) {
-    $mol_test({
-        'null by default'() {
-            const key = String(Math.random());
-            $mol_assert_equal($mol_state_session.value(key), null);
-        },
-        'storing'() {
-            const key = String(Math.random());
-            $mol_state_session.value(key, '$mol_state_session_test');
-            $mol_assert_equal($mol_state_session.value(key), '$mol_state_session_test');
-            $mol_state_session.value(key, null);
-            $mol_assert_equal($mol_state_session.value(key), null);
-        },
-    });
-})($ || ($ = {}));
-//mol/state/session/session.test.ts
 ;
 "use strict";
 var $;

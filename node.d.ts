@@ -2756,6 +2756,8 @@ declare namespace $ {
         order_string(next?: any): string;
         Element(): $mol_view;
         duplicate_event(next?: any): any;
+        copy(next?: any): any;
+        paste(next?: any): any;
         delete(next?: any): any;
         move_up(next?: any): any;
         move_down(next?: any): any;
@@ -2786,12 +2788,28 @@ declare namespace $ {
         selected(next?: any): boolean;
         editing(): boolean;
         duplicate(next?: any): any;
+        copy(next?: any): any;
+        paste(next?: any): any;
         delete(next?: any): any;
         move_left(next?: any): any;
         move_up(next?: any): any;
         move_right(next?: any): any;
         move_down(next?: any): any;
         Hotkey(): $$.$mol_hotkey;
+    }
+}
+
+declare namespace $ {
+    class $mol_state_session<Value> extends $mol_object {
+        static 'native()': Pick<Storage, 'getItem' | 'setItem' | 'removeItem'>;
+        static native(): Storage | {
+            getItem(key: string): any;
+            setItem(key: string, value: string): void;
+            removeItem(key: string): void;
+        };
+        static value<Value>(key: string, next?: Value): Value;
+        prefix(): string;
+        value(key: string, next?: Value): Value;
     }
 }
 
@@ -2809,6 +2827,8 @@ declare namespace $.$$ {
         order_string(): string;
         duplicate(elem?: $hyoo_sketch_element): $hyoo_sketch_element;
         duplicate_event(): void;
+        copy(): void;
+        paste(): void;
         delete(event: KeyboardEvent): void;
         move_up(event: KeyboardEvent): void;
         move_down(event: KeyboardEvent): void;
@@ -3108,20 +3128,6 @@ declare namespace $ {
 declare namespace $ {
     class $mol_switch extends $mol_check_list {
         value(val?: any): string;
-    }
-}
-
-declare namespace $ {
-    class $mol_state_session<Value> extends $mol_object {
-        static 'native()': Pick<Storage, 'getItem' | 'setItem' | 'removeItem'>;
-        static native(): Storage | {
-            getItem(key: string): any;
-            setItem(key: string, value: string): void;
-            removeItem(key: string): void;
-        };
-        static value<Value>(key: string, next?: Value): Value;
-        prefix(): string;
-        value(key: string, next?: Value): Value;
     }
 }
 
