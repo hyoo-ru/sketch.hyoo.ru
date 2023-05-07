@@ -17,6 +17,8 @@ $hyoo_sketch_element_base $mol_view
 	duplicate? $hyoo_sketch_element
 	Editor $hyoo_sketch_element_base_editor
 		duplicate? <=> duplicate_event? null
+		copy? <=> copy? null
+		paste? <=> paste? null
 		delete? <=> delete? null
 		move_up? <=> move_up? null
 		move_down? <=> move_down? null
@@ -65,6 +67,8 @@ $hyoo_sketch_element_base_editor $mol_view
 		<= Hotkey $mol_hotkey
 			key *
 				D? <=> duplicate? null
+				C? <=> copy? null
+				V? <=> paste? null
 				delete? <=> delete? null
 				backspace? <=> delete? null
 				left? <=> move_left? null

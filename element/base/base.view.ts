@@ -104,6 +104,18 @@ namespace $.$$ {
 			// this.$.$mol_state_arg.value('selected', element.id())
 		}
 
+		copy() {
+			const element = this.duplicate()
+			this.$.$mol_state_session.value('copy', element.id())
+		}
+
+		paste() {
+			const element_id = $mol_int62_string_ensure( this.$.$mol_state_session.value('copy') )
+			if (!element_id) return
+			const element = this.domain().element(element_id)
+			this.page().element_add(element)
+		}
+
 		delete(event: KeyboardEvent) {
 			event.preventDefault()
 			this.page().element_delete( this.element() )
