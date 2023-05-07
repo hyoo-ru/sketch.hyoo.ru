@@ -22288,79 +22288,6 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    class $mol_deck extends $mol_list {
-        items() {
-            return [];
-        }
-        rows() {
-            return [
-                this.Switch(),
-                this.Content()
-            ];
-        }
-        current(val) {
-            if (val !== undefined)
-                return val;
-            return "0";
-        }
-        switch_options() {
-            return {};
-        }
-        Switch() {
-            const obj = new this.$.$mol_switch();
-            obj.value = (val) => this.current(val);
-            obj.options = () => this.switch_options();
-            return obj;
-        }
-        Content() {
-            const obj = new this.$.$mol_view();
-            return obj;
-        }
-    }
-    __decorate([
-        $mol_mem
-    ], $mol_deck.prototype, "current", null);
-    __decorate([
-        $mol_mem
-    ], $mol_deck.prototype, "Switch", null);
-    __decorate([
-        $mol_mem
-    ], $mol_deck.prototype, "Content", null);
-    $.$mol_deck = $mol_deck;
-})($ || ($ = {}));
-//mol/deck/-view.tree/deck.view.tree.ts
-;
-"use strict";
-var $;
-(function ($) {
-    var $$;
-    (function ($$) {
-        class $mol_deck extends $.$mol_deck {
-            current(next) {
-                return $mol_state_session.value(`${this}.current()`, next) || '0';
-            }
-            switch_options() {
-                let options = {};
-                this.items().forEach((item, index) => {
-                    options[String(index)] = item.title();
-                });
-                return options;
-            }
-            Content() {
-                return this.items()[Number(this.current())];
-            }
-        }
-        __decorate([
-            $mol_mem
-        ], $mol_deck.prototype, "Content", null);
-        $$.$mol_deck = $mol_deck;
-    })($$ = $.$$ || ($.$$ = {}));
-})($ || ($ = {}));
-//mol/deck/deck.view.ts
-;
-"use strict";
-var $;
-(function ($) {
     class $hyoo_sketch_option_page extends $mol_page {
         title() {
             return this.$.$mol_locale.text('$hyoo_sketch_option_page_title');
@@ -22370,21 +22297,24 @@ var $;
         }
         body() {
             return [
-                this.Tabs()
+                this.List()
             ];
         }
-        Tab(id) {
-            const obj = new this.$.$mol_list();
-            obj.title = () => this.tab_title(id);
-            obj.rows = () => this.tab_rows(id);
+        Expander(id) {
+            const obj = new this.$.$mol_expander();
+            obj.label = () => [
+                this.tab_title(id)
+            ];
+            obj.content = () => this.tab_rows(id);
+            obj.expanded = (next) => this.expanded(id, next);
             return obj;
         }
         items() {
             return [];
         }
-        Tabs() {
-            const obj = new this.$.$mol_deck();
-            obj.items = () => this.items();
+        List() {
+            const obj = new this.$.$mol_list();
+            obj.rows = () => this.items();
             return obj;
         }
         tab_title(id) {
@@ -22393,13 +22323,21 @@ var $;
         tab_rows(id) {
             return [];
         }
+        expanded(id, next) {
+            if (next !== undefined)
+                return next;
+            return true;
+        }
     }
     __decorate([
         $mol_mem_key
-    ], $hyoo_sketch_option_page.prototype, "Tab", null);
+    ], $hyoo_sketch_option_page.prototype, "Expander", null);
     __decorate([
         $mol_mem
-    ], $hyoo_sketch_option_page.prototype, "Tabs", null);
+    ], $hyoo_sketch_option_page.prototype, "List", null);
+    __decorate([
+        $mol_mem_key
+    ], $hyoo_sketch_option_page.prototype, "expanded", null);
     $.$hyoo_sketch_option_page = $hyoo_sketch_option_page;
 })($ || ($ = {}));
 //hyoo/sketch/option/page/-view.tree/page.view.tree.ts
@@ -22416,13 +22354,16 @@ var $;
             items() {
                 if (!this.keys().length)
                     return [];
-                return this.keys().map(key => this.Tab(key));
+                return this.keys().map(key => this.Expander(key));
             }
             tab_title(key) {
                 return key;
             }
             tab_rows(key) {
                 return this.Options()[key];
+            }
+            expanded(key, next) {
+                return this.$.$mol_state_local.value(`${this}.expanded(${key})`, next) ?? super.expanded(key);
             }
         }
         __decorate([
@@ -22442,8 +22383,18 @@ var $;
     var $$;
     (function ($$) {
         $mol_style_define($.$hyoo_sketch_option_page, {
-            Tab: {
-                padding: $mol_gap.block,
+            Expander: {
+                Content: {
+                    padding: $mol_gap.block,
+                },
+                Label: {
+                    $mol_view: {
+                        textTransform: 'capitalize',
+                    },
+                },
+            },
+            Body: {
+                padding: 0,
             },
         });
     })($$ = $.$$ || ($.$$ = {}));

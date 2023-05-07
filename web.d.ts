@@ -5688,43 +5688,26 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
-    class $mol_deck extends $mol_list {
-        items(): readonly $mol_view[];
-        rows(): readonly $mol_view[];
-        current(val?: any): string;
-        switch_options(): Record<string, any>;
-        Switch(): $$.$mol_switch;
-        Content(): $mol_view;
-    }
-}
-
-declare namespace $.$$ {
-    class $mol_deck extends $.$mol_deck {
-        current(next?: string): string;
-        switch_options(): Record<string, string>;
-        Content(): $mol_view;
-    }
-}
-
-declare namespace $ {
     class $hyoo_sketch_option_page extends $mol_page {
         title(): string;
         Options(): Record<string, any>;
         body(): readonly any[];
-        Tab(id: any): $$.$mol_list;
+        Expander(id: any): $$.$mol_expander;
         items(): readonly any[];
-        Tabs(): $$.$mol_deck;
+        List(): $$.$mol_list;
         tab_title(id: any): string;
         tab_rows(id: any): readonly $mol_view[];
+        expanded(id: any, next?: any): boolean;
     }
 }
 
 declare namespace $.$$ {
     class $hyoo_sketch_option_page extends $.$hyoo_sketch_option_page {
         keys(): string[];
-        items(): $mol_list[];
+        items(): $mol_expander[];
         tab_title(key: string): string;
         tab_rows(key: string): $mol_view[];
+        expanded(key: string, next?: boolean): boolean;
     }
 }
 

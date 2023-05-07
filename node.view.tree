@@ -1889,23 +1889,16 @@ $hyoo_sketch_project_page $mol_page
 				click? <=> page_copy*? null
 				sub / <= Copy_icon* $mol_icon_content_copy
 
-$mol_deck $mol_list
-	items /$mol_view
-	rows /$mol_view
-		<= Switch $mol_switch
-			value?val <=> current?val \0
-			options <= switch_options *
-		<= Content $mol_view
-
 $hyoo_sketch_option_page $mol_page
 	title @ \Options
 	Options *
 	body /
-		<= Tabs $mol_deck
-			items <= items /
-	Tab* $mol_list
-		title <= tab_title* \
-		rows <= tab_rows* /$mol_view
+		<= List $mol_list
+			rows <= items /
+	Expander* $mol_expander
+		label / <= tab_title* \
+		content <= tab_rows* /$mol_view
+		expanded? <=> expanded*? true
 
 $hyoo_sketch_palette $mol_page
 	page $hyoo_sketch_page
