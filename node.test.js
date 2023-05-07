@@ -312,9 +312,9 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    let auto = null;
-    function $mol_wire_auto(next = auto) {
-        return auto = next;
+    $.$mol_wire_auto_sub = null;
+    function $mol_wire_auto(next = $.$mol_wire_auto_sub) {
+        return $.$mol_wire_auto_sub = next;
     }
     $.$mol_wire_auto = $mol_wire_auto;
     $.$mol_wire_affected = [];
@@ -427,6 +427,9 @@ var $;
     class $mol_wire_pub_sub extends $mol_wire_pub {
         pub_from = 0;
         cursor = $mol_wire_cursor.stale;
+        get temp() {
+            return false;
+        }
         get pub_list() {
             const res = [];
             const max = this.cursor >= 0 ? this.cursor : this.sub_from;
@@ -1031,7 +1034,7 @@ var $;
                 const sub = $mol_wire_auto();
                 const existen = sub?.track_next();
                 reuse: if (existen) {
-                    if (!(existen instanceof $mol_wire_task))
+                    if (!existen.temp)
                         break reuse;
                     if (existen.host !== host)
                         break reuse;
@@ -1043,6 +1046,9 @@ var $;
                 }
                 return new $mol_wire_task(`${host?.[Symbol.toStringTag] ?? host}.${task.name}(#)`, task, host, args);
             };
+        }
+        get temp() {
+            return true;
         }
         complete() {
             if ($mol_promise_like(this.cache))
@@ -1199,7 +1205,7 @@ var $;
                     return this.resync([...this.args, next]);
                 if (!$mol_wire_fiber.warm)
                     return this.result();
-                if ($mol_wire_auto() instanceof $mol_wire_task) {
+                if ($mol_wire_auto()?.temp) {
                     return this.once();
                 }
                 else {
@@ -1282,7 +1288,7 @@ var $;
                 if ((args.length === 0) || (args[0] === undefined)) {
                     if (!$mol_wire_fiber.warm)
                         return atom.result();
-                    if ($mol_wire_auto() instanceof $mol_wire_task) {
+                    if ($mol_wire_auto()?.temp) {
                         return atom.once();
                     }
                     else {
@@ -1319,7 +1325,7 @@ var $;
                 if ((args.length === 1) || (args[1] === undefined)) {
                     if (!$mol_wire_fiber.warm)
                         return atom.result();
-                    if ($mol_wire_auto() instanceof $mol_wire_task) {
+                    if ($mol_wire_auto()?.temp) {
                         return atom.once();
                     }
                     else {
@@ -3348,91 +3354,8 @@ var $;
 //mol/book2/-css/book2.view.css.ts
 ;
 "use strict";
-let $hyoo_sync_revision = "9edf754";
+let $hyoo_sync_revision = "827fd0d";
 //hyoo/sync/-meta.tree/revision.meta.tree.ts
-;
-"use strict";
-var $;
-(function ($) {
-    function $mol_wire_sync(obj) {
-        return new Proxy(obj, {
-            get(obj, field) {
-                const val = obj[field];
-                if (typeof val !== 'function')
-                    return val;
-                const temp = $mol_wire_task.getter(val);
-                return function $mol_wire_sync(...args) {
-                    const fiber = temp(obj, args);
-                    return fiber.sync();
-                };
-            },
-            apply(obj, self, args) {
-                const temp = $mol_wire_task.getter(obj);
-                const fiber = temp(self, args);
-                return fiber.sync();
-            },
-        });
-    }
-    $.$mol_wire_sync = $mol_wire_sync;
-})($ || ($ = {}));
-//mol/wire/sync/sync.ts
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_state_local extends $mol_object {
-        static 'native()';
-        static native() {
-            if (this['native()'])
-                return this['native()'];
-            check: try {
-                const native = $mol_dom_context.localStorage;
-                if (!native)
-                    break check;
-                native.setItem('', '');
-                native.removeItem('');
-                return this['native()'] = native;
-            }
-            catch (error) {
-                console.warn(error);
-            }
-            return this['native()'] = {
-                getItem(key) {
-                    return this[':' + key];
-                },
-                setItem(key, value) {
-                    this[':' + key] = value;
-                },
-                removeItem(key) {
-                    this[':' + key] = void 0;
-                }
-            };
-        }
-        static changes(next) { return next; }
-        static value(key, next) {
-            this.changes();
-            if (next === void 0)
-                return JSON.parse(this.native().getItem(key) || 'null');
-            if (next === null)
-                this.native().removeItem(key);
-            else
-                this.native().setItem(key, JSON.stringify(next));
-            return next;
-        }
-        prefix() { return ''; }
-        value(key, next) {
-            return $mol_state_local.value(this.prefix() + '.' + key, next);
-        }
-    }
-    __decorate([
-        $mol_mem
-    ], $mol_state_local, "changes", null);
-    __decorate([
-        $mol_mem_key
-    ], $mol_state_local, "value", null);
-    $.$mol_state_local = $mol_state_local;
-})($ || ($ = {}));
-//mol/state/local/local.ts
 ;
 "use strict";
 var $;
@@ -3515,6 +3438,102 @@ var $;
     $.$mol_int62_hash_buffer = $mol_int62_hash_buffer;
 })($ || ($ = {}));
 //mol/int62/int62.ts
+;
+"use strict";
+//mol/data/value/value.ts
+;
+"use strict";
+var $;
+(function ($) {
+    function $mol_data_setup(value, config) {
+        return Object.assign(value, {
+            config,
+            Value: null
+        });
+    }
+    $.$mol_data_setup = $mol_data_setup;
+})($ || ($ = {}));
+//mol/data/setup/setup.ts
+;
+"use strict";
+var $;
+(function ($) {
+    function $mol_diff_path(...paths) {
+        const limit = Math.min(...paths.map(path => path.length));
+        lookup: for (var i = 0; i < limit; ++i) {
+            const first = paths[0][i];
+            for (let j = 1; j < paths.length; ++j) {
+                if (paths[j][i] !== first)
+                    break lookup;
+            }
+        }
+        return {
+            prefix: paths[0].slice(0, i),
+            suffix: paths.map(path => path.slice(i)),
+        };
+    }
+    $.$mol_diff_path = $mol_diff_path;
+})($ || ($ = {}));
+//mol/diff/path/path.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_error_mix extends Error {
+        errors;
+        constructor(message, ...errors) {
+            super(message);
+            this.errors = errors;
+            if (errors.length) {
+                const stacks = [...errors.map(error => error.stack), this.stack];
+                const diff = $mol_diff_path(...stacks.map(stack => {
+                    if (!stack)
+                        return [];
+                    return stack.split('\n').reverse();
+                }));
+                const head = diff.prefix.reverse().join('\n');
+                const tails = diff.suffix.map(path => path.reverse().map(line => line.replace(/^(?!\s+at)/, '\tat (.) ')).join('\n')).join('\n\tat (.) -----\n');
+                this.stack = `Error: ${this.constructor.name}\n\tat (.) /"""\\\n${tails}\n\tat (.) \\___/\n${head}`;
+                this.message += errors.map(error => '\n' + error.message).join('');
+            }
+        }
+        toJSON() {
+            return this.message;
+        }
+    }
+    $.$mol_error_mix = $mol_error_mix;
+})($ || ($ = {}));
+//mol/error/mix/mix.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_data_error extends $mol_error_mix {
+    }
+    $.$mol_data_error = $mol_data_error;
+})($ || ($ = {}));
+//mol/data/error/error.ts
+;
+"use strict";
+var $;
+(function ($) {
+    function $mol_data_enum(name, dict) {
+        const index = {};
+        for (let key in dict) {
+            if (Number.isNaN(Number(key))) {
+                index[dict[key]] = key;
+            }
+        }
+        return $mol_data_setup((value) => {
+            if (typeof index[value] !== 'string') {
+                return $mol_fail(new $mol_data_error(`${value} is not value of ${name} enum`));
+            }
+            return value;
+        }, { name, dict });
+    }
+    $.$mol_data_enum = $mol_data_enum;
+})($ || ($ = {}));
+//mol/data/enum/enum.ts
 ;
 "use strict";
 var $;
@@ -3639,118 +3658,6 @@ var $;
     $.$hyoo_crowd_peer = $hyoo_crowd_peer;
 })($ || ($ = {}));
 //hyoo/crowd/peer/peer.ts
-;
-"use strict";
-var $;
-(function ($) {
-    async function $hyoo_sync_peer(path) {
-        let serial = $mol_state_local.value('$hyoo_sync_peer');
-        if (typeof serial === 'string') {
-            return await $hyoo_crowd_peer.restore(serial);
-        }
-        const peer = await $hyoo_crowd_peer.generate();
-        $mol_state_local.value('$hyoo_sync_peer', peer.key_private_serial);
-        return peer;
-    }
-    $.$hyoo_sync_peer = $hyoo_sync_peer;
-})($ || ($ = {}));
-//hyoo/sync/peer/peer.node.ts
-;
-"use strict";
-//mol/data/value/value.ts
-;
-"use strict";
-var $;
-(function ($) {
-    function $mol_data_setup(value, config) {
-        return Object.assign(value, {
-            config,
-            Value: null
-        });
-    }
-    $.$mol_data_setup = $mol_data_setup;
-})($ || ($ = {}));
-//mol/data/setup/setup.ts
-;
-"use strict";
-var $;
-(function ($) {
-    function $mol_diff_path(...paths) {
-        const limit = Math.min(...paths.map(path => path.length));
-        lookup: for (var i = 0; i < limit; ++i) {
-            const first = paths[0][i];
-            for (let j = 1; j < paths.length; ++j) {
-                if (paths[j][i] !== first)
-                    break lookup;
-            }
-        }
-        return {
-            prefix: paths[0].slice(0, i),
-            suffix: paths.map(path => path.slice(i)),
-        };
-    }
-    $.$mol_diff_path = $mol_diff_path;
-})($ || ($ = {}));
-//mol/diff/path/path.ts
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_error_mix extends Error {
-        errors;
-        constructor(message, ...errors) {
-            super(message);
-            this.errors = errors;
-            if (errors.length) {
-                const stacks = [...errors.map(error => error.stack), this.stack];
-                const diff = $mol_diff_path(...stacks.map(stack => {
-                    if (!stack)
-                        return [];
-                    return stack.split('\n').reverse();
-                }));
-                const head = diff.prefix.reverse().join('\n');
-                const tails = diff.suffix.map(path => path.reverse().map(line => line.replace(/^(?!\s+at)/, '\tat (.) ')).join('\n')).join('\n\tat (.) -----\n');
-                this.stack = `Error: ${this.constructor.name}\n\tat (.) /"""\\\n${tails}\n\tat (.) \\___/\n${head}`;
-                this.message += errors.map(error => '\n' + error.message).join('');
-            }
-        }
-        toJSON() {
-            return this.message;
-        }
-    }
-    $.$mol_error_mix = $mol_error_mix;
-})($ || ($ = {}));
-//mol/error/mix/mix.ts
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_data_error extends $mol_error_mix {
-    }
-    $.$mol_data_error = $mol_data_error;
-})($ || ($ = {}));
-//mol/data/error/error.ts
-;
-"use strict";
-var $;
-(function ($) {
-    function $mol_data_enum(name, dict) {
-        const index = {};
-        for (let key in dict) {
-            if (Number.isNaN(Number(key))) {
-                index[dict[key]] = key;
-            }
-        }
-        return $mol_data_setup((value) => {
-            if (typeof index[value] !== 'string') {
-                return $mol_fail(new $mol_data_error(`${value} is not value of ${name} enum`));
-            }
-            return value;
-        }, { name, dict });
-    }
-    $.$mol_data_enum = $mol_data_enum;
-})($ || ($ = {}));
-//mol/data/enum/enum.ts
 ;
 "use strict";
 //mol/charset/encoding/encoding.ts
@@ -3991,6 +3898,105 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    function $mol_wire_sync(obj) {
+        return new Proxy(obj, {
+            get(obj, field) {
+                const val = obj[field];
+                if (typeof val !== 'function')
+                    return val;
+                const temp = $mol_wire_task.getter(val);
+                return function $mol_wire_sync(...args) {
+                    const fiber = temp(obj, args);
+                    return fiber.sync();
+                };
+            },
+            apply(obj, self, args) {
+                const temp = $mol_wire_task.getter(obj);
+                const fiber = temp(self, args);
+                return fiber.sync();
+            },
+        });
+    }
+    $.$mol_wire_sync = $mol_wire_sync;
+})($ || ($ = {}));
+//mol/wire/sync/sync.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_state_local extends $mol_object {
+        static 'native()';
+        static native() {
+            if (this['native()'])
+                return this['native()'];
+            check: try {
+                const native = $mol_dom_context.localStorage;
+                if (!native)
+                    break check;
+                native.setItem('', '');
+                native.removeItem('');
+                return this['native()'] = native;
+            }
+            catch (error) {
+                console.warn(error);
+            }
+            return this['native()'] = {
+                getItem(key) {
+                    return this[':' + key];
+                },
+                setItem(key, value) {
+                    this[':' + key] = value;
+                },
+                removeItem(key) {
+                    this[':' + key] = void 0;
+                }
+            };
+        }
+        static changes(next) { return next; }
+        static value(key, next) {
+            this.changes();
+            if (next === void 0)
+                return JSON.parse(this.native().getItem(key) || 'null');
+            if (next === null)
+                this.native().removeItem(key);
+            else
+                this.native().setItem(key, JSON.stringify(next));
+            return next;
+        }
+        prefix() { return ''; }
+        value(key, next) {
+            return $mol_state_local.value(this.prefix() + '.' + key, next);
+        }
+    }
+    __decorate([
+        $mol_mem
+    ], $mol_state_local, "changes", null);
+    __decorate([
+        $mol_mem_key
+    ], $mol_state_local, "value", null);
+    $.$mol_state_local = $mol_state_local;
+})($ || ($ = {}));
+//mol/state/local/local.ts
+;
+"use strict";
+var $;
+(function ($) {
+    async function $hyoo_sync_peer(path) {
+        let serial = $mol_state_local.value('$hyoo_sync_peer');
+        if (typeof serial === 'string') {
+            return await $hyoo_crowd_peer.restore(serial);
+        }
+        const peer = await $hyoo_crowd_peer.generate();
+        $mol_state_local.value('$hyoo_sync_peer', peer.key_private_serial);
+        return peer;
+    }
+    $.$hyoo_sync_peer = $hyoo_sync_peer;
+})($ || ($ = {}));
+//hyoo/sync/peer/peer.node.ts
+;
+"use strict";
+var $;
+(function ($) {
     function $hyoo_crowd_time_now() {
         return Math.floor(Date.now() / 100) - 1767e7;
     }
@@ -4075,16 +4081,18 @@ var $;
     const offset = {
         land_lo: 0,
         land_hi: 4,
-        clocks: 8,
+        count: 8,
+        clocks: 16,
     };
     class $hyoo_crowd_clock_bin extends DataView {
-        static from(land_id, clocks) {
+        static from(land_id, clocks, count) {
             const size = offset.clocks + clocks[0].size * 16;
             const mem = new Uint8Array(size);
             const bin = new $hyoo_crowd_clock_bin(mem.buffer);
             const land = $mol_int62_from_string(land_id);
             bin.setInt32(offset.land_lo, land.lo ^ (1 << 31), true);
             bin.setInt32(offset.land_hi, land.hi, true);
+            bin.setInt32(offset.count, count, true);
             let cursor = offset.clocks;
             for (const [peer_id, time] of clocks[0]) {
                 const peer = $mol_int62_from_string(peer_id);
@@ -4101,6 +4109,9 @@ var $;
                 lo: this.getInt32(offset.land_lo, true) << 1 >> 1,
                 hi: this.getInt32(offset.land_hi, true) << 1 >> 1,
             });
+        }
+        count() {
+            return this.getInt32(offset.count, true);
         }
     }
     $.$hyoo_crowd_clock_bin = $hyoo_crowd_clock_bin;
@@ -4148,6 +4159,9 @@ var $;
         [Symbol.toPrimitive]() {
             return `${this.constructor.name}("${this.land.id()}","${this.head}")`;
         }
+        toJSON() {
+            return this.id();
+        }
         [$mol_dev_format_head]() {
             return $mol_dev_format_span({}, $mol_dev_format_native(this), $mol_dev_format_shade(':'), $mol_dev_format_auto(this.land.unit_list(this.head)));
         }
@@ -4164,7 +4178,7 @@ var $;
 (function ($) {
     class $hyoo_crowd_reg extends $hyoo_crowd_node {
         value(next) {
-            const unit = this.units()[0];
+            const unit = this.units().at(-1);
             if (next === undefined)
                 return unit?.data ?? null;
             if ($mol_compare_deep(unit?.data, next))
@@ -4245,6 +4259,9 @@ var $;
         get clocks() {
             this.pub.promote();
             return this._clocks;
+        }
+        get clocks_bin() {
+            return new Uint8Array($hyoo_crowd_clock_bin.from(this.id(), this._clocks, this._unit_all.size).buffer);
         }
         pub = new $mol_wire_pub;
         _clocks = [new $hyoo_crowd_clock, new $hyoo_crowd_clock];
@@ -4530,7 +4547,6 @@ var $;
             const unit_new = new $hyoo_crowd_unit(this.id(), auth, head, self, next, prev, time, data, null);
             this._unit_all.set(old_id, unit_new);
             unit_list.splice(seat, 0, unit_new);
-            unit_list.dirty = true;
             this._unit_alives.set(head, undefined);
             this.pub.emit();
             return unit_new;
@@ -4767,8 +4783,14 @@ var $;
         }
         async *delta(clocks = new Map()) {
             for (const land of this.lands.values()) {
-                yield await this.delta_batch(land, clocks.get(land.id()));
+                const batch = await this.delta_batch(land, clocks.get(land.id()));
+                if (batch.length)
+                    yield batch;
             }
+        }
+        async merge(donor) {
+            for await (const batch of donor.delta())
+                await this.apply(batch);
         }
         async apply(delta) {
             const units = [];
@@ -4958,6 +4980,7 @@ var $;
 var $;
 (function ($) {
     class $hyoo_sync_yard extends $mol_object2 {
+        db_unit_persisted = new WeakSet();
         log_pack(data) {
             return data;
         }
@@ -5015,10 +5038,15 @@ var $;
             for (const land of this.world().lands.values()) {
                 this.db_land_sync(land);
             }
-            const master = this.master();
-            if (master)
-                $mol_wire_race(...[...this.world().lands.values()].map(land => () => this.line_land_sync({ line: master, land })));
             $mol_wire_race(...this.slaves().map(line => () => this.line_sync(line)));
+            try {
+                const master = this.master();
+                if (master)
+                    $mol_wire_race(...[...this.world().lands.values()].map(land => () => this.line_land_sync({ line: master, land })));
+            }
+            catch (error) {
+                $mol_fail_log(error);
+            }
         }
         land_sync(land) {
             this.db_land_init(land);
@@ -5051,16 +5079,19 @@ var $;
         }
         db_land_sync(land) {
             this.db_land_init(land);
-            const db_clocks = this.db_land_clocks(land.id());
             land.clocks;
-            const units = land.delta(db_clocks);
+            const units = [];
+            for (const unit of land._unit_all.values()) {
+                if (this.db_unit_persisted.has(unit))
+                    continue;
+                units.push(unit);
+            }
             if (!units.length)
                 return;
             $mol_wire_sync(this.world()).sign_units(units);
             $mol_wire_sync(this).db_land_save(land, units);
-            for (const unit of units) {
-                db_clocks[unit.group()].see_peer(unit.auth, unit.time);
-            }
+            for (const unit of units)
+                this.db_unit_persisted.add(unit);
         }
         db_land_init(land) {
             try {
@@ -5076,13 +5107,10 @@ var $;
                 });
                 units = [];
             }
+            for (const unit of units)
+                this.db_unit_persisted.add(unit);
             units.sort($hyoo_crowd_unit_compare);
-            const clocks = [new $hyoo_crowd_clock, new $hyoo_crowd_clock];
-            this.db_land_clocks(land.id(), clocks);
             land.apply(units);
-            for (const unit of units) {
-                clocks[unit.group()].see_peer(unit.auth, unit.time);
-            }
         }
         async db_land_load(land) {
             return [];
@@ -5113,7 +5141,6 @@ var $;
         }
         line_land_clocks({ line, land }, next) {
             $mol_wire_solid();
-            this.master();
             return next;
         }
         line_sync(line) {
@@ -5169,6 +5196,9 @@ var $;
                     for (let group = 0; group < clocks.length; ++group) {
                         clocks[group].see_bin(bin, group);
                     }
+                    if (bin.count() + land.delta(clocks).length < land._unit_all.size) {
+                        this.line_land_clocks({ line, land }, clocks = [new $hyoo_crowd_clock, new $hyoo_crowd_clock]);
+                    }
                     const lands = this.line_lands(line);
                     if (lands.includes(land)) {
                         this.$.$mol_log3_warn({
@@ -5210,6 +5240,13 @@ var $;
             };
             this.line_land_neck({ line, land: land_id }, [
                 handle(this.line_land_neck({ line, land: land_id })[0])
+                    .catch(error => {
+                    this.$.$mol_log3_fail({
+                        place: this,
+                        land: land_id,
+                        message: String(error?.message ?? error),
+                    });
+                })
             ]);
         }
         line_send_clocks(line, land) { }
@@ -5574,7 +5611,7 @@ var $;
         master() {
             this.reconnects();
             const link = this.master_link();
-            const line = new $mol_dom_context.WebSocket(link);
+            const line = new $mol_dom_context.WebSocket(link, ['$hyoo_sync_protocol_1']);
             line.binaryType = 'arraybuffer';
             line.onmessage = async (event) => {
                 if (event.data instanceof ArrayBuffer) {
@@ -5622,12 +5659,10 @@ var $;
         }
         line_send_clocks(line, land) {
             if (line instanceof WebSocket) {
-                const message = new Uint8Array($hyoo_crowd_clock_bin.from(land.id(), land._clocks).buffer);
-                line.send(message);
+                line.send(land.clocks_bin);
             }
             else {
-                const message = land._clocks;
-                line.postMessage(['hyoo_sync_clocks', land.id(), message]);
+                line.postMessage(['hyoo_sync_clocks', land.id(), land._clocks]);
             }
         }
         async line_send_units(line, units) {
@@ -5976,7 +6011,7 @@ var $;
             return next;
         }
         static link(next) {
-            var params = {};
+            const params = {};
             var prev = this.dict();
             for (var key in prev) {
                 params[key] = prev[key];
@@ -5987,11 +6022,11 @@ var $;
             return this.make_link(params);
         }
         static make_link(next) {
-            var chunks = [];
-            for (var key in next) {
-                if (null == next[key])
-                    continue;
-                chunks.push([key].concat(next[key]).map(encodeURIComponent).join('='));
+            const chunks = [];
+            for (const key in next) {
+                if (next[key] !== null) {
+                    chunks.push([key, next[key]].map(encodeURIComponent).join('='));
+                }
             }
             return chunks.join(' ');
         }
@@ -6009,8 +6044,8 @@ var $;
             return new this.constructor(this.prefix + postfix + '.');
         }
         link(next) {
-            var prefix = this.prefix;
-            var dict = {};
+            const prefix = this.prefix;
+            const dict = {};
             for (var key in next) {
                 dict[prefix + key] = next[key];
             }
@@ -6211,6 +6246,9 @@ var $;
             return this.land.node(unit.self, Node);
         }
     }
+    __decorate([
+        $mol_mem
+    ], $hyoo_crowd_list.prototype, "set", null);
     $.$hyoo_crowd_list = $hyoo_crowd_list;
 })($ || ($ = {}));
 //hyoo/crowd/list/list.ts
@@ -7679,9 +7717,9 @@ var $;
                     const def = this.lang_default();
                     if (lang === def)
                         throw error;
-                    return {};
                 }
             }
+            return {};
         }
         static text(key) {
             const lang = this.lang();
@@ -7878,7 +7916,6 @@ var $;
 var $;
 (function ($) {
     const { rem } = $mol_style_unit;
-    const { scale } = $mol_style_func;
     $mol_style_define($mol_link, {
         textDecoration: 'none',
         color: $mol_theme.control,
@@ -9016,7 +9053,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $mol_style_attach("mol/check/check.css", "[mol_check] {\n\tflex: 0 0 auto;\n\tjustify-content: flex-start;\n\talign-content: center;\n\talign-items: flex-start;\n\tborder: none;\n\tfont-weight: inherit;\n\tbox-shadow: none;\n\ttext-align: left;\n\tdisplay: inline-flex;\n\tflex-wrap: nowrap;\n}\n\n[mol_check_title] {\n\tflex-shrink: 1;\n}\n\n[mol_check_checked] {\n\tcolor: var(--mol_theme_current);\n}\n");
+    $mol_style_attach("mol/check/check.css", "[mol_check] {\n\tflex: 0 0 auto;\n\tjustify-content: flex-start;\n\talign-content: center;\n\talign-items: flex-start;\n\tborder: none;\n\tfont-weight: inherit;\n\tbox-shadow: none;\n\ttext-align: left;\n\tdisplay: inline-flex;\n\tflex-wrap: nowrap;\n}\n\n[mol_check_title] {\n\tflex-shrink: 1;\n}\n");
 })($ || ($ = {}));
 //mol/check/-css/check.css.ts
 ;
@@ -9063,7 +9100,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $mol_style_attach("mol/check/icon/icon.view.css", "");
+    $mol_style_attach("mol/check/icon/icon.view.css", "[mol_check_icon]:where([mol_check_checked]) {\n\tcolor: var(--mol_theme_current);\n}\n");
 })($ || ($ = {}));
 //mol/check/icon/-css/icon.view.css.ts
 ;
@@ -9653,12 +9690,18 @@ var $;
         string_enabled() {
             return this.enabled();
         }
+        submit(next) {
+            if (next !== undefined)
+                return next;
+            return null;
+        }
         String() {
             const obj = new this.$.$mol_string();
             obj.type = () => this.type();
             obj.value = (val) => this.value_string(val);
             obj.hint = () => this.hint();
             obj.enabled = () => this.string_enabled();
+            obj.submit = (next) => this.submit(next);
             return obj;
         }
         event_dec(next) {
@@ -9710,6 +9753,9 @@ var $;
     __decorate([
         $mol_mem
     ], $mol_number.prototype, "value_string", null);
+    __decorate([
+        $mol_mem
+    ], $mol_number.prototype, "submit", null);
     __decorate([
         $mol_mem
     ], $mol_number.prototype, "String", null);
@@ -11065,7 +11111,7 @@ var $;
                 });
                 const regexp = new $mol_regexp(`(?:${chunks.join('|')})`, flags, groups);
                 const validator = new RegExp('^' + regexp.source + '$', flags);
-                regexp.generate = params => {
+                regexp.generate = (params) => {
                     for (let option in source) {
                         if (option in params) {
                             if (typeof params[option] === 'boolean') {
@@ -11286,9 +11332,6 @@ var $;
                 if (!name || !name.startsWith('$mol_icon_')) {
                     return this.Not_found_icon().path();
                 }
-                if (this.$[name]) {
-                    return (new this.$[name]).path();
-                }
                 const base = 'https://raw.githubusercontent.com/nin-jin/mol_icon/master';
                 const path = name.replace('$mol_icon', '').split('_');
                 const uri = `${base}/${path.join('/')}/${path.slice(-1)[0]}.view.tree`;
@@ -11419,7 +11462,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $mol_style_attach("mol/check/list/list.view.css", "[mol_check_list] {\n\tdisplay: flex;\n\tflex-wrap: wrap;\n\tflex: 1 1 auto;\n\tborder-radius: var(--mol_gap_round);\n\tgap: 1px;\n}\n\n[mol_check_list_option] {\n\tflex: 0 1 auto;\n}\n\n[mol_check_list_option][mol_check_checked=\"true\"] {\n\ttext-shadow: 0 0;\n\tcolor: var(--mol_theme_current);\n}\n\n[mol_check_list_option][mol_check_checked=\"true\"][disabled] {\n\tcolor: var(--mol_theme_text);\n}\n");
+    $mol_style_attach("mol/check/list/list.view.css", "[mol_check_list] {\n\tdisplay: flex;\n\tflex-wrap: wrap;\n\tflex: 1 1 auto;\n\tborder-radius: var(--mol_gap_round);\n\tgap: 1px;\n}\n\n[mol_check_list_option] {\n\tflex: 0 1 auto;\n}\n\n[mol_check_list_option]:where([mol_check_checked=\"true\"]) {\n\ttext-shadow: 0 0;\n\tcolor: var(--mol_theme_current);\n}\n\n[mol_check_list_option]:where([mol_check_checked=\"true\"][disabled]) {\n\tcolor: var(--mol_theme_text);\n}\n");
 })($ || ($ = {}));
 //mol/check/list/-css/list.view.css.ts
 ;
@@ -19999,12 +20042,14 @@ var $;
 (function ($) {
     class $mol_import extends $mol_object2 {
         static module(uri) {
+            $mol_wire_solid();
             return $mol_wire_sync(this).module_async(uri);
         }
         static module_async(uri) {
             return import(uri);
         }
         static script(uri) {
+            $mol_wire_solid();
             return $mol_wire_sync(this).script_async(uri);
         }
         static script_async(uri) {
@@ -22294,7 +22339,7 @@ var $;
                 return options;
             }
             Content() {
-                return this.items()[this.current()];
+                return this.items()[Number(this.current())];
             }
         }
         __decorate([
@@ -22912,6 +22957,11 @@ var $;
                     shrink: 0,
                     basis: rem(20),
                 },
+            },
+            Demo_page: {
+                Body: {
+                    padding: 0,
+                }
             },
         });
     })($$ = $.$$ || ($.$$ = {}));
@@ -25815,8 +25865,8 @@ var $;
         for (let def of $mol_view_tree_classes(tree).sub) {
             if (!/^\$\w+$/.test(def.type))
                 throw def.error('Wrong component name');
-            var parent = def.sub[0];
-            var members = {};
+            const parent = def.sub[0];
+            const members = {};
             for (let param of $mol_view_tree_class_props(def).sub) {
                 try {
                     var needSet = false;
@@ -25857,12 +25907,12 @@ var $;
                                         if (val)
                                             items.push(val.join(""));
                                     });
-                                    return [`[`, items.join(' , '), `]`, (item_type ? ` as readonly ( ${item_type} )[]` : ` as readonly any[]`)];
+                                    return [`[`, items.join(' , '), `]`, (item_type ? ` as ( ${item_type} )[]` : ` as any[]`)];
                                 case (value.type[0] === '$'):
                                     if (!definition)
                                         throw value.error('Objects should be bound');
                                     needCache = true;
-                                    var overs = [];
+                                    const overs = [];
                                     value.sub.forEach(over => {
                                         if (/^[-\/]?$/.test(over.type))
                                             return '';
@@ -25894,21 +25944,28 @@ var $;
                                     const object_args = value.select('/', '').sub.map(arg => getValue(arg)).join(' , ');
                                     return ['(( obj )=>{\n', ...overs, '\t\t\treturn obj\n\t\t})( new this.$.', SourceNode(value.row, value.col, fileName, value.type), '( ', object_args, ' ) )'];
                                 case (value.type === '*'):
-                                    var opts = [];
-                                    value.sub.forEach(opt => {
+                                    const opts = [];
+                                    for (const opt of value.sub) {
                                         if (opt.type === '-')
-                                            return '';
+                                            continue;
                                         if (opt.type === '^') {
                                             opts.push(`\t\t\t...super.${param.type}() ,\n`);
-                                            return;
+                                            continue;
                                         }
-                                        var key = /(.*?)(?:\?(\w+))?$/.exec(opt.type);
-                                        var ns = needSet;
-                                        var v = getValue(opt.sub[0]);
-                                        var arg = key[2] ? ` ( ${key[2]}? : any )=> ` : '';
-                                        opts.push(...['\t\t\t"', SourceNode(opt.row, opt.col, fileName, key[1] + '" : '), arg, ' ', ...(v || []), ' ,\n']);
+                                        const key = /(.*?)(?:\?(\w+))?$/.exec(opt.type);
+                                        const ns = needSet;
+                                        const v = getValue(opt.sub[0]);
+                                        const arg = key[2] ? ` ( ${key[2]}? : any )=> ` : '';
+                                        opts.push(...[
+                                            '\t\t\t"',
+                                            SourceNode(opt.row, opt.col, fileName, key[1] + '" : '),
+                                            arg,
+                                            ' ',
+                                            ...(v || []),
+                                            ' ,\n'
+                                        ]);
                                         needSet = ns;
-                                    });
+                                    }
                                     return ['({\n', opts.join(''), '\t\t})'];
                                 case (value.type === '<=>'):
                                     if (value.sub.length === 1) {
@@ -25955,7 +26012,7 @@ var $;
                                 ...val
                             ];
                         val = ['return ', ...val];
-                        var decl = ['\t', SourceNode(param.row, param.col, fileName, propName[1]), '(', args.join(','), ') {\n\t\t', ...val, '\n\t}\n\n'];
+                        let decl = ['\t', SourceNode(param.row, param.col, fileName, propName[1]), '(', args.join(','), ') {\n\t\t', ...val, '\n\t}\n\n'];
                         if (needCache) {
                             if (propName[2])
                                 decl = ['\t@ $', 'mol_mem_key\n', ...decl];
@@ -26467,7 +26524,7 @@ var $;
             const clocks1 = [new $hyoo_crowd_clock, new $hyoo_crowd_clock];
             clocks1[$hyoo_crowd_unit_group.auth].see_peer('b_33', 1);
             clocks1[$hyoo_crowd_unit_group.data].see_peer('b_33', 2);
-            const bin = $hyoo_crowd_clock_bin.from('2_b', clocks1);
+            const bin = $hyoo_crowd_clock_bin.from('2_b', clocks1, 0);
             $mol_assert_like(bin.land(), '2_b');
             const clocks2 = [new $hyoo_crowd_clock, new $hyoo_crowd_clock];
             clocks2[$hyoo_crowd_unit_group.auth].see_bin(bin, $hyoo_crowd_unit_group.auth);
@@ -27645,7 +27702,7 @@ var $;
             land1.leave();
             const batch2 = await world1.delta_batch(land1);
             $mol_assert_like([...(await world2.apply(batch2)).forbid.values()], ['No auth key']);
-            $mol_assert_like(land2.chief.as($hyoo_crowd_reg).numb(), 234);
+            $mol_assert_like(land2.chief.as($hyoo_crowd_reg).numb(), 123);
         },
         async 'levels'() {
             const world1 = new $hyoo_crowd_world(await $hyoo_crowd_peer.generate());
@@ -27910,6 +27967,17 @@ var $;
     });
 })($ || ($ = {}));
 //mol/db/index/index.test.ts
+;
+"use strict";
+var $;
+(function ($_1) {
+    $mol_test_mocks.push($ => {
+        $.$hyoo_sync_client = class extends $hyoo_sync_yard {
+            land_init(land) { }
+        };
+    });
+})($ || ($ = {}));
+//hyoo/sync/client/client.test.ts
 ;
 "use strict";
 var $;
