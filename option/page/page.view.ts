@@ -11,7 +11,7 @@ namespace $.$$ {
 		items() {
 			if (!this.keys().length) return []
 
-			return this.keys().map( key => this.Tab(key) )
+			return this.keys().map( key => this.Expander(key) )
 		}
 
 		tab_title(key: string) {
@@ -20,6 +20,10 @@ namespace $.$$ {
 
 		tab_rows(key: string) {
 			return this.Options()[key] as $mol_view[]
+		}
+
+		expanded(key: string, next?: boolean) {
+			return this.$.$mol_state_local.value(`${this}.expanded(${key})`, next) ?? super.expanded(key)
 		}
 
 	}

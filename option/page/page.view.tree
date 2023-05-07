@@ -2,8 +2,9 @@ $hyoo_sketch_option_page $mol_page
 	title @ \Options
 	Options *
 	body /
-		<= Tabs $mol_deck
-			items <= items /
-	Tab* $mol_list
-		title <= tab_title* \
-		rows <= tab_rows* /$mol_view
+		<= List $mol_list
+			rows <= items /
+	Expander* $mol_expander
+		label / <= tab_title* \
+		content <= tab_rows* /$mol_view
+		expanded? <=> expanded*? true
