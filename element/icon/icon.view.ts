@@ -8,9 +8,9 @@ namespace $.$$ {
 				return this.Not_found_icon().path()
 			}
 
-			if (this.$[ name ]) {
-				return ( new ( this.$[ name ] as typeof $mol_icon ) ).path()
-			}
+			// if (this.$[ name ]) {
+			// 	return ( new ( this.$[ name ] as typeof $mol_icon ) ).path()
+			// }
 
 			const base = 'https://raw.githubusercontent.com/nin-jin/mol_icon/master'
 			const path = name.replace('$mol_icon', '').split('_')

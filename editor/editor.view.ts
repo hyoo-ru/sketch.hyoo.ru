@@ -9,7 +9,7 @@ namespace $.$$ {
 		@ $mol_mem_key
 		Element(id: $mol_int62_string) {
 			const type = this.element(id).type()
-			const obj = this[ `Element_${type}` ](id) as $hyoo_sketch_element_base
+			const obj = (this as any)[ `Element_${type}` ](id) as $hyoo_sketch_element_base
 			
 			obj.element = () => this.element(id)
 			obj.grid = () => this.grid()

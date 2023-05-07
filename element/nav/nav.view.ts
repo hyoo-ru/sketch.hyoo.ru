@@ -9,7 +9,7 @@ namespace $.$$ {
 			const dict = pages.reduce( (dict, page) => {
 				dict[page.id()] = page.name()
 				return dict
-			} , {} )
+			} , {} as any )
 
 			return dict
 		}

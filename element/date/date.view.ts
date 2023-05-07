@@ -3,7 +3,7 @@ namespace $.$$ {
 	export class $hyoo_sketch_element_date extends $.$hyoo_sketch_element_date {
 
 		Element() {
-			return this[ this.type() ]() as $mol_view
+			return (this as any)[ this.type() ]() as $mol_view
 		}
 
 		formated_date() {

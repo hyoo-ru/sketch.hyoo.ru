@@ -15,7 +15,7 @@ namespace $.$$ {
 			return this.option_list().reduce(( dict, val ) => {
 				dict[val] = val
 				return dict
-			}, {})
+			}, {} as any)
 		}
 
 		rows() {

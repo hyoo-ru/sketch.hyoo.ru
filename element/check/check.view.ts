@@ -3,7 +3,7 @@ namespace $.$$ {
 	export class $hyoo_sketch_element_check extends $.$hyoo_sketch_element_check {
 
 		Element() {
-			return this[ this.check_type() ]() as $mol_view
+			return (this as any)[ this.check_type() ]() as $mol_view
 		}
 
 		check_type(next?: string) {

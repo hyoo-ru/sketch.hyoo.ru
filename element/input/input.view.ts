@@ -5,7 +5,7 @@ namespace $.$$ {
 		Element() {
 			const type = this.input_type()
 
-			return this[ type ]() as $mol_view
+			return (this as any)[ type ]() as $mol_view
 		}
 
 		input_number(next?: number) {

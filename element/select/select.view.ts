@@ -3,7 +3,7 @@ namespace $.$$ {
 	export class $hyoo_sketch_element_select extends $.$hyoo_sketch_element_select {
 
 		Element() {
-			return this[ this.select_type() ]() as $mol_view
+			return (this as any)[ this.select_type() ]() as $mol_view
 		}
 
 		select_type(next?: string) {
