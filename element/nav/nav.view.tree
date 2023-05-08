@@ -9,7 +9,7 @@ $hyoo_sketch_element_nav $hyoo_sketch_element_base
 				Control <= Nav_action_add $mol_button_major
 					title @ \Add action
 					click? <=> nav_action_add? null
-			<= Nav_action* $hyoo_sketch_element_nav_action
+			<= Nav_action*0 $hyoo_sketch_element_nav_action
 				pages <= project_pages *
 				drop? <=> nav_action_drop*? null
 				type? <=> nav_action_type*? \none
