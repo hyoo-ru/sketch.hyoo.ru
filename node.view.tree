@@ -476,6 +476,21 @@ $hyoo_sketch_element_text $hyoo_sketch_element_base
 						1.25rem \Accent
 			^ icon_options
 
+$mol_button_major $mol_button_typed
+	attr *
+		^
+		mol_theme \$mol_theme_accent
+
+$mol_labeler $mol_list
+	rows /
+		<= Label $mol_view
+			minimal_height 32
+			sub <= label /$mol_view_content
+				<= title
+		<= Content $mol_view
+			minimal_height 24
+			sub <= content /
+
 $mol_pop $mol_view
 	showed?val false
 	align_vert \
@@ -594,31 +609,48 @@ $hyoo_sketch_element_nav $hyoo_sketch_element_base
 	Options *
 		^
 		nav <= nav_options /
-			<= Nav_action_option $hyoo_sketch_option
-				name @ \Action
-				Control <= Nav_action_control $mol_switch
-					value? <=> nav_action? \none
-					options *
-						none @ \None
-						open @ \Open page
-						replace @ \Replace page
-						close @ \Close page
-						external @ \Open external link
-			<= Nav_target_page_option $hyoo_sketch_option
-				name @ \Target page
-				Control <= Nav_target_page_control $mol_select
-					align \top_right
-					value? <=> nav_target_page? \
-					dictionary <= project_pages *
-			<= Nav_target_link_option $hyoo_sketch_option
-				name @ \Target link
-				Control <= Nav_target_link_control $mol_string
-					value? <=> nav_target_link? \https://mol.hyoo.ru
+			<= Nav_action_add_option $hyoo_sketch_option
+				Control <= Nav_action_add $mol_button_major
+					title @ \Add action
+					click? <=> nav_action_add? null
+			<= Nav_action*0 $hyoo_sketch_element_nav_action
+				pages <= project_pages *
+				drop? <=> nav_action_drop*? null
+				type? <=> nav_action_type*? \none
+				target_page? <=> nav_action_target_page*? \
+				source_page? <=> nav_action_source_page*? \
+				link? <=> nav_action_target_link*? \
 
-$mol_button_major $mol_button_typed
-	attr *
-		^
-		mol_theme \$mol_theme_accent
+$hyoo_sketch_element_nav_action $mol_list
+	rows /
+		<= Type_label $mol_labeler
+			title @ \Type
+			content / <= Type $mol_switch
+				value? <=> type? \none
+				options *
+					open @ \Open page
+					replace @ \Replace page
+					close @ \Close page
+					external @ \Open external link
+		<= Source_page_label $mol_labeler
+			title @ \Source Page
+			content / <= Source_page $mol_select
+				align \top_right
+				value? <=> source_page? \
+				dictionary <= pages *
+		<= Target_page_label $mol_labeler
+			title @ \Target Page
+			content / <= Target_page $mol_select
+				align \top_right
+				value? <=> target_page? \
+				dictionary <= pages *
+		<= Link_label $mol_labeler
+			title @ \Link
+			content / <= Link $mol_string
+				value? <=> link? \https://mol.hyoo.ru
+		<= Drop $mol_button_minor
+			title @ \Drop
+			click? <=> drop? null
 
 $hyoo_sketch_element_button $hyoo_sketch_element_base
 	Nav $hyoo_sketch_element_nav
@@ -780,6 +812,7 @@ $hyoo_sketch_element_link $hyoo_sketch_element_base
 		arg <= link_arg *
 		hint <= link_hint
 		sub <= text_sub
+		click? <=> click? null
 	Element $mol_link
 	Options *
 		^
@@ -1782,16 +1815,6 @@ $mol_expander $mol_list
 				<= Tools null
 		<= Content $mol_list
 			rows <= content /
-
-$mol_labeler $mol_list
-	rows /
-		<= Label $mol_view
-			minimal_height 32
-			sub <= label /$mol_view_content
-				<= title
-		<= Content $mol_view
-			minimal_height 24
-			sub <= content /
 
 $mol_form_field $mol_labeler
 	bids /string

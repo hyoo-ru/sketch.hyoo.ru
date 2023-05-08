@@ -3197,6 +3197,28 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
+    class $mol_button_major extends $mol_button_typed {
+        attr(): Record<string, any>;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+    class $mol_labeler extends $mol_list {
+        rows(): readonly any[];
+        label(): readonly $mol_view_content[];
+        Label(): $mol_view;
+        content(): readonly any[];
+        Content(): $mol_view;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
     class $mol_pop extends $mol_view {
         showed(val?: any): boolean;
         align_vert(): string;
@@ -3412,47 +3434,80 @@ declare namespace $ {
         Element(): $mol_view;
         nav_pages_param(): string;
         Options(): Record<string, any>;
-        nav_action(next?: any): string;
-        Nav_action_control(): $$.$mol_switch;
-        Nav_action_option(): $hyoo_sketch_option;
-        nav_target_page(next?: any): string;
+        nav_action_add(next?: any): any;
+        Nav_action_add(): $mol_button_major;
+        Nav_action_add_option(): $hyoo_sketch_option;
         project_pages(): Record<string, any>;
-        Nav_target_page_control(): $$.$mol_select;
-        Nav_target_page_option(): $hyoo_sketch_option;
-        nav_target_link(next?: any): string;
-        Nav_target_link_control(): $$.$mol_string;
-        Nav_target_link_option(): $hyoo_sketch_option;
+        nav_action_drop(id: any, next?: any): any;
+        nav_action_type(id: any, next?: any): string;
+        nav_action_target_page(id: any, next?: any): string;
+        nav_action_source_page(id: any, next?: any): string;
+        nav_action_target_link(id: any, next?: any): string;
+        Nav_action(id: any): $$.$hyoo_sketch_element_nav_action;
         nav_options(): readonly any[];
+    }
+    class $hyoo_sketch_element_nav_action extends $mol_list {
+        rows(): readonly any[];
+        type(next?: any): string;
+        Type(): $$.$mol_switch;
+        Type_label(): $mol_labeler;
+        source_page(next?: any): string;
+        pages(): Record<string, any>;
+        Source_page(): $$.$mol_select;
+        Source_page_label(): $mol_labeler;
+        target_page(next?: any): string;
+        Target_page(): $$.$mol_select;
+        Target_page_label(): $mol_labeler;
+        link(next?: any): string;
+        Link(): $$.$mol_string;
+        Link_label(): $mol_labeler;
+        drop(next?: any): any;
+        Drop(): $mol_button_minor;
     }
 }
 
 declare namespace $.$$ {
-    class $hyoo_sketch_element_nav extends $.$hyoo_sketch_element_nav {
+    type Action_type = 'open' | 'close' | 'replace' | 'external';
+    type Action = {
+        type: Action_type;
+        source_page: string;
+        target_page: string;
+        target_link: string;
+    };
+    export class $hyoo_sketch_element_nav extends $.$hyoo_sketch_element_nav {
         project_pages(): any;
-        nav_options(): $hyoo_sketch_option[];
-        nav_action(next?: string): string;
-        nav_target_page(next?: string): string;
-        nav_target_link(next?: string): string;
+        nav_options(): ($hyoo_sketch_option | $hyoo_sketch_element_nav_action)[];
+        nav_actions_node(): $hyoo_crowd_list;
+        nav_actions(next?: Action[]): Action[];
+        nav_action_add(): void;
+        nav_action_drop(id: number): void;
+        nav_action_value<Key extends keyof Action>({ id, key }: {
+            id: number;
+            key: Key;
+        }, next?: string): Action[Key];
+        nav_action_type(id: number, next?: string): Action_type;
+        nav_action_source_page(id: number, next?: string): string;
+        nav_action_target_page(id: number, next?: string): string;
+        nav_action_target_link(id: number, next?: string): string;
         nav_pages(next?: string[]): string[];
         nav_page_close(id: string): string[];
         nav_page_open(id: string): string[];
-        nav_page_replace(id: string): string[];
+        nav_page_replace(source_id: string, target_id: string): string[];
+        nav_click_handler(): void;
         duplicate(elem: $hyoo_sketch_element): $hyoo_sketch_element;
     }
-}
-
-declare namespace $ {
-    class $mol_button_major extends $mol_button_typed {
-        attr(): Record<string, any>;
+    export class $hyoo_sketch_element_nav_action extends $.$hyoo_sketch_element_nav_action {
+        rows(): ($mol_button_minor | $mol_labeler)[];
     }
+    export {};
 }
 
-declare namespace $ {
+declare namespace $.$$ {
 }
 
 declare namespace $ {
     class $hyoo_sketch_element_button extends $hyoo_sketch_element_base {
-        nav_options(): $hyoo_sketch_option[];
+        nav_options(): ($hyoo_sketch_option | $$.$hyoo_sketch_element_nav_action)[];
         Nav(): $$.$hyoo_sketch_element_nav;
         text_options(): readonly any[];
         text_sub(): readonly any[];
@@ -3616,7 +3671,7 @@ declare namespace $.$$ {
 
 declare namespace $ {
     class $hyoo_sketch_element_link extends $hyoo_sketch_element_base {
-        nav_options(): $hyoo_sketch_option[];
+        nav_options(): ($hyoo_sketch_option | $$.$hyoo_sketch_element_nav_action)[];
         Nav(): $$.$hyoo_sketch_element_nav;
         text_options(): readonly any[];
         text_sub(): readonly any[];
@@ -3629,6 +3684,7 @@ declare namespace $ {
         Options(): Record<string, any>;
         link_uri(): string;
         link_arg(): Record<string, any>;
+        click(next?: any): any;
         link_hint(next?: any): string;
         Link_hint_control(): $$.$mol_string;
         Link_hint_option(): $hyoo_sketch_option;
@@ -3645,10 +3701,8 @@ declare namespace $ {
 declare namespace $.$$ {
     class $hyoo_sketch_element_link extends $.$hyoo_sketch_element_link {
         Element(): $mol_link;
+        click(event: PointerEvent): void;
         link_hint(next?: string): string;
-        link_arg(): {
-            [x: string]: string;
-        };
         link_uri(): string;
         duplicate(elem?: $hyoo_sketch_element): $hyoo_sketch_element;
     }
@@ -5537,19 +5591,6 @@ declare namespace $.$$ {
     class $mol_expander extends $.$mol_expander {
         rows(): $mol_view[];
         expandable(): boolean;
-    }
-}
-
-declare namespace $ {
-}
-
-declare namespace $ {
-    class $mol_labeler extends $mol_list {
-        rows(): readonly any[];
-        label(): readonly $mol_view_content[];
-        Label(): $mol_view;
-        content(): readonly any[];
-        Content(): $mol_view;
     }
 }
 

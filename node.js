@@ -11868,6 +11868,76 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    class $mol_button_major extends $mol_button_typed {
+        attr() {
+            return {
+                ...super.attr(),
+                mol_theme: "$mol_theme_accent"
+            };
+        }
+    }
+    $.$mol_button_major = $mol_button_major;
+})($ || ($ = {}));
+//mol/button/major/-view.tree/major.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_style_attach("mol/button/major/major.view.css", "[mol_button_major][disabled] {\n\topacity: .5;\n\tfilter: grayscale();\n}\n");
+})($ || ($ = {}));
+//mol/button/major/-css/major.view.css.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_labeler extends $mol_list {
+        rows() {
+            return [
+                this.Label(),
+                this.Content()
+            ];
+        }
+        label() {
+            return [
+                this.title()
+            ];
+        }
+        Label() {
+            const obj = new this.$.$mol_view();
+            obj.minimal_height = () => 32;
+            obj.sub = () => this.label();
+            return obj;
+        }
+        content() {
+            return [];
+        }
+        Content() {
+            const obj = new this.$.$mol_view();
+            obj.minimal_height = () => 24;
+            obj.sub = () => this.content();
+            return obj;
+        }
+    }
+    __decorate([
+        $mol_mem
+    ], $mol_labeler.prototype, "Label", null);
+    __decorate([
+        $mol_mem
+    ], $mol_labeler.prototype, "Content", null);
+    $.$mol_labeler = $mol_labeler;
+})($ || ($ = {}));
+//mol/labeler/-view.tree/labeler.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_style_attach("mol/labeler/labeler.view.css", "[mol_labeler] {\n\tdisplay: flex;\n\tflex-direction: column;\n\talign-items: stretch;\n\tcursor: inherit;\n}\n\n[mol_labeler_label] {\n\tmin-height: 2rem;\n\tcolor: var(--mol_theme_shade);\n\tpadding: .5rem .75rem 0;\n\tgap: 0 var(--mol_gap_block);\n\tflex-wrap: wrap;\n}\n\n[mol_labeler_content] {\n\tdisplay: flex;\n\tpadding: var(--mol_gap_text);\n}\n");
+})($ || ($ = {}));
+//mol/labeler/-css/labeler.view.css.ts
+;
+"use strict";
+var $;
+(function ($) {
     class $mol_pop extends $mol_view {
         showed(val) {
             if (val !== undefined)
@@ -12832,71 +12902,64 @@ var $;
                 nav: this.nav_options()
             };
         }
-        nav_action(next) {
+        nav_action_add(next) {
             if (next !== undefined)
                 return next;
-            return "none";
+            return null;
         }
-        Nav_action_control() {
-            const obj = new this.$.$mol_switch();
-            obj.value = (next) => this.nav_action(next);
-            obj.options = () => ({
-                none: this.$.$mol_locale.text('$hyoo_sketch_element_nav_Nav_action_control_options_none'),
-                open: this.$.$mol_locale.text('$hyoo_sketch_element_nav_Nav_action_control_options_open'),
-                replace: this.$.$mol_locale.text('$hyoo_sketch_element_nav_Nav_action_control_options_replace'),
-                close: this.$.$mol_locale.text('$hyoo_sketch_element_nav_Nav_action_control_options_close'),
-                external: this.$.$mol_locale.text('$hyoo_sketch_element_nav_Nav_action_control_options_external')
-            });
+        Nav_action_add() {
+            const obj = new this.$.$mol_button_major();
+            obj.title = () => this.$.$mol_locale.text('$hyoo_sketch_element_nav_Nav_action_add_title');
+            obj.click = (next) => this.nav_action_add(next);
             return obj;
         }
-        Nav_action_option() {
+        Nav_action_add_option() {
             const obj = new this.$.$hyoo_sketch_option();
-            obj.name = () => this.$.$mol_locale.text('$hyoo_sketch_element_nav_Nav_action_option_name');
-            obj.Control = () => this.Nav_action_control();
+            obj.Control = () => this.Nav_action_add();
             return obj;
-        }
-        nav_target_page(next) {
-            if (next !== undefined)
-                return next;
-            return "";
         }
         project_pages() {
             return {};
         }
-        Nav_target_page_control() {
-            const obj = new this.$.$mol_select();
-            obj.align = () => "top_right";
-            obj.value = (next) => this.nav_target_page(next);
-            obj.dictionary = () => this.project_pages();
-            return obj;
-        }
-        Nav_target_page_option() {
-            const obj = new this.$.$hyoo_sketch_option();
-            obj.name = () => this.$.$mol_locale.text('$hyoo_sketch_element_nav_Nav_target_page_option_name');
-            obj.Control = () => this.Nav_target_page_control();
-            return obj;
-        }
-        nav_target_link(next) {
+        nav_action_drop(id, next) {
             if (next !== undefined)
                 return next;
-            return "https://mol.hyoo.ru";
+            return null;
         }
-        Nav_target_link_control() {
-            const obj = new this.$.$mol_string();
-            obj.value = (next) => this.nav_target_link(next);
-            return obj;
+        nav_action_type(id, next) {
+            if (next !== undefined)
+                return next;
+            return "none";
         }
-        Nav_target_link_option() {
-            const obj = new this.$.$hyoo_sketch_option();
-            obj.name = () => this.$.$mol_locale.text('$hyoo_sketch_element_nav_Nav_target_link_option_name');
-            obj.Control = () => this.Nav_target_link_control();
+        nav_action_target_page(id, next) {
+            if (next !== undefined)
+                return next;
+            return "";
+        }
+        nav_action_source_page(id, next) {
+            if (next !== undefined)
+                return next;
+            return "";
+        }
+        nav_action_target_link(id, next) {
+            if (next !== undefined)
+                return next;
+            return "";
+        }
+        Nav_action(id) {
+            const obj = new this.$.$hyoo_sketch_element_nav_action();
+            obj.pages = () => this.project_pages();
+            obj.drop = (next) => this.nav_action_drop(id, next);
+            obj.type = (next) => this.nav_action_type(id, next);
+            obj.target_page = (next) => this.nav_action_target_page(id, next);
+            obj.source_page = (next) => this.nav_action_source_page(id, next);
+            obj.link = (next) => this.nav_action_target_link(id, next);
             return obj;
         }
         nav_options() {
             return [
-                this.Nav_action_option(),
-                this.Nav_target_page_option(),
-                this.Nav_target_link_option()
+                this.Nav_action_add_option(),
+                this.Nav_action("0")
             ];
         }
     }
@@ -12905,32 +12968,182 @@ var $;
     ], $hyoo_sketch_element_nav.prototype, "Element", null);
     __decorate([
         $mol_mem
-    ], $hyoo_sketch_element_nav.prototype, "nav_action", null);
+    ], $hyoo_sketch_element_nav.prototype, "nav_action_add", null);
     __decorate([
         $mol_mem
-    ], $hyoo_sketch_element_nav.prototype, "Nav_action_control", null);
+    ], $hyoo_sketch_element_nav.prototype, "Nav_action_add", null);
     __decorate([
         $mol_mem
-    ], $hyoo_sketch_element_nav.prototype, "Nav_action_option", null);
+    ], $hyoo_sketch_element_nav.prototype, "Nav_action_add_option", null);
     __decorate([
-        $mol_mem
-    ], $hyoo_sketch_element_nav.prototype, "nav_target_page", null);
+        $mol_mem_key
+    ], $hyoo_sketch_element_nav.prototype, "nav_action_drop", null);
     __decorate([
-        $mol_mem
-    ], $hyoo_sketch_element_nav.prototype, "Nav_target_page_control", null);
+        $mol_mem_key
+    ], $hyoo_sketch_element_nav.prototype, "nav_action_type", null);
     __decorate([
-        $mol_mem
-    ], $hyoo_sketch_element_nav.prototype, "Nav_target_page_option", null);
+        $mol_mem_key
+    ], $hyoo_sketch_element_nav.prototype, "nav_action_target_page", null);
     __decorate([
-        $mol_mem
-    ], $hyoo_sketch_element_nav.prototype, "nav_target_link", null);
+        $mol_mem_key
+    ], $hyoo_sketch_element_nav.prototype, "nav_action_source_page", null);
     __decorate([
-        $mol_mem
-    ], $hyoo_sketch_element_nav.prototype, "Nav_target_link_control", null);
+        $mol_mem_key
+    ], $hyoo_sketch_element_nav.prototype, "nav_action_target_link", null);
     __decorate([
-        $mol_mem
-    ], $hyoo_sketch_element_nav.prototype, "Nav_target_link_option", null);
+        $mol_mem_key
+    ], $hyoo_sketch_element_nav.prototype, "Nav_action", null);
     $.$hyoo_sketch_element_nav = $hyoo_sketch_element_nav;
+    class $hyoo_sketch_element_nav_action extends $mol_list {
+        rows() {
+            return [
+                this.Type_label(),
+                this.Source_page_label(),
+                this.Target_page_label(),
+                this.Link_label(),
+                this.Drop()
+            ];
+        }
+        type(next) {
+            if (next !== undefined)
+                return next;
+            return "none";
+        }
+        Type() {
+            const obj = new this.$.$mol_switch();
+            obj.value = (next) => this.type(next);
+            obj.options = () => ({
+                open: this.$.$mol_locale.text('$hyoo_sketch_element_nav_action_Type_options_open'),
+                replace: this.$.$mol_locale.text('$hyoo_sketch_element_nav_action_Type_options_replace'),
+                close: this.$.$mol_locale.text('$hyoo_sketch_element_nav_action_Type_options_close'),
+                external: this.$.$mol_locale.text('$hyoo_sketch_element_nav_action_Type_options_external')
+            });
+            return obj;
+        }
+        Type_label() {
+            const obj = new this.$.$mol_labeler();
+            obj.title = () => this.$.$mol_locale.text('$hyoo_sketch_element_nav_action_Type_label_title');
+            obj.content = () => [
+                this.Type()
+            ];
+            return obj;
+        }
+        source_page(next) {
+            if (next !== undefined)
+                return next;
+            return "";
+        }
+        pages() {
+            return {};
+        }
+        Source_page() {
+            const obj = new this.$.$mol_select();
+            obj.align = () => "top_right";
+            obj.value = (next) => this.source_page(next);
+            obj.dictionary = () => this.pages();
+            return obj;
+        }
+        Source_page_label() {
+            const obj = new this.$.$mol_labeler();
+            obj.title = () => this.$.$mol_locale.text('$hyoo_sketch_element_nav_action_Source_page_label_title');
+            obj.content = () => [
+                this.Source_page()
+            ];
+            return obj;
+        }
+        target_page(next) {
+            if (next !== undefined)
+                return next;
+            return "";
+        }
+        Target_page() {
+            const obj = new this.$.$mol_select();
+            obj.align = () => "top_right";
+            obj.value = (next) => this.target_page(next);
+            obj.dictionary = () => this.pages();
+            return obj;
+        }
+        Target_page_label() {
+            const obj = new this.$.$mol_labeler();
+            obj.title = () => this.$.$mol_locale.text('$hyoo_sketch_element_nav_action_Target_page_label_title');
+            obj.content = () => [
+                this.Target_page()
+            ];
+            return obj;
+        }
+        link(next) {
+            if (next !== undefined)
+                return next;
+            return "https://mol.hyoo.ru";
+        }
+        Link() {
+            const obj = new this.$.$mol_string();
+            obj.value = (next) => this.link(next);
+            return obj;
+        }
+        Link_label() {
+            const obj = new this.$.$mol_labeler();
+            obj.title = () => this.$.$mol_locale.text('$hyoo_sketch_element_nav_action_Link_label_title');
+            obj.content = () => [
+                this.Link()
+            ];
+            return obj;
+        }
+        drop(next) {
+            if (next !== undefined)
+                return next;
+            return null;
+        }
+        Drop() {
+            const obj = new this.$.$mol_button_minor();
+            obj.title = () => this.$.$mol_locale.text('$hyoo_sketch_element_nav_action_Drop_title');
+            obj.click = (next) => this.drop(next);
+            return obj;
+        }
+    }
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_nav_action.prototype, "type", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_nav_action.prototype, "Type", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_nav_action.prototype, "Type_label", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_nav_action.prototype, "source_page", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_nav_action.prototype, "Source_page", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_nav_action.prototype, "Source_page_label", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_nav_action.prototype, "target_page", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_nav_action.prototype, "Target_page", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_nav_action.prototype, "Target_page_label", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_nav_action.prototype, "link", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_nav_action.prototype, "Link", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_nav_action.prototype, "Link_label", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_nav_action.prototype, "drop", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_nav_action.prototype, "Drop", null);
+    $.$hyoo_sketch_element_nav_action = $hyoo_sketch_element_nav_action;
 })($ || ($ = {}));
 //hyoo/sketch/element/nav/-view.tree/nav.view.tree.ts
 ;
@@ -12943,28 +13156,53 @@ var $;
             project_pages() {
                 const pages = this.page().project().pages();
                 const dict = pages.reduce((dict, page) => {
-                    dict[page.id()] = page.name();
+                    dict[page.id()] = `${page.name()} ${page.id() === this.page().id() ? '<--' : ''}`;
                     return dict;
                 }, {});
                 return dict;
             }
             nav_options() {
-                const action = this.nav_action();
-                if (action === 'none')
-                    return [this.Nav_action_option()];
                 return [
-                    this.Nav_action_option(),
-                    ...action === 'external' ? [this.Nav_target_link_option()] : [this.Nav_target_page_option()],
+                    this.Nav_action_add_option(),
+                    ...this.nav_actions().map((_, index) => this.Nav_action(index))
                 ];
             }
-            nav_action(next) {
-                return String(this.state().sub('nav_action', $hyoo_crowd_reg).value(next) ?? super.nav_action());
+            nav_actions_node() {
+                return this.state().sub('nav_actions', $hyoo_crowd_list);
             }
-            nav_target_page(next) {
-                return String(this.state().sub('nav_target_page', $hyoo_crowd_reg).value(next) ?? super.nav_target_page());
+            nav_actions(next) {
+                return this.nav_actions_node().list(next);
             }
-            nav_target_link(next) {
-                return String(this.state().sub('nav_target_link', $hyoo_crowd_reg).value(next) ?? super.nav_target_link());
+            nav_action_add() {
+                this.nav_actions_node().add({ target_link: 'https://mol.hyoo.ru' });
+            }
+            nav_action_drop(id) {
+                this.nav_actions_node().cut(id);
+            }
+            nav_action_value({ id, key }, next) {
+                const list = this.nav_actions();
+                const item = list[id] ?? {};
+                if (next === undefined) {
+                    return item[key];
+                }
+                this.nav_actions([
+                    ...list.slice(0, id),
+                    { ...item, [key]: next },
+                    ...list.slice(id + 1),
+                ]);
+                return next;
+            }
+            nav_action_type(id, next) {
+                return this.nav_action_value({ id, key: 'type' }, next) ?? 'open';
+            }
+            nav_action_source_page(id, next) {
+                return this.nav_action_value({ id, key: 'source_page' }, next) ?? '';
+            }
+            nav_action_target_page(id, next) {
+                return this.nav_action_value({ id, key: 'target_page' }, next) ?? '';
+            }
+            nav_action_target_link(id, next) {
+                return this.nav_action_value({ id, key: 'target_link' }, next) ?? '';
             }
             nav_pages(next) {
                 return (this.$.$mol_state_arg.value(this.nav_pages_param(), next && next.join(',')) ?? '').split(',');
@@ -12975,28 +13213,75 @@ var $;
             nav_page_open(id) {
                 return this.nav_pages([...this.nav_page_close(id), id]);
             }
-            nav_page_replace(id) {
-                const index = this.nav_pages().indexOf(this.page().id());
-                if (index === -1)
-                    return this.nav_pages();
-                const next = this.nav_pages();
-                next.splice(index, 1, id);
-                return this.nav_pages(next);
+            nav_page_replace(source_id, target_id) {
+                return this.nav_pages(this.nav_pages().map(id => {
+                    if (id === source_id)
+                        return target_id;
+                    if (id === target_id)
+                        return source_id;
+                    return id;
+                }));
+            }
+            nav_click_handler() {
+                const actions = this.nav_actions();
+                for (const action of actions) {
+                    if (action.type === 'open' && action.target_page) {
+                        this.nav_page_open(action.target_page);
+                    }
+                    if (action.type === 'close') {
+                        this.nav_page_close(action.target_page || this.page().id());
+                    }
+                    if (action.type === 'replace' && action.source_page && action.target_page) {
+                        this.nav_page_replace(action.source_page, action.target_page);
+                    }
+                    if (action.type === 'external') {
+                        $mol_dom_context.open(action.target_link ?? 'https://mol.hyoo.ru', '_blank');
+                    }
+                }
             }
             duplicate(elem) {
                 const element = elem ?? super.duplicate();
                 const obj = new $hyoo_sketch_element_nav;
                 obj.element = $mol_const(element);
-                obj.nav_action(this.nav_action());
-                obj.nav_target_page(this.nav_target_page());
-                obj.nav_target_link(this.nav_target_link());
+                obj.nav_actions(this.nav_actions());
                 return element;
             }
         }
         __decorate([
             $mol_mem
         ], $hyoo_sketch_element_nav.prototype, "project_pages", null);
+        __decorate([
+            $mol_mem
+        ], $hyoo_sketch_element_nav.prototype, "nav_options", null);
+        __decorate([
+            $mol_mem
+        ], $hyoo_sketch_element_nav.prototype, "nav_actions_node", null);
+        __decorate([
+            $mol_mem
+        ], $hyoo_sketch_element_nav.prototype, "nav_actions", null);
+        __decorate([
+            $mol_action
+        ], $hyoo_sketch_element_nav.prototype, "nav_action_add", null);
+        __decorate([
+            $mol_action
+        ], $hyoo_sketch_element_nav.prototype, "nav_action_drop", null);
+        __decorate([
+            $mol_mem_key
+        ], $hyoo_sketch_element_nav.prototype, "nav_action_value", null);
         $$.$hyoo_sketch_element_nav = $hyoo_sketch_element_nav;
+        class $hyoo_sketch_element_nav_action extends $.$hyoo_sketch_element_nav_action {
+            rows() {
+                const type = this.type();
+                return [
+                    this.Drop(),
+                    this.Type_label(),
+                    ...type === 'external' ? [this.Link_label()] : [
+                        ...type === 'replace' ? [this.Source_page_label(), this.Target_page_label()] : [this.Target_page_label()]
+                    ],
+                ];
+            }
+        }
+        $$.$hyoo_sketch_element_nav_action = $hyoo_sketch_element_nav_action;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
 //hyoo/sketch/element/nav/nav.view.ts
@@ -13004,24 +13289,21 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    class $mol_button_major extends $mol_button_typed {
-        attr() {
-            return {
-                ...super.attr(),
-                mol_theme: "$mol_theme_accent"
-            };
-        }
-    }
-    $.$mol_button_major = $mol_button_major;
+    var $$;
+    (function ($$) {
+        $mol_style_define($.$hyoo_sketch_element_nav_action, {
+            border: {
+                color: $mol_theme.special,
+                style: 'dashed',
+                width: '1px',
+                radius: '4px',
+            },
+            margin: $mol_gap.space,
+            padding: $mol_gap.space,
+        });
+    })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
-//mol/button/major/-view.tree/major.view.tree.ts
-;
-"use strict";
-var $;
-(function ($) {
-    $mol_style_attach("mol/button/major/major.view.css", "[mol_button_major][disabled] {\n\topacity: .5;\n\tfilter: grayscale();\n}\n");
-})($ || ($ = {}));
-//mol/button/major/-css/major.view.css.ts
+//hyoo/sketch/element/nav/nav.view.css.ts
 ;
 "use strict";
 var $;
@@ -13196,23 +13478,7 @@ var $;
                 return this.state().sub('button_type', $hyoo_crowd_reg).str(next) || super.button_type();
             }
             click() {
-                const action = this.Nav().nav_action();
-                const target_page = this.Nav().nav_target_page();
-                const target_link = this.Nav().nav_target_link();
-                if (action === 'none')
-                    return;
-                if (action === 'open') {
-                    this.Nav().nav_page_open(target_page);
-                }
-                if (action === 'close') {
-                    this.Nav().nav_page_close(target_page || this.page().id());
-                }
-                if (action === 'replace') {
-                    this.Nav().nav_page_replace(target_page);
-                }
-                if (action === 'external') {
-                    $mol_dom_context.open(target_link, '_blank');
-                }
+                this.Nav().nav_click_handler();
             }
             duplicate(elem) {
                 const element = elem ?? super.duplicate();
@@ -13929,6 +14195,7 @@ var $;
             obj.arg = () => this.link_arg();
             obj.hint = () => this.link_hint();
             obj.sub = () => this.text_sub();
+            obj.click = (next) => this.click(next);
             return obj;
         }
         Element() {
@@ -13948,6 +14215,11 @@ var $;
         }
         link_arg() {
             return {};
+        }
+        click(next) {
+            if (next !== undefined)
+                return next;
+            return null;
         }
         link_hint(next) {
             if (next !== undefined)
@@ -13987,6 +14259,9 @@ var $;
     __decorate([
         $mol_mem
     ], $hyoo_sketch_element_link.prototype, "Element", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sketch_element_link.prototype, "click", null);
     __decorate([
         $mol_mem
     ], $hyoo_sketch_element_link.prototype, "link_hint", null);
@@ -14042,34 +14317,19 @@ var $;
     (function ($$) {
         class $hyoo_sketch_element_link extends $.$hyoo_sketch_element_link {
             Element() {
-                const action = this.Nav().nav_action();
-                return action === 'external' || action === 'none' ? this.Link_external() : this.Link_internal();
+                const action = this.Nav().nav_actions()[0];
+                return action?.type === 'external' ? this.Link_external() : this.Link_internal();
+            }
+            click(event) {
+                event.preventDefault();
+                this.Nav().nav_click_handler();
             }
             link_hint(next) {
                 return String(this.state().sub('link_hint', $hyoo_crowd_reg).value(next) ?? super.link_hint());
             }
-            link_arg() {
-                const action = this.Nav().nav_action();
-                const target_page = this.Nav().nav_target_page();
-                const target_link = this.Nav().nav_target_link();
-                let link = [];
-                const pages = this.Nav().nav_pages();
-                if (action === 'open') {
-                    link = [...pages.filter(id => id !== target_page), target_page];
-                }
-                if (action === 'close') {
-                    link = pages.filter(id => id !== target_page);
-                }
-                if (action === 'replace') {
-                    link = pages.map(id => id === this.page().id() ? target_page : id);
-                }
-                console.log({ link });
-                return {
-                    [this.Nav().nav_pages_param()]: link.join(','),
-                };
-            }
             link_uri() {
-                return this.Nav().nav_action() === 'external' ? this.Nav().nav_target_link() : '#';
+                const action = this.Nav().nav_actions()[0];
+                return action?.type === 'external' ? action.target_link : '#';
             }
             duplicate(elem) {
                 const element = elem ?? super.duplicate();
@@ -14081,9 +14341,6 @@ var $;
                 return element;
             }
         }
-        __decorate([
-            $mol_mem
-        ], $hyoo_sketch_element_link.prototype, "link_arg", null);
         __decorate([
             $mol_mem
         ], $hyoo_sketch_element_link.prototype, "link_uri", null);
@@ -21570,54 +21827,6 @@ var $;
     $mol_style_attach("mol/expander/expander.view.css", "[mol_expander] {\n\tflex-direction: column;\n}\n\n[mol_expander_label] {\n\tdisplay: flex;\n\tflex-wrap: wrap;\n\tborder-radius: var(--mol_gap_round);\n}\n\n[mol_expander_trigger] {\n\tflex: auto;\n\tposition: relative;\n}\n");
 })($ || ($ = {}));
 //mol/expander/-css/expander.view.css.ts
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_labeler extends $mol_list {
-        rows() {
-            return [
-                this.Label(),
-                this.Content()
-            ];
-        }
-        label() {
-            return [
-                this.title()
-            ];
-        }
-        Label() {
-            const obj = new this.$.$mol_view();
-            obj.minimal_height = () => 32;
-            obj.sub = () => this.label();
-            return obj;
-        }
-        content() {
-            return [];
-        }
-        Content() {
-            const obj = new this.$.$mol_view();
-            obj.minimal_height = () => 24;
-            obj.sub = () => this.content();
-            return obj;
-        }
-    }
-    __decorate([
-        $mol_mem
-    ], $mol_labeler.prototype, "Label", null);
-    __decorate([
-        $mol_mem
-    ], $mol_labeler.prototype, "Content", null);
-    $.$mol_labeler = $mol_labeler;
-})($ || ($ = {}));
-//mol/labeler/-view.tree/labeler.view.tree.ts
-;
-"use strict";
-var $;
-(function ($) {
-    $mol_style_attach("mol/labeler/labeler.view.css", "[mol_labeler] {\n\tdisplay: flex;\n\tflex-direction: column;\n\talign-items: stretch;\n\tcursor: inherit;\n}\n\n[mol_labeler_label] {\n\tmin-height: 2rem;\n\tcolor: var(--mol_theme_shade);\n\tpadding: .5rem .75rem 0;\n\tgap: 0 var(--mol_gap_block);\n\tflex-wrap: wrap;\n}\n\n[mol_labeler_content] {\n\tdisplay: flex;\n\tpadding: var(--mol_gap_text);\n}\n");
-})($ || ($ = {}));
-//mol/labeler/-css/labeler.view.css.ts
 ;
 "use strict";
 var $;
