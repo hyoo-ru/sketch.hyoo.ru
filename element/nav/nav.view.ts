@@ -42,7 +42,7 @@ namespace $.$$ {
 
 		@ $mol_action
 		nav_action_add() {
-			this.nav_actions_node().add({} as any)
+			this.nav_actions_node().add({ target_link: 'https://mol.hyoo.ru' } as any)
 		}
 
 		@ $mol_action
@@ -69,7 +69,7 @@ namespace $.$$ {
 		}
 
 		nav_action_type(id: number, next?: string) {
-			return this.nav_action_value({ id, key: 'type' }, next) ?? 'none'
+			return this.nav_action_value({ id, key: 'type' }, next) ?? 'open'
 		}
 
 		nav_action_source_page(id: number, next?: string) {
@@ -102,6 +102,27 @@ namespace $.$$ {
 				if (id === target_id) return source_id
 				return id
 			} ) )
+		}
+
+		nav_click_handler() {
+			const actions = this.nav_actions()
+			for (const action of actions) {
+				if (action.type === 'open' && action.target_page) {
+					this.nav_page_open( action.target_page )
+				}
+
+				if (action.type === 'close') {
+					this.nav_page_close( action.target_page || this.page().id() )
+				}
+
+				if (action.type === 'replace' && action.source_page && action.target_page) {
+					this.nav_page_replace( action.source_page, action.target_page )
+				}
+
+				if (action.type === 'external') {
+					$mol_dom_context.open(action.target_link ?? 'https://mol.hyoo.ru', '_blank')
+				}
+			}
 		}
 
 		duplicate(elem: $hyoo_sketch_element) {

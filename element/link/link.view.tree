@@ -18,6 +18,7 @@ $hyoo_sketch_element_link $hyoo_sketch_element_base
 		arg <= link_arg *
 		hint <= link_hint
 		sub <= text_sub
+		click? <=> click? null
 	Element $mol_link
 	Options *
 		^

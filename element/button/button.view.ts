@@ -13,24 +13,7 @@ namespace $.$$ {
 		}
 
 		click() {
-			const actions = this.Nav().nav_actions()
-			for (const action of actions) {
-				if (action.type === 'open' && action.target_page) {
-					this.Nav().nav_page_open( action.target_page )
-				}
-
-				if (action.type === 'close') {
-					this.Nav().nav_page_close( action.target_page || this.page().id() )
-				}
-
-				if (action.type === 'replace' && action.source_page && action.target_page) {
-					this.Nav().nav_page_replace( action.source_page, action.target_page )
-				}
-
-				if (action.type === 'external') {
-					$mol_dom_context.open(action.target_link ?? 'example.com', '_blank')
-				}
-			}
+			this.Nav().nav_click_handler()
 		}
 
 		duplicate(elem?: $hyoo_sketch_element) {
