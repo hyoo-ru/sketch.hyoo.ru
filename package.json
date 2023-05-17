@@ -305,6 +305,7 @@
     "$mol_embed",
     "$mol_embed_native",
     "$mol_embed_youtube",
+    "$mol_icon_youtube",
     "$mol_frame",
     "$hyoo_sketch_element_speck",
     "$hyoo_sketch_element_map",
