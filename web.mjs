@@ -23278,4 +23278,5 @@ var $;
 })($ || ($ = {}));
 //hyoo/sketch/sketch.view.css.ts
 
+export default $
 //# sourceMappingURL=web.js.map
