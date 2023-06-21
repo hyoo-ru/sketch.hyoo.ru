@@ -449,10 +449,10 @@ $hyoo_sketch_element_text $hyoo_sketch_element_base
 				Control <= Padding_control $mol_switch
 					value? <=> padding? <= padding_default \text
 					options *
-						none \None
-						text \Text
-						block \Block
-						space \Space
+						none @ \None
+						text @ \Text
+						block @ \Block
+						space @ \Space
 			<= Align_hor_option $hyoo_sketch_option
 				name @ \Align hor
 				Control <= Align_hor_control $mol_switch
@@ -463,17 +463,17 @@ $hyoo_sketch_element_text $hyoo_sketch_element_base
 				Control <= Align_ver_control $mol_switch
 					value? <=> align_ver? <= align_ver_default \start
 					options <= align_options *
-						start \Start
-						center \Center
-						end \End
+						start @ \Start
+						center @ \Center
+						end @ \End
 			<= Size_option $hyoo_sketch_option
 				name @ \Size
 				Control <= Size_control $mol_switch
 					value? <=> size? <= size_default \1.0rem
 					options *
-						0.75rem \Muted
-						1.0rem \Normal
-						1.25rem \Accent
+						0.75rem @ \Muted
+						1.0rem @ \Normal
+						1.25rem @ \Accent
 			^ icon_options
 
 $mol_button_major $mol_button_typed

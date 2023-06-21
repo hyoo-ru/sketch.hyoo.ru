@@ -11757,10 +11757,10 @@ var $;
             const obj = new this.$.$mol_switch();
             obj.value = (next) => this.padding(next);
             obj.options = () => ({
-                none: "None",
-                text: "Text",
-                block: "Block",
-                space: "Space"
+                none: this.$.$mol_locale.text('$hyoo_sketch_element_text_Padding_control_options_none'),
+                text: this.$.$mol_locale.text('$hyoo_sketch_element_text_Padding_control_options_text'),
+                block: this.$.$mol_locale.text('$hyoo_sketch_element_text_Padding_control_options_block'),
+                space: this.$.$mol_locale.text('$hyoo_sketch_element_text_Padding_control_options_space')
             });
             return obj;
         }
@@ -11796,9 +11796,9 @@ var $;
         }
         align_options() {
             return {
-                start: "Start",
-                center: "Center",
-                end: "End"
+                start: this.$.$mol_locale.text('$hyoo_sketch_element_text_align_options_start'),
+                center: this.$.$mol_locale.text('$hyoo_sketch_element_text_align_options_center'),
+                end: this.$.$mol_locale.text('$hyoo_sketch_element_text_align_options_end')
             };
         }
         Align_ver_control() {
@@ -11823,9 +11823,9 @@ var $;
             const obj = new this.$.$mol_switch();
             obj.value = (next) => this.size(next);
             obj.options = () => ({
-                "0.75rem": "Muted",
-                "1.0rem": "Normal",
-                "1.25rem": "Accent"
+                "0.75rem": this.$.$mol_locale.text('$hyoo_sketch_element_text_Size_control_options_0.75rem'),
+                "1.0rem": this.$.$mol_locale.text('$hyoo_sketch_element_text_Size_control_options_1.0rem'),
+                "1.25rem": this.$.$mol_locale.text('$hyoo_sketch_element_text_Size_control_options_1.25rem')
             });
             return obj;
         }
