@@ -1,5 +1,0 @@
-$hyoo_sketch_element_attach $hyoo_sketch_element_base
-	Element $mol_attach
-		items? <=> files? /
-	width_default 336
-	height_default 120

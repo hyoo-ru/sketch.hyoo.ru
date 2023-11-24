@@ -1,5 +1,0 @@
-$hyoo_sketch_person_cursor $hyoo_sketch_person_avatar
-	sub /
-		<= Cursor $mol_icon_cursor_default
-		<= Avatar
-		<= Name
