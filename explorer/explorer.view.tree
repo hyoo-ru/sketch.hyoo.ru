@@ -1,0 +1,75 @@
+$hyoo_sketch_explorer $mol_list
+	item_list $hyoo_sketch_explorer_item_list
+		data? <=> items? null
+	item_draging? null
+	item_droping? null
+	-
+	Item_folder* $mol_expander
+		Trigger => Item_folder_trigger*
+		Tools => Item_folder_tools*
+		expandable true
+		title <= item_title* \
+		content <= item_content* /
+		Label <= Item_folder_drag* $mol_drag
+			start? <=> item_drag_start*? null
+			end? <=> item_drag_end*? null
+			transfer *
+				text/plain <= item_id* \
+			Sub <= Item_folder_drop* $mol_drop
+				adopt? <=> transfer_adopt? null
+				receive? <=> receive_folder*? null
+				status? <=> item_folder_drop_status*? null
+				Sub <= Item_folder_label* $mol_view
+					sub /
+						<= Item_folder_trigger*
+						<= Item_folder_tools*
+	Item_file* $mol_drag
+		start? <=> item_drag_start*? null
+		end? <=> item_drag_end*? null
+		transfer *
+			text/plain <= item_id* \
+		Sub <= Item_file_drop* $mol_drop
+			adopt? <=> transfer_adopt? null
+			receive? <=> receive_before*? null
+			Sub <= Item_file_button* $mol_button_minor
+				sub /
+					<= File_icon* $mol_icon_file
+					<= item_title* \
+	Item* null
+	-
+	rows /
+		<= Header $mol_view
+			sub /
+				<= Title $mol_paragraph
+					title \Project 1
+				<= Tools $mol_bar
+					sub /
+						<= Item_file_add $mol_check_icon
+							Icon <= Item_file_add_button_icon $mol_icon_file_plus
+							checked? <=> item_file_add_checked? false
+						<= Item_folder_add $mol_check_icon
+							Icon <= Item_folder_add_button_icon $mol_icon_folder_plus
+							checked? <=> item_folder_add_checked? false
+						- <= Collapse_button $mol_button_minor
+							sub /
+								<= Collapse_icon $mol_icon_collapse_all
+		<= Item_add $mol_view
+			sub <= item_add_sub /
+				<= Item_add_file_icon $mol_icon_file
+				<= Item_add_expand_icon $mol_icon_chevron
+				<= Item_add_name $mol_string
+					value? <=> item_add_name? \
+					submit? <=> item_add_confirm? null
+				<= Item_add_confirm $mol_button_minor
+					sub /
+						<= Item_add_confirm_icon $mol_icon_check
+					click? <=> item_add_confirm? null
+		<= Content $mol_drop
+			enabled <= root_drop_enabled true
+			adopt? <=> transfer_adopt? null
+			receive? <=> receive? null
+			Sub <= Items_root $mol_list
+				rows <= items_root /
+		<= Log_draging $mol_view sub / <= item_draging_text \
+		<= Log_droping $mol_view sub / <= item_droping_text \
+

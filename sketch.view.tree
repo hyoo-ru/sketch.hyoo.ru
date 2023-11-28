@@ -1,2 +1,5 @@
-$hyoo_sketch $mol_view
-	sub / \123
+$hyoo_sketch $mol_page
+	title <= project_name \
+	body /
+		<= Module_explorer $hyoo_sketch_explorer
+			items? <=> items? null 
