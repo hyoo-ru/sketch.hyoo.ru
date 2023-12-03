@@ -38,7 +38,7 @@ $hyoo_sketch_editor $mol_page
 		<= Page_grid $hyoo_sketch_option
 			name @ \Grid
 			Control <= Grid $mol_switch
-				value? <=> grid?
+				value? <=> grid_str? \
 				options *
 					4 \4
 					8 \8

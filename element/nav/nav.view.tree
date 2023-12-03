@@ -2,6 +2,8 @@ $hyoo_sketch_element_nav $hyoo_sketch_element_base
 	Element $mol_view
 		sub / \nav
 	nav_pages_param \demo
+	nav_click_handler null
+	nav_actions /$hyoo_sketch_element_nav_action_data
 	Options *
 		^
 		nav <= nav_options /
