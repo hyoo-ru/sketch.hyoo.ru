@@ -67,8 +67,9 @@ declare namespace $ {
         static [Symbol.toPrimitive](): string;
         static toString(): string;
         destructor(): void;
+        static destructor(): void;
         toString(): string;
-        static toJSON(): string;
+        static toJSON(): any;
         toJSON(): any;
     }
 }
@@ -1259,10 +1260,14 @@ declare namespace $ {
 }
 
 declare namespace $ {
+    let $mol_mem_persist: typeof $mol_wire_solid;
+}
+
+declare namespace $ {
     class $mol_storage extends $mol_object2 {
-        static native(): any;
-        static persisted(next?: boolean): boolean;
-        static estimate(): number;
+        static native(): StorageManager;
+        static persisted(next?: boolean, cache?: 'cache'): boolean;
+        static estimate(): StorageEstimate;
         static dir(): FileSystemDirectoryHandle;
     }
 }
@@ -5335,7 +5340,7 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    function $mol_func_is_class(func: Function): boolean;
+    function $mol_func_is_class<Func extends Function>(func: Func): func is Func & (new (...args: any[]) => any);
 }
 
 declare namespace $ {
