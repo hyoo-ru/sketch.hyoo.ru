@@ -664,6 +664,8 @@ $hyoo_sketch_element_nav $hyoo_sketch_element_base
 	Element $mol_view
 		sub / \nav
 	nav_pages_param \demo
+	nav_click_handler null
+	nav_actions /$hyoo_sketch_element_nav_action_data
 	Options *
 		^
 		nav <= nav_options /
@@ -888,6 +890,7 @@ $hyoo_sketch_element_options $hyoo_sketch_element_base
 		\two
 		\three
 	option_current? \
+	option_list /string
 	Options *
 		^
 		options <= options /
@@ -1102,7 +1105,7 @@ $mol_textarea $mol_stack
 			row_numb* <= row_numb* 0
 			sidebar_showed <= sidebar_showed
 			highlight <= highlight \
-	symbols_alt *
+	symbols_alt *string
 		comma \<
 		period \>
 		dash \−
@@ -1125,9 +1128,9 @@ $mol_textarea $mol_stack
 		bracketOpen \[
 		bracketClose \]
 		slashBack \|
-	symbols_alt_ctrl *
+	symbols_alt_ctrl *string
 		space \ 
-	symbols_alt_shift *
+	symbols_alt_shift *string
 		V \✅
 		X \❌
 		O \⭕
@@ -1333,18 +1336,18 @@ $mol_button_open_native $mol_view
 
 $mol_image $mol_view
 	dom_name \img
-	field *
+	field *any
 		^
 		src <= uri \
 		alt <= title
 		loading <= loading \eager
 		decoding <= decoding \async
 		crossOrigin <= cors null
-	attr *
+	attr *any
 		^
-		width <= natural_width? 0
-		height <= natural_height? 0
-	event *
+		width <= natural_width 0
+		height <= natural_height 0
+	event *any
 		load? <=> load? null
 	minimal_width 16
 	minimal_height 16
@@ -1509,11 +1512,26 @@ $mol_embed_any $mol_view
 		title <= title \
 		uri <= uri \
 
+$mol_text_list $mol_text
+	auto_scroll null
+	attr *
+		^
+		mol_text_list_type <= type \
+	Paragraph* $mol_text_list_item
+		index <= item_index*
+		sub <= block_content*
+
+$mol_text_list_item $mol_paragraph
+	attr *
+		^
+		mol_text_list_item_index <= index 0
+
 $mol_text $mol_list
 	uri_base \
 	text \
 	param \
 	flow_tokens /
+	block_text* \
 	auto /
 		<= auto_scroll null
 	- \Blocks
@@ -1601,20 +1619,6 @@ $mol_text_span $mol_paragraph
 		^
 		mol_text_type <= type \
 
-$mol_text_list $mol_text
-	auto_scroll null
-	attr *
-		^
-		mol_text_list_type <= type \
-	Paragraph* $mol_text_list_item
-		index <= item_index*
-		sub <= block_content*
-
-$mol_text_list_item $mol_paragraph
-	attr *
-		^
-		mol_text_list_item_index <= index 0
-
 $hyoo_sketch_element_markdown $hyoo_sketch_element_base
 	Element $mol_text text <= text? <= text_default \
 		\# Hello world!
@@ -1651,14 +1655,14 @@ $hyoo_sketch_element_speck $hyoo_sketch_element_base
 	height_default 20
 
 $mol_map_yandex_mark $mol_object
-	pos $mol_vector_2d /
+	pos $mol_vector_2d<number> /
 		0
 		0
-	box $mol_vector_2d /
-		<= box_lat $mol_vector_range /
+	box $mol_vector_2d<$mol_vector_range<number>> /
+		<= box_lat $mol_vector_range<number> /
 			0
 			0
-		<= box_lon $mol_vector_range /
+		<= box_lon $mol_vector_range<number> /
 			0
 			0
 	hint \
@@ -1796,7 +1800,7 @@ $hyoo_sketch_editor $mol_page
 		<= Page_grid $hyoo_sketch_option
 			name @ \Grid
 			Control <= Grid $mol_switch
-				value? <=> grid?
+				value? <=> grid_str? \
 				options *
 					4 \4
 					8 \8
