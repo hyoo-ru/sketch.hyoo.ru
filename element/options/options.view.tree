@@ -4,6 +4,7 @@ $hyoo_sketch_element_options $hyoo_sketch_element_base
 		\two
 		\three
 	option_current? \
+	option_list /string
 	Options *
 		^
 		options <= options /

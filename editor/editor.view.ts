@@ -6,6 +6,10 @@ namespace $.$$ {
 			return this.domain().element(id)
 		}
 
+		grid_str(next?: string) {
+			return String(this.grid(next === undefined ? next : Number(next)))
+		}
+
 		@ $mol_mem_key
 		Element(id: $mol_int62_string) {
 			const type = this.element(id).type()

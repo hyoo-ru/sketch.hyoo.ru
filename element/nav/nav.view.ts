@@ -1,13 +1,5 @@
 namespace $.$$ {
 
-	type Action_type = 'open' | 'close' | 'replace' | 'external'
-	type Action = {
-		type: Action_type,
-		source_page: string,
-		target_page: string,
-		target_link: string,
-	}
-
 	export class $hyoo_sketch_element_nav extends $.$hyoo_sketch_element_nav {
 
 		@ $mol_mem
@@ -36,7 +28,7 @@ namespace $.$$ {
 		}
 
 		@ $mol_mem
-		nav_actions(next?: Action[]) {
+		nav_actions(next?: $hyoo_sketch_element_nav_action_data[]) {
 			return this.nav_actions_node().list(next) as Exclude<typeof next, undefined>
 		}
 
@@ -51,7 +43,7 @@ namespace $.$$ {
 		}
 
 		@ $mol_mem_key
-		nav_action_value<Key extends keyof Action>({ id, key } : { id: number, key: Key }, next?: string) {
+		nav_action_value<Key extends keyof $hyoo_sketch_element_nav_action_data>({ id, key } : { id: number, key: Key }, next?: string) {
 			const list = this.nav_actions()
 			const item = list[id] ?? {}
 
@@ -65,7 +57,7 @@ namespace $.$$ {
 				... list.slice( id + 1 ),
 			])
 
-			return next as Action[Key]
+			return next as $hyoo_sketch_element_nav_action_data[Key]
 		}
 
 		nav_action_type(id: number, next?: string) {
