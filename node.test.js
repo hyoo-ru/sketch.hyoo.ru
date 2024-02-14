@@ -3600,12 +3600,28 @@ var $;
 var $;
 (function ($) {
     class $mol_error_mix extends AggregateError {
-        name = '$mol_error_mix';
+        name = $$.$mol_func_name(this.constructor);
         constructor(message, ...errors) {
-            super(errors, [message, ...errors.map(e => '  ' + e.message)].join('\n'));
+            super(errors, [message, ...errors.map(e => e.message.replace(/^/gm, '  '))].join('\n'));
+        }
+        get cause() {
+            return [].concat(...this.errors.map(e => e.cause).filter(Boolean));
         }
         toJSON() {
-            return this.message;
+            return this.errors.map(e => e.message);
+        }
+        pick(Class) {
+            if (this instanceof Class)
+                return this;
+            for (const e of this.errors) {
+                if (e instanceof Class)
+                    return e;
+            }
+            for (const e of this.cause) {
+                if (e && e instanceof Class)
+                    return e;
+            }
+            return null;
         }
     }
     $.$mol_error_mix = $mol_error_mix;
@@ -8189,7 +8205,7 @@ var $;
 		}
 		Option_width(){
 			const obj = new this.$.$hyoo_sketch_option();
-			(obj.name) = () => (this.$.$mol_locale.text("$hyoo_sketch_element_base_Option_width_name"));
+			(obj.name) = () => ((this.$.$mol_locale.text("$hyoo_sketch_element_base_Option_width_name")));
 			(obj.Control) = () => ((this.Width_control()));
 			return obj;
 		}
@@ -8200,7 +8216,7 @@ var $;
 		}
 		Option_height(){
 			const obj = new this.$.$hyoo_sketch_option();
-			(obj.name) = () => (this.$.$mol_locale.text("$hyoo_sketch_element_base_Option_height_name"));
+			(obj.name) = () => ((this.$.$mol_locale.text("$hyoo_sketch_element_base_Option_height_name")));
 			(obj.Control) = () => ((this.Height_control()));
 			return obj;
 		}
@@ -8211,7 +8227,7 @@ var $;
 		}
 		Option_left(){
 			const obj = new this.$.$hyoo_sketch_option();
-			(obj.name) = () => (this.$.$mol_locale.text("$hyoo_sketch_element_base_Option_left_name"));
+			(obj.name) = () => ((this.$.$mol_locale.text("$hyoo_sketch_element_base_Option_left_name")));
 			(obj.Control) = () => ((this.Left_control()));
 			return obj;
 		}
@@ -8222,7 +8238,7 @@ var $;
 		}
 		Option_top(){
 			const obj = new this.$.$hyoo_sketch_option();
-			(obj.name) = () => (this.$.$mol_locale.text("$hyoo_sketch_element_base_Option_top_name"));
+			(obj.name) = () => ((this.$.$mol_locale.text("$hyoo_sketch_element_base_Option_top_name")));
 			(obj.Control) = () => ((this.Top_control()));
 			return obj;
 		}
@@ -8233,7 +8249,7 @@ var $;
 		}
 		Option_order(){
 			const obj = new this.$.$hyoo_sketch_option();
-			(obj.name) = () => (this.$.$mol_locale.text("$hyoo_sketch_element_base_Option_order_name"));
+			(obj.name) = () => ((this.$.$mol_locale.text("$hyoo_sketch_element_base_Option_order_name")));
 			(obj.Control) = () => ((this.Order_control()));
 			return obj;
 		}
@@ -8882,7 +8898,7 @@ var $;
 		}
 		Icon_name_option(){
 			const obj = new this.$.$hyoo_sketch_option();
-			(obj.name) = () => (this.$.$mol_locale.text("$hyoo_sketch_element_icon_Icon_name_option_name"));
+			(obj.name) = () => ((this.$.$mol_locale.text("$hyoo_sketch_element_icon_Icon_name_option_name")));
 			(obj.Control) = () => ((this.Icon_name_control()));
 			return obj;
 		}
@@ -8899,7 +8915,7 @@ var $;
 		}
 		Icon_search_option(){
 			const obj = new this.$.$hyoo_sketch_option();
-			(obj.name) = () => (this.$.$mol_locale.text("$hyoo_sketch_element_icon_Icon_search_option_name"));
+			(obj.name) = () => ((this.$.$mol_locale.text("$hyoo_sketch_element_icon_Icon_search_option_name")));
 			(obj.Control) = () => ((this.Icon_search()));
 			return obj;
 		}
@@ -9616,7 +9632,7 @@ var $;
 		}
 		Text_option(){
 			const obj = new this.$.$hyoo_sketch_option();
-			(obj.name) = () => (this.$.$mol_locale.text("$hyoo_sketch_element_text_Text_option_name"));
+			(obj.name) = () => ((this.$.$mol_locale.text("$hyoo_sketch_element_text_Text_option_name")));
 			(obj.Control) = () => ((this.Text_control()));
 			return obj;
 		}
@@ -9631,16 +9647,16 @@ var $;
 			const obj = new this.$.$mol_switch();
 			(obj.value) = (next) => ((this.padding(next)));
 			(obj.options) = () => ({
-				"none": (this.$.$mol_locale.text("$hyoo_sketch_element_text_Padding_control_none")), 
-				"text": (this.$.$mol_locale.text("$hyoo_sketch_element_text_Padding_control_text")), 
-				"block": (this.$.$mol_locale.text("$hyoo_sketch_element_text_Padding_control_block")), 
-				"space": (this.$.$mol_locale.text("$hyoo_sketch_element_text_Padding_control_space"))
+				"none": (this.$.$mol_locale.text("$hyoo_sketch_element_text_Padding_control_options_none")), 
+				"text": (this.$.$mol_locale.text("$hyoo_sketch_element_text_Padding_control_options_text")), 
+				"block": (this.$.$mol_locale.text("$hyoo_sketch_element_text_Padding_control_options_block")), 
+				"space": (this.$.$mol_locale.text("$hyoo_sketch_element_text_Padding_control_options_space"))
 			});
 			return obj;
 		}
 		Padding_option(){
 			const obj = new this.$.$hyoo_sketch_option();
-			(obj.name) = () => (this.$.$mol_locale.text("$hyoo_sketch_element_text_Padding_option_name"));
+			(obj.name) = () => ((this.$.$mol_locale.text("$hyoo_sketch_element_text_Padding_option_name")));
 			(obj.Control) = () => ((this.Padding_control()));
 			return obj;
 		}
@@ -9659,7 +9675,7 @@ var $;
 		}
 		Align_hor_option(){
 			const obj = new this.$.$hyoo_sketch_option();
-			(obj.name) = () => (this.$.$mol_locale.text("$hyoo_sketch_element_text_Align_hor_option_name"));
+			(obj.name) = () => ((this.$.$mol_locale.text("$hyoo_sketch_element_text_Align_hor_option_name")));
 			(obj.Control) = () => ((this.Align_hor_control()));
 			return obj;
 		}
@@ -9685,7 +9701,7 @@ var $;
 		}
 		Align_ver_option(){
 			const obj = new this.$.$hyoo_sketch_option();
-			(obj.name) = () => (this.$.$mol_locale.text("$hyoo_sketch_element_text_Align_ver_option_name"));
+			(obj.name) = () => ((this.$.$mol_locale.text("$hyoo_sketch_element_text_Align_ver_option_name")));
 			(obj.Control) = () => ((this.Align_ver_control()));
 			return obj;
 		}
@@ -9700,15 +9716,15 @@ var $;
 			const obj = new this.$.$mol_switch();
 			(obj.value) = (next) => ((this.size(next)));
 			(obj.options) = () => ({
-				"0.75rem": (this.$.$mol_locale.text("$hyoo_sketch_element_text_Size_control_0.75rem")), 
-				"1.0rem": (this.$.$mol_locale.text("$hyoo_sketch_element_text_Size_control_1.0rem")), 
-				"1.25rem": (this.$.$mol_locale.text("$hyoo_sketch_element_text_Size_control_1.25rem"))
+				"0.75rem": (this.$.$mol_locale.text("$hyoo_sketch_element_text_Size_control_options_0.75rem")), 
+				"1.0rem": (this.$.$mol_locale.text("$hyoo_sketch_element_text_Size_control_options_1.0rem")), 
+				"1.25rem": (this.$.$mol_locale.text("$hyoo_sketch_element_text_Size_control_options_1.25rem"))
 			});
 			return obj;
 		}
 		Size_option(){
 			const obj = new this.$.$hyoo_sketch_option();
-			(obj.name) = () => (this.$.$mol_locale.text("$hyoo_sketch_element_text_Size_option_name"));
+			(obj.name) = () => ((this.$.$mol_locale.text("$hyoo_sketch_element_text_Size_option_name")));
 			(obj.Control) = () => ((this.Size_control()));
 			return obj;
 		}
@@ -11033,7 +11049,7 @@ var $;
 		}
 		Clear(){
 			const obj = new this.$.$mol_button_minor();
-			(obj.hint) = () => (this.$.$mol_locale.text("$mol_search_Clear_hint"));
+			(obj.hint) = () => ((this.$.$mol_locale.text("$mol_search_Clear_hint")));
 			(obj.click) = (next) => ((this.clear(next)));
 			(obj.sub) = () => ([(this.Clear_icon())]);
 			return obj;
@@ -11452,7 +11468,7 @@ var $;
 		}
 		Nav_action_add(){
 			const obj = new this.$.$mol_button_major();
-			(obj.title) = () => (this.$.$mol_locale.text("$hyoo_sketch_element_nav_Nav_action_add_title"));
+			(obj.title) = () => ((this.$.$mol_locale.text("$hyoo_sketch_element_nav_Nav_action_add_title")));
 			(obj.click) = (next) => ((this.nav_action_add(next)));
 			return obj;
 		}
@@ -11526,16 +11542,16 @@ var $;
 			const obj = new this.$.$mol_switch();
 			(obj.value) = (next) => ((this.type(next)));
 			(obj.options) = () => ({
-				"open": (this.$.$mol_locale.text("$hyoo_sketch_element_nav_action_Type_open")), 
-				"replace": (this.$.$mol_locale.text("$hyoo_sketch_element_nav_action_Type_replace")), 
-				"close": (this.$.$mol_locale.text("$hyoo_sketch_element_nav_action_Type_close")), 
-				"external": (this.$.$mol_locale.text("$hyoo_sketch_element_nav_action_Type_external"))
+				"open": (this.$.$mol_locale.text("$hyoo_sketch_element_nav_action_Type_options_open")), 
+				"replace": (this.$.$mol_locale.text("$hyoo_sketch_element_nav_action_Type_options_replace")), 
+				"close": (this.$.$mol_locale.text("$hyoo_sketch_element_nav_action_Type_options_close")), 
+				"external": (this.$.$mol_locale.text("$hyoo_sketch_element_nav_action_Type_options_external"))
 			});
 			return obj;
 		}
 		Type_label(){
 			const obj = new this.$.$mol_labeler();
-			(obj.title) = () => (this.$.$mol_locale.text("$hyoo_sketch_element_nav_action_Type_label_title"));
+			(obj.title) = () => ((this.$.$mol_locale.text("$hyoo_sketch_element_nav_action_Type_label_title")));
 			(obj.content) = () => ([(this.Type())]);
 			return obj;
 		}
@@ -11555,7 +11571,7 @@ var $;
 		}
 		Source_page_label(){
 			const obj = new this.$.$mol_labeler();
-			(obj.title) = () => (this.$.$mol_locale.text("$hyoo_sketch_element_nav_action_Source_page_label_title"));
+			(obj.title) = () => ((this.$.$mol_locale.text("$hyoo_sketch_element_nav_action_Source_page_label_title")));
 			(obj.content) = () => ([(this.Source_page())]);
 			return obj;
 		}
@@ -11572,7 +11588,7 @@ var $;
 		}
 		Target_page_label(){
 			const obj = new this.$.$mol_labeler();
-			(obj.title) = () => (this.$.$mol_locale.text("$hyoo_sketch_element_nav_action_Target_page_label_title"));
+			(obj.title) = () => ((this.$.$mol_locale.text("$hyoo_sketch_element_nav_action_Target_page_label_title")));
 			(obj.content) = () => ([(this.Target_page())]);
 			return obj;
 		}
@@ -11587,7 +11603,7 @@ var $;
 		}
 		Link_label(){
 			const obj = new this.$.$mol_labeler();
-			(obj.title) = () => (this.$.$mol_locale.text("$hyoo_sketch_element_nav_action_Link_label_title"));
+			(obj.title) = () => ((this.$.$mol_locale.text("$hyoo_sketch_element_nav_action_Link_label_title")));
 			(obj.content) = () => ([(this.Link())]);
 			return obj;
 		}
@@ -11597,7 +11613,7 @@ var $;
 		}
 		Drop(){
 			const obj = new this.$.$mol_button_minor();
-			(obj.title) = () => (this.$.$mol_locale.text("$hyoo_sketch_element_nav_action_Drop_title"));
+			(obj.title) = () => ((this.$.$mol_locale.text("$hyoo_sketch_element_nav_action_Drop_title")));
 			(obj.click) = (next) => ((this.drop(next)));
 			return obj;
 		}
@@ -11846,12 +11862,12 @@ var $;
 		Button_type_control(){
 			const obj = new this.$.$mol_switch();
 			(obj.value) = (next) => ((this.button_type(next)));
-			(obj.options) = () => ({"major": (this.$.$mol_locale.text("$hyoo_sketch_element_button_Button_type_control_major")), "minor": (this.$.$mol_locale.text("$hyoo_sketch_element_button_Button_type_control_minor"))});
+			(obj.options) = () => ({"major": (this.$.$mol_locale.text("$hyoo_sketch_element_button_Button_type_control_options_major")), "minor": (this.$.$mol_locale.text("$hyoo_sketch_element_button_Button_type_control_options_minor"))});
 			return obj;
 		}
 		Button_type_option(){
 			const obj = new this.$.$hyoo_sketch_option();
-			(obj.name) = () => (this.$.$mol_locale.text("$hyoo_sketch_element_button_Button_type_option_name"));
+			(obj.name) = () => ((this.$.$mol_locale.text("$hyoo_sketch_element_button_Button_type_option_name")));
 			(obj.Control) = () => ((this.Button_type_control()));
 			return obj;
 		}
@@ -12092,16 +12108,16 @@ var $;
 			const obj = new this.$.$mol_switch();
 			(obj.value) = (next) => ((this.input_type(next)));
 			(obj.options) = () => ({
-				"String": (this.$.$mol_locale.text("$hyoo_sketch_element_input_Input_type_control_String")), 
-				"Number": (this.$.$mol_locale.text("$hyoo_sketch_element_input_Input_type_control_Number")), 
-				"Password": (this.$.$mol_locale.text("$hyoo_sketch_element_input_Input_type_control_Password")), 
-				"Search": (this.$.$mol_locale.text("$hyoo_sketch_element_input_Input_type_control_Search"))
+				"String": (this.$.$mol_locale.text("$hyoo_sketch_element_input_Input_type_control_options_String")), 
+				"Number": (this.$.$mol_locale.text("$hyoo_sketch_element_input_Input_type_control_options_Number")), 
+				"Password": (this.$.$mol_locale.text("$hyoo_sketch_element_input_Input_type_control_options_Password")), 
+				"Search": (this.$.$mol_locale.text("$hyoo_sketch_element_input_Input_type_control_options_Search"))
 			});
 			return obj;
 		}
 		Input_type_option(){
 			const obj = new this.$.$hyoo_sketch_option();
-			(obj.name) = () => (this.$.$mol_locale.text("$hyoo_sketch_element_input_Input_type_option_name"));
+			(obj.name) = () => ((this.$.$mol_locale.text("$hyoo_sketch_element_input_Input_type_option_name")));
 			(obj.Control) = () => ((this.Input_type_control()));
 			return obj;
 		}
@@ -12116,7 +12132,7 @@ var $;
 		}
 		Input_hint_option(){
 			const obj = new this.$.$hyoo_sketch_option();
-			(obj.name) = () => (this.$.$mol_locale.text("$hyoo_sketch_element_input_Input_hint_option_name"));
+			(obj.name) = () => ((this.$.$mol_locale.text("$hyoo_sketch_element_input_Input_hint_option_name")));
 			(obj.Control) = () => ((this.Input_hint_control()));
 			return obj;
 		}
@@ -12131,7 +12147,7 @@ var $;
 		}
 		Input_text_option(){
 			const obj = new this.$.$hyoo_sketch_option();
-			(obj.name) = () => (this.$.$mol_locale.text("$hyoo_sketch_element_input_Input_text_option_name"));
+			(obj.name) = () => ((this.$.$mol_locale.text("$hyoo_sketch_element_input_Input_text_option_name")));
 			(obj.Control) = () => ((this.Input_text_control()));
 			return obj;
 		}
@@ -12142,12 +12158,12 @@ var $;
 		Input_enabled_control(){
 			const obj = new this.$.$mol_switch();
 			(obj.value) = (next) => ((this.input_enabled(next)));
-			(obj.options) = () => ({"on": (this.$.$mol_locale.text("$hyoo_sketch_element_input_Input_enabled_control_on")), "off": (this.$.$mol_locale.text("$hyoo_sketch_element_input_Input_enabled_control_off"))});
+			(obj.options) = () => ({"on": (this.$.$mol_locale.text("$hyoo_sketch_element_input_Input_enabled_control_options_on")), "off": (this.$.$mol_locale.text("$hyoo_sketch_element_input_Input_enabled_control_options_off"))});
 			return obj;
 		}
 		Input_enabled_option(){
 			const obj = new this.$.$hyoo_sketch_option();
-			(obj.name) = () => (this.$.$mol_locale.text("$hyoo_sketch_element_input_Input_enabled_option_name"));
+			(obj.name) = () => ((this.$.$mol_locale.text("$hyoo_sketch_element_input_Input_enabled_option_name")));
 			(obj.Control) = () => ((this.Input_enabled_control()));
 			return obj;
 		}
@@ -12304,7 +12320,7 @@ var $;
 		}
 		Link_hint_option(){
 			const obj = new this.$.$hyoo_sketch_option();
-			(obj.name) = () => (this.$.$mol_locale.text("$hyoo_sketch_element_link_Link_hint_option_name"));
+			(obj.name) = () => ((this.$.$mol_locale.text("$hyoo_sketch_element_link_Link_hint_option_name")));
 			(obj.Control) = () => ((this.Link_hint_control()));
 			return obj;
 		}
@@ -12526,7 +12542,7 @@ var $;
 		}
 		Image_link_option(){
 			const obj = new this.$.$hyoo_sketch_option();
-			(obj.name) = () => (this.$.$mol_locale.text("$hyoo_sketch_element_image_Image_link_option_name"));
+			(obj.name) = () => ((this.$.$mol_locale.text("$hyoo_sketch_element_image_Image_link_option_name")));
 			(obj.Control) = () => ((this.Image_link_control()));
 			return obj;
 		}
@@ -12536,13 +12552,13 @@ var $;
 		}
 		Image_round_control(){
 			const obj = new this.$.$mol_check_box();
-			(obj.title) = () => (this.$.$mol_locale.text("$hyoo_sketch_element_image_Image_round_control_title"));
+			(obj.title) = () => ((this.$.$mol_locale.text("$hyoo_sketch_element_image_Image_round_control_title")));
 			(obj.checked) = (next) => ((this.image_round(next)));
 			return obj;
 		}
 		Image_round_option(){
 			const obj = new this.$.$hyoo_sketch_option();
-			(obj.name) = () => (this.$.$mol_locale.text("$hyoo_sketch_element_image_Image_round_option_name"));
+			(obj.name) = () => ((this.$.$mol_locale.text("$hyoo_sketch_element_image_Image_round_option_name")));
 			(obj.Control) = () => ((this.Image_round_control()));
 			return obj;
 		}
@@ -12653,7 +12669,7 @@ var $;
 		}
 		Option_list_option(){
 			const obj = new this.$.$hyoo_sketch_option();
-			(obj.name) = () => (this.$.$mol_locale.text("$hyoo_sketch_element_options_Option_list_option_name"));
+			(obj.name) = () => ((this.$.$mol_locale.text("$hyoo_sketch_element_options_Option_list_option_name")));
 			(obj.Control) = () => ((this.Option_list_control()));
 			return obj;
 		}
@@ -12668,7 +12684,7 @@ var $;
 		}
 		Option_current_option(){
 			const obj = new this.$.$hyoo_sketch_option();
-			(obj.name) = () => (this.$.$mol_locale.text("$hyoo_sketch_element_options_Option_current_option_name"));
+			(obj.name) = () => ((this.$.$mol_locale.text("$hyoo_sketch_element_options_Option_current_option_name")));
 			(obj.Control) = () => ((this.Option_current_control()));
 			return obj;
 		}
@@ -13009,12 +13025,12 @@ var $;
 		Select_type_control(){
 			const obj = new this.$.$mol_switch();
 			(obj.value) = (next) => ((this.select_type(next)));
-			(obj.options) = () => ({"Single": (this.$.$mol_locale.text("$hyoo_sketch_element_select_Select_type_control_Single")), "List": (this.$.$mol_locale.text("$hyoo_sketch_element_select_Select_type_control_List"))});
+			(obj.options) = () => ({"Single": (this.$.$mol_locale.text("$hyoo_sketch_element_select_Select_type_control_options_Single")), "List": (this.$.$mol_locale.text("$hyoo_sketch_element_select_Select_type_control_options_List"))});
 			return obj;
 		}
 		Select_type_option(){
 			const obj = new this.$.$hyoo_sketch_option();
-			(obj.name) = () => (this.$.$mol_locale.text("$hyoo_sketch_element_select_Select_type_option_name"));
+			(obj.name) = () => ((this.$.$mol_locale.text("$hyoo_sketch_element_select_Select_type_option_name")));
 			(obj.Control) = () => ((this.Select_type_control()));
 			return obj;
 		}
@@ -13112,7 +13128,7 @@ var $;
 		}
 		Check_type_option(){
 			const obj = new this.$.$hyoo_sketch_option();
-			(obj.name) = () => (this.$.$mol_locale.text("$hyoo_sketch_element_check_Check_type_option_name"));
+			(obj.name) = () => ((this.$.$mol_locale.text("$hyoo_sketch_element_check_Check_type_option_name")));
 			(obj.Control) = () => ((this.Check_type_control()));
 			return obj;
 		}
@@ -13130,7 +13146,7 @@ var $;
 		}
 		Check_checked_option(){
 			const obj = new this.$.$hyoo_sketch_option();
-			(obj.name) = () => (this.$.$mol_locale.text("$hyoo_sketch_element_check_Check_checked_option_name"));
+			(obj.name) = () => ((this.$.$mol_locale.text("$hyoo_sketch_element_check_Check_checked_option_name")));
 			(obj.Control) = () => ((this.Check_checked_control()));
 			return obj;
 		}
@@ -13148,7 +13164,7 @@ var $;
 		}
 		Check_title_option(){
 			const obj = new this.$.$hyoo_sketch_option();
-			(obj.name) = () => (this.$.$mol_locale.text("$hyoo_sketch_element_check_Check_title_option_name"));
+			(obj.name) = () => ((this.$.$mol_locale.text("$hyoo_sketch_element_check_Check_title_option_name")));
 			(obj.Control) = () => ((this.Check_title_control()));
 			return obj;
 		}
@@ -13867,7 +13883,7 @@ var $;
 		}
 		Copy(){
 			const obj = new this.$.$mol_button_copy();
-			(obj.hint) = () => (this.$.$mol_locale.text("$mol_text_code_Copy_hint"));
+			(obj.hint) = () => ((this.$.$mol_locale.text("$mol_text_code_Copy_hint")));
 			(obj.text) = () => ((this.text_export()));
 			return obj;
 		}
@@ -14283,7 +14299,7 @@ var $;
 		}
 		Text_option(){
 			const obj = new this.$.$hyoo_sketch_option();
-			(obj.name) = () => (this.$.$mol_locale.text("$hyoo_sketch_element_textarea_Text_option_name"));
+			(obj.name) = () => ((this.$.$mol_locale.text("$hyoo_sketch_element_textarea_Text_option_name")));
 			(obj.Control) = () => ((this.Text_control()));
 			return obj;
 		}
@@ -14298,7 +14314,7 @@ var $;
 		}
 		Hint_option(){
 			const obj = new this.$.$hyoo_sketch_option();
-			(obj.name) = () => (this.$.$mol_locale.text("$hyoo_sketch_element_textarea_Hint_option_name"));
+			(obj.name) = () => ((this.$.$mol_locale.text("$hyoo_sketch_element_textarea_Hint_option_name")));
 			(obj.Control) = () => ((this.Hint_control()));
 			return obj;
 		}
@@ -15624,7 +15640,7 @@ var $;
 		}
 		Today(){
 			const obj = new this.$.$mol_button_minor();
-			(obj.hint) = () => (this.$.$mol_locale.text("$mol_date_Today_hint"));
+			(obj.hint) = () => ((this.$.$mol_locale.text("$mol_date_Today_hint")));
 			(obj.enabled) = () => ((this.enabled()));
 			(obj.click) = (next) => ((this.today_click(next)));
 			(obj.sub) = () => ([(this.Today_icon())]);
@@ -15657,7 +15673,7 @@ var $;
 		}
 		Clear(){
 			const obj = new this.$.$mol_button_minor();
-			(obj.hint) = () => (this.$.$mol_locale.text("$mol_date_Clear_hint"));
+			(obj.hint) = () => ((this.$.$mol_locale.text("$mol_date_Clear_hint")));
 			(obj.enabled) = () => ((this.enabled()));
 			(obj.click) = (next) => ((this.clear(next)));
 			(obj.sub) = () => ([(this.Clear_icon())]);
@@ -15958,7 +15974,7 @@ var $;
 		}
 		Date_option(){
 			const obj = new this.$.$hyoo_sketch_option();
-			(obj.name) = () => (this.$.$mol_locale.text("$hyoo_sketch_element_date_Date_option_name"));
+			(obj.name) = () => ((this.$.$mol_locale.text("$hyoo_sketch_element_date_Date_option_name")));
 			(obj.Control) = () => ((this.Date_control()));
 			return obj;
 		}
@@ -15972,12 +15988,12 @@ var $;
 		Type_control(){
 			const obj = new this.$.$mol_switch();
 			(obj.value) = (next) => ((this.type(next)));
-			(obj.options) = () => ({"Picker": (this.$.$mol_locale.text("$hyoo_sketch_element_date_Type_control_Picker")), "View": (this.$.$mol_locale.text("$hyoo_sketch_element_date_Type_control_View"))});
+			(obj.options) = () => ({"Picker": (this.$.$mol_locale.text("$hyoo_sketch_element_date_Type_control_options_Picker")), "View": (this.$.$mol_locale.text("$hyoo_sketch_element_date_Type_control_options_View"))});
 			return obj;
 		}
 		Type_option(){
 			const obj = new this.$.$hyoo_sketch_option();
-			(obj.name) = () => (this.$.$mol_locale.text("$hyoo_sketch_element_date_Type_option_name"));
+			(obj.name) = () => ((this.$.$mol_locale.text("$hyoo_sketch_element_date_Type_option_name")));
 			(obj.Control) = () => ((this.Type_control()));
 			return obj;
 		}
@@ -15995,7 +16011,7 @@ var $;
 		}
 		Format_option(){
 			const obj = new this.$.$hyoo_sketch_option();
-			(obj.name) = () => (this.$.$mol_locale.text("$hyoo_sketch_element_date_Format_option_name"));
+			(obj.name) = () => ((this.$.$mol_locale.text("$hyoo_sketch_element_date_Format_option_name")));
 			(obj.Control) = () => ((this.Format_control()));
 			return obj;
 		}
@@ -17540,7 +17556,7 @@ var $;
 		Link(){
 			const obj = new this.$.$mol_link();
 			(obj.arg) = () => ((this.arg()));
-			(obj.hint) = () => (this.$.$mol_locale.text("$mol_text_header_Link_hint"));
+			(obj.hint) = () => ((this.$.$mol_locale.text("$mol_text_header_Link_hint")));
 			(obj.sub) = () => ((this.content()));
 			return obj;
 		}
@@ -18016,7 +18032,7 @@ var $;
 		}
 		Speck_value_options(){
 			const obj = new this.$.$hyoo_sketch_option();
-			(obj.name) = () => (this.$.$mol_locale.text("$hyoo_sketch_element_speck_Speck_value_options_name"));
+			(obj.name) = () => ((this.$.$mol_locale.text("$hyoo_sketch_element_speck_Speck_value_options_name")));
 			(obj.Control) = () => ((this.Speck_value_control()));
 			return obj;
 		}
@@ -18715,7 +18731,7 @@ var $;
 		}
 		Title_option(){
 			const obj = new this.$.$hyoo_sketch_option();
-			(obj.name) = () => (this.$.$mol_locale.text("$hyoo_sketch_element_header_Title_option_name"));
+			(obj.name) = () => ((this.$.$mol_locale.text("$hyoo_sketch_element_header_Title_option_name")));
 			(obj.Control) = () => ((this.Title_control()));
 			return obj;
 		}
@@ -19130,7 +19146,7 @@ var $;
 		}
 		Project_demo(){
 			const obj = new this.$.$mol_link();
-			(obj.hint) = () => (this.$.$mol_locale.text("$hyoo_sketch_editor_Project_demo_hint"));
+			(obj.hint) = () => ((this.$.$mol_locale.text("$hyoo_sketch_editor_Project_demo_hint")));
 			(obj.sub) = () => ([(this.Project_demo_icon())]);
 			(obj.target) = () => ("_blank");
 			(obj.arg) = () => ({"demo": (this.page_current_id())});
@@ -19146,7 +19162,7 @@ var $;
 		}
 		Page_preview(){
 			const obj = new this.$.$mol_check_icon();
-			(obj.hint) = () => (this.$.$mol_locale.text("$hyoo_sketch_editor_Page_preview_hint"));
+			(obj.hint) = () => ((this.$.$mol_locale.text("$hyoo_sketch_editor_Page_preview_hint")));
 			(obj.Icon) = () => ((this.Page_preview_icon()));
 			(obj.checked) = (next) => ((this.preview(next)));
 			return obj;
@@ -19162,7 +19178,7 @@ var $;
 		}
 		Page_name(){
 			const obj = new this.$.$hyoo_sketch_option();
-			(obj.name) = () => (this.$.$mol_locale.text("$hyoo_sketch_editor_Page_name_name"));
+			(obj.name) = () => ((this.$.$mol_locale.text("$hyoo_sketch_editor_Page_name_name")));
 			(obj.Control) = () => ((this.Name()));
 			return obj;
 		}
@@ -19173,7 +19189,7 @@ var $;
 		}
 		Page_width(){
 			const obj = new this.$.$hyoo_sketch_option();
-			(obj.name) = () => (this.$.$mol_locale.text("$hyoo_sketch_editor_Page_width_name"));
+			(obj.name) = () => ((this.$.$mol_locale.text("$hyoo_sketch_editor_Page_width_name")));
 			(obj.Control) = () => ((this.Width()));
 			return obj;
 		}
@@ -19184,7 +19200,7 @@ var $;
 		}
 		Page_height(){
 			const obj = new this.$.$hyoo_sketch_option();
-			(obj.name) = () => (this.$.$mol_locale.text("$hyoo_sketch_editor_Page_height_name"));
+			(obj.name) = () => ((this.$.$mol_locale.text("$hyoo_sketch_editor_Page_height_name")));
 			(obj.Control) = () => ((this.Height()));
 			return obj;
 		}
@@ -19205,7 +19221,7 @@ var $;
 		}
 		Page_grid(){
 			const obj = new this.$.$hyoo_sketch_option();
-			(obj.name) = () => (this.$.$mol_locale.text("$hyoo_sketch_editor_Page_grid_name"));
+			(obj.name) = () => ((this.$.$mol_locale.text("$hyoo_sketch_editor_Page_grid_name")));
 			(obj.Control) = () => ((this.Grid()));
 			return obj;
 		}
@@ -19216,12 +19232,12 @@ var $;
 		Delete_control(){
 			const obj = new this.$.$mol_button_major();
 			(obj.click) = (next) => ((this.page_delete(next)));
-			(obj.title) = () => (this.$.$mol_locale.text("$hyoo_sketch_editor_Delete_control_title"));
+			(obj.title) = () => ((this.$.$mol_locale.text("$hyoo_sketch_editor_Delete_control_title")));
 			return obj;
 		}
 		Page_delete(){
 			const obj = new this.$.$hyoo_sketch_option();
-			(obj.name) = () => (this.$.$mol_locale.text("$hyoo_sketch_editor_Page_delete_name"));
+			(obj.name) = () => ((this.$.$mol_locale.text("$hyoo_sketch_editor_Page_delete_name")));
 			(obj.Control) = () => ((this.Delete_control()));
 			return obj;
 		}
@@ -20040,7 +20056,7 @@ var $;
 		Person_link(){
 			const obj = new this.$.$mol_link();
 			(obj.arg) = () => ({"person": (this.person_id())});
-			(obj.hint) = () => (this.$.$mol_locale.text("$hyoo_sketch_project_list_Person_link_hint"));
+			(obj.hint) = () => ((this.$.$mol_locale.text("$hyoo_sketch_project_list_Person_link_hint")));
 			(obj.sub) = () => ([(this.Person_icon())]);
 			return obj;
 		}
@@ -20054,7 +20070,7 @@ var $;
 		}
 		Project_add(){
 			const obj = new this.$.$mol_button_minor();
-			(obj.hint) = () => (this.$.$mol_locale.text("$hyoo_sketch_project_list_Project_add_hint"));
+			(obj.hint) = () => ((this.$.$mol_locale.text("$hyoo_sketch_project_list_Project_add_hint")));
 			(obj.click) = (next) => ((this.project_add(next)));
 			(obj.sub) = () => ([(this.Project_add_icon())]);
 			return obj;
@@ -20140,7 +20156,7 @@ var $;
 		}
 		Online(){
 			const obj = new this.$.$mol_speck();
-			(obj.value) = () => (this.$.$mol_locale.text("$hyoo_sketch_person_avatar_Online_value"));
+			(obj.value) = () => ((this.$.$mol_locale.text("$hyoo_sketch_person_avatar_Online_value")));
 			return obj;
 		}
 	};
@@ -20602,7 +20618,7 @@ var $;
 		}
 		Project_pin(){
 			const obj = new this.$.$mol_check_icon();
-			(obj.hint) = () => (this.$.$mol_locale.text("$hyoo_sketch_project_page_Project_pin_hint"));
+			(obj.hint) = () => ((this.$.$mol_locale.text("$hyoo_sketch_project_page_Project_pin_hint")));
 			(obj.Icon) = () => ((this.Project_pin_icon()));
 			(obj.checked) = (next) => ((this.project_pin(next)));
 			return obj;
@@ -20613,7 +20629,7 @@ var $;
 		}
 		Project_close(){
 			const obj = new this.$.$mol_link();
-			(obj.hint) = () => (this.$.$mol_locale.text("$hyoo_sketch_project_page_Project_close_hint"));
+			(obj.hint) = () => ((this.$.$mol_locale.text("$hyoo_sketch_project_page_Project_close_hint")));
 			(obj.arg) = () => ({
 				"page": null, 
 				"project": null, 
@@ -20644,7 +20660,7 @@ var $;
 		}
 		Page_add(){
 			const obj = new this.$.$mol_button_minor();
-			(obj.hint) = () => (this.$.$mol_locale.text("$hyoo_sketch_project_page_Page_add_hint"));
+			(obj.hint) = () => ((this.$.$mol_locale.text("$hyoo_sketch_project_page_Page_add_hint")));
 			(obj.click) = (next) => ((this.page_add(next)));
 			(obj.sub) = () => ([(this.Page_add_icon())]);
 			return obj;
@@ -20656,7 +20672,7 @@ var $;
 		}
 		Pages(){
 			const obj = new this.$.$mol_expander();
-			(obj.title) = () => (this.$.$mol_locale.text("$hyoo_sketch_project_page_Pages_title"));
+			(obj.title) = () => ((this.$.$mol_locale.text("$hyoo_sketch_project_page_Pages_title")));
 			(obj.content) = () => ([(this.List())]);
 			(obj.expanded) = (next) => ((this.pages_expanded(next)));
 			(obj.Tools) = () => ((this.Settings_tools()));
@@ -20673,7 +20689,7 @@ var $;
 		}
 		Project_name_field(){
 			const obj = new this.$.$mol_form_field();
-			(obj.name) = () => (this.$.$mol_locale.text("$hyoo_sketch_project_page_Project_name_field_name"));
+			(obj.name) = () => ((this.$.$mol_locale.text("$hyoo_sketch_project_page_Project_name_field_name")));
 			(obj.control) = () => ((this.Project_name_control()));
 			return obj;
 		}
@@ -20686,7 +20702,7 @@ var $;
 		}
 		Editor_add_id(){
 			const obj = new this.$.$mol_string();
-			(obj.hint) = () => (this.$.$mol_locale.text("$hyoo_sketch_project_page_Editor_add_id_hint"));
+			(obj.hint) = () => ((this.$.$mol_locale.text("$hyoo_sketch_project_page_Editor_add_id_hint")));
 			(obj.value) = (next) => ((this.editor_add_id(next)));
 			return obj;
 		}
@@ -20719,7 +20735,7 @@ var $;
 		}
 		Editor_fill_all(){
 			const obj = new this.$.$mol_button_minor();
-			(obj.title) = () => (this.$.$mol_locale.text("$hyoo_sketch_project_page_Editor_fill_all_title"));
+			(obj.title) = () => ((this.$.$mol_locale.text("$hyoo_sketch_project_page_Editor_fill_all_title")));
 			(obj.click) = (next) => ((this.editor_fill_all(next)));
 			return obj;
 		}
@@ -20733,7 +20749,7 @@ var $;
 		}
 		Editor_add_field(){
 			const obj = new this.$.$mol_form_field();
-			(obj.name) = () => (this.$.$mol_locale.text("$hyoo_sketch_project_page_Editor_add_field_name"));
+			(obj.name) = () => ((this.$.$mol_locale.text("$hyoo_sketch_project_page_Editor_add_field_name")));
 			(obj.bid) = () => ((this.editor_add_bid()));
 			(obj.Content) = () => ((this.Editor_add_form()));
 			return obj;
@@ -20766,13 +20782,13 @@ var $;
 		}
 		Editor_list_field(){
 			const obj = new this.$.$mol_form_field();
-			(obj.name) = () => (this.$.$mol_locale.text("$hyoo_sketch_project_page_Editor_list_field_name"));
+			(obj.name) = () => ((this.$.$mol_locale.text("$hyoo_sketch_project_page_Editor_list_field_name")));
 			(obj.Content) = () => ((this.Editor_list()));
 			return obj;
 		}
 		Settings(){
 			const obj = new this.$.$mol_expander();
-			(obj.title) = () => (this.$.$mol_locale.text("$hyoo_sketch_project_page_Settings_title"));
+			(obj.title) = () => ((this.$.$mol_locale.text("$hyoo_sketch_project_page_Settings_title")));
 			(obj.expanded) = (next) => ((this.settings_expanded(next)));
 			(obj.content) = () => ([
 				(this.Project_name_field()), 
@@ -21204,7 +21220,7 @@ var $;
 		Id_copy(){
 			const obj = new this.$.$mol_button_copy();
 			(obj.text) = () => ((this.id()));
-			(obj.hint) = () => (this.$.$mol_locale.text("$hyoo_sketch_person_page_Id_copy_hint"));
+			(obj.hint) = () => ((this.$.$mol_locale.text("$hyoo_sketch_person_page_Id_copy_hint")));
 			return obj;
 		}
 		Close_icon(){
@@ -21228,7 +21244,7 @@ var $;
 		}
 		Name(){
 			const obj = new this.$.$mol_form_field();
-			(obj.name) = () => (this.$.$mol_locale.text("$hyoo_sketch_person_page_Name_name"));
+			(obj.name) = () => ((this.$.$mol_locale.text("$hyoo_sketch_person_page_Name_name")));
 			(obj.control) = () => ((this.Name_control()));
 			return obj;
 		}
@@ -21308,7 +21324,7 @@ var $;
 		}
 		Projects(){
 			const obj = new this.$.$hyoo_sketch_project_list();
-			(obj.title) = () => (this.$.$mol_locale.text("$hyoo_sketch_Projects_title"));
+			(obj.title) = () => ((this.$.$mol_locale.text("$hyoo_sketch_Projects_title")));
 			(obj.person) = () => ((this.user()));
 			return obj;
 		}
@@ -24224,6 +24240,49 @@ var $;
         'config by value'() {
             const N = $mol_data_setup((a) => a, 5);
             $mol_assert_equal(N.config, 5);
+        },
+    });
+})($ || ($ = {}));
+
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_test({
+        'auto name'() {
+            class TestError extends $mol_error_mix {
+            }
+            const mix = new TestError('foo');
+            $mol_assert_equal(mix.name, 'TestError');
+        },
+        'empty mix'() {
+            const mix = new $mol_error_mix('foo');
+            $mol_assert_equal(mix.message, 'foo');
+            $mol_assert_equal(mix.cause, []);
+        },
+        'simpe mix'() {
+            const mix = new $mol_error_mix('foo', new Error('bar', { cause: 'xxx' }), new Error('lol', { cause: 'yyy' }));
+            $mol_assert_equal(mix.message, 'foo\n  bar\n  lol');
+            $mol_assert_equal(mix.cause, ['xxx', 'yyy']);
+        },
+        'mix of mixes'() {
+            const mix = new $mol_error_mix('mix', new $mol_error_mix('foo1', new Error('bar1', { cause: 'xxx1' }), new Error('lol1', { cause: 'yyy1' })), new $mol_error_mix('foo2', new Error('bar2', { cause: 'xxx2' }), new Error('lol2', { cause: 'yyy2' })));
+            $mol_assert_equal(mix.message, 'mix\n  foo1\n    bar1\n    lol1\n  foo2\n    bar2\n    lol2');
+            $mol_assert_equal(mix.cause, ['xxx1', 'yyy1', 'xxx2', 'yyy2']);
+        },
+        'pick by class'() {
+            const mix = new $mol_error_mix('foo', new RangeError('bar', {
+                cause: [
+                    new SyntaxError('xxx1'),
+                    new SyntaxError('xxx2'),
+                    new TypeError('lol0'),
+                ],
+            }), new TypeError('lol1', {
+                cause: new TypeError('xxx3'),
+            }), new TypeError('lol2'));
+            $mol_assert_equal(mix.pick(RangeError).message, 'bar');
+            $mol_assert_equal(mix.pick(SyntaxError).message, 'xxx1');
+            $mol_assert_equal(mix.pick(TypeError).message, 'lol1');
         },
     });
 })($ || ($ = {}));
