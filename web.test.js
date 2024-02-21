@@ -2402,6 +2402,89 @@ var $;
 ;
 "use strict";
 var $;
+(function ($_1) {
+    $mol_test_mocks.push(context => {
+        class $mol_state_arg_mock extends $mol_state_arg {
+            static $ = context;
+            static href(next) { return next || ''; }
+        }
+        __decorate([
+            $mol_mem
+        ], $mol_state_arg_mock, "href", null);
+        context.$mol_state_arg = $mol_state_arg_mock;
+    });
+    $mol_test({
+        'args as dictionary'($) {
+            $.$mol_state_arg.href('#!foo=bar/xxx');
+            $mol_assert_like($.$mol_state_arg.dict(), { foo: 'bar', xxx: '' });
+            $.$mol_state_arg.dict({ foo: null, yyy: '', lol: '123' });
+            $mol_assert_equal($.$mol_state_arg.href().replace(/.*#/, '#'), '#!yyy/lol=123');
+        },
+        'one value from args'($) {
+            $.$mol_state_arg.href('#!foo=bar/xxx');
+            $mol_assert_equal($.$mol_state_arg.value('foo'), 'bar');
+            $mol_assert_equal($.$mol_state_arg.value('xxx'), '');
+            $.$mol_state_arg.value('foo', 'lol');
+            $mol_assert_equal($.$mol_state_arg.href().replace(/.*#/, '#'), '#!foo=lol/xxx');
+            $.$mol_state_arg.value('foo', '');
+            $mol_assert_equal($.$mol_state_arg.href().replace(/.*#/, '#'), '#!foo/xxx');
+            $.$mol_state_arg.value('foo', null);
+            $mol_assert_equal($.$mol_state_arg.href().replace(/.*#/, '#'), '#!xxx');
+        },
+        'nested args'($) {
+            const base = new $.$mol_state_arg('nested.');
+            class Nested extends $mol_state_arg {
+                constructor(prefix) {
+                    super(base.prefix + prefix);
+                }
+                static value = (key, next) => base.value(key, next);
+            }
+            $.$mol_state_arg.href('#!foo=bar/nested.xxx=123');
+            $mol_assert_equal(Nested.value('foo'), null);
+            $mol_assert_equal(Nested.value('xxx'), '123');
+            Nested.value('foo', 'lol');
+            $mol_assert_equal($.$mol_state_arg.href().replace(/.*#/, '#'), '#!foo=bar/nested.xxx=123/nested.foo=lol');
+        },
+    });
+})($ || ($ = {}));
+
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_test({
+        'local get set delete'() {
+            var key = '$mol_state_local_test:' + Math.random();
+            $mol_assert_equal($mol_state_local.value(key), null);
+            $mol_state_local.value(key, 123);
+            $mol_assert_equal($mol_state_local.value(key), 123);
+            $mol_state_local.value(key, null);
+            $mol_assert_equal($mol_state_local.value(key), null);
+        },
+    });
+})($ || ($ = {}));
+
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_test_mocks.push(context => {
+        class $mol_state_local_mock extends $mol_state_local {
+            static state = {};
+            static value(key, next = this.state[key]) {
+                return this.state[key] = (next || null);
+            }
+        }
+        __decorate([
+            $mol_mem_key
+        ], $mol_state_local_mock, "value", null);
+        context.$mol_state_local = $mol_state_local_mock;
+    });
+})($ || ($ = {}));
+
+;
+"use strict";
+var $;
 (function ($) {
     $mol_test({
         'encode utf8 string'() {
@@ -2713,40 +2796,6 @@ var $;
             const sign = packed.sign();
             $mol_assert_ok(await key.public.verify(packed.sens(), sign));
         },
-    });
-})($ || ($ = {}));
-
-;
-"use strict";
-var $;
-(function ($) {
-    $mol_test({
-        'local get set delete'() {
-            var key = '$mol_state_local_test:' + Math.random();
-            $mol_assert_equal($mol_state_local.value(key), null);
-            $mol_state_local.value(key, 123);
-            $mol_assert_equal($mol_state_local.value(key), 123);
-            $mol_state_local.value(key, null);
-            $mol_assert_equal($mol_state_local.value(key), null);
-        },
-    });
-})($ || ($ = {}));
-
-;
-"use strict";
-var $;
-(function ($) {
-    $mol_test_mocks.push(context => {
-        class $mol_state_local_mock extends $mol_state_local {
-            static state = {};
-            static value(key, next = this.state[key]) {
-                return this.state[key] = (next || null);
-            }
-        }
-        __decorate([
-            $mol_mem_key
-        ], $mol_state_local_mock, "value", null);
-        context.$mol_state_local = $mol_state_local_mock;
     });
 })($ || ($ = {}));
 
@@ -4267,48 +4316,20 @@ var $;
 "use strict";
 var $;
 (function ($_1) {
-    $mol_test_mocks.push(context => {
-        class $mol_state_arg_mock extends $mol_state_arg {
-            static $ = context;
-            static href(next) { return next || ''; }
+    $mol_test_mocks.push($ => {
+        class $mol_locale_mock extends $mol_locale {
+            lang(next = 'en') { return next; }
+            static source(lang) {
+                return {};
+            }
         }
         __decorate([
             $mol_mem
-        ], $mol_state_arg_mock, "href", null);
-        context.$mol_state_arg = $mol_state_arg_mock;
-    });
-    $mol_test({
-        'args as dictionary'($) {
-            $.$mol_state_arg.href('#!foo=bar/xxx');
-            $mol_assert_like($.$mol_state_arg.dict(), { foo: 'bar', xxx: '' });
-            $.$mol_state_arg.dict({ foo: null, yyy: '', lol: '123' });
-            $mol_assert_equal($.$mol_state_arg.href().replace(/.*#/, '#'), '#!yyy/lol=123');
-        },
-        'one value from args'($) {
-            $.$mol_state_arg.href('#!foo=bar/xxx');
-            $mol_assert_equal($.$mol_state_arg.value('foo'), 'bar');
-            $mol_assert_equal($.$mol_state_arg.value('xxx'), '');
-            $.$mol_state_arg.value('foo', 'lol');
-            $mol_assert_equal($.$mol_state_arg.href().replace(/.*#/, '#'), '#!foo=lol/xxx');
-            $.$mol_state_arg.value('foo', '');
-            $mol_assert_equal($.$mol_state_arg.href().replace(/.*#/, '#'), '#!foo/xxx');
-            $.$mol_state_arg.value('foo', null);
-            $mol_assert_equal($.$mol_state_arg.href().replace(/.*#/, '#'), '#!xxx');
-        },
-        'nested args'($) {
-            const base = new $.$mol_state_arg('nested.');
-            class Nested extends $mol_state_arg {
-                constructor(prefix) {
-                    super(base.prefix + prefix);
-                }
-                static value = (key, next) => base.value(key, next);
-            }
-            $.$mol_state_arg.href('#!foo=bar/nested.xxx=123');
-            $mol_assert_equal(Nested.value('foo'), null);
-            $mol_assert_equal(Nested.value('xxx'), '123');
-            Nested.value('foo', 'lol');
-            $mol_assert_equal($.$mol_state_arg.href().replace(/.*#/, '#'), '#!foo=bar/nested.xxx=123/nested.foo=lol');
-        },
+        ], $mol_locale_mock.prototype, "lang", null);
+        __decorate([
+            $mol_mem_key
+        ], $mol_locale_mock, "source", null);
+        $.$mol_locale = $mol_locale_mock;
     });
 })($ || ($ = {}));
 
@@ -4361,21 +4382,131 @@ var $;
 ;
 "use strict";
 var $;
-(function ($_1) {
-    $mol_test_mocks.push($ => {
-        class $mol_locale_mock extends $mol_locale {
-            lang(next = 'en') { return next; }
-            static source(lang) {
-                return {};
-            }
-        }
-        __decorate([
-            $mol_mem
-        ], $mol_locale_mock.prototype, "lang", null);
-        __decorate([
-            $mol_mem_key
-        ], $mol_locale_mock, "source", null);
-        $.$mol_locale = $mol_locale_mock;
+(function ($) {
+    var $$;
+    (function ($$) {
+        $mol_test({
+            'Empty needle'() {
+                const app = new $mol_dimmer;
+                app.needle = () => '  ';
+                app.haystack = () => 'foo  bar';
+                $mol_assert_like(app.strings(), ['foo  bar']);
+            },
+            'Empty haystack'() {
+                const app = new $mol_dimmer;
+                app.needle = () => 'foo  bar';
+                app.haystack = () => '';
+                $mol_assert_like(app.strings(), ['']);
+            },
+            'Not found'() {
+                const app = new $mol_dimmer;
+                app.needle = () => 'foo';
+                app.haystack = () => ' bar ';
+                $mol_assert_like(app.strings(), [' bar ']);
+            },
+            'One found'() {
+                const app = new $mol_dimmer;
+                app.needle = () => 'foo';
+                app.haystack = () => ' barfoo ';
+                $mol_assert_like(app.strings(), [' bar', 'foo', ' ']);
+            },
+            'Multiple found'() {
+                const app = new $mol_dimmer;
+                app.needle = () => 'foo';
+                app.haystack = () => ' foobarfoo foo';
+                $mol_assert_like(app.strings(), [' ', 'foo', 'bar', 'foo', ' ', 'foo']);
+            },
+            'Fuzzy search'() {
+                const app = new $mol_dimmer;
+                app.needle = () => 'foo bar';
+                app.haystack = () => ' barfoo ';
+                $mol_assert_like(app.strings(), [' ', 'bar', '', 'foo', ' ']);
+            },
+        });
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_test({
+        'parse and serial'() {
+            $mol_assert_equal(new $mol_time_duration('P42.1Y').toString(), 'P42.1YT');
+            $mol_assert_equal(new $mol_time_duration('P42.1M').toString(), 'P42.1MT');
+            $mol_assert_equal(new $mol_time_duration('P42.1D').toString(), 'P42.1DT');
+            $mol_assert_equal(new $mol_time_duration('PT42.1h').toString(), 'PT42.1H');
+            $mol_assert_equal(new $mol_time_duration('PT42.1m').toString(), 'PT42.1M');
+            $mol_assert_equal(new $mol_time_duration('PT42.1s').toString(), 'PT42.1S');
+            $mol_assert_equal(new $mol_time_duration('P1Y2M3DT4h5m6.7s').toString(), 'P1Y2M3DT4H5M6.7S');
+        },
+        'format typed'() {
+            $mol_assert_equal(new $mol_time_duration('P1Y2M3DT4h5m6s').toString('P#Y#M#DT#h#m#s'), 'P1Y2M3DT4H5M6S');
+        },
+        'comparison'() {
+            const iso = 'P1Y1M1DT1h1m1s';
+            $mol_assert_like(new $mol_time_duration(iso), new $mol_time_duration(iso));
+        },
+    });
+})($ || ($ = {}));
+
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_test({
+        'parse and serial'() {
+            $mol_assert_equal(new $mol_time_moment('2014').toString(), '2014');
+            $mol_assert_equal(new $mol_time_moment('2014-01').toString(), '2014-01');
+            $mol_assert_equal(new $mol_time_moment('2014-01-02').toString(), '2014-01-02');
+            $mol_assert_equal(new $mol_time_moment('2014-01-02T03').toString(), '2014-01-02T03');
+            $mol_assert_equal(new $mol_time_moment('2014-01-02T03:04').toString(), '2014-01-02T03:04');
+            $mol_assert_equal(new $mol_time_moment('2014-01-02T03:04:05').toString(), '2014-01-02T03:04:05');
+            $mol_assert_equal(new $mol_time_moment('2014-01-02T03:04:05.006').toString(), '2014-01-02T03:04:05.006');
+            $mol_assert_equal(new $mol_time_moment('2014-01-02T03:04:05.006Z').toString(), '2014-01-02T03:04:05.006+00:00');
+            $mol_assert_equal(new $mol_time_moment('2014-01-02T03:04:05.006+07:00').toString(), '2014-01-02T03:04:05.006+07:00');
+            $mol_assert_equal(new $mol_time_moment('2014-01-02T03:04:05+07:08').toString(), '2014-01-02T03:04:05+07:08');
+            $mol_assert_equal(new $mol_time_moment('2014-01-02T03:04+07:08').toString(), '2014-01-02T03:04+07:08');
+            $mol_assert_equal(new $mol_time_moment('T03:04+07:08').toString(), 'T03:04+07:08');
+            $mol_assert_equal(new $mol_time_moment('T03:04:05').toString(), 'T03:04:05');
+            $mol_assert_equal(new $mol_time_moment('T03:04').toString(), 'T03:04');
+            $mol_assert_equal(new $mol_time_moment('T03').toString(), 'T03');
+        },
+        'format simple'() {
+            $mol_assert_equal(new $mol_time_moment('2014-01-02T01:02:03.000000').toString('AD YY-M-D h:m:s'), '21 14-1-2 1:2:3');
+        },
+        'format padded'() {
+            $mol_assert_equal(new $mol_time_moment('2014-01-02T01:02:03.000').toString('YYYY-MM-DD hh:mm:ss'), '2014-01-02 01:02:03');
+        },
+        'format time zone'() {
+            $mol_assert_equal(new $mol_time_moment('2014-01-02T01:02:03+05:00').toString('Z'), '+05:00');
+        },
+        'format names'() {
+            $mol_assert_ok(new $mol_time_moment('2014-01-02T01:02:03.000').toString('Month Mon | WeekDay WD'));
+        },
+        'shifting'() {
+            $mol_assert_equal(new $mol_time_moment('T15:54:58.243+03:00').shift({}).toString(), 'T15:54:58.243+03:00');
+            $mol_assert_equal(new $mol_time_moment('2014-01-02').shift('P1Y').toString(), '2015-01-02');
+            $mol_assert_equal(new $mol_time_moment('2014-01-02').shift('P12M').toString(), '2015-01-02');
+            $mol_assert_equal(new $mol_time_moment('2014-01-02').shift('P365D').toString(), '2015-01-02');
+            $mol_assert_equal(new $mol_time_moment('2014-01-02').shift('PT8760h').toString(), '2015-01-02');
+            $mol_assert_equal(new $mol_time_moment('2014-01').shift('PT8760h').toString(), '2015-01');
+            $mol_assert_equal(new $mol_time_moment('2014-01').shift('PT-8760h').toString(), '2013-01');
+        },
+        'normalization'() {
+            $mol_assert_equal(new $mol_time_moment({ year: 2015, month: 6, day: 34 }).normal.toString(), '2015-08-04');
+        },
+        'iso week day'() {
+            $mol_assert_equal(new $mol_time_moment('2017-09-17').weekday, $mol_time_moment_weekdays.sunday);
+            $mol_assert_equal(new $mol_time_moment('2017-09-18').weekday, $mol_time_moment_weekdays.monday);
+        },
+        'change offset'() {
+            $mol_assert_equal(new $mol_time_moment('2021-04-10 +03:00').toOffset('Z').toString(), '2021-04-09T21:00:00+00:00');
+        },
+        'comparison'() {
+            const iso = '2021-01-02T03:04:05.678+09:10';
+            $mol_assert_like(new $mol_time_moment(iso), new $mol_time_moment(iso));
+        },
     });
 })($ || ($ = {}));
 
@@ -4567,106 +4698,183 @@ var $;
 "use strict";
 var $;
 (function ($_1) {
-    var $$;
-    (function ($$) {
-        const d = '$';
-        const src = `
-		${d}my_test ${d}my_super
-			title @ \\title
-			sub2 /
-				<= Сlose_icon ${d}mol_icon_cross
-			sub /
-				<= Title ${d}mol_view
-					sub /
-						<= title
-				<= Close ${d}mol_button
-					title \\close
-					click?event <=> close?event null
-			Dog ${d}mol_view_tree2_class_test_dog
-				Mouth => Dog_mouth
-					animation => dog_animation
-			plugins /
-				<= Human* ${d}mol_view_tree2_class_test_human
-					Mouth => Human_mouth
-						animation => human_animation
-							text => human_text
-	`;
-        const dest = $$.$mol_tree2_from_string(`
-		title @ \\title
-		sub2 / <= Сlose_icon
-		sub /
-			<= Title
-			<= Close
-		Dog $mol_view_tree2_class_test_dog Mouth => Dog_mouth animation => dog_animation
-		plugins / <= Human*
-		Сlose_icon ${d}mol_icon_cross
-		Title ${d}mol_view sub / <= title
-		close?event null
-		Close ${d}mol_button
-			title \\close
-			click?event <=> close?event
-		Dog_mouth = Dog Mouth
-		dog_animation = Dog_mouth animation
-		Human_mouth = Human* Mouth
-		human_animation = Human_mouth animation
-		human_text = human_animation text
-		Human* $mol_view_tree2_class_test_human Mouth => Human_mouth animation => human_animation text => human_text
-	`, 'reference');
-        $mol_test({
-            'props'($) {
-                const mod = $.$mol_tree2_from_string(src, '/mol/view/tree2/class/props.test.ts');
-                const result = $.$mol_view_tree2_class_props(mod.kids[0]).join('');
-                $mol_assert_equal(result, dest.toString());
-            }
-        });
-    })($$ = $_1.$$ || ($_1.$$ = {}));
+    function get_parts(str) {
+        return $$.$mol_view_tree2_prop_parts($mol_tree2.struct(str));
+    }
+    $mol_test({
+        'wrong order'($) {
+            $mol_assert_fail(() => {
+                get_parts('some_bla?*');
+            }, 'Required prop like some*? at `?#1:1/0`');
+        },
+        'empty'($) {
+            $mol_assert_fail(() => {
+                get_parts('');
+            }, 'Required prop like some*? at `?#1:1/0`');
+        },
+        'prop in upper case'($) {
+            const parts = get_parts('Close_icon');
+            $mol_assert_equal(parts.name, 'Close_icon');
+            $mol_assert_equal(parts.key, '');
+            $mol_assert_equal(parts.next, '');
+        },
+        'prop with index'($) {
+            const parts = get_parts('some_bla*');
+            $mol_assert_equal(parts.name, 'some_bla');
+            $mol_assert_equal(parts.key, '*');
+            $mol_assert_equal(parts.next, '');
+        },
+        'prop with index and value'($) {
+            const parts = get_parts('some_bla*?');
+            $mol_assert_equal(parts.name, 'some_bla');
+            $mol_assert_equal(parts.key, '*');
+            $mol_assert_equal(parts.next, '?');
+        },
+        'legacy indexed'($) {
+            const parts = get_parts('Some*default');
+            $mol_assert_equal(parts.name, 'Some');
+            $mol_assert_equal(parts.key, '*default');
+            $mol_assert_equal(parts.next, '');
+        },
+        'legacy indexed value'($) {
+            const parts = get_parts('Some*k?v');
+            $mol_assert_equal(parts.name, 'Some');
+            $mol_assert_equal(parts.key, '*k');
+            $mol_assert_equal(parts.next, '?');
+        }
+    });
 })($ || ($ = {}));
 
 ;
 "use strict";
 var $;
-(function ($) {
+(function ($_1) {
     var $$;
     (function ($$) {
+        const d = '$';
+        const file_name = '/mol/view/tree2/class/props.test.ts';
+        function normalize($, src, dest) {
+            const mod = $.$mol_tree2_from_string(src, file_name);
+            const input = $.$mol_view_tree2_class_props(mod.kids[0]).join('');
+            const output = dest ? $$.$mol_tree2_from_string(dest, 'reference').toString() : '';
+            return { input, output };
+        }
         $mol_test({
-            'Empty needle'() {
-                const app = new $mol_dimmer;
-                app.needle = () => '  ';
-                app.haystack = () => 'foo  bar';
-                $mol_assert_like(app.strings(), ['foo  bar']);
+            'dupes merge'($) {
+                const src = `
+				${d}my_test ${d}my_super
+					query? \\
+					Query $mol_string
+						value? <=> query? \\
+					Suggest_label ${d}mol_dimmer
+						needle <= query? \\
+						key * escape? <=> clear? null
+					Clear ${d}mol_button_minor
+						click?event <=> clear?event null
+			`;
+                const dest = `
+				query? \\
+				clear?event null
+				Query $mol_string value? <=> query?
+				Suggest_label $mol_dimmer
+					needle <= query?
+					key * escape? <=> clear?
+				Clear $mol_button_minor click?event <=> clear?event
+			`;
+                const res = normalize($, src, dest);
+                $mol_assert_equal(res.input, res.output);
             },
-            'Empty haystack'() {
-                const app = new $mol_dimmer;
-                app.needle = () => 'foo  bar';
-                app.haystack = () => '';
-                $mol_assert_like(app.strings(), ['']);
+            'left and bidi common'($) {
+                const src = `
+				${d}my_test ${d}my_super
+					title @ \\title
+					sub2 /
+						<= Close_icon ${d}mol_icon_cross
+					sub /
+						<= Title ${d}mol_view
+							sub /
+								<= title
+						<= Close ${d}mol_button
+							title \\close
+							click?event <=> close?event null
+			`;
+                const dest = `
+				Close_icon ${d}mol_icon_cross
+				Title ${d}mol_view sub / <= title
+				close?event null
+				Close ${d}mol_button
+					title \\close
+					click?event <=> close?event
+				title @ \\title
+				sub2 / <= Close_icon
+				sub /
+					<= Title
+					<= Close
+			`;
+                const res = normalize($, src, dest);
+                $mol_assert_equal(res.input, res.output);
             },
-            'Not found'() {
-                const app = new $mol_dimmer;
-                app.needle = () => 'foo';
-                app.haystack = () => ' bar ';
-                $mol_assert_like(app.strings(), [' bar ']);
+            'right bind levels'($) {
+                const src = `
+				${d}my_test ${d}my_super
+					Dog ${d}mol_view_tree2_class_test_dog
+						Mouth => Dog_mouth
+							animation => dog_animation
+					plugins /
+						<= Human* ${d}mol_view_tree2_class_test_human
+							Mouth => Human_mouth
+								animation => human_animation
+									text => human_text
+			`;
+                const dest = `
+				Dog_mouth = Dog Mouth
+				dog_animation = Dog_mouth animation
+				Human_mouth = Human* Mouth
+				human_animation = Human_mouth animation
+				human_text = human_animation text
+				Human* $mol_view_tree2_class_test_human Mouth => Human_mouth animation => human_animation text => human_text
+				Dog $mol_view_tree2_class_test_dog Mouth => Dog_mouth animation => dog_animation
+				plugins / <= Human*
+			`;
+                const res = normalize($, src, dest);
+                $mol_assert_equal(res.input, res.output);
             },
-            'One found'() {
-                const app = new $mol_dimmer;
-                app.needle = () => 'foo';
-                app.haystack = () => ' barfoo ';
-                $mol_assert_like(app.strings(), [' bar', 'foo', ' ']);
+            'good right bind dupes'($) {
+                const src = `
+				${d}my_test ${d}my_super
+					Suggest_label ${d}mol_dimmer
+						clear? => clear?
+					Clear ${d}mol_button_minor
+						click?e <=> clear?e
+			`;
+                const dest = `
+				clear? = Suggest_label clear?
+				Suggest_label $mol_dimmer clear? => clear?
+				Clear $mol_button_minor click?e <=> clear?e
+			`;
+                const res = normalize($, src, dest);
+                $mol_assert_equal(res.input, res.output);
             },
-            'Multiple found'() {
-                const app = new $mol_dimmer;
-                app.needle = () => 'foo';
-                app.haystack = () => ' foobarfoo foo';
-                $mol_assert_like(app.strings(), [' ', 'foo', 'bar', 'foo', ' ', 'foo']);
-            },
-            'Fuzzy search'() {
-                const app = new $mol_dimmer;
-                app.needle = () => 'foo bar';
-                app.haystack = () => ' barfoo ';
-                $mol_assert_like(app.strings(), [' ', 'bar', '', 'foo', ' ']);
+            'conflicting right bind dupes'($) {
+                const src = `
+				${d}my_test ${d}my_super
+					Suggest_label ${d}mol_dimmer
+						clear => clear
+					Clear ${d}mol_button_minor
+						click?event <=> clear?event null
+			`;
+                $mol_assert_fail(() => normalize($, src).input, `Need an equal default values at \`/mol/view/tree2/class/props.test.ts#4:16/5\` vs \`/mol/view/tree2/class/props.test.ts#6:23/11\`
+<=>
+/mol/view/tree2/class/props.test.ts#6:19/3
+click?event
+/mol/view/tree2/class/props.test.ts#6:7/11
+$mol_button_minor
+/mol/view/tree2/class/props.test.ts#5:12/17
+Clear
+/mol/view/tree2/class/props.test.ts#5:6/5`);
             },
         });
-    })($$ = $.$$ || ($.$$ = {}));
+    })($$ = $_1.$$ || ($_1.$$ = {}));
 })($ || ($ = {}));
 
 ;
@@ -4700,90 +4908,6 @@ var $;
                 ['table', '| header1 | header2\n|----|----\n| Cell11 | Cell12\n| Cell21 | Cell22\n\n', ['| header1 | header2\n|----|----\n| Cell11 | Cell12\n| Cell21 | Cell22\n', '\n'], 0],
                 ['table', '| Cell11 | Cell12\n| Cell21 | Cell22\n', ['| Cell11 | Cell12\n| Cell21 | Cell22\n', ''], 68],
             ]);
-        },
-    });
-})($ || ($ = {}));
-
-;
-"use strict";
-var $;
-(function ($) {
-    $mol_test({
-        'parse and serial'() {
-            $mol_assert_equal(new $mol_time_duration('P42.1Y').toString(), 'P42.1YT');
-            $mol_assert_equal(new $mol_time_duration('P42.1M').toString(), 'P42.1MT');
-            $mol_assert_equal(new $mol_time_duration('P42.1D').toString(), 'P42.1DT');
-            $mol_assert_equal(new $mol_time_duration('PT42.1h').toString(), 'PT42.1H');
-            $mol_assert_equal(new $mol_time_duration('PT42.1m').toString(), 'PT42.1M');
-            $mol_assert_equal(new $mol_time_duration('PT42.1s').toString(), 'PT42.1S');
-            $mol_assert_equal(new $mol_time_duration('P1Y2M3DT4h5m6.7s').toString(), 'P1Y2M3DT4H5M6.7S');
-        },
-        'format typed'() {
-            $mol_assert_equal(new $mol_time_duration('P1Y2M3DT4h5m6s').toString('P#Y#M#DT#h#m#s'), 'P1Y2M3DT4H5M6S');
-        },
-        'comparison'() {
-            const iso = 'P1Y1M1DT1h1m1s';
-            $mol_assert_like(new $mol_time_duration(iso), new $mol_time_duration(iso));
-        },
-    });
-})($ || ($ = {}));
-
-;
-"use strict";
-var $;
-(function ($) {
-    $mol_test({
-        'parse and serial'() {
-            $mol_assert_equal(new $mol_time_moment('2014').toString(), '2014');
-            $mol_assert_equal(new $mol_time_moment('2014-01').toString(), '2014-01');
-            $mol_assert_equal(new $mol_time_moment('2014-01-02').toString(), '2014-01-02');
-            $mol_assert_equal(new $mol_time_moment('2014-01-02T03').toString(), '2014-01-02T03');
-            $mol_assert_equal(new $mol_time_moment('2014-01-02T03:04').toString(), '2014-01-02T03:04');
-            $mol_assert_equal(new $mol_time_moment('2014-01-02T03:04:05').toString(), '2014-01-02T03:04:05');
-            $mol_assert_equal(new $mol_time_moment('2014-01-02T03:04:05.006').toString(), '2014-01-02T03:04:05.006');
-            $mol_assert_equal(new $mol_time_moment('2014-01-02T03:04:05.006Z').toString(), '2014-01-02T03:04:05.006+00:00');
-            $mol_assert_equal(new $mol_time_moment('2014-01-02T03:04:05.006+07:00').toString(), '2014-01-02T03:04:05.006+07:00');
-            $mol_assert_equal(new $mol_time_moment('2014-01-02T03:04:05+07:08').toString(), '2014-01-02T03:04:05+07:08');
-            $mol_assert_equal(new $mol_time_moment('2014-01-02T03:04+07:08').toString(), '2014-01-02T03:04+07:08');
-            $mol_assert_equal(new $mol_time_moment('T03:04+07:08').toString(), 'T03:04+07:08');
-            $mol_assert_equal(new $mol_time_moment('T03:04:05').toString(), 'T03:04:05');
-            $mol_assert_equal(new $mol_time_moment('T03:04').toString(), 'T03:04');
-            $mol_assert_equal(new $mol_time_moment('T03').toString(), 'T03');
-        },
-        'format simple'() {
-            $mol_assert_equal(new $mol_time_moment('2014-01-02T01:02:03.000000').toString('AD YY-M-D h:m:s'), '21 14-1-2 1:2:3');
-        },
-        'format padded'() {
-            $mol_assert_equal(new $mol_time_moment('2014-01-02T01:02:03.000').toString('YYYY-MM-DD hh:mm:ss'), '2014-01-02 01:02:03');
-        },
-        'format time zone'() {
-            $mol_assert_equal(new $mol_time_moment('2014-01-02T01:02:03+05:00').toString('Z'), '+05:00');
-        },
-        'format names'() {
-            $mol_assert_ok(new $mol_time_moment('2014-01-02T01:02:03.000').toString('Month Mon | WeekDay WD'));
-        },
-        'shifting'() {
-            $mol_assert_equal(new $mol_time_moment('T15:54:58.243+03:00').shift({}).toString(), 'T15:54:58.243+03:00');
-            $mol_assert_equal(new $mol_time_moment('2014-01-02').shift('P1Y').toString(), '2015-01-02');
-            $mol_assert_equal(new $mol_time_moment('2014-01-02').shift('P12M').toString(), '2015-01-02');
-            $mol_assert_equal(new $mol_time_moment('2014-01-02').shift('P365D').toString(), '2015-01-02');
-            $mol_assert_equal(new $mol_time_moment('2014-01-02').shift('PT8760h').toString(), '2015-01-02');
-            $mol_assert_equal(new $mol_time_moment('2014-01').shift('PT8760h').toString(), '2015-01');
-            $mol_assert_equal(new $mol_time_moment('2014-01').shift('PT-8760h').toString(), '2013-01');
-        },
-        'normalization'() {
-            $mol_assert_equal(new $mol_time_moment({ year: 2015, month: 6, day: 34 }).normal.toString(), '2015-08-04');
-        },
-        'iso week day'() {
-            $mol_assert_equal(new $mol_time_moment('2017-09-17').weekday, $mol_time_moment_weekdays.sunday);
-            $mol_assert_equal(new $mol_time_moment('2017-09-18').weekday, $mol_time_moment_weekdays.monday);
-        },
-        'change offset'() {
-            $mol_assert_equal(new $mol_time_moment('2021-04-10 +03:00').toOffset('Z').toString(), '2021-04-09T21:00:00+00:00');
-        },
-        'comparison'() {
-            const iso = '2021-01-02T03:04:05.678+09:10';
-            $mol_assert_like(new $mol_time_moment(iso), new $mol_time_moment(iso));
         },
     });
 })($ || ($ = {}));

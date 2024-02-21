@@ -887,6 +887,8 @@ declare namespace $ {
 declare namespace $ {
 
 	export class $mol_scroll extends $mol_view {
+		tabindex( ): number
+		event_scroll( next?: any ): any
 		scroll_top( next?: number ): number
 		scroll_left( next?: number ): number
 		field( ): ({ 
@@ -895,8 +897,6 @@ declare namespace $ {
 		event( ): ({ 
 			scroll( next?: ReturnType< $mol_scroll['event_scroll'] > ): ReturnType< $mol_scroll['event_scroll'] >,
 		})  & ReturnType< $mol_view['event'] >
-		tabindex( ): number
-		event_scroll( next?: any ): any
 	}
 	
 }
@@ -932,18 +932,18 @@ declare namespace $ {
 
 declare namespace $ {
 
-	type $mol_view__title__5YLAUO3D = $mol_type_enforce<
+	type $mol_view__title__QAH2WTQ7 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_view['title'] >
 	>
 	export class $mol_book2 extends $mol_scroll {
+		pages( ): readonly($mol_view)[]
 		menu_title( ): string
 		sub( ): ReturnType< $mol_book2['pages'] >
 		minimal_width( ): number
 		Placeholder( ): $mol_view
 		Gap( id: any): $mol_view
-		pages( ): readonly($mol_view)[]
 	}
 	
 }
@@ -961,7 +961,104 @@ declare namespace $.$$ {
 declare namespace $ {
 }
 
-declare let $hyoo_sync_revision: string;
+declare namespace $ {
+    let $mol_action: typeof $mol_wire_method;
+}
+
+declare namespace $ {
+    class $mol_state_arg extends $mol_object {
+        prefix: string;
+        static href(next?: string): string;
+        static href_normal(): string;
+        static href_absolute(): string;
+        static dict(next?: {
+            [key: string]: string | null;
+        }): Readonly<{
+            [key: string]: string;
+        }>;
+        static dict_cut(except: string[]): {
+            [key: string]: string;
+        };
+        static value(key: string, next?: string | null): string | null;
+        static link(next: Record<string, string | null>): string;
+        static prolog: string;
+        static separator: string;
+        static make_link(next: {
+            [key: string]: string | null;
+        }): string;
+        static go(next: {
+            [key: string]: string | null;
+        }): void;
+        static encode(str: string): string;
+        constructor(prefix?: string);
+        value(key: string, next?: string): string | null;
+        sub(postfix: string): $mol_state_arg;
+        link(next: Record<string, string | null>): string;
+    }
+}
+
+declare namespace $ {
+    let $mol_mem_persist: typeof $mol_wire_solid;
+}
+
+declare namespace $ {
+    export function $mol_wire_sync<Host extends object>(obj: Host): ObjectOrFunctionResultAwaited<Host>;
+    type FunctionResultAwaited<Some> = Some extends (...args: infer Args) => infer Res ? (...args: Args) => Awaited<Res> : Some;
+    type MethodsResultAwaited<Host extends Object> = {
+        [K in keyof Host]: FunctionResultAwaited<Host[K]>;
+    };
+    type ObjectOrFunctionResultAwaited<Some> = (Some extends (...args: any) => unknown ? FunctionResultAwaited<Some> : {}) & (Some extends Object ? MethodsResultAwaited<Some> : Some);
+    export {};
+}
+
+declare namespace $ {
+    class $mol_storage extends $mol_object2 {
+        static native(): StorageManager;
+        static persisted(next?: boolean, cache?: 'cache'): boolean;
+        static estimate(): StorageEstimate;
+        static dir(): FileSystemDirectoryHandle;
+    }
+}
+
+declare namespace $ {
+    class $mol_state_local<Value> extends $mol_object {
+        static 'native()': Pick<Storage, 'getItem' | 'setItem' | 'removeItem'>;
+        static native(): Storage | {
+            getItem(key: string): any;
+            setItem(key: string, value: string): void;
+            removeItem(key: string): void;
+        };
+        static changes(next?: StorageEvent): StorageEvent | undefined;
+        static value<Value>(key: string, next?: Value | null): Value | null;
+        prefix(): string;
+        value(key: string, next?: Value): Value | null;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+    function $mol_lights(this: $, next?: boolean): boolean;
+}
+
+declare namespace $ {
+
+	export class $mol_theme_auto extends $mol_plugin {
+		theme( ): string
+		attr( ): ({ 
+			'mol_theme': ReturnType< $mol_theme_auto['theme'] >,
+		}) 
+	}
+	
+}
+
+//# sourceMappingURL=auto.view.tree.d.ts.map
+declare namespace $.$$ {
+    class $mol_theme_auto extends $.$mol_theme_auto {
+        theme(): "$mol_theme_light" | "$mol_theme_dark";
+    }
+}
 
 declare var $node: any;
 
@@ -990,6 +1087,8 @@ declare namespace $ {
         hi: number;
     }): $mol_int62_pair;
 }
+
+declare let $hyoo_sync_revision: string;
 
 declare namespace $ {
     type $mol_data_value<Input = any, Output = any> = (val: Input) => Output;
@@ -1158,16 +1257,6 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    export function $mol_wire_sync<Host extends object>(obj: Host): ObjectOrFunctionResultAwaited<Host>;
-    type FunctionResultAwaited<Some> = Some extends (...args: infer Args) => infer Res ? (...args: Args) => Awaited<Res> : Some;
-    type MethodsResultAwaited<Host extends Object> = {
-        [K in keyof Host]: FunctionResultAwaited<Host[K]>;
-    };
-    type ObjectOrFunctionResultAwaited<Some> = (Some extends (...args: any) => unknown ? FunctionResultAwaited<Some> : {}) & (Some extends Object ? MethodsResultAwaited<Some> : Some);
-    export {};
-}
-
-declare namespace $ {
     type $mol_type_partial_deep<Val> = Val extends object ? Val extends Function ? Val : {
         [field in keyof Val]?: $mol_type_partial_deep<Val[field]> | undefined;
     } : Val;
@@ -1206,37 +1295,6 @@ declare namespace $ {
         interface ElementChildrenAttribute {
         }
     }
-}
-
-declare namespace $ {
-    let $mol_mem_persist: typeof $mol_wire_solid;
-}
-
-declare namespace $ {
-    class $mol_storage extends $mol_object2 {
-        static native(): StorageManager;
-        static persisted(next?: boolean, cache?: 'cache'): boolean;
-        static estimate(): StorageEstimate;
-        static dir(): FileSystemDirectoryHandle;
-    }
-}
-
-declare namespace $ {
-    class $mol_state_local<Value> extends $mol_object {
-        static 'native()': Pick<Storage, 'getItem' | 'setItem' | 'removeItem'>;
-        static native(): Storage | {
-            getItem(key: string): any;
-            setItem(key: string, value: string): void;
-            removeItem(key: string): void;
-        };
-        static changes(next?: StorageEvent): StorageEvent | undefined;
-        static value<Value>(key: string, next?: Value | null): Value | null;
-        prefix(): string;
-        value(key: string, next?: Value): Value | null;
-    }
-}
-
-declare namespace $ {
 }
 
 declare namespace $ {
@@ -1360,10 +1418,6 @@ declare namespace $ {
         move(unit: $hyoo_crowd_unit, head: $mol_int62_string, prev: $mol_int62_string): void;
         insert(unit: $hyoo_crowd_unit, head: $mol_int62_string, seat: number): void;
     }
-}
-
-declare namespace $ {
-    let $mol_action: typeof $mol_wire_method;
 }
 
 declare namespace $ {
@@ -1652,146 +1706,6 @@ declare namespace $ {
 }
 
 declare namespace $ {
-
-	type $mol_view__dom_name__I7OA40A8 = $mol_type_enforce<
-		string
-		,
-		ReturnType< $mol_view['dom_name'] >
-	>
-	type $mol_view__sub__DKYTXQJX = $mol_type_enforce<
-		ReturnType< $mol_page['title_content'] >
-		,
-		ReturnType< $mol_view['sub'] >
-	>
-	type $mol_view__sub__M73SZ0YZ = $mol_type_enforce<
-		ReturnType< $mol_page['tools'] >
-		,
-		ReturnType< $mol_view['sub'] >
-	>
-	type $mol_view__minimal_height__7V8PKX8U = $mol_type_enforce<
-		number
-		,
-		ReturnType< $mol_view['minimal_height'] >
-	>
-	type $mol_view__dom_name__IUD0TG43 = $mol_type_enforce<
-		string
-		,
-		ReturnType< $mol_view['dom_name'] >
-	>
-	type $mol_view__sub__7T87S7IZ = $mol_type_enforce<
-		ReturnType< $mol_page['head'] >
-		,
-		ReturnType< $mol_view['sub'] >
-	>
-	type $mol_page_body_scroll_top__LYSTRSLI = $mol_type_enforce<
-		Parameters< $mol_page['body_scroll_top'] >[0]
-		,
-		Parameters< ReturnType< $mol_page['Body'] >['scroll_top'] >[0]
-	>
-	type $mol_view__sub__N0QOSU6D = $mol_type_enforce<
-		ReturnType< $mol_page['body'] >
-		,
-		ReturnType< $mol_view['sub'] >
-	>
-	type $mol_scroll__sub__62QTK8CN = $mol_type_enforce<
-		ReturnType< $mol_page['body_content'] >
-		,
-		ReturnType< $mol_scroll['sub'] >
-	>
-	type $mol_view__dom_name__KU7EMASQ = $mol_type_enforce<
-		string
-		,
-		ReturnType< $mol_view['dom_name'] >
-	>
-	type $mol_view__sub__78POLO5H = $mol_type_enforce<
-		ReturnType< $mol_page['foot'] >
-		,
-		ReturnType< $mol_view['sub'] >
-	>
-	export class $mol_page extends $mol_view {
-		dom_name( ): string
-		field( ): ({ 
-			'tabIndex': ReturnType< $mol_page['tabindex'] >,
-		})  & ReturnType< $mol_view['field'] >
-		sub( ): readonly(any)[]
-		tabindex( ): number
-		Logo( ): any
-		title_content( ): readonly(any)[]
-		Title( ): $mol_view
-		tools( ): readonly($mol_view_content)[]
-		Tools( ): $mol_view
-		head( ): readonly(any)[]
-		Head( ): $mol_view
-		body_scroll_top( next?: ReturnType< ReturnType< $mol_page['Body'] >['scroll_top'] > ): ReturnType< ReturnType< $mol_page['Body'] >['scroll_top'] >
-		body( ): readonly($mol_view)[]
-		Body_content( ): $mol_view
-		body_content( ): readonly(any)[]
-		Body( ): $mol_scroll
-		foot( ): readonly($mol_view)[]
-		Foot( ): $mol_view
-	}
-	
-}
-
-//# sourceMappingURL=page.view.tree.d.ts.map
-declare namespace $.$$ {
-}
-
-declare namespace $ {
-    class $mol_state_arg extends $mol_object {
-        prefix: string;
-        static href(next?: string): string;
-        static href_normal(): string;
-        static href_absolute(): string;
-        static dict(next?: {
-            [key: string]: string | null;
-        }): Readonly<{
-            [key: string]: string;
-        }>;
-        static dict_cut(except: string[]): {
-            [key: string]: string;
-        };
-        static value(key: string, next?: string | null): string | null;
-        static link(next: Record<string, string | null>): string;
-        static prolog: string;
-        static separator: string;
-        static make_link(next: {
-            [key: string]: string | null;
-        }): string;
-        static go(next: {
-            [key: string]: string | null;
-        }): void;
-        static encode(str: string): string;
-        constructor(prefix?: string);
-        value(key: string, next?: string): string | null;
-        sub(postfix: string): $mol_state_arg;
-        link(next: Record<string, string | null>): string;
-    }
-}
-
-declare namespace $ {
-    function $mol_lights(this: $, next?: boolean): boolean;
-}
-
-declare namespace $ {
-
-	export class $mol_theme_auto extends $mol_plugin {
-		attr( ): ({ 
-			'mol_theme': ReturnType< $mol_theme_auto['theme'] >,
-		}) 
-		theme( ): string
-	}
-	
-}
-
-//# sourceMappingURL=auto.view.tree.d.ts.map
-declare namespace $.$$ {
-    class $mol_theme_auto extends $.$mol_theme_auto {
-        theme(): "$mol_theme_light" | "$mol_theme_dark";
-    }
-}
-
-declare namespace $ {
     class $hyoo_sketch_entity extends $mol_object {
         id(): $mol_int62_string;
         head(): $mol_int62_string;
@@ -1829,12 +1743,103 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    class $hyoo_sketch_element extends $hyoo_sketch_entity {
-        page(next?: $hyoo_sketch_page): $hyoo_sketch_page;
+    class $hyoo_sketch_project extends $hyoo_sketch_entity {
         name(next?: string): string;
-        type(next?: string): string;
-        duplicate(): $hyoo_sketch_element;
+        pages_node(): $hyoo_crowd_list;
+        pages(next?: $hyoo_sketch_page[]): $hyoo_sketch_page[];
+        page_add(obj: $hyoo_sketch_page): void;
+        page_delete(obj: $hyoo_sketch_page): void;
+        page_duplicate(obj: $hyoo_sketch_page): void;
+        editors(): `${string}_${string}`[];
+        authors(): $hyoo_sketch_person[];
+        access_public(): boolean;
     }
+}
+
+declare namespace $ {
+
+	type $mol_view__dom_name__WKQ1Q745 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $mol_view['dom_name'] >
+	>
+	type $mol_view__sub__9DWD8ZPS = $mol_type_enforce<
+		ReturnType< $mol_page['title_content'] >
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $mol_view__sub__6LJPHJ9Z = $mol_type_enforce<
+		ReturnType< $mol_page['tools'] >
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $mol_view__minimal_height__INKCV3KN = $mol_type_enforce<
+		number
+		,
+		ReturnType< $mol_view['minimal_height'] >
+	>
+	type $mol_view__dom_name__UBMHCUJT = $mol_type_enforce<
+		string
+		,
+		ReturnType< $mol_view['dom_name'] >
+	>
+	type $mol_view__sub__S1AB7V8F = $mol_type_enforce<
+		ReturnType< $mol_page['head'] >
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $mol_page_body_scroll_top__8C8IAQD6 = $mol_type_enforce<
+		Parameters< $mol_page['body_scroll_top'] >[0]
+		,
+		Parameters< ReturnType< $mol_page['Body'] >['scroll_top'] >[0]
+	>
+	type $mol_view__sub__OY1CCHVL = $mol_type_enforce<
+		ReturnType< $mol_page['body'] >
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $mol_scroll__sub__ANLE9FUF = $mol_type_enforce<
+		ReturnType< $mol_page['body_content'] >
+		,
+		ReturnType< $mol_scroll['sub'] >
+	>
+	type $mol_view__dom_name__ZWR2NNJT = $mol_type_enforce<
+		string
+		,
+		ReturnType< $mol_view['dom_name'] >
+	>
+	type $mol_view__sub__E9LGI2JF = $mol_type_enforce<
+		ReturnType< $mol_page['foot'] >
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	export class $mol_page extends $mol_view {
+		tabindex( ): number
+		Logo( ): any
+		title_content( ): readonly(any)[]
+		Title( ): $mol_view
+		tools( ): readonly($mol_view_content)[]
+		Tools( ): $mol_view
+		head( ): readonly(any)[]
+		Head( ): $mol_view
+		body_scroll_top( next?: ReturnType< ReturnType< $mol_page['Body'] >['scroll_top'] > ): ReturnType< ReturnType< $mol_page['Body'] >['scroll_top'] >
+		body( ): readonly($mol_view)[]
+		Body_content( ): $mol_view
+		body_content( ): readonly(any)[]
+		Body( ): $mol_scroll
+		foot( ): readonly($mol_view)[]
+		Foot( ): $mol_view
+		dom_name( ): string
+		field( ): ({ 
+			'tabIndex': ReturnType< $mol_page['tabindex'] >,
+		})  & ReturnType< $mol_view['field'] >
+		sub( ): readonly(any)[]
+	}
+	
+}
+
+//# sourceMappingURL=page.view.tree.d.ts.map
+declare namespace $.$$ {
 }
 
 declare namespace $ {
@@ -1871,13 +1876,13 @@ declare namespace $ {
 declare namespace $ {
 
 	export class $mol_svg_root extends $mol_svg {
+		view_box( ): string
+		aspect( ): string
 		dom_name( ): string
 		attr( ): ({ 
 			'viewBox': ReturnType< $mol_svg_root['view_box'] >,
 			'preserveAspectRatio': ReturnType< $mol_svg_root['aspect'] >,
 		})  & ReturnType< $mol_svg['attr'] >
-		view_box( ): string
-		aspect( ): string
 	}
 	
 }
@@ -1886,11 +1891,11 @@ declare namespace $ {
 declare namespace $ {
 
 	export class $mol_svg_path extends $mol_svg {
+		geometry( ): string
 		dom_name( ): string
 		attr( ): ({ 
 			'd': ReturnType< $mol_svg_path['geometry'] >,
 		})  & ReturnType< $mol_svg['attr'] >
-		geometry( ): string
 	}
 	
 }
@@ -1901,18 +1906,18 @@ declare namespace $ {
 
 declare namespace $ {
 
-	type $mol_svg_path__geometry__XACYUMWE = $mol_type_enforce<
+	type $mol_svg_path__geometry__YMSD5EFN = $mol_type_enforce<
 		ReturnType< $mol_icon['path'] >
 		,
 		ReturnType< $mol_svg_path['geometry'] >
 	>
 	export class $mol_icon extends $mol_svg_root {
+		path( ): string
+		Path( ): $mol_svg_path
 		view_box( ): string
 		minimal_width( ): number
 		minimal_height( ): number
 		sub( ): readonly(any)[]
-		path( ): string
-		Path( ): $mol_svg_path
 	}
 	
 }
@@ -1920,576 +1925,64 @@ declare namespace $ {
 //# sourceMappingURL=icon.view.tree.d.ts.map
 declare namespace $ {
 
-	export class $mol_icon_resize extends $mol_icon {
+	export class $mol_icon_account extends $mol_icon {
 		path( ): string
 	}
 	
 }
 
-//# sourceMappingURL=resize.view.tree.d.ts.map
+//# sourceMappingURL=account.view.tree.d.ts.map
 declare namespace $ {
 
-	export class $mol_icon_resize_bottom_right extends $mol_icon {
-		path( ): string
-	}
-	
-}
-
-//# sourceMappingURL=right.view.tree.d.ts.map
-declare namespace $ {
-    enum $mol_keyboard_code {
-        backspace = 8,
-        tab = 9,
-        enter = 13,
-        shift = 16,
-        ctrl = 17,
-        alt = 18,
-        pause = 19,
-        capsLock = 20,
-        escape = 27,
-        space = 32,
-        pageUp = 33,
-        pageDown = 34,
-        end = 35,
-        home = 36,
-        left = 37,
-        up = 38,
-        right = 39,
-        down = 40,
-        insert = 45,
-        delete = 46,
-        key0 = 48,
-        key1 = 49,
-        key2 = 50,
-        key3 = 51,
-        key4 = 52,
-        key5 = 53,
-        key6 = 54,
-        key7 = 55,
-        key8 = 56,
-        key9 = 57,
-        A = 65,
-        B = 66,
-        C = 67,
-        D = 68,
-        E = 69,
-        F = 70,
-        G = 71,
-        H = 72,
-        I = 73,
-        J = 74,
-        K = 75,
-        L = 76,
-        M = 77,
-        N = 78,
-        O = 79,
-        P = 80,
-        Q = 81,
-        R = 82,
-        S = 83,
-        T = 84,
-        U = 85,
-        V = 86,
-        W = 87,
-        X = 88,
-        Y = 89,
-        Z = 90,
-        metaLeft = 91,
-        metaRight = 92,
-        select = 93,
-        numpad0 = 96,
-        numpad1 = 97,
-        numpad2 = 98,
-        numpad3 = 99,
-        numpad4 = 100,
-        numpad5 = 101,
-        numpad6 = 102,
-        numpad7 = 103,
-        numpad8 = 104,
-        numpad9 = 105,
-        multiply = 106,
-        add = 107,
-        subtract = 109,
-        decimal = 110,
-        divide = 111,
-        F1 = 112,
-        F2 = 113,
-        F3 = 114,
-        F4 = 115,
-        F5 = 116,
-        F6 = 117,
-        F7 = 118,
-        F8 = 119,
-        F9 = 120,
-        F10 = 121,
-        F11 = 122,
-        F12 = 123,
-        numLock = 144,
-        scrollLock = 145,
-        semicolon = 186,
-        equals = 187,
-        comma = 188,
-        dash = 189,
-        period = 190,
-        forwardSlash = 191,
-        graveAccent = 192,
-        bracketOpen = 219,
-        slashBack = 220,
-        slashBackLeft = 226,
-        bracketClose = 221,
-        quoteSingle = 222
-    }
-}
-
-declare namespace $ {
-
-	export class $mol_hotkey extends $mol_plugin {
-		event( ): ({ 
-			keydown( next?: ReturnType< $mol_hotkey['keydown'] > ): ReturnType< $mol_hotkey['keydown'] >,
-		})  & ReturnType< $mol_plugin['event'] >
-		key( ): Record<string, any>
-		mod_ctrl( ): boolean
-		mod_alt( ): boolean
-		mod_shift( ): boolean
-		keydown( next?: any ): any
-	}
-	
-}
-
-//# sourceMappingURL=hotkey.view.tree.d.ts.map
-declare namespace $.$$ {
-    class $mol_hotkey extends $.$mol_hotkey {
-        key(): {
-            readonly [x: number]: ((event: KeyboardEvent) => void) | undefined;
-            readonly backspace?: ((event: KeyboardEvent) => void) | undefined;
-            readonly tab?: ((event: KeyboardEvent) => void) | undefined;
-            readonly enter?: ((event: KeyboardEvent) => void) | undefined;
-            readonly shift?: ((event: KeyboardEvent) => void) | undefined;
-            readonly ctrl?: ((event: KeyboardEvent) => void) | undefined;
-            readonly alt?: ((event: KeyboardEvent) => void) | undefined;
-            readonly pause?: ((event: KeyboardEvent) => void) | undefined;
-            readonly capsLock?: ((event: KeyboardEvent) => void) | undefined;
-            readonly escape?: ((event: KeyboardEvent) => void) | undefined;
-            readonly space?: ((event: KeyboardEvent) => void) | undefined;
-            readonly pageUp?: ((event: KeyboardEvent) => void) | undefined;
-            readonly pageDown?: ((event: KeyboardEvent) => void) | undefined;
-            readonly end?: ((event: KeyboardEvent) => void) | undefined;
-            readonly home?: ((event: KeyboardEvent) => void) | undefined;
-            readonly left?: ((event: KeyboardEvent) => void) | undefined;
-            readonly up?: ((event: KeyboardEvent) => void) | undefined;
-            readonly right?: ((event: KeyboardEvent) => void) | undefined;
-            readonly down?: ((event: KeyboardEvent) => void) | undefined;
-            readonly insert?: ((event: KeyboardEvent) => void) | undefined;
-            readonly delete?: ((event: KeyboardEvent) => void) | undefined;
-            readonly key0?: ((event: KeyboardEvent) => void) | undefined;
-            readonly key1?: ((event: KeyboardEvent) => void) | undefined;
-            readonly key2?: ((event: KeyboardEvent) => void) | undefined;
-            readonly key3?: ((event: KeyboardEvent) => void) | undefined;
-            readonly key4?: ((event: KeyboardEvent) => void) | undefined;
-            readonly key5?: ((event: KeyboardEvent) => void) | undefined;
-            readonly key6?: ((event: KeyboardEvent) => void) | undefined;
-            readonly key7?: ((event: KeyboardEvent) => void) | undefined;
-            readonly key8?: ((event: KeyboardEvent) => void) | undefined;
-            readonly key9?: ((event: KeyboardEvent) => void) | undefined;
-            readonly A?: ((event: KeyboardEvent) => void) | undefined;
-            readonly B?: ((event: KeyboardEvent) => void) | undefined;
-            readonly C?: ((event: KeyboardEvent) => void) | undefined;
-            readonly D?: ((event: KeyboardEvent) => void) | undefined;
-            readonly E?: ((event: KeyboardEvent) => void) | undefined;
-            readonly F?: ((event: KeyboardEvent) => void) | undefined;
-            readonly G?: ((event: KeyboardEvent) => void) | undefined;
-            readonly H?: ((event: KeyboardEvent) => void) | undefined;
-            readonly I?: ((event: KeyboardEvent) => void) | undefined;
-            readonly J?: ((event: KeyboardEvent) => void) | undefined;
-            readonly K?: ((event: KeyboardEvent) => void) | undefined;
-            readonly L?: ((event: KeyboardEvent) => void) | undefined;
-            readonly M?: ((event: KeyboardEvent) => void) | undefined;
-            readonly N?: ((event: KeyboardEvent) => void) | undefined;
-            readonly O?: ((event: KeyboardEvent) => void) | undefined;
-            readonly P?: ((event: KeyboardEvent) => void) | undefined;
-            readonly Q?: ((event: KeyboardEvent) => void) | undefined;
-            readonly R?: ((event: KeyboardEvent) => void) | undefined;
-            readonly S?: ((event: KeyboardEvent) => void) | undefined;
-            readonly T?: ((event: KeyboardEvent) => void) | undefined;
-            readonly U?: ((event: KeyboardEvent) => void) | undefined;
-            readonly V?: ((event: KeyboardEvent) => void) | undefined;
-            readonly W?: ((event: KeyboardEvent) => void) | undefined;
-            readonly X?: ((event: KeyboardEvent) => void) | undefined;
-            readonly Y?: ((event: KeyboardEvent) => void) | undefined;
-            readonly Z?: ((event: KeyboardEvent) => void) | undefined;
-            readonly metaLeft?: ((event: KeyboardEvent) => void) | undefined;
-            readonly metaRight?: ((event: KeyboardEvent) => void) | undefined;
-            readonly select?: ((event: KeyboardEvent) => void) | undefined;
-            readonly numpad0?: ((event: KeyboardEvent) => void) | undefined;
-            readonly numpad1?: ((event: KeyboardEvent) => void) | undefined;
-            readonly numpad2?: ((event: KeyboardEvent) => void) | undefined;
-            readonly numpad3?: ((event: KeyboardEvent) => void) | undefined;
-            readonly numpad4?: ((event: KeyboardEvent) => void) | undefined;
-            readonly numpad5?: ((event: KeyboardEvent) => void) | undefined;
-            readonly numpad6?: ((event: KeyboardEvent) => void) | undefined;
-            readonly numpad7?: ((event: KeyboardEvent) => void) | undefined;
-            readonly numpad8?: ((event: KeyboardEvent) => void) | undefined;
-            readonly numpad9?: ((event: KeyboardEvent) => void) | undefined;
-            readonly multiply?: ((event: KeyboardEvent) => void) | undefined;
-            readonly add?: ((event: KeyboardEvent) => void) | undefined;
-            readonly subtract?: ((event: KeyboardEvent) => void) | undefined;
-            readonly decimal?: ((event: KeyboardEvent) => void) | undefined;
-            readonly divide?: ((event: KeyboardEvent) => void) | undefined;
-            readonly F1?: ((event: KeyboardEvent) => void) | undefined;
-            readonly F2?: ((event: KeyboardEvent) => void) | undefined;
-            readonly F3?: ((event: KeyboardEvent) => void) | undefined;
-            readonly F4?: ((event: KeyboardEvent) => void) | undefined;
-            readonly F5?: ((event: KeyboardEvent) => void) | undefined;
-            readonly F6?: ((event: KeyboardEvent) => void) | undefined;
-            readonly F7?: ((event: KeyboardEvent) => void) | undefined;
-            readonly F8?: ((event: KeyboardEvent) => void) | undefined;
-            readonly F9?: ((event: KeyboardEvent) => void) | undefined;
-            readonly F10?: ((event: KeyboardEvent) => void) | undefined;
-            readonly F11?: ((event: KeyboardEvent) => void) | undefined;
-            readonly F12?: ((event: KeyboardEvent) => void) | undefined;
-            readonly numLock?: ((event: KeyboardEvent) => void) | undefined;
-            readonly scrollLock?: ((event: KeyboardEvent) => void) | undefined;
-            readonly semicolon?: ((event: KeyboardEvent) => void) | undefined;
-            readonly equals?: ((event: KeyboardEvent) => void) | undefined;
-            readonly comma?: ((event: KeyboardEvent) => void) | undefined;
-            readonly dash?: ((event: KeyboardEvent) => void) | undefined;
-            readonly period?: ((event: KeyboardEvent) => void) | undefined;
-            readonly forwardSlash?: ((event: KeyboardEvent) => void) | undefined;
-            readonly graveAccent?: ((event: KeyboardEvent) => void) | undefined;
-            readonly bracketOpen?: ((event: KeyboardEvent) => void) | undefined;
-            readonly slashBack?: ((event: KeyboardEvent) => void) | undefined;
-            readonly slashBackLeft?: ((event: KeyboardEvent) => void) | undefined;
-            readonly bracketClose?: ((event: KeyboardEvent) => void) | undefined;
-            readonly quoteSingle?: ((event: KeyboardEvent) => void) | undefined;
-        };
-        keydown(event?: KeyboardEvent): void;
-    }
-}
-
-declare namespace $ {
-
-	type $mol_hotkey__mod_ctrl__IZP1OR15 = $mol_type_enforce<
-		ReturnType< $mol_string['submit_with_ctrl'] >
-		,
-		ReturnType< $mol_hotkey['mod_ctrl'] >
-	>
-	type $mol_hotkey__key__HCY5ZK4L = $mol_type_enforce<
-		({ 
-			enter( next?: ReturnType< $mol_string['submit'] > ): ReturnType< $mol_string['submit'] >,
-		}) 
-		,
-		ReturnType< $mol_hotkey['key'] >
-	>
-	export class $mol_string extends $mol_view {
-		dom_name( ): string
-		enabled( ): boolean
-		minimal_height( ): number
-		autocomplete( ): boolean
-		selection( next?: readonly(number)[] ): readonly(number)[]
-		auto( ): readonly(any)[]
-		field( ): ({ 
-			'disabled': ReturnType< $mol_string['disabled'] >,
-			'value': ReturnType< $mol_string['value_changed'] >,
-			'placeholder': ReturnType< $mol_string['hint_visible'] >,
-			'spellcheck': ReturnType< $mol_string['spellcheck'] >,
-			'autocomplete': ReturnType< $mol_string['autocomplete_native'] >,
-			'selectionEnd': ReturnType< $mol_string['selection_end'] >,
-			'selectionStart': ReturnType< $mol_string['selection_start'] >,
-			'inputMode': ReturnType< $mol_string['keyboard'] >,
-			'enterkeyhint': ReturnType< $mol_string['enter'] >,
-		})  & ReturnType< $mol_view['field'] >
-		attr( ): ({ 
-			'maxlength': ReturnType< $mol_string['length_max'] >,
-			'type': ReturnType< $mol_string['type'] >,
-		})  & ReturnType< $mol_view['attr'] >
-		event( ): ({ 
-			input( next?: ReturnType< $mol_string['event_change'] > ): ReturnType< $mol_string['event_change'] >,
-		})  & ReturnType< $mol_view['event'] >
-		plugins( ): readonly(any)[]
-		selection_watcher( ): any
-		error_report( ): any
-		disabled( ): boolean
-		value( next?: string ): string
-		value_changed( next?: ReturnType< $mol_string['value'] > ): ReturnType< $mol_string['value'] >
+	export class $mol_link extends $mol_view {
+		uri_toggle( ): string
 		hint( ): string
-		hint_visible( ): ReturnType< $mol_string['hint'] >
-		spellcheck( ): boolean
-		autocomplete_native( ): string
-		selection_end( ): number
-		selection_start( ): number
-		keyboard( ): string
-		enter( ): string
-		length_max( ): number
-		type( next?: string ): string
-		event_change( next?: any ): any
-		submit_with_ctrl( ): boolean
-		submit( next?: any ): any
-		Submit( ): $mol_hotkey
-	}
-	
-}
-
-//# sourceMappingURL=string.view.tree.d.ts.map
-declare namespace $.$$ {
-    class $mol_string extends $.$mol_string {
-        event_change(next?: Event): void;
-        error_report(): void;
-        hint_visible(): string;
-        disabled(): boolean;
-        autocomplete_native(): "on" | "off";
-        selection_watcher(): $mol_dom_listener;
-        selection_change(event: Event): void;
-        selection_start(): number;
-        selection_end(): number;
-    }
-}
-
-declare namespace $ {
-}
-
-declare namespace $ {
-
-	export class $mol_icon_minus extends $mol_icon {
-		path( ): string
-	}
-	
-}
-
-//# sourceMappingURL=minus.view.tree.d.ts.map
-declare namespace $ {
-}
-
-declare namespace $ {
-
-	export class $mol_speck extends $mol_view {
-		attr( ): ({ 
-			'mol_theme': ReturnType< $mol_speck['theme'] >,
-		})  & ReturnType< $mol_view['attr'] >
-		style( ): ({ 
-			'minHeight': string,
-		})  & ReturnType< $mol_view['style'] >
-		sub( ): readonly(any)[]
-		theme( ): string
-		value( ): any
-	}
-	
-}
-
-//# sourceMappingURL=speck.view.tree.d.ts.map
-declare namespace $ {
-
-	type $mol_speck__value__9JYPBXQG = $mol_type_enforce<
-		ReturnType< $mol_button['error'] >
-		,
-		ReturnType< $mol_speck['value'] >
-	>
-	export class $mol_button extends $mol_view {
-		enabled( ): boolean
-		click( next?: any ): any
+		hint_safe( ): ReturnType< $mol_link['hint'] >
+		target( ): string
+		file_name( ): string
+		current( ): boolean
+		relation( ): string
 		event_click( next?: any ): any
-		event( ): ({ 
-			click( next?: ReturnType< $mol_button['event_activate'] > ): ReturnType< $mol_button['event_activate'] >,
-			dblclick( next?: ReturnType< $mol_button['clicks'] > ): ReturnType< $mol_button['clicks'] >,
-			keydown( next?: ReturnType< $mol_button['event_key_press'] > ): ReturnType< $mol_button['event_key_press'] >,
-		})  & ReturnType< $mol_view['event'] >
+		click( next?: ReturnType< $mol_link['event_click'] > ): ReturnType< $mol_link['event_click'] >
+		uri( ): string
+		dom_name( ): string
+		uri_off( ): string
+		uri_native( ): any
+		external( ): boolean
 		attr( ): ({ 
-			'disabled': ReturnType< $mol_button['disabled'] >,
-			'role': string,
-			'tabindex': ReturnType< $mol_button['tab_index'] >,
-			'title': ReturnType< $mol_button['hint_safe'] >,
+			'href': ReturnType< $mol_link['uri_toggle'] >,
+			'title': ReturnType< $mol_link['hint_safe'] >,
+			'target': ReturnType< $mol_link['target'] >,
+			'download': ReturnType< $mol_link['file_name'] >,
+			'mol_link_current': ReturnType< $mol_link['current'] >,
+			'rel': ReturnType< $mol_link['relation'] >,
 		})  & ReturnType< $mol_view['attr'] >
 		sub( ): readonly($mol_view_content)[]
-		Speck( ): $mol_speck
-		event_activate( next?: any ): any
-		clicks( next?: any ): any
-		event_key_press( next?: any ): any
-		disabled( ): boolean
-		tab_index( ): number
-		hint( ): string
-		hint_safe( ): ReturnType< $mol_button['hint'] >
-		error( ): string
+		arg( ): Record<string, any>
+		event( ): ({ 
+			click( next?: ReturnType< $mol_link['click'] > ): ReturnType< $mol_link['click'] >,
+		})  & ReturnType< $mol_view['event'] >
 	}
 	
 }
 
-//# sourceMappingURL=button.view.tree.d.ts.map
+//# sourceMappingURL=link.view.tree.d.ts.map
 declare namespace $.$$ {
-    class $mol_button extends $.$mol_button {
-        status(next?: any[]): any[];
-        disabled(): boolean;
-        event_activate(next: Event): void;
-        event_key_press(event: KeyboardEvent): void;
-        tab_index(): number;
-        error(): string;
+    class $mol_link extends $.$mol_link {
+        uri_toggle(): string;
+        uri(): string;
+        uri_off(): string;
+        uri_native(): URL;
+        current(): boolean;
+        file_name(): string;
+        minimal_height(): number;
+        external(): boolean;
+        target(): '_self' | '_blank' | '_top' | '_parent' | string;
         hint_safe(): string;
-        sub_visible(): ($mol_speck | $mol_view_content)[];
     }
 }
 
 declare namespace $ {
-}
-
-declare namespace $ {
-}
-
-declare namespace $ {
-
-	export class $mol_button_typed extends $mol_button {
-		minimal_height( ): number
-		minimal_width( ): number
-	}
-	
-}
-
-//# sourceMappingURL=typed.view.tree.d.ts.map
-declare namespace $ {
-}
-
-declare namespace $ {
-
-	export class $mol_button_minor extends $mol_button_typed {
-	}
-	
-}
-
-//# sourceMappingURL=minor.view.tree.d.ts.map
-declare namespace $ {
-
-	export class $mol_icon_plus extends $mol_icon {
-		path( ): string
-	}
-	
-}
-
-//# sourceMappingURL=plus.view.tree.d.ts.map
-declare namespace $ {
-}
-
-declare namespace $ {
-
-	type $mol_string__type__PG634COP = $mol_type_enforce<
-		ReturnType< $mol_number['type'] >
-		,
-		ReturnType< $mol_string['type'] >
-	>
-	type $mol_string__value__QZPK5NNW = $mol_type_enforce<
-		ReturnType< $mol_number['value_string'] >
-		,
-		ReturnType< $mol_string['value'] >
-	>
-	type $mol_string__hint__F0PAFPTA = $mol_type_enforce<
-		ReturnType< $mol_number['hint'] >
-		,
-		ReturnType< $mol_string['hint'] >
-	>
-	type $mol_string__enabled__AHI94Y8G = $mol_type_enforce<
-		ReturnType< $mol_number['string_enabled'] >
-		,
-		ReturnType< $mol_string['enabled'] >
-	>
-	type $mol_string__submit__JNYBKI55 = $mol_type_enforce<
-		ReturnType< $mol_number['submit'] >
-		,
-		ReturnType< $mol_string['submit'] >
-	>
-	type $mol_button_minor__event_click__VOW9WM3H = $mol_type_enforce<
-		ReturnType< $mol_number['event_dec'] >
-		,
-		ReturnType< $mol_button_minor['event_click'] >
-	>
-	type $mol_button_minor__enabled__Z57EWHRI = $mol_type_enforce<
-		ReturnType< $mol_number['dec_enabled'] >
-		,
-		ReturnType< $mol_button_minor['enabled'] >
-	>
-	type $mol_button_minor__sub__XOM1PB9D = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_button_minor['sub'] >
-	>
-	type $mol_button_minor__event_click__O0FRX5ZC = $mol_type_enforce<
-		ReturnType< $mol_number['event_inc'] >
-		,
-		ReturnType< $mol_button_minor['event_click'] >
-	>
-	type $mol_button_minor__enabled__ME9TISP0 = $mol_type_enforce<
-		ReturnType< $mol_number['inc_enabled'] >
-		,
-		ReturnType< $mol_button_minor['enabled'] >
-	>
-	type $mol_button_minor__sub__KW93BBXT = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_button_minor['sub'] >
-	>
-	export class $mol_number extends $mol_view {
-		precision_view( ): ReturnType< $mol_number['precision'] >
-		precision_change( ): ReturnType< $mol_number['precision'] >
-		value_min( ): number
-		value_max( ): number
-		value( next?: number ): number
-		enabled( ): boolean
-		sub( ): readonly(any)[]
-		precision( ): number
-		type( ): string
-		value_string( next?: string ): string
-		hint( ): string
-		string_enabled( ): ReturnType< $mol_number['enabled'] >
-		submit( next?: any ): any
-		String( ): $mol_string
-		event_dec( next?: any ): any
-		dec_enabled( ): ReturnType< $mol_number['enabled'] >
-		dec_icon( ): $mol_icon_minus
-		Dec( ): $mol_button_minor
-		event_inc( next?: any ): any
-		inc_enabled( ): ReturnType< $mol_number['enabled'] >
-		inc_icon( ): $mol_icon_plus
-		Inc( ): $mol_button_minor
-	}
-	
-}
-
-//# sourceMappingURL=number.view.tree.d.ts.map
-declare namespace $.$$ {
-    class $mol_number extends $.$mol_number {
-        value_limited(next?: any): number;
-        event_dec(next?: Event): void;
-        event_inc(next?: Event): void;
-        value_string(next?: string): string;
-        dec_enabled(): boolean;
-        inc_enabled(): boolean;
-    }
-}
-
-declare namespace $ {
-}
-
-declare namespace $ {
-
-	export class $mol_row extends $mol_view {
-	}
-	
-}
-
-//# sourceMappingURL=row.view.tree.d.ts.map
-declare namespace $ {
-
-	type $mol_view__sub__BL8Z6SNQ = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_view['sub'] >
-	>
-	export class $hyoo_sketch_option extends $mol_row {
-		sub( ): readonly(any)[]
-		name( ): string
-		Name( ): $mol_view
-		Control( ): $mol_view
-	}
-	
-}
-
-//# sourceMappingURL=option.view.tree.d.ts.map
-declare namespace $.$$ {
 }
 
 declare namespace $ {
@@ -2598,908 +2091,186 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    class $mol_state_session<Value> extends $mol_object {
-        static 'native()': Pick<Storage, 'getItem' | 'setItem' | 'removeItem'>;
-        static native(): Storage | {
-            getItem(key: string): any;
-            setItem(key: string, value: string): void;
-            removeItem(key: string): void;
-        };
-        static value<Value>(key: string, next?: Value): Value;
-        prefix(): string;
-        value(key: string, next?: Value): Value;
-    }
+
+	export class $mol_icon_plus extends $mol_icon {
+		path( ): string
+	}
+	
+}
+
+//# sourceMappingURL=plus.view.tree.d.ts.map
+declare namespace $ {
 }
 
 declare namespace $ {
 
-	type $mol_view__style__GAD52LZ0 = $mol_type_enforce<
-		Record<string, any> & ReturnType< $hyoo_sketch_element_base['position'] >
-		,
-		ReturnType< $mol_view['style'] >
-	>
-	type $mol_view__sub__FAGT2FHI = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_view['sub'] >
-	>
-	type $hyoo_sketch_element_base_editor__duplicate__BFVBBC7Q = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_base['duplicate_event'] >
-		,
-		ReturnType< $hyoo_sketch_element_base_editor['duplicate'] >
-	>
-	type $hyoo_sketch_element_base_editor__copy__SBOAWU9D = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_base['copy'] >
-		,
-		ReturnType< $hyoo_sketch_element_base_editor['copy'] >
-	>
-	type $hyoo_sketch_element_base_editor__paste__8HM4NJS7 = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_base['paste'] >
-		,
-		ReturnType< $hyoo_sketch_element_base_editor['paste'] >
-	>
-	type $hyoo_sketch_element_base_editor__delete__S2ZI85ZC = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_base['delete'] >
-		,
-		ReturnType< $hyoo_sketch_element_base_editor['delete'] >
-	>
-	type $hyoo_sketch_element_base_editor__move_up__O59X3VCC = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_base['move_up'] >
-		,
-		ReturnType< $hyoo_sketch_element_base_editor['move_up'] >
-	>
-	type $hyoo_sketch_element_base_editor__move_down__HUPE9X7F = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_base['move_down'] >
-		,
-		ReturnType< $hyoo_sketch_element_base_editor['move_down'] >
-	>
-	type $hyoo_sketch_element_base_editor__move_left__IG3EE5LY = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_base['move_left'] >
-		,
-		ReturnType< $hyoo_sketch_element_base_editor['move_left'] >
-	>
-	type $hyoo_sketch_element_base_editor__move_right__LRAD1959 = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_base['move_right'] >
-		,
-		ReturnType< $hyoo_sketch_element_base_editor['move_right'] >
-	>
-	type $hyoo_sketch_element_base_editor__event__0OQ7D9KV = $mol_type_enforce<
-		({ 
-			pointerdown( next?: ReturnType< $hyoo_sketch_element_base['pointer_down'] > ): ReturnType< $hyoo_sketch_element_base['pointer_down'] >,
-		}) 
-		,
-		ReturnType< $hyoo_sketch_element_base_editor['event'] >
-	>
-	type $hyoo_sketch_element_base_editor__style__HJBHE6UB = $mol_type_enforce<
-		Record<string, any> & ReturnType< $hyoo_sketch_element_base['position'] >
-		,
-		ReturnType< $hyoo_sketch_element_base_editor['style'] >
-	>
-	type $hyoo_sketch_element_base_editor__selected__7K1EB2TQ = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_base['selected'] >
-		,
-		ReturnType< $hyoo_sketch_element_base_editor['selected'] >
-	>
-	type $hyoo_sketch_element_base_editor__editing__0BPXSH8J = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_base['editing'] >
-		,
-		ReturnType< $hyoo_sketch_element_base_editor['editing'] >
-	>
-	type $hyoo_sketch_element_base_editor__sub__CF09AG7C = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $hyoo_sketch_element_base_editor['sub'] >
-	>
-	type $mol_view__sub__LQKA8UCX = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_view['sub'] >
-	>
-	type $mol_view__event__UEG27CH9 = $mol_type_enforce<
-		({ 
-			pointerdown( next?: ReturnType< $hyoo_sketch_element_base['resize_start'] > ): ReturnType< $hyoo_sketch_element_base['resize_start'] >,
-		}) 
-		,
-		ReturnType< $mol_view['event'] >
-	>
-	type $mol_view__sub__8UMS92FO = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_view['sub'] >
-	>
-	type $mol_number__value__399R7GR2 = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_base['width'] >
-		,
-		ReturnType< $mol_number['value'] >
-	>
-	type $hyoo_sketch_option__name__RYJBGX0D = $mol_type_enforce<
-		string
-		,
-		ReturnType< $hyoo_sketch_option['name'] >
-	>
-	type $hyoo_sketch_option__Control__K7NY4EU3 = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_base['Width_control'] >
-		,
-		ReturnType< $hyoo_sketch_option['Control'] >
-	>
-	type $mol_number__value__AHS4M7D1 = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_base['height'] >
-		,
-		ReturnType< $mol_number['value'] >
-	>
-	type $hyoo_sketch_option__name__SCIH4FI0 = $mol_type_enforce<
-		string
-		,
-		ReturnType< $hyoo_sketch_option['name'] >
-	>
-	type $hyoo_sketch_option__Control__XGK7TTUR = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_base['Height_control'] >
-		,
-		ReturnType< $hyoo_sketch_option['Control'] >
-	>
-	type $mol_number__value__5SSVMERR = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_base['left'] >
-		,
-		ReturnType< $mol_number['value'] >
-	>
-	type $hyoo_sketch_option__name__25W7F46A = $mol_type_enforce<
-		string
-		,
-		ReturnType< $hyoo_sketch_option['name'] >
-	>
-	type $hyoo_sketch_option__Control__Z5603RZK = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_base['Left_control'] >
-		,
-		ReturnType< $hyoo_sketch_option['Control'] >
-	>
-	type $mol_number__value__3KTAH7JJ = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_base['top'] >
-		,
-		ReturnType< $mol_number['value'] >
-	>
-	type $hyoo_sketch_option__name__6JJ3UCJD = $mol_type_enforce<
-		string
-		,
-		ReturnType< $hyoo_sketch_option['name'] >
-	>
-	type $hyoo_sketch_option__Control__QZ1JB1YR = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_base['Top_control'] >
-		,
-		ReturnType< $hyoo_sketch_option['Control'] >
-	>
-	type $mol_number__value__J3HJC4UG = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_base['order'] >
-		,
-		ReturnType< $mol_number['value'] >
-	>
-	type $hyoo_sketch_option__name__U15ZYH0K = $mol_type_enforce<
-		string
-		,
-		ReturnType< $hyoo_sketch_option['name'] >
-	>
-	type $hyoo_sketch_option__Control__SVQ64F5K = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_base['Order_control'] >
-		,
-		ReturnType< $hyoo_sketch_option['Control'] >
-	>
-	export class $hyoo_sketch_element_base extends $mol_view {
-		element( ): $hyoo_sketch_element
-		order( next?: ReturnType< $hyoo_sketch_element_base['order_default'] > ): ReturnType< $hyoo_sketch_element_base['order_default'] >
-		grid( next?: number ): number
-		position( ): ({ 
-			'width': ReturnType< $hyoo_sketch_element_base['width'] >,
-			'height': ReturnType< $hyoo_sketch_element_base['height'] >,
-			'left': ReturnType< $hyoo_sketch_element_base['left'] >,
-			'top': ReturnType< $hyoo_sketch_element_base['top'] >,
-			'zIndex': ReturnType< $hyoo_sketch_element_base['order_string'] >,
-		}) 
-		Preview( ): $mol_view
-		duplicate( next?: $hyoo_sketch_element ): $hyoo_sketch_element
-		Editor( ): $hyoo_sketch_element_base_editor
-		Options( ): ({ 
-			'position': ReturnType< $hyoo_sketch_element_base['Position_options'] >,
-		}) 
-		duplicate_top_shift( ): boolean
-		domain( ): ReturnType< ReturnType< $hyoo_sketch_element_base['element'] >['domain'] >
-		page( ): ReturnType< ReturnType< $hyoo_sketch_element_base['element'] >['page'] >
-		state( ): ReturnType< ReturnType< $hyoo_sketch_element_base['element'] >['state'] >
-		order_default( ): number
-		width_default( ): number
-		width( next?: ReturnType< $hyoo_sketch_element_base['width_default'] > ): ReturnType< $hyoo_sketch_element_base['width_default'] >
-		height_default( ): number
-		height( next?: ReturnType< $hyoo_sketch_element_base['height_default'] > ): ReturnType< $hyoo_sketch_element_base['height_default'] >
-		left_default( ): number
-		left( next?: ReturnType< $hyoo_sketch_element_base['left_default'] > ): ReturnType< $hyoo_sketch_element_base['left_default'] >
-		top_default( ): number
-		top( next?: ReturnType< $hyoo_sketch_element_base['top_default'] > ): ReturnType< $hyoo_sketch_element_base['top_default'] >
-		order_string( next?: string ): string
-		Element( ): $mol_view
-		duplicate_event( next?: any ): any
-		copy( next?: any ): any
-		paste( next?: any ): any
-		delete( next?: any ): any
-		move_up( next?: any ): any
-		move_down( next?: any ): any
-		move_left( next?: any ): any
-		move_right( next?: any ): any
-		pointer_down( next?: any ): any
-		selected( next?: boolean ): boolean
-		editing( ): boolean
-		Element_wrap( ): $mol_view
-		resize_start( next?: any ): any
-		Resize_icon( ): $mol_icon_resize_bottom_right
-		Resize( ): $mol_view
-		Width_control( ): $mol_number
-		Option_width( ): $hyoo_sketch_option
-		Height_control( ): $mol_number
-		Option_height( ): $hyoo_sketch_option
-		Left_control( ): $mol_number
-		Option_left( ): $hyoo_sketch_option
-		Top_control( ): $mol_number
-		Option_top( ): $hyoo_sketch_option
-		Order_control( ): $mol_number
-		Option_order( ): $hyoo_sketch_option
-		Position_options( ): readonly(any)[]
-	}
-	
-	type $mol_hotkey__key__ZWLLESI2 = $mol_type_enforce<
-		({ 
-			D( next?: ReturnType< $hyoo_sketch_element_base_editor['duplicate'] > ): ReturnType< $hyoo_sketch_element_base_editor['duplicate'] >,
-			C( next?: ReturnType< $hyoo_sketch_element_base_editor['copy'] > ): ReturnType< $hyoo_sketch_element_base_editor['copy'] >,
-			V( next?: ReturnType< $hyoo_sketch_element_base_editor['paste'] > ): ReturnType< $hyoo_sketch_element_base_editor['paste'] >,
-			delete( next?: ReturnType< $hyoo_sketch_element_base_editor['delete'] > ): ReturnType< $hyoo_sketch_element_base_editor['delete'] >,
-			backspace( next?: ReturnType< $hyoo_sketch_element_base_editor['delete'] > ): ReturnType< $hyoo_sketch_element_base_editor['delete'] >,
-			left( next?: ReturnType< $hyoo_sketch_element_base_editor['move_left'] > ): ReturnType< $hyoo_sketch_element_base_editor['move_left'] >,
-			up( next?: ReturnType< $hyoo_sketch_element_base_editor['move_up'] > ): ReturnType< $hyoo_sketch_element_base_editor['move_up'] >,
-			right( next?: ReturnType< $hyoo_sketch_element_base_editor['move_right'] > ): ReturnType< $hyoo_sketch_element_base_editor['move_right'] >,
-			down( next?: ReturnType< $hyoo_sketch_element_base_editor['move_down'] > ): ReturnType< $hyoo_sketch_element_base_editor['move_down'] >,
-		}) 
-		,
-		ReturnType< $mol_hotkey['key'] >
-	>
-	export class $hyoo_sketch_element_base_editor extends $mol_view {
+	export class $mol_speck extends $mol_view {
+		theme( ): string
+		value( ): any
 		attr( ): ({ 
-			'hyoo_sketch_element_base_selected': ReturnType< $hyoo_sketch_element_base_editor['selected'] >,
-			'hyoo_sketch_element_base_editing': ReturnType< $hyoo_sketch_element_base_editor['editing'] >,
-			'tabindex': string,
+			'mol_theme': ReturnType< $mol_speck['theme'] >,
 		})  & ReturnType< $mol_view['attr'] >
-		plugins( ): readonly(any)[]
-		selected( next?: boolean ): boolean
-		editing( ): boolean
-		duplicate( next?: any ): any
-		copy( next?: any ): any
-		paste( next?: any ): any
-		delete( next?: any ): any
-		move_left( next?: any ): any
-		move_up( next?: any ): any
-		move_right( next?: any ): any
-		move_down( next?: any ): any
-		Hotkey( ): $mol_hotkey
-	}
-	
-}
-
-//# sourceMappingURL=base.view.tree.d.ts.map
-declare namespace $.$$ {
-    class $hyoo_sketch_element_base extends $.$hyoo_sketch_element_base {
-        switch(): $mol_view[] | $hyoo_sketch_element_base_editor[];
-        grid_near(value: number): number;
-        pointer_down(event: PointerEvent): void;
-        resize_start(event: PointerEvent): void;
-        width(next?: number): number;
-        height(next?: number): number;
-        top(next?: number): number;
-        left(next?: number): number;
-        order(next?: number): number;
-        order_string(): string;
-        duplicate(elem?: $hyoo_sketch_element): $hyoo_sketch_element;
-        duplicate_event(): void;
-        copy(): void;
-        paste(): void;
-        delete(event: KeyboardEvent): void;
-        move_up(event: KeyboardEvent): void;
-        move_down(event: KeyboardEvent): void;
-        move_left(event: KeyboardEvent): void;
-        move_right(event: KeyboardEvent): void;
-    }
-}
-
-declare namespace $.$$ {
-}
-
-declare namespace $ {
-
-	export class $mol_icon_help extends $mol_icon {
-		path( ): string
-	}
-	
-}
-
-//# sourceMappingURL=help.view.tree.d.ts.map
-declare namespace $ {
-
-	export class $mol_icon_help_rhombus extends $mol_icon {
-		path( ): string
-	}
-	
-}
-
-//# sourceMappingURL=rhombus.view.tree.d.ts.map
-declare namespace $ {
-
-	export class $mol_icon_help_rhombus_outline extends $mol_icon {
-		path( ): string
-	}
-	
-}
-
-//# sourceMappingURL=outline.view.tree.d.ts.map
-declare namespace $ {
-
-	export class $mol_icon_magnify extends $mol_icon {
-		path( ): string
-	}
-	
-}
-
-//# sourceMappingURL=magnify.view.tree.d.ts.map
-declare namespace $ {
-
-	export class $mol_link extends $mol_view {
-		uri( ): string
-		dom_name( ): string
-		uri_off( ): string
-		uri_native( ): any
-		external( ): boolean
-		attr( ): ({ 
-			'href': ReturnType< $mol_link['uri_toggle'] >,
-			'title': ReturnType< $mol_link['hint_safe'] >,
-			'target': ReturnType< $mol_link['target'] >,
-			'download': ReturnType< $mol_link['file_name'] >,
-			'mol_link_current': ReturnType< $mol_link['current'] >,
-			'rel': ReturnType< $mol_link['relation'] >,
-		})  & ReturnType< $mol_view['attr'] >
-		sub( ): readonly($mol_view_content)[]
-		arg( ): Record<string, any>
-		event( ): ({ 
-			click( next?: ReturnType< $mol_link['click'] > ): ReturnType< $mol_link['click'] >,
-		})  & ReturnType< $mol_view['event'] >
-		uri_toggle( ): string
-		hint( ): string
-		hint_safe( ): ReturnType< $mol_link['hint'] >
-		target( ): string
-		file_name( ): string
-		current( ): boolean
-		relation( ): string
-		event_click( next?: any ): any
-		click( next?: ReturnType< $mol_link['event_click'] > ): ReturnType< $mol_link['event_click'] >
-	}
-	
-}
-
-//# sourceMappingURL=link.view.tree.d.ts.map
-declare namespace $.$$ {
-    class $mol_link extends $.$mol_link {
-        uri_toggle(): string;
-        uri(): string;
-        uri_off(): string;
-        uri_native(): URL;
-        current(): boolean;
-        file_name(): string;
-        minimal_height(): number;
-        external(): boolean;
-        target(): '_self' | '_blank' | '_top' | '_parent' | string;
-        hint_safe(): string;
-    }
-}
-
-declare namespace $ {
-}
-
-declare namespace $ {
-    class $mol_span extends $mol_object2 {
-        readonly uri: string;
-        readonly source: string;
-        readonly row: number;
-        readonly col: number;
-        readonly length: number;
-        constructor(uri: string, source: string, row: number, col: number, length: number);
-        static unknown: $mol_span;
-        static begin(uri: string, source?: string): $mol_span;
-        static end(uri: string, source: string): $mol_span;
-        static entire(uri: string, source: string): $mol_span;
-        toString(): string;
-        toJSON(): {
-            uri: string;
-            row: number;
-            col: number;
-            length: number;
-        };
-        error(message: string, Class?: ErrorConstructor): Error;
-        span(row: number, col: number, length: number): $mol_span;
-        after(length?: number): $mol_span;
-        slice(begin: number, end?: number): $mol_span;
-    }
-}
-
-declare namespace $ {
-    class $mol_error_syntax extends SyntaxError {
-        reason: string;
-        line: string;
-        span: $mol_span;
-        constructor(reason: string, line: string, span: $mol_span);
-    }
-}
-
-declare namespace $ {
-    function $mol_tree2_from_string(this: $, str: string, uri?: string): $mol_tree2;
-}
-
-declare namespace $ {
-    function $mol_tree2_to_string(this: $, tree: $mol_tree2): string;
-}
-
-declare namespace $ {
-    type $mol_tree2_path = Array<string | number | null>;
-    type $mol_tree2_hack<Context> = (input: $mol_tree2, belt: $mol_tree2_belt<Context>, context: Context) => readonly $mol_tree2[];
-    type $mol_tree2_belt<Context> = Record<string, $mol_tree2_hack<Context>>;
-    class $mol_tree2 extends Object {
-        readonly type: string;
-        readonly value: string;
-        readonly kids: readonly $mol_tree2[];
-        readonly span: $mol_span;
-        constructor(type: string, value: string, kids: readonly $mol_tree2[], span: $mol_span);
-        static list(kids: readonly $mol_tree2[], span?: $mol_span): $mol_tree2;
-        list(kids: readonly $mol_tree2[]): $mol_tree2;
-        static data(value: string, kids?: readonly $mol_tree2[], span?: $mol_span): $mol_tree2;
-        data(value: string, kids?: readonly $mol_tree2[]): $mol_tree2;
-        static struct(type: string, kids?: readonly $mol_tree2[], span?: $mol_span): $mol_tree2;
-        struct(type: string, kids?: readonly $mol_tree2[]): $mol_tree2;
-        clone(kids: readonly $mol_tree2[], span?: $mol_span): $mol_tree2;
-        text(): string;
-        static fromString(str: string, uri?: string): $mol_tree2;
-        toString(): string;
-        insert(value: $mol_tree2 | null, ...path: $mol_tree2_path): $mol_tree2;
-        select(...path: $mol_tree2_path): $mol_tree2;
-        filter(path: string[], value?: string): $mol_tree2;
-        hack_self<Context extends {
-            span?: $mol_span;
-            [key: string]: unknown;
-        } = {}>(belt: $mol_tree2_belt<Context>, context?: Context): readonly $mol_tree2[];
-        hack<Context extends {
-            span?: $mol_span;
-            [key: string]: unknown;
-        } = {}>(belt: $mol_tree2_belt<Context>, context?: Context): $mol_tree2[];
-        error(message: string, Class?: ErrorConstructor): Error;
-    }
-    class $mol_tree2_empty extends $mol_tree2 {
-        constructor();
-    }
-}
-
-declare namespace $ {
-    class $mol_view_tree2_error extends Error {
-        readonly spans: readonly $mol_span[];
-        constructor(message: string, spans: readonly $mol_span[]);
-        toJSON(): {
-            message: string;
-            spans: readonly $mol_span[];
-        };
-    }
-    class $mol_view_tree2_error_suggestions {
-        readonly suggestions: readonly string[];
-        constructor(suggestions: readonly string[]);
-        toString(): string;
-        toJSON(): readonly string[];
-    }
-    function $mol_view_tree2_error_str(strings: readonly string[], ...parts: readonly ($mol_span | readonly $mol_span[] | string | number | $mol_view_tree2_error_suggestions)[]): $mol_view_tree2_error;
-}
-
-declare namespace $ {
-    function $mol_view_tree2_child(this: $, tree: $mol_tree2): $mol_tree2;
-}
-
-declare namespace $ {
-    function $mol_view_tree2_classes(defs: $mol_tree2): $mol_tree2;
-}
-
-declare namespace $ {
-    function $mol_view_tree2_normalize(this: $, defs: $mol_tree2): $mol_tree2;
-}
-
-declare namespace $ {
-    function $mol_view_tree2_class_match(klass?: $mol_tree2): boolean;
-}
-
-declare namespace $ {
-    function $mol_view_tree2_class_super(this: $, klass: $mol_tree2): $mol_tree2;
-}
-
-declare namespace $ {
-    function $mol_view_tree2_class_props(this: $, klass: $mol_tree2): $mol_tree2[];
-}
-
-declare namespace $ {
-
-	type $mol_view__sub__82H0ULBE = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_view['sub'] >
-	>
-	type $mol_icon__path__VGX5VC8Z = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_icon['icon_path'] >
-		,
-		ReturnType< $mol_icon['path'] >
-	>
-	type $mol_string__hint__SFWBAMP2 = $mol_type_enforce<
-		string
-		,
-		ReturnType< $mol_string['hint'] >
-	>
-	type $mol_string__value__REHOCLSQ = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_icon['icon_name'] >
-		,
-		ReturnType< $mol_string['value'] >
-	>
-	type $hyoo_sketch_option__name__TL98ABEZ = $mol_type_enforce<
-		string
-		,
-		ReturnType< $hyoo_sketch_option['name'] >
-	>
-	type $hyoo_sketch_option__Control__H0JLNL27 = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_icon['Icon_name_control'] >
-		,
-		ReturnType< $hyoo_sketch_option['Control'] >
-	>
-	type $mol_link__uri__P6X134XK = $mol_type_enforce<
-		string
-		,
-		ReturnType< $mol_link['uri'] >
-	>
-	type $mol_link__target__YDCT4LQG = $mol_type_enforce<
-		string
-		,
-		ReturnType< $mol_link['target'] >
-	>
-	type $mol_link__sub__1P2844I2 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_link['sub'] >
-	>
-	type $hyoo_sketch_option__name__TROHJFCP = $mol_type_enforce<
-		string
-		,
-		ReturnType< $hyoo_sketch_option['name'] >
-	>
-	type $hyoo_sketch_option__Control__0HSDZ2FS = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_icon['Icon_search'] >
-		,
-		ReturnType< $hyoo_sketch_option['Control'] >
-	>
-	export class $hyoo_sketch_element_icon extends $hyoo_sketch_element_base {
-		Element( ): $mol_view
-		Not_found_icon( ): $mol_icon_help_rhombus_outline
-		Options( ): ({ 
-			'icon': ReturnType< $hyoo_sketch_element_icon['icon_options'] >,
-		})  & ReturnType< $hyoo_sketch_element_base['Options'] >
-		icon_path( ): string
-		Icon( ): $mol_icon
-		icon_name( next?: string ): string
-		Icon_name_control( ): $mol_string
-		Icon_name_option( ): $hyoo_sketch_option
-		Icon_search_icon( ): $mol_icon_magnify
-		Icon_search( ): $mol_link
-		Icon_search_option( ): $hyoo_sketch_option
-		icon_options( ): readonly(any)[]
-	}
-	
-}
-
-//# sourceMappingURL=icon.view.tree.d.ts.map
-declare namespace $.$$ {
-    class $hyoo_sketch_element_icon extends $.$hyoo_sketch_element_icon {
-        icon_path(): string;
-        icon_name(next?: string): string;
-        duplicate(elem?: $hyoo_sketch_element): $hyoo_sketch_element;
-    }
-}
-
-declare namespace $ {
-}
-
-declare namespace $ {
-}
-
-declare namespace $ {
-
-	type $mol_view__sub__QVE3FP9W = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_view['sub'] >
-	>
-	export class $mol_check extends $mol_button_minor {
-		attr( ): ({ 
-			'mol_check_checked': ReturnType< $mol_check['checked'] >,
-			'aria-checked': ReturnType< $mol_check['aria_checked'] >,
-			'role': ReturnType< $mol_check['aria_role'] >,
-		})  & ReturnType< $mol_button_minor['attr'] >
-		sub( ): readonly($mol_view_content)[]
-		checked( next?: boolean ): boolean
-		aria_checked( ): string
-		aria_role( ): string
-		Icon( ): any
-		title( ): string
-		Title( ): $mol_view
-		label( ): readonly(any)[]
-	}
-	
-}
-
-//# sourceMappingURL=check.view.tree.d.ts.map
-declare namespace $.$$ {
-    class $mol_check extends $.$mol_check {
-        click(next?: Event): void;
-        sub(): readonly $mol_view_content[];
-        label(): readonly any[];
-        aria_checked(): string;
-    }
-}
-
-declare namespace $ {
-
-	type $mol_check__checked__K5HOY24L = $mol_type_enforce<
-		ReturnType< $mol_check_list['option_checked'] >
-		,
-		ReturnType< $mol_check['checked'] >
-	>
-	type $mol_check__label__YDT71CJ9 = $mol_type_enforce<
-		ReturnType< $mol_check_list['option_label'] >
-		,
-		ReturnType< $mol_check['label'] >
-	>
-	type $mol_check__enabled__CNKR5LYP = $mol_type_enforce<
-		ReturnType< $mol_check_list['option_enabled'] >
-		,
-		ReturnType< $mol_check['enabled'] >
-	>
-	type $mol_check__hint__RGUMPTT2 = $mol_type_enforce<
-		ReturnType< $mol_check_list['option_hint'] >
-		,
-		ReturnType< $mol_check['hint'] >
-	>
-	type $mol_check__minimal_height__MKQS98CF = $mol_type_enforce<
-		number
-		,
-		ReturnType< $mol_check['minimal_height'] >
-	>
-	export class $mol_check_list extends $mol_view {
-		dictionary( ): Record<string, any>
-		Option( id: any): $mol_check
-		options( ): Record<string, any>
-		keys( ): readonly(string)[]
-		sub( ): ReturnType< $mol_check_list['items'] >
-		option_checked( id: any, next?: boolean ): boolean
-		option_title( id: any): string
-		option_label( id: any): readonly(any)[]
-		enabled( ): boolean
-		option_enabled( id: any): ReturnType< $mol_check_list['enabled'] >
-		option_hint( id: any): string
-		items( ): readonly($mol_check)[]
-	}
-	
-}
-
-//# sourceMappingURL=list.view.tree.d.ts.map
-declare namespace $.$$ {
-    class $mol_check_list extends $.$mol_check_list {
-        options(): {
-            [key: string]: string;
-        };
-        dictionary(next?: Record<string, boolean>): Record<string, boolean>;
-        option_checked(id: string, next?: boolean | null): boolean;
-        keys(): readonly string[];
-        items(): $.$mol_check[];
-        option_title(key: string): string;
-    }
-}
-
-declare namespace $ {
-}
-
-declare namespace $ {
-
-	export class $mol_switch extends $mol_check_list {
-		value( next?: string ): string
-	}
-	
-}
-
-//# sourceMappingURL=switch.view.tree.d.ts.map
-declare namespace $.$$ {
-    class $mol_switch extends $.$mol_switch {
-        value(next?: string): string;
-        option_checked(key: string, next?: boolean): boolean;
-    }
-}
-
-declare namespace $ {
-
-	type $mol_view__style__VE9PIBIT = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_text['style'] >
-		,
-		ReturnType< $mol_view['style'] >
-	>
-	type $mol_view__sub__72Z7GHQD = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_text['text_sub'] >
-		,
-		ReturnType< $mol_view['sub'] >
-	>
-	type $hyoo_sketch_element_icon__element__S0OYO2NY = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_text['element'] >
-		,
-		ReturnType< $hyoo_sketch_element_icon['element'] >
-	>
-	type $mol_string__value__4646LZTY = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_text['text'] >
-		,
-		ReturnType< $mol_string['value'] >
-	>
-	type $hyoo_sketch_option__name__QMDYZFKC = $mol_type_enforce<
-		string
-		,
-		ReturnType< $hyoo_sketch_option['name'] >
-	>
-	type $hyoo_sketch_option__Control__BJ8BQTPL = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_text['Text_control'] >
-		,
-		ReturnType< $hyoo_sketch_option['Control'] >
-	>
-	type $mol_switch__value__H9GWJBBH = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_text['padding'] >
-		,
-		ReturnType< $mol_switch['value'] >
-	>
-	type $mol_switch__options__37JD4T2W = $mol_type_enforce<
-		({ 
-			'none': string,
-			'text': string,
-			'block': string,
-			'space': string,
-		}) 
-		,
-		ReturnType< $mol_switch['options'] >
-	>
-	type $hyoo_sketch_option__name__0PDMKTVR = $mol_type_enforce<
-		string
-		,
-		ReturnType< $hyoo_sketch_option['name'] >
-	>
-	type $hyoo_sketch_option__Control__JJ5QQXBV = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_text['Padding_control'] >
-		,
-		ReturnType< $hyoo_sketch_option['Control'] >
-	>
-	type $mol_switch__value__I7PDVGT0 = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_text['align_hor'] >
-		,
-		ReturnType< $mol_switch['value'] >
-	>
-	type $mol_switch__options__K2SQ1E07 = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_text['align_options'] >
-		,
-		ReturnType< $mol_switch['options'] >
-	>
-	type $hyoo_sketch_option__name__R8F6O6ZJ = $mol_type_enforce<
-		string
-		,
-		ReturnType< $hyoo_sketch_option['name'] >
-	>
-	type $hyoo_sketch_option__Control__9O9WAIZM = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_text['Align_hor_control'] >
-		,
-		ReturnType< $hyoo_sketch_option['Control'] >
-	>
-	type $mol_switch__value__REZDK1A4 = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_text['align_ver'] >
-		,
-		ReturnType< $mol_switch['value'] >
-	>
-	type $mol_switch__options__Q2ZE6RDF = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_text['align_options'] >
-		,
-		ReturnType< $mol_switch['options'] >
-	>
-	type $hyoo_sketch_option__name__CNHIS171 = $mol_type_enforce<
-		string
-		,
-		ReturnType< $hyoo_sketch_option['name'] >
-	>
-	type $hyoo_sketch_option__Control__O18H9271 = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_text['Align_ver_control'] >
-		,
-		ReturnType< $hyoo_sketch_option['Control'] >
-	>
-	type $mol_switch__value__G9SBK7S2 = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_text['size'] >
-		,
-		ReturnType< $mol_switch['value'] >
-	>
-	type $mol_switch__options__ZEH9DBL5 = $mol_type_enforce<
-		({ 
-			'0.75rem': string,
-			'1.0rem': string,
-			'1.25rem': string,
-		}) 
-		,
-		ReturnType< $mol_switch['options'] >
-	>
-	type $hyoo_sketch_option__name__NYTBFDKW = $mol_type_enforce<
-		string
-		,
-		ReturnType< $hyoo_sketch_option['name'] >
-	>
-	type $hyoo_sketch_option__Control__UPTJ492W = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_text['Size_control'] >
-		,
-		ReturnType< $hyoo_sketch_option['Control'] >
-	>
-	export class $hyoo_sketch_element_text extends $hyoo_sketch_element_base {
-		Element( ): $mol_view
-		Icon( ): $hyoo_sketch_element_icon
-		Options( ): ({ 
-			'text': ReturnType< $hyoo_sketch_element_text['text_options'] >,
-		})  & ReturnType< $hyoo_sketch_element_base['Options'] >
-		padding_style( ): string
 		style( ): ({ 
-			'padding': ReturnType< $hyoo_sketch_element_text['padding_style'] >,
-			'justifyContent': ReturnType< $hyoo_sketch_element_text['align_hor'] >,
-			'alignItems': ReturnType< $hyoo_sketch_element_text['align_ver'] >,
-			'fontSize': ReturnType< $hyoo_sketch_element_text['size'] >,
-		}) 
-		Text_icon( ): $mol_icon
-		text_sub( ): readonly(any)[]
-		icon_options( ): ReturnType< ReturnType< $hyoo_sketch_element_text['Icon'] >['icon_options'] >
-		text_default( ): string
-		text( next?: ReturnType< $hyoo_sketch_element_text['text_default'] > ): ReturnType< $hyoo_sketch_element_text['text_default'] >
-		Text_control( ): $mol_string
-		Text_option( ): $hyoo_sketch_option
-		padding_default( ): string
-		padding( next?: ReturnType< $hyoo_sketch_element_text['padding_default'] > ): ReturnType< $hyoo_sketch_element_text['padding_default'] >
-		Padding_control( ): $mol_switch
-		Padding_option( ): $hyoo_sketch_option
-		align_hor_default( ): string
-		align_hor( next?: ReturnType< $hyoo_sketch_element_text['align_hor_default'] > ): ReturnType< $hyoo_sketch_element_text['align_hor_default'] >
-		Align_hor_control( ): $mol_switch
-		Align_hor_option( ): $hyoo_sketch_option
-		align_ver_default( ): string
-		align_ver( next?: ReturnType< $hyoo_sketch_element_text['align_ver_default'] > ): ReturnType< $hyoo_sketch_element_text['align_ver_default'] >
-		align_options( ): ({ 
-			'start': string,
-			'center': string,
-			'end': string,
-		}) 
-		Align_ver_control( ): $mol_switch
-		Align_ver_option( ): $hyoo_sketch_option
-		size_default( ): string
-		size( next?: ReturnType< $hyoo_sketch_element_text['size_default'] > ): ReturnType< $hyoo_sketch_element_text['size_default'] >
-		Size_control( ): $mol_switch
-		Size_option( ): $hyoo_sketch_option
-		text_options( ): readonly(any)[]
+			'minHeight': string,
+		})  & ReturnType< $mol_view['style'] >
+		sub( ): readonly(any)[]
 	}
 	
 }
 
-//# sourceMappingURL=text.view.tree.d.ts.map
+//# sourceMappingURL=speck.view.tree.d.ts.map
+declare namespace $ {
+    enum $mol_keyboard_code {
+        backspace = 8,
+        tab = 9,
+        enter = 13,
+        shift = 16,
+        ctrl = 17,
+        alt = 18,
+        pause = 19,
+        capsLock = 20,
+        escape = 27,
+        space = 32,
+        pageUp = 33,
+        pageDown = 34,
+        end = 35,
+        home = 36,
+        left = 37,
+        up = 38,
+        right = 39,
+        down = 40,
+        insert = 45,
+        delete = 46,
+        key0 = 48,
+        key1 = 49,
+        key2 = 50,
+        key3 = 51,
+        key4 = 52,
+        key5 = 53,
+        key6 = 54,
+        key7 = 55,
+        key8 = 56,
+        key9 = 57,
+        A = 65,
+        B = 66,
+        C = 67,
+        D = 68,
+        E = 69,
+        F = 70,
+        G = 71,
+        H = 72,
+        I = 73,
+        J = 74,
+        K = 75,
+        L = 76,
+        M = 77,
+        N = 78,
+        O = 79,
+        P = 80,
+        Q = 81,
+        R = 82,
+        S = 83,
+        T = 84,
+        U = 85,
+        V = 86,
+        W = 87,
+        X = 88,
+        Y = 89,
+        Z = 90,
+        metaLeft = 91,
+        metaRight = 92,
+        select = 93,
+        numpad0 = 96,
+        numpad1 = 97,
+        numpad2 = 98,
+        numpad3 = 99,
+        numpad4 = 100,
+        numpad5 = 101,
+        numpad6 = 102,
+        numpad7 = 103,
+        numpad8 = 104,
+        numpad9 = 105,
+        multiply = 106,
+        add = 107,
+        subtract = 109,
+        decimal = 110,
+        divide = 111,
+        F1 = 112,
+        F2 = 113,
+        F3 = 114,
+        F4 = 115,
+        F5 = 116,
+        F6 = 117,
+        F7 = 118,
+        F8 = 119,
+        F9 = 120,
+        F10 = 121,
+        F11 = 122,
+        F12 = 123,
+        numLock = 144,
+        scrollLock = 145,
+        semicolon = 186,
+        equals = 187,
+        comma = 188,
+        dash = 189,
+        period = 190,
+        forwardSlash = 191,
+        graveAccent = 192,
+        bracketOpen = 219,
+        slashBack = 220,
+        slashBackLeft = 226,
+        bracketClose = 221,
+        quoteSingle = 222
+    }
+}
+
+declare namespace $ {
+
+	type $mol_speck__value__9WLK89PH = $mol_type_enforce<
+		ReturnType< $mol_button['error'] >
+		,
+		ReturnType< $mol_speck['value'] >
+	>
+	export class $mol_button extends $mol_view {
+		event_activate( next?: any ): any
+		clicks( next?: any ): any
+		event_key_press( next?: any ): any
+		disabled( ): boolean
+		tab_index( ): number
+		hint( ): string
+		hint_safe( ): ReturnType< $mol_button['hint'] >
+		error( ): string
+		enabled( ): boolean
+		click( next?: any ): any
+		event_click( next?: any ): any
+		event( ): ({ 
+			click( next?: ReturnType< $mol_button['event_activate'] > ): ReturnType< $mol_button['event_activate'] >,
+			dblclick( next?: ReturnType< $mol_button['clicks'] > ): ReturnType< $mol_button['clicks'] >,
+			keydown( next?: ReturnType< $mol_button['event_key_press'] > ): ReturnType< $mol_button['event_key_press'] >,
+		})  & ReturnType< $mol_view['event'] >
+		attr( ): ({ 
+			'disabled': ReturnType< $mol_button['disabled'] >,
+			'role': string,
+			'tabindex': ReturnType< $mol_button['tab_index'] >,
+			'title': ReturnType< $mol_button['hint_safe'] >,
+		})  & ReturnType< $mol_view['attr'] >
+		sub( ): readonly($mol_view_content)[]
+		Speck( ): $mol_speck
+	}
+	
+}
+
+//# sourceMappingURL=button.view.tree.d.ts.map
 declare namespace $.$$ {
-    class $hyoo_sketch_element_text extends $.$hyoo_sketch_element_text {
-        text_sub(): (string | $mol_icon)[];
-        padding_style(): string;
-        text(next?: string): string;
-        padding(next?: string): string;
-        align_ver(next?: string): string;
-        align_hor(next?: string): string;
-        size(next?: string): string;
-        duplicate(elem?: $hyoo_sketch_element): $hyoo_sketch_element;
+    class $mol_button extends $.$mol_button {
+        status(next?: any[]): any[];
+        disabled(): boolean;
+        event_activate(next: Event): void;
+        event_key_press(event: KeyboardEvent): void;
+        tab_index(): number;
+        error(): string;
+        hint_safe(): string;
+        sub_visible(): ($mol_speck | $mol_view_content)[];
     }
 }
 
@@ -3507,30 +2278,43 @@ declare namespace $ {
 }
 
 declare namespace $ {
+}
 
-	export class $mol_button_major extends $mol_button_typed {
-		attr( ): ({ 
-			'mol_theme': string,
-		})  & ReturnType< $mol_button_typed['attr'] >
+declare namespace $ {
+
+	export class $mol_button_typed extends $mol_button {
+		minimal_height( ): number
+		minimal_width( ): number
 	}
 	
 }
 
-//# sourceMappingURL=major.view.tree.d.ts.map
+//# sourceMappingURL=typed.view.tree.d.ts.map
+declare namespace $ {
+}
+
+declare namespace $ {
+
+	export class $mol_button_minor extends $mol_button_typed {
+	}
+	
+}
+
+//# sourceMappingURL=minor.view.tree.d.ts.map
 declare namespace $ {
     function $mol_support_css_overflow_anchor(this: $): boolean;
 }
 
 declare namespace $ {
 
-	type $mol_view__style__NZDYAQH4 = $mol_type_enforce<
+	type $mol_view__style__Z5XD65YA = $mol_type_enforce<
 		({ 
 			'paddingTop': ReturnType< $mol_list['gap_before'] >,
 		}) 
 		,
 		ReturnType< $mol_view['style'] >
 	>
-	type $mol_view__style__1IYUF57U = $mol_type_enforce<
+	type $mol_view__style__IQ10MF6I = $mol_type_enforce<
 		({ 
 			'paddingTop': ReturnType< $mol_list['gap_after'] >,
 		}) 
@@ -3538,6 +2322,9 @@ declare namespace $ {
 		ReturnType< $mol_view['style'] >
 	>
 	export class $mol_list extends $mol_view {
+		rows( ): readonly($mol_view)[]
+		gap_before( ): number
+		gap_after( ): number
 		render_visible_only( ): boolean
 		render_over( ): number
 		sub( ): ReturnType< $mol_list['rows'] >
@@ -3545,9 +2332,6 @@ declare namespace $ {
 		Gap_before( ): $mol_view
 		Gap_after( ): $mol_view
 		view_window( ): readonly(any)[]
-		rows( ): readonly($mol_view)[]
-		gap_before( ): number
-		gap_after( ): number
 	}
 	
 }
@@ -3570,73 +2354,40 @@ declare namespace $ {
 }
 
 declare namespace $ {
-}
 
-declare namespace $ {
-
-	type $mol_view__minimal_height__06A2AZFT = $mol_type_enforce<
-		number
-		,
-		ReturnType< $mol_view['minimal_height'] >
-	>
-	type $mol_view__sub__CRFZG1PN = $mol_type_enforce<
-		ReturnType< $mol_labeler['label'] >
-		,
-		ReturnType< $mol_view['sub'] >
-	>
-	type $mol_view__minimal_height__AOK5C1A8 = $mol_type_enforce<
-		number
-		,
-		ReturnType< $mol_view['minimal_height'] >
-	>
-	type $mol_view__sub__7BND0FQE = $mol_type_enforce<
-		ReturnType< $mol_labeler['content'] >
-		,
-		ReturnType< $mol_view['sub'] >
-	>
-	export class $mol_labeler extends $mol_list {
-		rows( ): readonly(any)[]
-		label( ): readonly($mol_view_content)[]
-		Label( ): $mol_view
-		content( ): readonly(any)[]
-		Content( ): $mol_view
-	}
-	
-}
-
-//# sourceMappingURL=labeler.view.tree.d.ts.map
-declare namespace $ {
-
-	type $mol_pop_bubble__align__L0QL1NDR = $mol_type_enforce<
+	type $mol_pop_bubble__align__7UGK8YKF = $mol_type_enforce<
 		ReturnType< $mol_pop['align'] >
 		,
 		ReturnType< $mol_pop_bubble['align'] >
 	>
-	type $mol_pop_bubble__content__2AZ6LKPL = $mol_type_enforce<
+	type $mol_pop_bubble__content__E1OEK6A9 = $mol_type_enforce<
 		ReturnType< $mol_pop['bubble_content'] >
 		,
 		ReturnType< $mol_pop_bubble['content'] >
 	>
-	type $mol_pop_bubble__height_max__BP27N7PC = $mol_type_enforce<
+	type $mol_pop_bubble__height_max__U4IY6N9L = $mol_type_enforce<
 		ReturnType< $mol_pop['height_max'] >
 		,
 		ReturnType< $mol_pop_bubble['height_max'] >
 	>
 	export class $mol_pop extends $mol_view {
+		Anchor( ): any
+		align( ): string
+		bubble_content( ): readonly($mol_view_content)[]
+		height_max( ): number
+		Bubble( ): $mol_pop_bubble
 		showed( next?: boolean ): boolean
 		align_vert( ): string
 		align_hor( ): string
 		prefer( ): string
 		sub( ): readonly(any)[]
 		sub_visible( ): readonly(any)[]
-		Anchor( ): any
-		align( ): string
-		bubble_content( ): readonly($mol_view_content)[]
-		height_max( ): number
-		Bubble( ): $mol_pop_bubble
 	}
 	
 	export class $mol_pop_bubble extends $mol_view {
+		content( ): readonly($mol_view_content)[]
+		height_max( ): number
+		align( ): string
 		sub( ): ReturnType< $mol_pop_bubble['content'] >
 		style( ): ({ 
 			'maxHeight': ReturnType< $mol_pop_bubble['height_max'] >,
@@ -3645,9 +2396,6 @@ declare namespace $ {
 			'mol_pop_align': ReturnType< $mol_pop_bubble['align'] >,
 			'tabindex': number,
 		})  & ReturnType< $mol_view['attr'] >
-		content( ): readonly($mol_view_content)[]
-		height_max( ): number
-		align( ): string
 	}
 	
 }
@@ -3659,8 +2407,8 @@ declare namespace $.$$ {
         sub_visible(): any[];
         height_max(): number;
         align(): string;
-        align_vert(): "top" | "suspense" | "bottom";
-        align_hor(): "left" | "suspense" | "right";
+        align_vert(): "suspense" | "top" | "bottom";
+        align_hor(): "suspense" | "left" | "right";
         View_port(): $mol_view;
         view_port(): {
             width: number;
@@ -3682,53 +2430,91 @@ declare namespace $ {
 }
 
 declare namespace $ {
+}
 
-	type $mol_check__minimal_width__TIZ59OHV = $mol_type_enforce<
+declare namespace $ {
+
+	type $mol_view__sub__BZDAP6LW = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	export class $mol_check extends $mol_button_minor {
+		checked( next?: boolean ): boolean
+		aria_checked( ): string
+		aria_role( ): string
+		Icon( ): any
+		title( ): string
+		Title( ): $mol_view
+		label( ): readonly(any)[]
+		attr( ): ({ 
+			'mol_check_checked': ReturnType< $mol_check['checked'] >,
+			'aria-checked': ReturnType< $mol_check['aria_checked'] >,
+			'role': ReturnType< $mol_check['aria_role'] >,
+		})  & ReturnType< $mol_button_minor['attr'] >
+		sub( ): readonly($mol_view_content)[]
+	}
+	
+}
+
+//# sourceMappingURL=check.view.tree.d.ts.map
+declare namespace $.$$ {
+    class $mol_check extends $.$mol_check {
+        click(next?: Event): void;
+        sub(): readonly $mol_view_content[];
+        label(): readonly any[];
+        aria_checked(): string;
+    }
+}
+
+declare namespace $ {
+
+	type $mol_check__minimal_width__GEK1WE45 = $mol_type_enforce<
 		number
 		,
 		ReturnType< $mol_check['minimal_width'] >
 	>
-	type $mol_check__minimal_height__CA5S9DZD = $mol_type_enforce<
+	type $mol_check__minimal_height__FVUMKMHI = $mol_type_enforce<
 		number
 		,
 		ReturnType< $mol_check['minimal_height'] >
 	>
-	type $mol_check__enabled__8OJ3KWVA = $mol_type_enforce<
+	type $mol_check__enabled__2FA2ZVI9 = $mol_type_enforce<
 		ReturnType< $mol_pick['trigger_enabled'] >
 		,
 		ReturnType< $mol_check['enabled'] >
 	>
-	type $mol_check__checked__N9CZ5LSQ = $mol_type_enforce<
+	type $mol_check__checked__J3HVB98V = $mol_type_enforce<
 		ReturnType< $mol_pick['showed'] >
 		,
 		ReturnType< $mol_check['checked'] >
 	>
-	type $mol_check__clicks__887H3O4R = $mol_type_enforce<
+	type $mol_check__clicks__12YPVA1M = $mol_type_enforce<
 		ReturnType< $mol_pick['clicks'] >
 		,
 		ReturnType< $mol_check['clicks'] >
 	>
-	type $mol_check__sub__W3RAATV2 = $mol_type_enforce<
+	type $mol_check__sub__90EQCJNF = $mol_type_enforce<
 		ReturnType< $mol_pick['trigger_content'] >
 		,
 		ReturnType< $mol_check['sub'] >
 	>
-	type $mol_check__hint__21SP8FOE = $mol_type_enforce<
+	type $mol_check__hint__OOSXDCIJ = $mol_type_enforce<
 		ReturnType< $mol_pick['hint'] >
 		,
 		ReturnType< $mol_check['hint'] >
 	>
 	export class $mol_pick extends $mol_pop {
-		event( ): ({ 
-			keydown( next?: ReturnType< $mol_pick['keydown'] > ): ReturnType< $mol_pick['keydown'] >,
-		})  & ReturnType< $mol_pop['event'] >
-		Anchor( ): ReturnType< $mol_pick['Trigger'] >
 		keydown( next?: any ): any
 		trigger_enabled( ): boolean
 		clicks( next?: any ): any
 		trigger_content( ): readonly($mol_view_content)[]
 		hint( ): string
 		Trigger( ): $mol_check
+		event( ): ({ 
+			keydown( next?: ReturnType< $mol_pick['keydown'] > ): ReturnType< $mol_pick['keydown'] >,
+		})  & ReturnType< $mol_pop['event'] >
+		Anchor( ): ReturnType< $mol_pick['Trigger'] >
 	}
 	
 }
@@ -3743,51 +2529,6 @@ declare namespace $.$$ {
 declare namespace $ {
 }
 
-declare namespace $ {
-
-	export class $mol_nav extends $mol_plugin {
-		cycle( next?: boolean ): boolean
-		mod_ctrl( ): boolean
-		mod_shift( ): boolean
-		mod_alt( ): boolean
-		keys_x( next?: readonly(any)[] ): readonly(any)[]
-		keys_y( next?: readonly(any)[] ): readonly(any)[]
-		current_x( next?: any ): any
-		current_y( next?: any ): any
-		event_up( next?: any ): any
-		event_down( next?: any ): any
-		event_left( next?: any ): any
-		event_right( next?: any ): any
-		event( ): ({ 
-			keydown( next?: ReturnType< $mol_nav['event_key'] > ): ReturnType< $mol_nav['event_key'] >,
-		})  & ReturnType< $mol_plugin['event'] >
-		event_key( next?: any ): any
-	}
-	
-}
-
-//# sourceMappingURL=nav.view.tree.d.ts.map
-declare namespace $.$$ {
-    class $mol_nav extends $.$mol_nav {
-        event_key(event?: KeyboardEvent): undefined;
-        event_up(event?: KeyboardEvent): undefined;
-        event_down(event?: KeyboardEvent): undefined;
-        event_left(event?: KeyboardEvent): undefined;
-        event_right(event?: KeyboardEvent): undefined;
-        index_y(): number | null;
-        index_x(): number | null;
-    }
-}
-
-declare namespace $ {
-
-	export class $mol_icon_cross extends $mol_icon {
-		path( ): string
-	}
-	
-}
-
-//# sourceMappingURL=cross.view.tree.d.ts.map
 declare namespace $ {
 
 	export class $mol_paragraph extends $mol_view {
@@ -3915,24 +2656,24 @@ declare namespace $ {
 
 declare namespace $ {
 
-	type $mol_paragraph__sub__SOKIYYW2 = $mol_type_enforce<
+	type $mol_paragraph__sub__03IXP1QO = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_paragraph['sub'] >
 	>
-	type $mol_paragraph__sub__BDXTN1C9 = $mol_type_enforce<
+	type $mol_paragraph__sub__S7YLVSH0 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_paragraph['sub'] >
 	>
 	export class $mol_dimmer extends $mol_paragraph {
+		parts( ): readonly($mol_view_content)[]
+		string( id: any): string
 		haystack( ): string
 		needle( ): string
 		sub( ): ReturnType< $mol_dimmer['parts'] >
 		Low( id: any): $mol_paragraph
 		High( id: any): $mol_paragraph
-		parts( ): readonly($mol_view_content)[]
-		string( id: any): string
 	}
 	
 }
@@ -3952,112 +2693,355 @@ declare namespace $ {
 
 declare namespace $ {
 
-	type $mol_search_plugins__HVLALPR6 = $mol_type_enforce<
-		ReturnType< $mol_pop['plugins'] >[number]
+	export class $mol_nav extends $mol_plugin {
+		event_key( next?: any ): any
+		cycle( next?: boolean ): boolean
+		mod_ctrl( ): boolean
+		mod_shift( ): boolean
+		mod_alt( ): boolean
+		keys_x( next?: readonly(any)[] ): readonly(any)[]
+		keys_y( next?: readonly(any)[] ): readonly(any)[]
+		current_x( next?: any ): any
+		current_y( next?: any ): any
+		event_up( next?: any ): any
+		event_down( next?: any ): any
+		event_left( next?: any ): any
+		event_right( next?: any ): any
+		event( ): ({ 
+			keydown( next?: ReturnType< $mol_nav['event_key'] > ): ReturnType< $mol_nav['event_key'] >,
+		})  & ReturnType< $mol_plugin['event'] >
+	}
+	
+}
+
+//# sourceMappingURL=nav.view.tree.d.ts.map
+declare namespace $.$$ {
+    class $mol_nav extends $.$mol_nav {
+        event_key(event?: KeyboardEvent): undefined;
+        event_up(event?: KeyboardEvent): undefined;
+        event_down(event?: KeyboardEvent): undefined;
+        event_left(event?: KeyboardEvent): undefined;
+        event_right(event?: KeyboardEvent): undefined;
+        index_y(): number | null;
+        index_x(): number | null;
+    }
+}
+
+declare namespace $ {
+
+	export class $mol_hotkey extends $mol_plugin {
+		keydown( next?: any ): any
+		event( ): ({ 
+			keydown( next?: ReturnType< $mol_hotkey['keydown'] > ): ReturnType< $mol_hotkey['keydown'] >,
+		})  & ReturnType< $mol_plugin['event'] >
+		key( ): Record<string, any>
+		mod_ctrl( ): boolean
+		mod_alt( ): boolean
+		mod_shift( ): boolean
+	}
+	
+}
+
+//# sourceMappingURL=hotkey.view.tree.d.ts.map
+declare namespace $.$$ {
+    class $mol_hotkey extends $.$mol_hotkey {
+        key(): {
+            readonly [x: number]: ((event: KeyboardEvent) => void) | undefined;
+            readonly backspace?: ((event: KeyboardEvent) => void) | undefined;
+            readonly tab?: ((event: KeyboardEvent) => void) | undefined;
+            readonly enter?: ((event: KeyboardEvent) => void) | undefined;
+            readonly shift?: ((event: KeyboardEvent) => void) | undefined;
+            readonly ctrl?: ((event: KeyboardEvent) => void) | undefined;
+            readonly alt?: ((event: KeyboardEvent) => void) | undefined;
+            readonly pause?: ((event: KeyboardEvent) => void) | undefined;
+            readonly capsLock?: ((event: KeyboardEvent) => void) | undefined;
+            readonly escape?: ((event: KeyboardEvent) => void) | undefined;
+            readonly space?: ((event: KeyboardEvent) => void) | undefined;
+            readonly pageUp?: ((event: KeyboardEvent) => void) | undefined;
+            readonly pageDown?: ((event: KeyboardEvent) => void) | undefined;
+            readonly end?: ((event: KeyboardEvent) => void) | undefined;
+            readonly home?: ((event: KeyboardEvent) => void) | undefined;
+            readonly left?: ((event: KeyboardEvent) => void) | undefined;
+            readonly up?: ((event: KeyboardEvent) => void) | undefined;
+            readonly right?: ((event: KeyboardEvent) => void) | undefined;
+            readonly down?: ((event: KeyboardEvent) => void) | undefined;
+            readonly insert?: ((event: KeyboardEvent) => void) | undefined;
+            readonly delete?: ((event: KeyboardEvent) => void) | undefined;
+            readonly key0?: ((event: KeyboardEvent) => void) | undefined;
+            readonly key1?: ((event: KeyboardEvent) => void) | undefined;
+            readonly key2?: ((event: KeyboardEvent) => void) | undefined;
+            readonly key3?: ((event: KeyboardEvent) => void) | undefined;
+            readonly key4?: ((event: KeyboardEvent) => void) | undefined;
+            readonly key5?: ((event: KeyboardEvent) => void) | undefined;
+            readonly key6?: ((event: KeyboardEvent) => void) | undefined;
+            readonly key7?: ((event: KeyboardEvent) => void) | undefined;
+            readonly key8?: ((event: KeyboardEvent) => void) | undefined;
+            readonly key9?: ((event: KeyboardEvent) => void) | undefined;
+            readonly A?: ((event: KeyboardEvent) => void) | undefined;
+            readonly B?: ((event: KeyboardEvent) => void) | undefined;
+            readonly C?: ((event: KeyboardEvent) => void) | undefined;
+            readonly D?: ((event: KeyboardEvent) => void) | undefined;
+            readonly E?: ((event: KeyboardEvent) => void) | undefined;
+            readonly F?: ((event: KeyboardEvent) => void) | undefined;
+            readonly G?: ((event: KeyboardEvent) => void) | undefined;
+            readonly H?: ((event: KeyboardEvent) => void) | undefined;
+            readonly I?: ((event: KeyboardEvent) => void) | undefined;
+            readonly J?: ((event: KeyboardEvent) => void) | undefined;
+            readonly K?: ((event: KeyboardEvent) => void) | undefined;
+            readonly L?: ((event: KeyboardEvent) => void) | undefined;
+            readonly M?: ((event: KeyboardEvent) => void) | undefined;
+            readonly N?: ((event: KeyboardEvent) => void) | undefined;
+            readonly O?: ((event: KeyboardEvent) => void) | undefined;
+            readonly P?: ((event: KeyboardEvent) => void) | undefined;
+            readonly Q?: ((event: KeyboardEvent) => void) | undefined;
+            readonly R?: ((event: KeyboardEvent) => void) | undefined;
+            readonly S?: ((event: KeyboardEvent) => void) | undefined;
+            readonly T?: ((event: KeyboardEvent) => void) | undefined;
+            readonly U?: ((event: KeyboardEvent) => void) | undefined;
+            readonly V?: ((event: KeyboardEvent) => void) | undefined;
+            readonly W?: ((event: KeyboardEvent) => void) | undefined;
+            readonly X?: ((event: KeyboardEvent) => void) | undefined;
+            readonly Y?: ((event: KeyboardEvent) => void) | undefined;
+            readonly Z?: ((event: KeyboardEvent) => void) | undefined;
+            readonly metaLeft?: ((event: KeyboardEvent) => void) | undefined;
+            readonly metaRight?: ((event: KeyboardEvent) => void) | undefined;
+            readonly select?: ((event: KeyboardEvent) => void) | undefined;
+            readonly numpad0?: ((event: KeyboardEvent) => void) | undefined;
+            readonly numpad1?: ((event: KeyboardEvent) => void) | undefined;
+            readonly numpad2?: ((event: KeyboardEvent) => void) | undefined;
+            readonly numpad3?: ((event: KeyboardEvent) => void) | undefined;
+            readonly numpad4?: ((event: KeyboardEvent) => void) | undefined;
+            readonly numpad5?: ((event: KeyboardEvent) => void) | undefined;
+            readonly numpad6?: ((event: KeyboardEvent) => void) | undefined;
+            readonly numpad7?: ((event: KeyboardEvent) => void) | undefined;
+            readonly numpad8?: ((event: KeyboardEvent) => void) | undefined;
+            readonly numpad9?: ((event: KeyboardEvent) => void) | undefined;
+            readonly multiply?: ((event: KeyboardEvent) => void) | undefined;
+            readonly add?: ((event: KeyboardEvent) => void) | undefined;
+            readonly subtract?: ((event: KeyboardEvent) => void) | undefined;
+            readonly decimal?: ((event: KeyboardEvent) => void) | undefined;
+            readonly divide?: ((event: KeyboardEvent) => void) | undefined;
+            readonly F1?: ((event: KeyboardEvent) => void) | undefined;
+            readonly F2?: ((event: KeyboardEvent) => void) | undefined;
+            readonly F3?: ((event: KeyboardEvent) => void) | undefined;
+            readonly F4?: ((event: KeyboardEvent) => void) | undefined;
+            readonly F5?: ((event: KeyboardEvent) => void) | undefined;
+            readonly F6?: ((event: KeyboardEvent) => void) | undefined;
+            readonly F7?: ((event: KeyboardEvent) => void) | undefined;
+            readonly F8?: ((event: KeyboardEvent) => void) | undefined;
+            readonly F9?: ((event: KeyboardEvent) => void) | undefined;
+            readonly F10?: ((event: KeyboardEvent) => void) | undefined;
+            readonly F11?: ((event: KeyboardEvent) => void) | undefined;
+            readonly F12?: ((event: KeyboardEvent) => void) | undefined;
+            readonly numLock?: ((event: KeyboardEvent) => void) | undefined;
+            readonly scrollLock?: ((event: KeyboardEvent) => void) | undefined;
+            readonly semicolon?: ((event: KeyboardEvent) => void) | undefined;
+            readonly equals?: ((event: KeyboardEvent) => void) | undefined;
+            readonly comma?: ((event: KeyboardEvent) => void) | undefined;
+            readonly dash?: ((event: KeyboardEvent) => void) | undefined;
+            readonly period?: ((event: KeyboardEvent) => void) | undefined;
+            readonly forwardSlash?: ((event: KeyboardEvent) => void) | undefined;
+            readonly graveAccent?: ((event: KeyboardEvent) => void) | undefined;
+            readonly bracketOpen?: ((event: KeyboardEvent) => void) | undefined;
+            readonly slashBack?: ((event: KeyboardEvent) => void) | undefined;
+            readonly slashBackLeft?: ((event: KeyboardEvent) => void) | undefined;
+            readonly bracketClose?: ((event: KeyboardEvent) => void) | undefined;
+            readonly quoteSingle?: ((event: KeyboardEvent) => void) | undefined;
+        };
+        keydown(event?: KeyboardEvent): void;
+    }
+}
+
+declare namespace $ {
+
+	type $mol_hotkey__mod_ctrl__5MC8T2HX = $mol_type_enforce<
+		ReturnType< $mol_string['submit_with_ctrl'] >
 		,
-		$mol_plugin
+		ReturnType< $mol_hotkey['mod_ctrl'] >
 	>
-	type $mol_view__sub__K7ZHUG2E = $mol_type_enforce<
-		ReturnType< $mol_search['anchor_content'] >
+	type $mol_hotkey__key__1XAE5YU6 = $mol_type_enforce<
+		({ 
+			enter( next?: ReturnType< $mol_string['submit'] > ): ReturnType< $mol_string['submit'] >,
+		}) 
 		,
-		ReturnType< $mol_view['sub'] >
+		ReturnType< $mol_hotkey['key'] >
 	>
-	type $mol_button_minor__click__E3LW3NB6 = $mol_type_enforce<
-		ReturnType< $mol_search['suggest_select'] >
-		,
-		ReturnType< $mol_button_minor['click'] >
-	>
-	type $mol_button_minor__sub__Z7IS6PNZ = $mol_type_enforce<
-		ReturnType< $mol_search['suggest_content'] >
-		,
-		ReturnType< $mol_button_minor['sub'] >
-	>
-	type $mol_hotkey__key__YESTVGA4 = $mol_type_enforce<
+	export class $mol_string extends $mol_view {
+		selection_watcher( ): any
+		error_report( ): any
+		disabled( ): boolean
+		value( next?: string ): string
+		value_changed( next?: ReturnType< $mol_string['value'] > ): ReturnType< $mol_string['value'] >
+		hint( ): string
+		hint_visible( ): ReturnType< $mol_string['hint'] >
+		spellcheck( ): boolean
+		autocomplete_native( ): string
+		selection_end( ): number
+		selection_start( ): number
+		keyboard( ): string
+		enter( ): string
+		length_max( ): number
+		type( next?: string ): string
+		event_change( next?: any ): any
+		submit_with_ctrl( ): boolean
+		submit( next?: any ): any
+		Submit( ): $mol_hotkey
+		dom_name( ): string
+		enabled( ): boolean
+		minimal_height( ): number
+		autocomplete( ): boolean
+		selection( next?: readonly(number)[] ): readonly(number)[]
+		auto( ): readonly(any)[]
+		field( ): ({ 
+			'disabled': ReturnType< $mol_string['disabled'] >,
+			'value': ReturnType< $mol_string['value_changed'] >,
+			'placeholder': ReturnType< $mol_string['hint_visible'] >,
+			'spellcheck': ReturnType< $mol_string['spellcheck'] >,
+			'autocomplete': ReturnType< $mol_string['autocomplete_native'] >,
+			'selectionEnd': ReturnType< $mol_string['selection_end'] >,
+			'selectionStart': ReturnType< $mol_string['selection_start'] >,
+			'inputMode': ReturnType< $mol_string['keyboard'] >,
+			'enterkeyhint': ReturnType< $mol_string['enter'] >,
+		})  & ReturnType< $mol_view['field'] >
+		attr( ): ({ 
+			'maxlength': ReturnType< $mol_string['length_max'] >,
+			'type': ReturnType< $mol_string['type'] >,
+		})  & ReturnType< $mol_view['attr'] >
+		event( ): ({ 
+			input( next?: ReturnType< $mol_string['event_change'] > ): ReturnType< $mol_string['event_change'] >,
+		})  & ReturnType< $mol_view['event'] >
+		plugins( ): readonly(any)[]
+	}
+	
+}
+
+//# sourceMappingURL=string.view.tree.d.ts.map
+declare namespace $.$$ {
+    class $mol_string extends $.$mol_string {
+        event_change(next?: Event): void;
+        error_report(): void;
+        hint_visible(): string;
+        disabled(): boolean;
+        autocomplete_native(): "on" | "off";
+        selection_watcher(): $mol_dom_listener;
+        selection_change(event: Event): void;
+        selection_start(): number;
+        selection_end(): number;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+
+	export class $mol_icon_cross extends $mol_icon {
+		path( ): string
+	}
+	
+}
+
+//# sourceMappingURL=cross.view.tree.d.ts.map
+declare namespace $ {
+
+	type $mol_hotkey__key__KHQ3F8QR = $mol_type_enforce<
 		({ 
 			escape( next?: ReturnType< $mol_search['clear'] > ): ReturnType< $mol_search['clear'] >,
 		}) 
 		,
 		ReturnType< $mol_hotkey['key'] >
 	>
-	type $mol_nav__keys_y__8WRDPBXV = $mol_type_enforce<
+	type $mol_nav__keys_y__1C67OEY6 = $mol_type_enforce<
 		ReturnType< $mol_search['nav_components'] >
 		,
 		ReturnType< $mol_nav['keys_y'] >
 	>
-	type $mol_nav__current_y__74BWOI8G = $mol_type_enforce<
+	type $mol_nav__current_y__BDAV1M76 = $mol_type_enforce<
 		ReturnType< $mol_search['nav_focused'] >
 		,
 		ReturnType< $mol_nav['current_y'] >
 	>
-	type $mol_string__value__Z7HVQ9A2 = $mol_type_enforce<
+	type $mol_string__value__BUZ1XH0I = $mol_type_enforce<
 		ReturnType< $mol_search['query'] >
 		,
 		ReturnType< $mol_string['value'] >
 	>
-	type $mol_string__hint__0LU6HC68 = $mol_type_enforce<
+	type $mol_string__hint__HNM6E4RB = $mol_type_enforce<
 		ReturnType< $mol_search['hint'] >
 		,
 		ReturnType< $mol_string['hint'] >
 	>
-	type $mol_string__submit__Y25LPS1A = $mol_type_enforce<
+	type $mol_string__submit__GT55MMU7 = $mol_type_enforce<
 		ReturnType< $mol_search['submit'] >
 		,
 		ReturnType< $mol_string['submit'] >
 	>
-	type $mol_string__enabled__XYCI58DD = $mol_type_enforce<
+	type $mol_string__enabled__GODFVOMP = $mol_type_enforce<
 		ReturnType< $mol_search['enabled'] >
 		,
 		ReturnType< $mol_string['enabled'] >
 	>
-	type $mol_string__keyboard__NX4F9D2Y = $mol_type_enforce<
+	type $mol_string__keyboard__Y23VFCFC = $mol_type_enforce<
 		ReturnType< $mol_search['keyboard'] >
 		,
 		ReturnType< $mol_string['keyboard'] >
 	>
-	type $mol_string__enter__NQAEJ1JF = $mol_type_enforce<
+	type $mol_string__enter__LBJUD6VP = $mol_type_enforce<
 		ReturnType< $mol_search['enter'] >
 		,
 		ReturnType< $mol_string['enter'] >
 	>
-	type $mol_button_minor__hint__1BIMV7QM = $mol_type_enforce<
+	type $mol_button_minor__hint__Z8VDVBSA = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_button_minor['hint'] >
 	>
-	type $mol_button_minor__click__6O34UQ8L = $mol_type_enforce<
+	type $mol_button_minor__click__MP3YCOLT = $mol_type_enforce<
 		ReturnType< $mol_search['clear'] >
 		,
 		ReturnType< $mol_button_minor['click'] >
 	>
-	type $mol_button_minor__sub__7VXEUKQ2 = $mol_type_enforce<
+	type $mol_button_minor__sub__E4UZ9JVV = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_button_minor['sub'] >
 	>
-	type $mol_list__rows__CUHUPAXY = $mol_type_enforce<
+	type $mol_list__rows__4M2UXWWZ = $mol_type_enforce<
 		ReturnType< $mol_search['menu_items'] >
 		,
 		ReturnType< $mol_list['rows'] >
 	>
-	type $mol_dimmer__haystack__DSLKHSDZ = $mol_type_enforce<
+	type $mol_dimmer__haystack__ROT1REWD = $mol_type_enforce<
 		ReturnType< $mol_search['suggest_label'] >
 		,
 		ReturnType< $mol_dimmer['haystack'] >
 	>
-	type $mol_dimmer__needle__IAVF8MIO = $mol_type_enforce<
+	type $mol_dimmer__needle__K532K7MC = $mol_type_enforce<
 		ReturnType< $mol_search['query'] >
 		,
 		ReturnType< $mol_dimmer['needle'] >
 	>
+	type $mol_search_plugins__WWANUGI7 = $mol_type_enforce<
+		ReturnType< $mol_pop['plugins'] >[number]
+		,
+		$mol_plugin
+	>
+	type $mol_view__sub__2ITMUO32 = $mol_type_enforce<
+		ReturnType< $mol_search['anchor_content'] >
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $mol_button_minor__click__FB6R03NZ = $mol_type_enforce<
+		ReturnType< $mol_search['suggest_select'] >
+		,
+		ReturnType< $mol_button_minor['click'] >
+	>
+	type $mol_button_minor__sub__A6DCZ5TV = $mol_type_enforce<
+		ReturnType< $mol_search['suggest_content'] >
+		,
+		ReturnType< $mol_button_minor['sub'] >
+	>
 	export class $mol_search extends $mol_pop {
-		query( next?: string ): string
-		suggests( ): readonly(string)[]
-		plugins( ): readonly($mol_plugin)[]
-		showed( next?: ReturnType< $mol_search['suggests_showed'] > ): ReturnType< $mol_search['suggests_showed'] >
-		align_hor( ): string
-		Anchor( ): $mol_view
-		bubble_content( ): readonly($mol_view_content)[]
-		Suggest( id: any): $mol_button_minor
 		clear( next?: any ): any
 		Hotkey( ): $mol_hotkey
 		nav_components( ): readonly($mol_view)[]
@@ -4072,7 +3056,6 @@ declare namespace $ {
 		enter( ): string
 		bring( ): ReturnType< ReturnType< $mol_search['Query'] >['bring'] >
 		Query( ): $mol_string
-		clear( next?: any ): any
 		Clear_icon( ): $mol_icon_cross
 		Clear( ): $mol_button_minor
 		anchor_content( ): readonly(any)[]
@@ -4082,6 +3065,13 @@ declare namespace $ {
 		suggest_label( id: any): string
 		Suggest_label( id: any): $mol_dimmer
 		suggest_content( id: any): readonly($mol_view_content)[]
+		suggests( ): readonly(string)[]
+		plugins( ): readonly($mol_plugin)[]
+		showed( next?: ReturnType< $mol_search['suggests_showed'] > ): ReturnType< $mol_search['suggests_showed'] >
+		align_hor( ): string
+		Anchor( ): $mol_view
+		bubble_content( ): readonly($mol_view_content)[]
+		Suggest( id: any): $mol_button_minor
 	}
 	
 }
@@ -4089,10 +3079,10 @@ declare namespace $ {
 //# sourceMappingURL=search.view.tree.d.ts.map
 declare namespace $.$$ {
     class $mol_search extends $.$mol_search {
-        anchor_content(): ($.$mol_string | $mol_button_minor)[];
+        anchor_content(): ($mol_button_minor | $.$mol_string)[];
         suggests_showed(next?: boolean): boolean;
         suggest_selected(next?: string): void;
-        nav_components(): ($.$mol_string | $mol_button_minor)[];
+        nav_components(): ($mol_button_minor | $.$mol_string)[];
         nav_focused(component?: $mol_view): $mol_view | $.$mol_string | null;
         suggest_label(key: string): string;
         menu_items(): $mol_button_minor[];
@@ -4119,88 +3109,77 @@ declare namespace $ {
 
 declare namespace $ {
 
-	type $mol_button_minor__event_click__J9XGXGWO = $mol_type_enforce<
-		ReturnType< $mol_select['event_select'] >
-		,
-		ReturnType< $mol_button_minor['event_click'] >
-	>
-	type $mol_button_minor__sub__XPGBEJ69 = $mol_type_enforce<
-		ReturnType< $mol_select['option_content'] >
-		,
-		ReturnType< $mol_button_minor['sub'] >
-	>
-	type $mol_view__sub__AM3H5NRU = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_view['sub'] >
-	>
-	type $mol_search__query__671BXCJH = $mol_type_enforce<
-		ReturnType< $mol_select['filter_pattern'] >
-		,
-		ReturnType< $mol_search['query'] >
-	>
-	type $mol_search__hint__JETZ37E4 = $mol_type_enforce<
-		ReturnType< $mol_select['filter_hint'] >
-		,
-		ReturnType< $mol_search['hint'] >
-	>
-	type $mol_search__submit__IYFAQU8D = $mol_type_enforce<
-		ReturnType< $mol_select['submit'] >
-		,
-		ReturnType< $mol_search['submit'] >
-	>
-	type $mol_search__enabled__QCC188JY = $mol_type_enforce<
-		ReturnType< $mol_select['enabled'] >
-		,
-		ReturnType< $mol_search['enabled'] >
-	>
-	type $mol_dimmer__haystack__BEQ5JWNP = $mol_type_enforce<
+	type $mol_dimmer__haystack__K2RVVNPS = $mol_type_enforce<
 		ReturnType< $mol_select['option_label'] >
 		,
 		ReturnType< $mol_dimmer['haystack'] >
 	>
-	type $mol_dimmer__needle__A7HMWBDP = $mol_type_enforce<
+	type $mol_dimmer__needle__GW46AHW8 = $mol_type_enforce<
 		ReturnType< $mol_select['filter_pattern'] >
 		,
 		ReturnType< $mol_dimmer['needle'] >
 	>
-	type $mol_nav__keys_y__TGNJ56LU = $mol_type_enforce<
+	type $mol_nav__keys_y__HR1878SS = $mol_type_enforce<
 		ReturnType< $mol_select['nav_components'] >
 		,
 		ReturnType< $mol_nav['keys_y'] >
 	>
-	type $mol_nav__current_y__JO6BZ4FS = $mol_type_enforce<
+	type $mol_nav__current_y__APYO143T = $mol_type_enforce<
 		ReturnType< $mol_select['option_focused'] >
 		,
 		ReturnType< $mol_nav['current_y'] >
 	>
-	type $mol_nav__cycle__Q0W1GFIX = $mol_type_enforce<
+	type $mol_nav__cycle__4YRVXLU4 = $mol_type_enforce<
 		ReturnType< $mol_select['nav_cycle'] >
 		,
 		ReturnType< $mol_nav['cycle'] >
 	>
-	type $mol_list__rows__JRFUVQJ6 = $mol_type_enforce<
+	type $mol_list__rows__80RS68O0 = $mol_type_enforce<
 		ReturnType< $mol_select['menu_content'] >
 		,
 		ReturnType< $mol_list['rows'] >
 	>
-	type $mol_scroll__sub__76THQ863 = $mol_type_enforce<
+	type $mol_scroll__sub__NCDVD1FT = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_scroll['sub'] >
 	>
+	type $mol_button_minor__event_click__C60ITD6K = $mol_type_enforce<
+		ReturnType< $mol_select['event_select'] >
+		,
+		ReturnType< $mol_button_minor['event_click'] >
+	>
+	type $mol_button_minor__sub__70XQ9Y0H = $mol_type_enforce<
+		ReturnType< $mol_select['option_content'] >
+		,
+		ReturnType< $mol_button_minor['sub'] >
+	>
+	type $mol_view__sub__IM4HX1WD = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $mol_search__query__IOW0TIZH = $mol_type_enforce<
+		ReturnType< $mol_select['filter_pattern'] >
+		,
+		ReturnType< $mol_search['query'] >
+	>
+	type $mol_search__hint__J70XLKF3 = $mol_type_enforce<
+		ReturnType< $mol_select['filter_hint'] >
+		,
+		ReturnType< $mol_search['hint'] >
+	>
+	type $mol_search__submit__AV9FKJ1K = $mol_type_enforce<
+		ReturnType< $mol_select['submit'] >
+		,
+		ReturnType< $mol_search['submit'] >
+	>
+	type $mol_search__enabled__FG069CYH = $mol_type_enforce<
+		ReturnType< $mol_select['enabled'] >
+		,
+		ReturnType< $mol_search['enabled'] >
+	>
 	export class $mol_select extends $mol_pick {
-		dictionary( next?: Record<string, any> ): Record<string, any>
-		options( ): readonly(string)[]
-		value( next?: string ): string
-		option_label_default( ): string
-		Option_row( id: any): $mol_button_minor
-		No_options( ): $mol_view
-		plugins( ): readonly(any)[]
-		hint( ): string
-		bubble_content( ): readonly(any)[]
-		Filter( ): $mol_search
-		Trigger_icon( ): $mol_icon_dots_vertical
 		event_select( id: any, next?: any ): any
 		option_label( id: any): string
 		filter_pattern( next?: string ): string
@@ -4217,6 +3196,17 @@ declare namespace $ {
 		filter_hint( ): string
 		submit( next?: any ): any
 		enabled( ): boolean
+		dictionary( next?: Record<string, any> ): Record<string, any>
+		options( ): readonly(string)[]
+		value( next?: string ): string
+		option_label_default( ): string
+		Option_row( id: any): $mol_button_minor
+		No_options( ): $mol_view
+		plugins( ): readonly(any)[]
+		hint( ): string
+		bubble_content( ): readonly(any)[]
+		Filter( ): $mol_search
+		Trigger_icon( ): $mol_icon_dots_vertical
 	}
 	
 }
@@ -4242,364 +3232,146 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    type $hyoo_sketch_element_nav_action_type = 'open' | 'close' | 'replace' | 'external';
-    type $hyoo_sketch_element_nav_action_data = {
-        type: $hyoo_sketch_element_nav_action_type;
-        source_page: string;
-        target_page: string;
-        target_link: string;
-    };
+    function $mol_hash_string(str: string, seed?: number): number;
 }
 
 declare namespace $ {
 
-	type $mol_view__sub__HJG8OR1O = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_view['sub'] >
-	>
-	type $mol_button_major__title__T5CTOMBY = $mol_type_enforce<
-		string
-		,
-		ReturnType< $mol_button_major['title'] >
-	>
-	type $mol_button_major__click__QGFIEOB3 = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_nav['nav_action_add'] >
-		,
-		ReturnType< $mol_button_major['click'] >
-	>
-	type $hyoo_sketch_option__Control__ZJM3CYG2 = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_nav['Nav_action_add'] >
-		,
-		ReturnType< $hyoo_sketch_option['Control'] >
-	>
-	type $hyoo_sketch_element_nav_action__pages__UIJVI4OW = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_nav['project_pages'] >
-		,
-		ReturnType< $hyoo_sketch_element_nav_action['pages'] >
-	>
-	type $hyoo_sketch_element_nav_action__drop__4IXZ6KVZ = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_nav['nav_action_drop'] >
-		,
-		ReturnType< $hyoo_sketch_element_nav_action['drop'] >
-	>
-	type $hyoo_sketch_element_nav_action__type__RRZIK1ES = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_nav['nav_action_type'] >
-		,
-		ReturnType< $hyoo_sketch_element_nav_action['type'] >
-	>
-	type $hyoo_sketch_element_nav_action__target_page__AUSOKJ8R = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_nav['nav_action_target_page'] >
-		,
-		ReturnType< $hyoo_sketch_element_nav_action['target_page'] >
-	>
-	type $hyoo_sketch_element_nav_action__source_page__FQT6I4W8 = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_nav['nav_action_source_page'] >
-		,
-		ReturnType< $hyoo_sketch_element_nav_action['source_page'] >
-	>
-	type $hyoo_sketch_element_nav_action__link__5WPNC1QL = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_nav['nav_action_target_link'] >
-		,
-		ReturnType< $hyoo_sketch_element_nav_action['link'] >
-	>
-	export class $hyoo_sketch_element_nav extends $hyoo_sketch_element_base {
-		Element( ): $mol_view
-		nav_pages_param( ): string
-		nav_click_handler( ): any
-		nav_actions( ): readonly($hyoo_sketch_element_nav_action_data)[]
-		Options( ): ({ 
-			'nav': ReturnType< $hyoo_sketch_element_nav['nav_options'] >,
-		})  & ReturnType< $hyoo_sketch_element_base['Options'] >
-		nav_action_add( next?: any ): any
-		Nav_action_add( ): $mol_button_major
-		Nav_action_add_option( ): $hyoo_sketch_option
-		project_pages( ): Record<string, any>
-		nav_action_drop( id: any, next?: any ): any
-		nav_action_type( id: any, next?: string ): string
-		nav_action_target_page( id: any, next?: string ): string
-		nav_action_source_page( id: any, next?: string ): string
-		nav_action_target_link( id: any, next?: string ): string
-		Nav_action( id: any): $hyoo_sketch_element_nav_action
-		nav_options( ): readonly(any)[]
-	}
-	
-	type $mol_switch__value__6EWL02QV = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_nav_action['type'] >
-		,
-		ReturnType< $mol_switch['value'] >
-	>
-	type $mol_switch__options__F6GK26N8 = $mol_type_enforce<
-		({ 
-			'open': string,
-			'replace': string,
-			'close': string,
-			'external': string,
-		}) 
-		,
-		ReturnType< $mol_switch['options'] >
-	>
-	type $mol_labeler__title__12CVBIGU = $mol_type_enforce<
-		string
-		,
-		ReturnType< $mol_labeler['title'] >
-	>
-	type $mol_labeler__content__LIITXLTO = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_labeler['content'] >
-	>
-	type $mol_select__align__OO6I46XE = $mol_type_enforce<
-		string
-		,
-		ReturnType< $mol_select['align'] >
-	>
-	type $mol_select__value__RIORPH4Q = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_nav_action['source_page'] >
-		,
-		ReturnType< $mol_select['value'] >
-	>
-	type $mol_select__dictionary__57U2TLKF = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_nav_action['pages'] >
-		,
-		ReturnType< $mol_select['dictionary'] >
-	>
-	type $mol_labeler__title__DCE8YA0E = $mol_type_enforce<
-		string
-		,
-		ReturnType< $mol_labeler['title'] >
-	>
-	type $mol_labeler__content__PX5EYR3Z = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_labeler['content'] >
-	>
-	type $mol_select__align__BH3AKJL9 = $mol_type_enforce<
-		string
-		,
-		ReturnType< $mol_select['align'] >
-	>
-	type $mol_select__value__XFRW70PX = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_nav_action['target_page'] >
-		,
-		ReturnType< $mol_select['value'] >
-	>
-	type $mol_select__dictionary__6Q3FE4X7 = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_nav_action['pages'] >
-		,
-		ReturnType< $mol_select['dictionary'] >
-	>
-	type $mol_labeler__title__8BXJTAJY = $mol_type_enforce<
-		string
-		,
-		ReturnType< $mol_labeler['title'] >
-	>
-	type $mol_labeler__content__W3HDSG61 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_labeler['content'] >
-	>
-	type $mol_string__value__FJTZV29O = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_nav_action['link'] >
-		,
-		ReturnType< $mol_string['value'] >
-	>
-	type $mol_labeler__title__9PUHXZ6J = $mol_type_enforce<
-		string
-		,
-		ReturnType< $mol_labeler['title'] >
-	>
-	type $mol_labeler__content__4YS6QLUN = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_labeler['content'] >
-	>
-	type $mol_button_minor__title__3S939EYF = $mol_type_enforce<
-		string
-		,
-		ReturnType< $mol_button_minor['title'] >
-	>
-	type $mol_button_minor__click__ZIE9F6ZW = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_nav_action['drop'] >
-		,
-		ReturnType< $mol_button_minor['click'] >
-	>
-	export class $hyoo_sketch_element_nav_action extends $mol_list {
-		rows( ): readonly(any)[]
-		type( next?: string ): string
-		Type( ): $mol_switch
-		Type_label( ): $mol_labeler
-		source_page( next?: string ): string
-		pages( ): Record<string, any>
-		Source_page( ): $mol_select
-		Source_page_label( ): $mol_labeler
-		target_page( next?: string ): string
-		Target_page( ): $mol_select
-		Target_page_label( ): $mol_labeler
-		link( next?: string ): string
-		Link( ): $mol_string
-		Link_label( ): $mol_labeler
-		drop( next?: any ): any
-		Drop( ): $mol_button_minor
-	}
-	
-}
-
-//# sourceMappingURL=nav.view.tree.d.ts.map
-declare namespace $.$$ {
-    class $hyoo_sketch_element_nav extends $.$hyoo_sketch_element_nav {
-        project_pages(): any;
-        nav_options(): ($hyoo_sketch_option | $.$hyoo_sketch_element_nav_action)[];
-        nav_actions_node(): $hyoo_crowd_list;
-        nav_actions(next?: $hyoo_sketch_element_nav_action_data[]): $hyoo_sketch_element_nav_action_data[];
-        nav_action_add(): void;
-        nav_action_drop(id: number): void;
-        nav_action_value<Key extends keyof $hyoo_sketch_element_nav_action_data>({ id, key }: {
-            id: number;
-            key: Key;
-        }, next?: string): $hyoo_sketch_element_nav_action_data[Key];
-        nav_action_type(id: number, next?: string): $hyoo_sketch_element_nav_action_type;
-        nav_action_source_page(id: number, next?: string): string;
-        nav_action_target_page(id: number, next?: string): string;
-        nav_action_target_link(id: number, next?: string): string;
-        nav_pages(next?: string[]): string[];
-        nav_page_close(id: string): string[];
-        nav_page_open(id: string): string[];
-        nav_page_replace(source_id: string, target_id: string): string[];
-        nav_click_handler(): void;
-        duplicate(elem: $hyoo_sketch_element): $hyoo_sketch_element;
-    }
-    class $hyoo_sketch_element_nav_action extends $.$hyoo_sketch_element_nav_action {
-        rows(): ($mol_button_minor | $mol_labeler)[];
-    }
-}
-
-declare namespace $.$$ {
-}
-
-declare namespace $ {
-
-	type $hyoo_sketch_element_nav__element__92UWY7LM = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_button['element'] >
-		,
-		ReturnType< $hyoo_sketch_element_nav['element'] >
-	>
-	type $hyoo_sketch_element_button_text__element__RBU32C0V = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_button['element'] >
-		,
-		ReturnType< $hyoo_sketch_element_button_text['element'] >
-	>
-	type $mol_button_major__style__0OB7UATQ = $mol_type_enforce<
-		({ 
-			'width': string,
-		})  & ReturnType< $hyoo_sketch_element_button['text_style'] >
-		,
-		ReturnType< $mol_button_major['style'] >
-	>
-	type $mol_button_major__click__PAOI9CKA = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_button['click'] >
-		,
-		ReturnType< $mol_button_major['click'] >
-	>
-	type $mol_button_major__sub__YHWHDJ19 = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_button['text_sub'] >
-		,
-		ReturnType< $mol_button_major['sub'] >
-	>
-	type $mol_button_minor__style__8HYAPRM4 = $mol_type_enforce<
-		({ 
-			'width': string,
-		})  & ReturnType< $hyoo_sketch_element_button['text_style'] >
-		,
-		ReturnType< $mol_button_minor['style'] >
-	>
-	type $mol_button_minor__click__7VMBD3C7 = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_button['click'] >
-		,
-		ReturnType< $mol_button_minor['click'] >
-	>
-	type $mol_button_minor__sub__QL4JEIKI = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_button['text_sub'] >
-		,
-		ReturnType< $mol_button_minor['sub'] >
-	>
-	type $mol_switch__value__WIRSFDVH = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_button['button_type'] >
-		,
-		ReturnType< $mol_switch['value'] >
-	>
-	type $mol_switch__options__SKK4DY1V = $mol_type_enforce<
-		({ 
-			'major': string,
-			'minor': string,
-		}) 
-		,
-		ReturnType< $mol_switch['options'] >
-	>
-	type $hyoo_sketch_option__name__2HDTPBNV = $mol_type_enforce<
-		string
-		,
-		ReturnType< $hyoo_sketch_option['name'] >
-	>
-	type $hyoo_sketch_option__Control__NHM2YDW2 = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_button['Button_type_control'] >
-		,
-		ReturnType< $hyoo_sketch_option['Control'] >
-	>
-	export class $hyoo_sketch_element_button extends $hyoo_sketch_element_base {
-		Nav( ): $hyoo_sketch_element_nav
-		Text( ): $hyoo_sketch_element_button_text
-		Button_major( ): $mol_button_major
-		Button_minor( ): $mol_button_minor
-		Element( ): $mol_button
-		Options( ): ({ 
-			'button': ReturnType< $hyoo_sketch_element_button['button_options'] >,
-			'text': ReturnType< $hyoo_sketch_element_button['text_options'] >,
-			'nav': ReturnType< $hyoo_sketch_element_button['nav_options'] >,
-		})  & ReturnType< $hyoo_sketch_element_base['Options'] >
-		nav_options( ): ReturnType< ReturnType< $hyoo_sketch_element_button['Nav'] >['nav_options'] >
-		text_options( ): ReturnType< ReturnType< $hyoo_sketch_element_button['Text'] >['text_options'] >
-		text_sub( ): ReturnType< ReturnType< $hyoo_sketch_element_button['Text'] >['text_sub'] >
-		text_style( ): ReturnType< ReturnType< $hyoo_sketch_element_button['Text'] >['style'] >
-		Text_option( ): ReturnType< ReturnType< $hyoo_sketch_element_button['Text'] >['Text_option'] >
-		click( next?: any ): any
-		button_type( next?: string ): string
-		Button_type_control( ): $mol_switch
-		Button_type_option( ): $hyoo_sketch_option
-		button_options( ): readonly(any)[]
-	}
-	
-	export class $hyoo_sketch_element_button_text extends $hyoo_sketch_element_text {
-		text_default( next?: string ): string
-		padding_default( next?: string ): string
-		align_hor_default( next?: string ): string
-		align_ver_default( next?: string ): string
-	}
-	
-}
-
-//# sourceMappingURL=button.view.tree.d.ts.map
-declare namespace $.$$ {
-    class $hyoo_sketch_element_button extends $.$hyoo_sketch_element_button {
-        Element(): $mol_button;
-        button_type(next?: string): string;
-        click(): void;
-        duplicate(elem?: $hyoo_sketch_element): $hyoo_sketch_element;
-    }
-}
-
-declare namespace $ {
-}
-
-declare namespace $ {
-
-	export class $mol_icon_eye extends $mol_icon {
+	export class $mol_avatar extends $mol_icon {
+		view_box( ): string
+		id( ): string
 		path( ): string
 	}
 	
 }
 
-//# sourceMappingURL=eye.view.tree.d.ts.map
+//# sourceMappingURL=avatar.view.tree.d.ts.map
+declare namespace $.$$ {
+    class $mol_avatar extends $.$mol_avatar {
+        path(): string;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+
+	export class $mol_icon_sync extends $mol_icon {
+		path( ): string
+	}
+	
+}
+
+//# sourceMappingURL=sync.view.tree.d.ts.map
+declare namespace $ {
+
+	export class $mol_icon_sync_off extends $mol_icon {
+		path( ): string
+	}
+	
+}
+
+//# sourceMappingURL=off.view.tree.d.ts.map
+declare namespace $.$$ {
+    class $hyoo_sync_online extends $.$hyoo_sync_online {
+        message(): string;
+        link_content(): $mol_icon_sync_off[];
+        hint(): string;
+        master_link(): string;
+        master_id(index: number): string;
+        option_label(index: number): string;
+        value(next?: string): string;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+
+	type $hyoo_sync_online_master_cursor__ZKVJWCAY = $mol_type_enforce<
+		Parameters< $hyoo_sync_online['master_cursor'] >[0]
+		,
+		Parameters< ReturnType< $hyoo_sync_online['yard'] >['master_cursor'] >[0]
+	>
+	type $mol_avatar__id__KN8175M0 = $mol_type_enforce<
+		ReturnType< $hyoo_sync_online['master_id'] >
+		,
+		ReturnType< $mol_avatar['id'] >
+	>
+	type $mol_avatar__id__EA4UBZM5 = $mol_type_enforce<
+		ReturnType< $hyoo_sync_online['master_link'] >
+		,
+		ReturnType< $mol_avatar['id'] >
+	>
+	type $mol_link__uri__5LVH1QNC = $mol_type_enforce<
+		ReturnType< $hyoo_sync_online['master_link'] >
+		,
+		ReturnType< $mol_link['uri'] >
+	>
+	type $mol_link__sub__8NMDLTGB = $mol_type_enforce<
+		ReturnType< $hyoo_sync_online['link_content'] >
+		,
+		ReturnType< $mol_link['sub'] >
+	>
+	type $mol_link__hint__1CUD0EJ1 = $mol_type_enforce<
+		ReturnType< $hyoo_sync_online['message'] >
+		,
+		ReturnType< $mol_link['hint'] >
+	>
+	export class $hyoo_sync_online extends $mol_select {
+		dictionary( ): ReturnType< ReturnType< $hyoo_sync_online['yard'] >['master_list'] >
+		master_cursor( next?: ReturnType< ReturnType< $hyoo_sync_online['yard'] >['master_cursor'] > ): ReturnType< ReturnType< $hyoo_sync_online['yard'] >['master_cursor'] >
+		master_id( id: any): string
+		Option_logo( id: any): $mol_avatar
+		master_link( ): string
+		Well( ): $mol_avatar
+		Fail( ): $mol_icon_sync_off
+		link_content( ): readonly(any)[]
+		hint( ): string
+		message( ): ReturnType< $hyoo_sync_online['hint'] >
+		Link( ): $mol_link
+		minimal_width( ): number
+		minimal_height( ): number
+		yard( ): $hyoo_sync_yard<any>
+		Filter( ): any
+		option_content( id: any): readonly(any)[]
+		trigger_content( ): readonly(any)[]
+	}
+	
+}
+
+//# sourceMappingURL=online.view.tree.d.ts.map
+declare namespace $ {
+
+	export class $mol_icon_script extends $mol_icon {
+		path( ): string
+	}
+	
+}
+
+//# sourceMappingURL=script.view.tree.d.ts.map
+declare namespace $ {
+
+	export class $mol_icon_script_text extends $mol_icon {
+		path( ): string
+	}
+	
+}
+
+//# sourceMappingURL=text.view.tree.d.ts.map
+declare namespace $ {
+
+	export class $mol_link_source extends $mol_link {
+		Icon( ): $mol_icon_script_text
+		hint( ): string
+		sub( ): readonly(any)[]
+	}
+	
+}
+
+//# sourceMappingURL=source.view.tree.d.ts.map
 declare namespace $ {
 }
 
@@ -4613,1563 +3385,32 @@ declare namespace $ {
 //# sourceMappingURL=icon.view.tree.d.ts.map
 declare namespace $ {
 
-	type $mol_string__type__X2JEM8CM = $mol_type_enforce<
-		ReturnType< $mol_password['type'] >
-		,
-		ReturnType< $mol_string['type'] >
-	>
-	type $mol_string__hint__XWB90410 = $mol_type_enforce<
-		ReturnType< $mol_password['hint'] >
-		,
-		ReturnType< $mol_string['hint'] >
-	>
-	type $mol_string__value__UXUYBCMW = $mol_type_enforce<
-		ReturnType< $mol_password['value'] >
-		,
-		ReturnType< $mol_string['value'] >
-	>
-	type $mol_string__submit__UPN2JFQP = $mol_type_enforce<
-		ReturnType< $mol_password['submit'] >
-		,
-		ReturnType< $mol_string['submit'] >
-	>
-	type $mol_string__enabled__5NYODHXA = $mol_type_enforce<
-		ReturnType< $mol_password['enabled'] >
-		,
-		ReturnType< $mol_string['enabled'] >
-	>
-	type $mol_check_icon__checked__BHAM1W26 = $mol_type_enforce<
-		ReturnType< $mol_password['checked'] >
-		,
-		ReturnType< $mol_check_icon['checked'] >
-	>
-	type $mol_check_icon__Icon__LD2FYCQQ = $mol_type_enforce<
-		ReturnType< $mol_password['Show_icon'] >
-		,
-		ReturnType< $mol_check_icon['Icon'] >
-	>
-	export class $mol_password extends $mol_view {
-		type( next?: string ): string
-		sub( ): ReturnType< $mol_password['content'] >
+	export class $mol_icon_brightness_6 extends $mol_icon {
+		path( ): string
+	}
+	
+}
+
+//# sourceMappingURL=6.view.tree.d.ts.map
+declare namespace $ {
+
+	export class $mol_lights_toggle extends $mol_check_icon {
+		Lights_icon( ): $mol_icon_brightness_6
+		lights( next?: boolean ): boolean
+		Icon( ): ReturnType< $mol_lights_toggle['Lights_icon'] >
 		hint( ): string
-		value( next?: string ): string
-		submit( next?: any ): any
-		enabled( ): boolean
-		Pass( ): $mol_string
-		checked( next?: boolean ): boolean
-		Show_icon( ): $mol_icon_eye
-		Show( ): $mol_check_icon
-		content( ): readonly(any)[]
+		checked( next?: ReturnType< $mol_lights_toggle['lights'] > ): ReturnType< $mol_lights_toggle['lights'] >
 	}
 	
 }
 
-//# sourceMappingURL=password.view.tree.d.ts.map
+//# sourceMappingURL=toggle.view.tree.d.ts.map
 declare namespace $.$$ {
-    class $mol_password extends $.$mol_password {
-        checked(next?: boolean): boolean;
+    class $mol_lights_toggle extends $.$mol_lights_toggle {
+        lights(next?: boolean): boolean;
     }
 }
 
-declare namespace $ {
-
-	type $mol_string__hint__EBSWBTTE = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_input['input_hint'] >
-		,
-		ReturnType< $mol_string['hint'] >
-	>
-	type $mol_string__value__CLY7H19T = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_input['input_text'] >
-		,
-		ReturnType< $mol_string['value'] >
-	>
-	type $mol_string__enabled__H82BMCI9 = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_input['input_enabled_bool'] >
-		,
-		ReturnType< $mol_string['enabled'] >
-	>
-	type $mol_number__value__U802YE7M = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_input['input_number'] >
-		,
-		ReturnType< $mol_number['value'] >
-	>
-	type $mol_number__enabled__DQZJ3HL7 = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_input['input_enabled_bool'] >
-		,
-		ReturnType< $mol_number['enabled'] >
-	>
-	type $mol_password__hint__1FI38AHX = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_input['input_hint'] >
-		,
-		ReturnType< $mol_password['hint'] >
-	>
-	type $mol_password__value__XTA497L4 = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_input['input_text'] >
-		,
-		ReturnType< $mol_password['value'] >
-	>
-	type $mol_password__enabled__9W287NN0 = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_input['input_enabled_bool'] >
-		,
-		ReturnType< $mol_password['enabled'] >
-	>
-	type $mol_search__query__GOM3314I = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_input['input_text'] >
-		,
-		ReturnType< $mol_search['query'] >
-	>
-	type $mol_search__enabled__SWN0QAF0 = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_input['input_enabled_bool'] >
-		,
-		ReturnType< $mol_search['enabled'] >
-	>
-	type $mol_switch__value__H8ENF1E6 = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_input['input_type'] >
-		,
-		ReturnType< $mol_switch['value'] >
-	>
-	type $mol_switch__options__RBZ3LG9V = $mol_type_enforce<
-		({ 
-			'String': string,
-			'Number': string,
-			'Password': string,
-			'Search': string,
-		}) 
-		,
-		ReturnType< $mol_switch['options'] >
-	>
-	type $hyoo_sketch_option__name__HK4JCL9R = $mol_type_enforce<
-		string
-		,
-		ReturnType< $hyoo_sketch_option['name'] >
-	>
-	type $hyoo_sketch_option__Control__2CRYCWR6 = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_input['Input_type_control'] >
-		,
-		ReturnType< $hyoo_sketch_option['Control'] >
-	>
-	type $mol_string__value__2XK6K99Q = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_input['input_hint'] >
-		,
-		ReturnType< $mol_string['value'] >
-	>
-	type $hyoo_sketch_option__name__WHYMQSQH = $mol_type_enforce<
-		string
-		,
-		ReturnType< $hyoo_sketch_option['name'] >
-	>
-	type $hyoo_sketch_option__Control__NR0VHFX0 = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_input['Input_hint_control'] >
-		,
-		ReturnType< $hyoo_sketch_option['Control'] >
-	>
-	type $mol_string__value__QG84VWO3 = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_input['input_text'] >
-		,
-		ReturnType< $mol_string['value'] >
-	>
-	type $hyoo_sketch_option__name__6CHQFTF2 = $mol_type_enforce<
-		string
-		,
-		ReturnType< $hyoo_sketch_option['name'] >
-	>
-	type $hyoo_sketch_option__Control__1LX6SBH2 = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_input['Input_text_control'] >
-		,
-		ReturnType< $hyoo_sketch_option['Control'] >
-	>
-	type $mol_switch__value__YT902PE8 = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_input['input_enabled'] >
-		,
-		ReturnType< $mol_switch['value'] >
-	>
-	type $mol_switch__options__9CZW5ADT = $mol_type_enforce<
-		({ 
-			'on': string,
-			'off': string,
-		}) 
-		,
-		ReturnType< $mol_switch['options'] >
-	>
-	type $hyoo_sketch_option__name__3XVCPIOE = $mol_type_enforce<
-		string
-		,
-		ReturnType< $hyoo_sketch_option['name'] >
-	>
-	type $hyoo_sketch_option__Control__5X8T738T = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_input['Input_enabled_control'] >
-		,
-		ReturnType< $hyoo_sketch_option['Control'] >
-	>
-	export class $hyoo_sketch_element_input extends $hyoo_sketch_element_base {
-		String( ): $mol_string
-		Number( ): $mol_number
-		Password( ): $mol_password
-		Search( ): $mol_search
-		Element( ): $mol_view
-		Options( ): ({ 
-			'input': ReturnType< $hyoo_sketch_element_input['input_options'] >,
-		})  & ReturnType< $hyoo_sketch_element_base['Options'] >
-		input_enabled_bool( ): boolean
-		input_number( next?: number ): number
-		input_type( next?: string ): string
-		Input_type_control( ): $mol_switch
-		Input_type_option( ): $hyoo_sketch_option
-		input_hint( next?: string ): string
-		Input_hint_control( ): $mol_string
-		Input_hint_option( ): $hyoo_sketch_option
-		input_text( next?: string ): string
-		Input_text_control( ): $mol_string
-		Input_text_option( ): $hyoo_sketch_option
-		input_enabled( next?: string ): string
-		Input_enabled_control( ): $mol_switch
-		Input_enabled_option( ): $hyoo_sketch_option
-		input_options( ): readonly(any)[]
-	}
-	
-}
-
-//# sourceMappingURL=input.view.tree.d.ts.map
-declare namespace $.$$ {
-    class $hyoo_sketch_element_input extends $.$hyoo_sketch_element_input {
-        Element(): $mol_view;
-        input_number(next?: number): number;
-        input_type(next?: string): string;
-        input_hint(next?: string): string;
-        input_text(next?: string): string;
-        input_enabled(next?: string): string;
-        input_enabled_bool(): boolean;
-        duplicate(elem?: $hyoo_sketch_element): $hyoo_sketch_element;
-    }
-}
-
-declare namespace $ {
-
-	type $hyoo_sketch_element_nav__element__ZTKC8KSP = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_link['element'] >
-		,
-		ReturnType< $hyoo_sketch_element_nav['element'] >
-	>
-	type $hyoo_sketch_element_link_text__element__TU9YUKAM = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_link['element'] >
-		,
-		ReturnType< $hyoo_sketch_element_link_text['element'] >
-	>
-	type $mol_link__style__9WFQWE3D = $mol_type_enforce<
-		Record<string, any> & ReturnType< $hyoo_sketch_element_link['text_style'] >
-		,
-		ReturnType< $mol_link['style'] >
-	>
-	type $mol_link__uri__X9BEUNE2 = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_link['link_uri'] >
-		,
-		ReturnType< $mol_link['uri'] >
-	>
-	type $mol_link__hint__WMBKLKN2 = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_link['link_hint'] >
-		,
-		ReturnType< $mol_link['hint'] >
-	>
-	type $mol_link__sub__0LN9NI7D = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_link['text_sub'] >
-		,
-		ReturnType< $mol_link['sub'] >
-	>
-	type $mol_link__style__4O2SU3JE = $mol_type_enforce<
-		Record<string, any> & ReturnType< $hyoo_sketch_element_link['text_style'] >
-		,
-		ReturnType< $mol_link['style'] >
-	>
-	type $mol_link__arg__DKWJ3K7D = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_link['link_arg'] >
-		,
-		ReturnType< $mol_link['arg'] >
-	>
-	type $mol_link__hint__KC57RDIJ = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_link['link_hint'] >
-		,
-		ReturnType< $mol_link['hint'] >
-	>
-	type $mol_link__sub__IN1TS9BD = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_link['text_sub'] >
-		,
-		ReturnType< $mol_link['sub'] >
-	>
-	type $mol_link__click__1A0KOOEZ = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_link['click'] >
-		,
-		ReturnType< $mol_link['click'] >
-	>
-	type $mol_string__value__N6KZD5WL = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_link['link_hint'] >
-		,
-		ReturnType< $mol_string['value'] >
-	>
-	type $hyoo_sketch_option__name__8L4Z6TEJ = $mol_type_enforce<
-		string
-		,
-		ReturnType< $hyoo_sketch_option['name'] >
-	>
-	type $hyoo_sketch_option__Control__49THJPUO = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_link['Link_hint_control'] >
-		,
-		ReturnType< $hyoo_sketch_option['Control'] >
-	>
-	export class $hyoo_sketch_element_link extends $hyoo_sketch_element_base {
-		Nav( ): $hyoo_sketch_element_nav
-		Text( ): $hyoo_sketch_element_link_text
-		Link_external( ): $mol_link
-		Link_internal( ): $mol_link
-		Element( ): $mol_link
-		Options( ): ({ 
-			'link': ReturnType< $hyoo_sketch_element_link['link_options'] >,
-			'nav': ReturnType< $hyoo_sketch_element_link['nav_options'] >,
-			'text': ReturnType< $hyoo_sketch_element_link['text_options'] >,
-		})  & ReturnType< $hyoo_sketch_element_base['Options'] >
-		nav_options( ): ReturnType< ReturnType< $hyoo_sketch_element_link['Nav'] >['nav_options'] >
-		text_options( ): ReturnType< ReturnType< $hyoo_sketch_element_link['Text'] >['text_options'] >
-		text_sub( ): ReturnType< ReturnType< $hyoo_sketch_element_link['Text'] >['text_sub'] >
-		text_style( ): ReturnType< ReturnType< $hyoo_sketch_element_link['Text'] >['style'] >
-		Text_option( ): ReturnType< ReturnType< $hyoo_sketch_element_link['Text'] >['Text_option'] >
-		link_uri( ): string
-		link_arg( ): Record<string, any>
-		click( next?: any ): any
-		link_hint( next?: string ): string
-		Link_hint_control( ): $mol_string
-		Link_hint_option( ): $hyoo_sketch_option
-		link_options( ): readonly(any)[]
-	}
-	
-	export class $hyoo_sketch_element_link_text extends $hyoo_sketch_element_text {
-		text_default( next?: string ): string
-		padding_default( next?: string ): string
-		align_hor_default( next?: string ): string
-		align_ver_default( next?: string ): string
-	}
-	
-}
-
-//# sourceMappingURL=link.view.tree.d.ts.map
-declare namespace $.$$ {
-    class $hyoo_sketch_element_link extends $.$hyoo_sketch_element_link {
-        Element(): $.$mol_link;
-        click(event: PointerEvent): void;
-        link_hint(next?: string): string;
-        link_uri(): string;
-        duplicate(elem?: $hyoo_sketch_element): $hyoo_sketch_element;
-    }
-}
-
-declare namespace $.$$ {
-}
-
-declare namespace $ {
-
-	type $mol_view__style__S8TQ671C = $mol_type_enforce<
-		({ 
-			'paddingTop': ReturnType< $mol_image2['height'] >,
-			'backgroundImage': ReturnType< $mol_image2['background'] >,
-		}) 
-		,
-		ReturnType< $mol_view['style'] >
-	>
-	export class $mol_image2 extends $mol_view {
-		links( ): readonly(any)[]
-		aspect( ): number
-		sub( ): readonly(any)[]
-		height( ): string
-		background( ): string
-		Content( ): $mol_view
-	}
-	
-}
-
-//# sourceMappingURL=image2.view.tree.d.ts.map
-declare namespace $.$$ {
-    class $mol_image2 extends $.$mol_image2 {
-        background(): string;
-        height(): string;
-    }
-}
-
-declare namespace $ {
-}
-
-declare namespace $ {
-
-	export class $mol_icon_tick extends $mol_icon {
-		path( ): string
-	}
-	
-}
-
-//# sourceMappingURL=tick.view.tree.d.ts.map
-declare namespace $ {
-}
-
-declare namespace $ {
-
-	export class $mol_check_box extends $mol_check {
-		Icon( ): $mol_icon_tick
-	}
-	
-}
-
-//# sourceMappingURL=box.view.tree.d.ts.map
-declare namespace $ {
-
-	type $mol_image2__style__MGTS16W5 = $mol_type_enforce<
-		({ 
-			'borderRadius': ReturnType< $hyoo_sketch_element_image['round'] >,
-		}) 
-		,
-		ReturnType< $mol_image2['style'] >
-	>
-	type $mol_image2__links__Q8ISHB6D = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_image2['links'] >
-	>
-	type $mol_string__value__BB9FZXZR = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_image['image_link'] >
-		,
-		ReturnType< $mol_string['value'] >
-	>
-	type $hyoo_sketch_option__name__P726CGN3 = $mol_type_enforce<
-		string
-		,
-		ReturnType< $hyoo_sketch_option['name'] >
-	>
-	type $hyoo_sketch_option__Control__2BSCGQIH = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_image['Image_link_control'] >
-		,
-		ReturnType< $hyoo_sketch_option['Control'] >
-	>
-	type $mol_check_box__title__FD5MBQ0P = $mol_type_enforce<
-		string
-		,
-		ReturnType< $mol_check_box['title'] >
-	>
-	type $mol_check_box__checked__DWKQJ3LF = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_image['image_round'] >
-		,
-		ReturnType< $mol_check_box['checked'] >
-	>
-	type $hyoo_sketch_option__name__VQ9LGWCZ = $mol_type_enforce<
-		string
-		,
-		ReturnType< $hyoo_sketch_option['name'] >
-	>
-	type $hyoo_sketch_option__Control__3C2X8QA1 = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_image['Image_round_control'] >
-		,
-		ReturnType< $hyoo_sketch_option['Control'] >
-	>
-	export class $hyoo_sketch_element_image extends $hyoo_sketch_element_base {
-		Element( ): $mol_image2
-		Options( ): ({ 
-			'image': ReturnType< $hyoo_sketch_element_image['image_options'] >,
-		})  & ReturnType< $hyoo_sketch_element_base['Options'] >
-		width_default( ): number
-		height_default( ): number
-		round( ): string
-		image_link_default( ): string
-		image_link( next?: ReturnType< $hyoo_sketch_element_image['image_link_default'] > ): ReturnType< $hyoo_sketch_element_image['image_link_default'] >
-		Image_link_control( ): $mol_string
-		Image_link_option( ): $hyoo_sketch_option
-		image_round( next?: boolean ): boolean
-		Image_round_control( ): $mol_check_box
-		Image_round_option( ): $hyoo_sketch_option
-		image_options( ): readonly(any)[]
-	}
-	
-}
-
-//# sourceMappingURL=image.view.tree.d.ts.map
-declare namespace $.$$ {
-    class $hyoo_sketch_element_image extends $.$hyoo_sketch_element_image {
-        image_link(next?: string): string;
-        image_round(next?: boolean): boolean;
-        round(): "50%" | "unset";
-        image_link_placeholder(): string;
-        duplicate(elem: $hyoo_sketch_element): $hyoo_sketch_element;
-    }
-}
-
-declare namespace $ {
-
-	type $mol_button_minor__click__PI35Q1CB = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_options['option_clear'] >
-		,
-		ReturnType< $mol_button_minor['click'] >
-	>
-	type $mol_button_minor__sub__EK37JARO = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_button_minor['sub'] >
-	>
-	type $mol_string__value__RGV3V4AU = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_options['option_row'] >
-		,
-		ReturnType< $mol_string['value'] >
-	>
-	type $mol_view__sub__MPKD9HKP = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_options['row_sub'] >
-		,
-		ReturnType< $mol_view['sub'] >
-	>
-	type $mol_list__rows__3S8F8BWY = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_options['rows'] >
-		,
-		ReturnType< $mol_list['rows'] >
-	>
-	type $hyoo_sketch_option__name__CEOEP6XT = $mol_type_enforce<
-		string
-		,
-		ReturnType< $hyoo_sketch_option['name'] >
-	>
-	type $hyoo_sketch_option__Control__R1HD2H3W = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_options['Option_list_control'] >
-		,
-		ReturnType< $hyoo_sketch_option['Control'] >
-	>
-	type $mol_switch__value__6KJGI10C = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_options['option_current'] >
-		,
-		ReturnType< $mol_switch['value'] >
-	>
-	type $mol_switch__options__ZKGNWIFQ = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_options['option_dict'] >
-		,
-		ReturnType< $mol_switch['options'] >
-	>
-	type $hyoo_sketch_option__name__7N8M3PRT = $mol_type_enforce<
-		string
-		,
-		ReturnType< $hyoo_sketch_option['name'] >
-	>
-	type $hyoo_sketch_option__Control__OQSIDI0M = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_options['Option_current_control'] >
-		,
-		ReturnType< $hyoo_sketch_option['Control'] >
-	>
-	export class $hyoo_sketch_element_options extends $hyoo_sketch_element_base {
-		option_list_default( ): readonly(any)[]
-		option_current( next?: string ): string
-		option_list( ): readonly(string)[]
-		Options( ): ({ 
-			'options': ReturnType< $hyoo_sketch_element_options['options'] >,
-		})  & ReturnType< $hyoo_sketch_element_base['Options'] >
-		option_clear( id: any, next?: any ): any
-		Row_clear_icon( id: any): $mol_icon_cross
-		Row_clear( id: any): $mol_button_minor
-		option_row( id: any, next?: string ): string
-		Row_string( id: any): $mol_string
-		row_sub( id: any): readonly(any)[]
-		Row( id: any): $mol_view
-		rows( ): readonly(any)[]
-		Option_list_control( ): $mol_list
-		Option_list_option( ): $hyoo_sketch_option
-		option_dict( ): Record<string, any>
-		Option_current_control( ): $mol_switch
-		Option_current_option( ): $hyoo_sketch_option
-		options( ): readonly(any)[]
-	}
-	
-}
-
-//# sourceMappingURL=options.view.tree.d.ts.map
-declare namespace $.$$ {
-    class $hyoo_sketch_element_options extends $.$hyoo_sketch_element_options {
-        option_list(next?: string[]): string[];
-        option_current(next?: string): string;
-        option_dict(): any;
-        rows(): $mol_view[];
-        row_sub(index: number): ($.$mol_string | $mol_button_minor)[];
-        option_row(index: number, next?: string): string;
-        option_clear(index: number): void;
-        duplicate(elem: $hyoo_sketch_element): $hyoo_sketch_element;
-    }
-}
-
-declare namespace $.$$ {
-}
-
-declare namespace $ {
-
-	type $mol_button_minor__title__N1VIHXBX = $mol_type_enforce<
-		ReturnType< $mol_select_list['badge_title'] >
-		,
-		ReturnType< $mol_button_minor['title'] >
-	>
-	type $mol_button_minor__click__0F73TQU1 = $mol_type_enforce<
-		ReturnType< $mol_select_list['remove'] >
-		,
-		ReturnType< $mol_button_minor['click'] >
-	>
-	type $mol_button_minor__hint__KJ1BNPQC = $mol_type_enforce<
-		ReturnType< $mol_select_list['badge_hint'] >
-		,
-		ReturnType< $mol_button_minor['hint'] >
-	>
-	type $mol_button_minor__enabled__624MGIL0 = $mol_type_enforce<
-		ReturnType< $mol_select_list['drop_enabled'] >
-		,
-		ReturnType< $mol_button_minor['enabled'] >
-	>
-	type $mol_select_list_sub__9BSDTQ9K = $mol_type_enforce<
-		ReturnType< $mol_select_list['badges_list'] >[number]
-		,
-		$mol_view
-	>
-	type $mol_select_list_filter_pattern__I8VZKOB2 = $mol_type_enforce<
-		Parameters< $mol_select_list['filter_pattern'] >[0]
-		,
-		Parameters< ReturnType< $mol_select_list['Pick'] >['filter_pattern'] >[0]
-	>
-	type $mol_select__event_select__2YY1AJMW = $mol_type_enforce<
-		ReturnType< $mol_select_list['event_select'] >
-		,
-		ReturnType< $mol_select['event_select'] >
-	>
-	type $mol_select__align_hor__TVEPLT3D = $mol_type_enforce<
-		ReturnType< $mol_select_list['align_hor'] >
-		,
-		ReturnType< $mol_select['align_hor'] >
-	>
-	type $mol_select__options__3GVZX97Z = $mol_type_enforce<
-		ReturnType< $mol_select_list['options_pickable'] >
-		,
-		ReturnType< $mol_select['options'] >
-	>
-	type $mol_select__value__03S2ONKQ = $mol_type_enforce<
-		ReturnType< $mol_select_list['pick'] >
-		,
-		ReturnType< $mol_select['value'] >
-	>
-	type $mol_select__option_label__GJGSAN10 = $mol_type_enforce<
-		ReturnType< $mol_select_list['option_title'] >
-		,
-		ReturnType< $mol_select['option_label'] >
-	>
-	type $mol_select__trigger_enabled__Y6R8JBLC = $mol_type_enforce<
-		ReturnType< $mol_select_list['pick_enabled'] >
-		,
-		ReturnType< $mol_select['trigger_enabled'] >
-	>
-	type $mol_select__hint__YL3ZAXK1 = $mol_type_enforce<
-		ReturnType< $mol_select_list['pick_hint'] >
-		,
-		ReturnType< $mol_select['hint'] >
-	>
-	type $mol_select__Trigger_icon__0RLXCY9Z = $mol_type_enforce<
-		ReturnType< $mol_select_list['Pick_icon'] >
-		,
-		ReturnType< $mol_select['Trigger_icon'] >
-	>
-	export class $mol_select_list extends $mol_view {
-		value( next?: readonly(string)[] ): readonly(string)[]
-		dictionary( ): Record<string, any>
-		badges_list( ): ReturnType< $mol_select_list['Badges'] >
-		Badge( id: any): $mol_button_minor
-		sub( ): readonly($mol_view)[]
-		Badges( ): readonly($mol_view)[]
-		badge_title( id: any): string
-		remove( id: any, next?: any ): any
-		badge_hint( ): string
-		enabled( ): boolean
-		drop_enabled( ): ReturnType< $mol_select_list['enabled'] >
-		event_select( id: any, next?: any ): any
-		align_hor( ): string
-		options( ): readonly(string)[]
-		options_pickable( ): ReturnType< $mol_select_list['options'] >
-		pick( next?: string ): string
-		option_title( id: any): string
-		pick_enabled( ): ReturnType< $mol_select_list['enabled'] >
-		pick_hint( ): string
-		filter_pattern( next?: ReturnType< ReturnType< $mol_select_list['Pick'] >['filter_pattern'] > ): ReturnType< ReturnType< $mol_select_list['Pick'] >['filter_pattern'] >
-		Pick_icon( ): $mol_icon_plus
-		Pick( ): $mol_select
-	}
-	
-}
-
-//# sourceMappingURL=list.view.tree.d.ts.map
-declare namespace $.$$ {
-    class $mol_select_list extends $.$mol_select_list {
-        value(val?: readonly string[]): readonly string[];
-        pick(key?: string): string;
-        event_select(id: string, event?: MouseEvent): void;
-        options(): readonly string[];
-        options_pickable(): readonly string[];
-        option_title(key: string): string;
-        badge_title(key: string): string;
-        pick_enabled(): boolean;
-        Badges(): $mol_button_minor[];
-        title(): string;
-        remove(key: string): void;
-    }
-}
-
-declare namespace $.$$ {
-}
-
-declare namespace $ {
-
-	type $hyoo_sketch_element_options__element__UUZYKY2D = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_select['element'] >
-		,
-		ReturnType< $hyoo_sketch_element_options['element'] >
-	>
-	type $mol_select_list__value__V5P9ZGKB = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_select['select_list_value'] >
-		,
-		ReturnType< $mol_select_list['value'] >
-	>
-	type $mol_select_list__dictionary__YINR0RM7 = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_select['option_dict'] >
-		,
-		ReturnType< $mol_select_list['dictionary'] >
-	>
-	type $mol_select__value__7VQACL92 = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_select['select_single_value'] >
-		,
-		ReturnType< $mol_select['value'] >
-	>
-	type $mol_select__options__FEIGH0NG = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_select['option_list'] >
-		,
-		ReturnType< $mol_select['options'] >
-	>
-	type $mol_switch__value__GRSY83GH = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_select['select_type'] >
-		,
-		ReturnType< $mol_switch['value'] >
-	>
-	type $mol_switch__options__WXCBU4OZ = $mol_type_enforce<
-		({ 
-			'Single': string,
-			'List': string,
-		}) 
-		,
-		ReturnType< $mol_switch['options'] >
-	>
-	type $hyoo_sketch_option__name__K4SL9LFD = $mol_type_enforce<
-		string
-		,
-		ReturnType< $hyoo_sketch_option['name'] >
-	>
-	type $hyoo_sketch_option__Control__M8VUO7AR = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_select['Select_type_control'] >
-		,
-		ReturnType< $hyoo_sketch_option['Control'] >
-	>
-	export class $hyoo_sketch_element_select extends $hyoo_sketch_element_base {
-		Option_list( ): $hyoo_sketch_element_options
-		List( ): $mol_select_list
-		Single( ): $mol_select
-		Elemet( ): $mol_view
-		Options( ): ({ 
-			'select': ReturnType< $hyoo_sketch_element_select['select_options'] >,
-		})  & ReturnType< $hyoo_sketch_element_base['Options'] >
-		option_list( ): ReturnType< ReturnType< $hyoo_sketch_element_select['Option_list'] >['option_list'] >
-		option_dict( ): ReturnType< ReturnType< $hyoo_sketch_element_select['Option_list'] >['option_dict'] >
-		options( ): ReturnType< ReturnType< $hyoo_sketch_element_select['Option_list'] >['options'] >
-		select_list_value( next?: readonly(any)[] ): readonly(any)[]
-		select_single_value( next?: string ): string
-		select_type_default( ): string
-		select_type( next?: ReturnType< $hyoo_sketch_element_select['select_type_default'] > ): ReturnType< $hyoo_sketch_element_select['select_type_default'] >
-		Select_type_control( ): $mol_switch
-		Select_type_option( ): $hyoo_sketch_option
-		select_options( ): readonly(any)[]
-	}
-	
-}
-
-//# sourceMappingURL=select.view.tree.d.ts.map
-declare namespace $.$$ {
-    class $hyoo_sketch_element_select extends $.$hyoo_sketch_element_select {
-        Element(): $mol_view;
-        select_type(next?: string): string;
-        duplicate(elem?: $hyoo_sketch_element): $hyoo_sketch_element;
-    }
-}
-
-declare namespace $ {
-
-	type $mol_check_box__title__JGPNCI5K = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_check['check_title'] >
-		,
-		ReturnType< $mol_check_box['title'] >
-	>
-	type $mol_check_box__checked__EJ36ZTPA = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_check['check_checked'] >
-		,
-		ReturnType< $mol_check_box['checked'] >
-	>
-	type $mol_check_icon__Icon__L54RV5QW = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_check['Checked_icon'] >
-		,
-		ReturnType< $mol_check_icon['Icon'] >
-	>
-	type $mol_check_icon__checked__35VHU240 = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_check['check_checked'] >
-		,
-		ReturnType< $mol_check_icon['checked'] >
-	>
-	type $hyoo_sketch_element_icon__element__VC6ZDY18 = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_check['element'] >
-		,
-		ReturnType< $hyoo_sketch_element_icon['element'] >
-	>
-	type $mol_switch__value__3CY2RK1G = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_check['check_type'] >
-		,
-		ReturnType< $mol_switch['value'] >
-	>
-	type $mol_switch__options__KQQ56JMO = $mol_type_enforce<
-		({ 
-			'Check_box': string,
-			'Check_icon': string,
-		}) 
-		,
-		ReturnType< $mol_switch['options'] >
-	>
-	type $hyoo_sketch_option__name__DTS1LIG9 = $mol_type_enforce<
-		string
-		,
-		ReturnType< $hyoo_sketch_option['name'] >
-	>
-	type $hyoo_sketch_option__Control__ZJ4LJQ11 = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_check['Check_type_control'] >
-		,
-		ReturnType< $hyoo_sketch_option['Control'] >
-	>
-	type $mol_check_box__checked__6VH09UGJ = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_check['check_checked'] >
-		,
-		ReturnType< $mol_check_box['checked'] >
-	>
-	type $hyoo_sketch_option__name__2W4ODNA7 = $mol_type_enforce<
-		string
-		,
-		ReturnType< $hyoo_sketch_option['name'] >
-	>
-	type $hyoo_sketch_option__Control__XYIB53ZB = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_check['Check_checked_control'] >
-		,
-		ReturnType< $hyoo_sketch_option['Control'] >
-	>
-	type $mol_string__value__463JSPEN = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_check['check_title'] >
-		,
-		ReturnType< $mol_string['value'] >
-	>
-	type $hyoo_sketch_option__name__0KWIJBPG = $mol_type_enforce<
-		string
-		,
-		ReturnType< $hyoo_sketch_option['name'] >
-	>
-	type $hyoo_sketch_option__Control__1F34HNFT = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_check['Check_title_control'] >
-		,
-		ReturnType< $hyoo_sketch_option['Control'] >
-	>
-	export class $hyoo_sketch_element_check extends $hyoo_sketch_element_base {
-		Check_box( ): $mol_check_box
-		Check_icon( ): $mol_check_icon
-		Element( ): $mol_view
-		Icon( ): $hyoo_sketch_element_icon
-		Options( ): ({ 
-			'check': ReturnType< $hyoo_sketch_element_check['check_options'] >,
-		})  & ReturnType< $hyoo_sketch_element_base['Options'] >
-		width_default( ): number
-		Checked_icon( ): ReturnType< ReturnType< $hyoo_sketch_element_check['Icon'] >['Icon'] >
-		icon_options( ): ReturnType< ReturnType< $hyoo_sketch_element_check['Icon'] >['icon_options'] >
-		check_type_default( ): string
-		check_type( next?: ReturnType< $hyoo_sketch_element_check['check_type_default'] > ): ReturnType< $hyoo_sketch_element_check['check_type_default'] >
-		Check_type_control( ): $mol_switch
-		Check_type_option( ): $hyoo_sketch_option
-		check_checked_default( ): boolean
-		check_checked( next?: ReturnType< $hyoo_sketch_element_check['check_checked_default'] > ): ReturnType< $hyoo_sketch_element_check['check_checked_default'] >
-		Check_checked_control( ): $mol_check_box
-		Check_checked_option( ): $hyoo_sketch_option
-		check_title_default( ): string
-		check_title( next?: ReturnType< $hyoo_sketch_element_check['check_title_default'] > ): ReturnType< $hyoo_sketch_element_check['check_title_default'] >
-		Check_title_control( ): $mol_string
-		Check_title_option( ): $hyoo_sketch_option
-		check_options( ): readonly(any)[]
-	}
-	
-}
-
-//# sourceMappingURL=check.view.tree.d.ts.map
-declare namespace $.$$ {
-    class $hyoo_sketch_element_check extends $.$hyoo_sketch_element_check {
-        Element(): $mol_view;
-        check_type(next?: string): string;
-        check_title(next?: string): string;
-        check_checked(next?: boolean): boolean;
-        duplicate(elem?: $hyoo_sketch_element): $hyoo_sketch_element;
-        check_options(): any[];
-    }
-}
-
-declare namespace $ {
-
-	type $hyoo_sketch_element_options__element__NGMTCUSH = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_switch['element'] >
-		,
-		ReturnType< $hyoo_sketch_element_options['element'] >
-	>
-	type $mol_switch__value__TX28V6WN = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_switch['value'] >
-		,
-		ReturnType< $mol_switch['value'] >
-	>
-	type $mol_switch__options__FK9MDPT4 = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_switch['option_dict'] >
-		,
-		ReturnType< $mol_switch['options'] >
-	>
-	type $hyoo_sketch_element_switch_value__PHV8VVM3 = $mol_type_enforce<
-		Parameters< $hyoo_sketch_element_switch['value'] >[0]
-		,
-		Parameters< ReturnType< $hyoo_sketch_element_switch['Option_list'] >['option_current'] >[0]
-	>
-	export class $hyoo_sketch_element_switch extends $hyoo_sketch_element_base {
-		Option_list( ): $hyoo_sketch_element_options
-		Element( ): $mol_switch
-		Options( ): ({ 
-			'switch': ReturnType< $hyoo_sketch_element_switch['options'] >,
-		})  & ReturnType< $hyoo_sketch_element_base['Options'] >
-		option_dict( ): ReturnType< ReturnType< $hyoo_sketch_element_switch['Option_list'] >['option_dict'] >
-		value( next?: ReturnType< ReturnType< $hyoo_sketch_element_switch['Option_list'] >['option_current'] > ): ReturnType< ReturnType< $hyoo_sketch_element_switch['Option_list'] >['option_current'] >
-		options( ): ReturnType< ReturnType< $hyoo_sketch_element_switch['Option_list'] >['options'] >
-	}
-	
-}
-
-//# sourceMappingURL=switch.view.tree.d.ts.map
-declare namespace $.$$ {
-    class $hyoo_sketch_element_switch extends $.$hyoo_sketch_element_switch {
-        duplicate(elem?: $hyoo_sketch_element): $hyoo_sketch_element;
-    }
-}
-
-declare namespace $ {
-}
-
-declare namespace $ {
-
-	export class $mol_stack extends $mol_view {
-	}
-	
-}
-
-//# sourceMappingURL=stack.view.tree.d.ts.map
-declare namespace $ {
-
-	export class $mol_text_code_token extends $mol_dimmer {
-		attr( ): ({ 
-			'mol_text_code_token_type': ReturnType< $mol_text_code_token['type'] >,
-		})  & ReturnType< $mol_dimmer['attr'] >
-		type( ): string
-	}
-	
-	export class $mol_text_code_token_link extends $mol_text_code_token {
-		dom_name( ): string
-		type( ): string
-		attr( ): ({ 
-			'href': ReturnType< $mol_text_code_token_link['uri'] >,
-			'target': string,
-		})  & ReturnType< $mol_text_code_token['attr'] >
-		uri( ): string
-	}
-	
-}
-
-//# sourceMappingURL=token.view.tree.d.ts.map
-declare namespace $.$$ {
-}
-
-declare namespace $ {
-    class $mol_syntax2<Lexems extends {
-        [name: string]: RegExp;
-    }> {
-        lexems: Lexems;
-        constructor(lexems: Lexems);
-        rules: {
-            regExp: RegExp;
-            name: string;
-            size: number;
-        }[];
-        regexp: RegExp;
-        tokenize(text: string, handle: (name: string, found: string, chunks: string[], offset: number) => void): void;
-        parse(text: string, handlers: {
-            [key in keyof Lexems | '']: (found: string, chunks: string[], offset: number) => void;
-        }): void;
-    }
-}
-
-declare namespace $ {
-    var $mol_syntax2_md_flow: $mol_syntax2<{
-        quote: RegExp;
-        header: RegExp;
-        list: RegExp;
-        code: RegExp;
-        'code-indent': RegExp;
-        table: RegExp;
-        grid: RegExp;
-        cut: RegExp;
-        block: RegExp;
-    }>;
-    var $mol_syntax2_md_line: $mol_syntax2<{
-        strong: RegExp;
-        emphasis: RegExp;
-        code: RegExp;
-        insert: RegExp;
-        delete: RegExp;
-        embed: RegExp;
-        link: RegExp;
-        'image-link': RegExp;
-        'text-link': RegExp;
-        'text-link-http': RegExp;
-    }>;
-    const $mol_syntax2_md_code: $mol_syntax2<{
-        'code-indent': RegExp;
-        'code-docs': RegExp;
-        'code-comment-block': RegExp;
-        'code-link': RegExp;
-        'code-comment-inline': RegExp;
-        'code-string': RegExp;
-        'code-number': RegExp;
-        'code-call': RegExp;
-        'code-sexpr': RegExp;
-        'code-field': RegExp;
-        'code-keyword': RegExp;
-        'code-global': RegExp;
-        'code-word': RegExp;
-        'code-decorator': RegExp;
-        'code-tag': RegExp;
-        'code-punctuation': RegExp;
-    }>;
-}
-
-declare namespace $ {
-
-	type $mol_view__sub__ALTVEJ9H = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_view['sub'] >
-	>
-	type $mol_text_code_token__type__BNBLVHQZ = $mol_type_enforce<
-		ReturnType< $mol_text_code_row['token_type'] >
-		,
-		ReturnType< $mol_text_code_token['type'] >
-	>
-	type $mol_text_code_token__haystack__HK1C2WP0 = $mol_type_enforce<
-		ReturnType< $mol_text_code_row['token_text'] >
-		,
-		ReturnType< $mol_text_code_token['haystack'] >
-	>
-	type $mol_text_code_token__needle__G91ZV5FL = $mol_type_enforce<
-		ReturnType< $mol_text_code_row['highlight'] >
-		,
-		ReturnType< $mol_text_code_token['needle'] >
-	>
-	type $mol_text_code_token_link__haystack__NDQT4TXC = $mol_type_enforce<
-		ReturnType< $mol_text_code_row['token_text'] >
-		,
-		ReturnType< $mol_text_code_token_link['haystack'] >
-	>
-	type $mol_text_code_token_link__needle__F0JWHNZ5 = $mol_type_enforce<
-		ReturnType< $mol_text_code_row['highlight'] >
-		,
-		ReturnType< $mol_text_code_token_link['needle'] >
-	>
-	type $mol_text_code_token_link__uri__Z6GSH0IO = $mol_type_enforce<
-		ReturnType< $mol_text_code_row['token_uri'] >
-		,
-		ReturnType< $mol_text_code_token_link['uri'] >
-	>
-	export class $mol_text_code_row extends $mol_paragraph {
-		text( ): string
-		minimal_height( ): number
-		numb_showed( ): boolean
-		syntax( ): any
-		uri_resolve( id: any): string
-		Numb( ): $mol_view
-		Token( id: any): $mol_text_code_token
-		Token_link( id: any): $mol_text_code_token_link
-		find_pos( id: any): any
-		numb( ): number
-		token_type( id: any): string
-		token_text( id: any): string
-		highlight( ): string
-		token_uri( id: any): string
-	}
-	
-}
-
-//# sourceMappingURL=row.view.tree.d.ts.map
-declare namespace $.$$ {
-    class $mol_text_code_row extends $.$mol_text_code_row {
-        maximal_width(): number;
-        syntax(): $mol_syntax2<{
-            'code-indent': RegExp;
-            'code-docs': RegExp;
-            'code-comment-block': RegExp;
-            'code-link': RegExp;
-            'code-comment-inline': RegExp;
-            'code-string': RegExp;
-            'code-number': RegExp;
-            'code-call': RegExp;
-            'code-sexpr': RegExp;
-            'code-field': RegExp;
-            'code-keyword': RegExp;
-            'code-global': RegExp;
-            'code-word': RegExp;
-            'code-decorator': RegExp;
-            'code-tag': RegExp;
-            'code-punctuation': RegExp;
-        }>;
-        tokens(path: number[]): readonly {
-            name: string;
-            found: string;
-            chunks: string[];
-        }[];
-        sub(): $mol_view[];
-        row_content(path: number[]): $mol_text_code_token[];
-        Token(path: number[]): $mol_text_code_token;
-        token_type(path: number[]): string;
-        token_content(path: number[]): (string | $mol_text_code_token)[];
-        token_text(path: number[]): string;
-        token_uri(path: number[]): string;
-        view_find(check: (path: $mol_view, text?: string) => boolean, path?: $mol_view[]): Generator<$mol_view[]>;
-        find_pos(offset: number): {
-            token: $mol_text_code_token;
-            offset: number;
-        } | null;
-        find_token_pos([offset, ...path]: number[]): {
-            token: $mol_text_code_token;
-            offset: number;
-        } | null;
-    }
-}
-
-declare namespace $.$$ {
-}
-
-declare namespace $ {
-    type $mol_blob = Blob;
-    let $mol_blob: {
-        new (blobParts?: readonly BlobPart[], options?: BlobPropertyBag): Blob;
-        prototype: Blob;
-    };
-}
-
-declare namespace $ {
-
-	export class $mol_icon_clipboard extends $mol_icon {
-		path( ): string
-	}
-	
-}
-
-//# sourceMappingURL=clipboard.view.tree.d.ts.map
-declare namespace $ {
-
-	export class $mol_icon_clipboard_outline extends $mol_icon {
-		path( ): string
-	}
-	
-}
-
-//# sourceMappingURL=outline.view.tree.d.ts.map
-declare namespace $ {
-    function $mol_html_encode(text: string): string;
-}
-
-declare namespace $ {
-
-	type $mol_blob__NF8G0T60 = $mol_type_enforce<
-		[ readonly(BlobPart)[], ({ 
-			'type': string,
-		})  ]
-		,
-		ConstructorParameters< typeof $mol_blob >
-	>
-	type $mol_blob__YBPQESY5 = $mol_type_enforce<
-		[ readonly(BlobPart)[], ({ 
-			'type': string,
-		})  ]
-		,
-		ConstructorParameters< typeof $mol_blob >
-	>
-	export class $mol_button_copy extends $mol_button_minor {
-		blobs( ): readonly($mol_blob)[]
-		data( ): Record<string, any>
-		sub( ): readonly(any)[]
-		text( ): ReturnType< $mol_button_copy['title'] >
-		text_blob( next?: $mol_blob ): $mol_blob
-		html( ): string
-		html_blob( next?: $mol_blob ): $mol_blob
-		Icon( ): $mol_icon_clipboard_outline
-		title( ): string
-	}
-	
-}
-
-//# sourceMappingURL=copy.view.tree.d.ts.map
-declare namespace $.$$ {
-    class $mol_button_copy extends $.$mol_button_copy {
-        data(): {
-            [k: string]: Blob;
-        };
-        html(): string;
-        attachments(): ClipboardItem[];
-        click(event?: Event): void;
-    }
-}
-
-declare namespace $ {
-
-	type $mol_text_code_row__numb_showed__VLTFZJDM = $mol_type_enforce<
-		ReturnType< $mol_text_code['sidebar_showed'] >
-		,
-		ReturnType< $mol_text_code_row['numb_showed'] >
-	>
-	type $mol_text_code_row__numb__E9LZCODD = $mol_type_enforce<
-		ReturnType< $mol_text_code['row_numb'] >
-		,
-		ReturnType< $mol_text_code_row['numb'] >
-	>
-	type $mol_text_code_row__text__QKXJM9TI = $mol_type_enforce<
-		ReturnType< $mol_text_code['row_text'] >
-		,
-		ReturnType< $mol_text_code_row['text'] >
-	>
-	type $mol_text_code_row__syntax__OFW1GA1H = $mol_type_enforce<
-		ReturnType< $mol_text_code['syntax'] >
-		,
-		ReturnType< $mol_text_code_row['syntax'] >
-	>
-	type $mol_text_code_row__uri_resolve__SV7H7NFX = $mol_type_enforce<
-		ReturnType< $mol_text_code['uri_resolve'] >
-		,
-		ReturnType< $mol_text_code_row['uri_resolve'] >
-	>
-	type $mol_text_code_row__highlight__R603ATAP = $mol_type_enforce<
-		ReturnType< $mol_text_code['highlight'] >
-		,
-		ReturnType< $mol_text_code_row['highlight'] >
-	>
-	type $mol_list__render_visible_only__XR4YECD2 = $mol_type_enforce<
-		ReturnType< $mol_text_code['render_visible_only'] >
-		,
-		ReturnType< $mol_list['render_visible_only'] >
-	>
-	type $mol_list__rows__P7I4MIT9 = $mol_type_enforce<
-		ReturnType< $mol_text_code['rows'] >
-		,
-		ReturnType< $mol_list['rows'] >
-	>
-	type $mol_button_copy__hint__HLQ0Z9LS = $mol_type_enforce<
-		string
-		,
-		ReturnType< $mol_button_copy['hint'] >
-	>
-	type $mol_button_copy__text__F0O4N3LP = $mol_type_enforce<
-		ReturnType< $mol_text_code['text_export'] >
-		,
-		ReturnType< $mol_button_copy['text'] >
-	>
-	export class $mol_text_code extends $mol_stack {
-		attr( ): ({ 
-			'mol_text_code_sidebar_showed': ReturnType< $mol_text_code['sidebar_showed'] >,
-		})  & ReturnType< $mol_stack['attr'] >
-		text( ): string
-		text_lines( ): readonly(string)[]
-		find_pos( id: any): any
-		uri_base( ): string
-		sub( ): readonly(any)[]
-		sidebar_showed( ): boolean
-		render_visible_only( ): boolean
-		row_numb( id: any): number
-		row_text( id: any): string
-		syntax( ): any
-		uri_resolve( id: any): string
-		highlight( ): string
-		Row( id: any): $mol_text_code_row
-		rows( ): readonly(any)[]
-		Rows( ): $mol_list
-		text_export( ): string
-		Copy( ): $mol_button_copy
-	}
-	
-}
-
-//# sourceMappingURL=code.view.tree.d.ts.map
-declare namespace $.$$ {
-    class $mol_text_code extends $.$mol_text_code {
-        render_visible_only(): boolean;
-        text_lines(): readonly string[];
-        rows(): $.$mol_text_code_row[];
-        row_text(index: number): string;
-        row_numb(index: number): number;
-        find_pos(offset: number): any;
-        sub(): ($.$mol_list | $.$mol_button_copy)[];
-        syntax(): $mol_syntax2<{
-            'code-indent': RegExp;
-            'code-docs': RegExp;
-            'code-comment-block': RegExp;
-            'code-link': RegExp;
-            'code-comment-inline': RegExp;
-            'code-string': RegExp;
-            'code-number': RegExp;
-            'code-call': RegExp;
-            'code-sexpr': RegExp;
-            'code-field': RegExp;
-            'code-keyword': RegExp;
-            'code-global': RegExp;
-            'code-word': RegExp;
-            'code-decorator': RegExp;
-            'code-tag': RegExp;
-            'code-punctuation': RegExp;
-        }>;
-        uri_base(): string;
-        uri_resolve(uri: string): string;
-        text_export(): string;
-    }
-}
-
-declare namespace $.$$ {
-}
-
-declare namespace $ {
-
-	type $mol_textarea_edit__value__QK0O2I0Y = $mol_type_enforce<
-		ReturnType< $mol_textarea['value'] >
-		,
-		ReturnType< $mol_textarea_edit['value'] >
-	>
-	type $mol_textarea_edit__hint__J6YJABMN = $mol_type_enforce<
-		ReturnType< $mol_textarea['hint'] >
-		,
-		ReturnType< $mol_textarea_edit['hint'] >
-	>
-	type $mol_textarea_edit__enabled__AZ6ZK8S7 = $mol_type_enforce<
-		ReturnType< $mol_textarea['enabled'] >
-		,
-		ReturnType< $mol_textarea_edit['enabled'] >
-	>
-	type $mol_textarea_edit__spellcheck__N2R77RU5 = $mol_type_enforce<
-		ReturnType< $mol_textarea['spellcheck'] >
-		,
-		ReturnType< $mol_textarea_edit['spellcheck'] >
-	>
-	type $mol_textarea_edit__length_max__1G6X9L1D = $mol_type_enforce<
-		ReturnType< $mol_textarea['length_max'] >
-		,
-		ReturnType< $mol_textarea_edit['length_max'] >
-	>
-	type $mol_textarea_edit__selection__IIPRZRQQ = $mol_type_enforce<
-		ReturnType< $mol_textarea['selection'] >
-		,
-		ReturnType< $mol_textarea_edit['selection'] >
-	>
-	type $mol_textarea_edit__submit__7WKOWR9S = $mol_type_enforce<
-		ReturnType< $mol_textarea['submit'] >
-		,
-		ReturnType< $mol_textarea_edit['submit'] >
-	>
-	type $mol_textarea_edit__submit_with_ctrl__Y6TDDIB7 = $mol_type_enforce<
-		ReturnType< $mol_textarea['submit_with_ctrl'] >
-		,
-		ReturnType< $mol_textarea_edit['submit_with_ctrl'] >
-	>
-	type $mol_text_code__text__ZPDDI8XE = $mol_type_enforce<
-		ReturnType< $mol_textarea['value'] >
-		,
-		ReturnType< $mol_text_code['text'] >
-	>
-	type $mol_text_code__render_visible_only__OR5ZLBNZ = $mol_type_enforce<
-		boolean
-		,
-		ReturnType< $mol_text_code['render_visible_only'] >
-	>
-	type $mol_text_code__row_numb__5HDJSLFK = $mol_type_enforce<
-		ReturnType< $mol_textarea['row_numb'] >
-		,
-		ReturnType< $mol_text_code['row_numb'] >
-	>
-	type $mol_text_code__sidebar_showed__LWM0JNUL = $mol_type_enforce<
-		ReturnType< $mol_textarea['sidebar_showed'] >
-		,
-		ReturnType< $mol_text_code['sidebar_showed'] >
-	>
-	type $mol_text_code__highlight__G7J5XDK9 = $mol_type_enforce<
-		ReturnType< $mol_textarea['highlight'] >
-		,
-		ReturnType< $mol_text_code['highlight'] >
-	>
-	export class $mol_textarea extends $mol_stack {
-		attr( ): ({ 
-			'mol_textarea_clickable': ReturnType< $mol_textarea['clickable'] >,
-			'mol_textarea_sidebar_showed': ReturnType< $mol_textarea['sidebar_showed'] >,
-		})  & ReturnType< $mol_stack['attr'] >
-		event( ): ({ 
-			keydown( next?: ReturnType< $mol_textarea['press'] > ): ReturnType< $mol_textarea['press'] >,
-			pointermove( next?: ReturnType< $mol_textarea['hover'] > ): ReturnType< $mol_textarea['hover'] >,
-		}) 
-		sub( ): readonly(any)[]
-		symbols_alt( ): Record<string, string>
-		symbols_alt_ctrl( ): Record<string, string>
-		symbols_alt_shift( ): Record<string, string>
-		clickable( next?: boolean ): boolean
-		sidebar_showed( ): boolean
-		press( next?: any ): any
-		hover( next?: any ): any
-		value( next?: string ): string
-		hint( ): string
-		enabled( ): boolean
-		spellcheck( ): boolean
-		length_max( ): number
-		selection( next?: readonly(number)[] ): readonly(number)[]
-		bring( ): ReturnType< ReturnType< $mol_textarea['Edit'] >['bring'] >
-		submit( next?: any ): any
-		submit_with_ctrl( ): boolean
-		Edit( ): $mol_textarea_edit
-		row_numb( id: any): number
-		highlight( ): string
-		View( ): $mol_text_code
-	}
-	
-	export class $mol_textarea_edit extends $mol_string {
-		dom_name( ): string
-		enter( ): string
-		field( ): ({ 
-			'scrollTop': number,
-		})  & ReturnType< $mol_string['field'] >
-	}
-	
-}
-
-//# sourceMappingURL=textarea.view.tree.d.ts.map
-declare namespace $.$$ {
-    class $mol_textarea extends $.$mol_textarea {
-        indent_inc(): void;
-        indent_dec(): void;
-        symbol_insert(event: KeyboardEvent): void;
-        clickable(next?: boolean): boolean;
-        hover(event: PointerEvent): void;
-        press(event: KeyboardEvent): void;
-        row_numb(index: number): number;
-    }
-}
-
-declare namespace $ {
-}
-
-declare namespace $ {
-    let $hyoo_crowd_tokenizer: RegExp;
-}
-
-declare namespace $ {
-    class $hyoo_crowd_text extends $hyoo_crowd_node {
-        text(next?: string): string;
-        str(next?: string): string;
-        write(next: string, str_from?: number, str_to?: number): this;
-        point_by_offset(offset: number): readonly [$mol_int62_string, number];
-        offset_by_point([self, offset]: [$mol_int62_string, number]): readonly [$mol_int62_string, number];
-        selection(peer: $mol_int62_string, next?: number[]): number[];
-    }
-}
-
-declare namespace $ {
-
-	type $mol_textarea__hint__2EW465QQ = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_textarea['hint'] >
-		,
-		ReturnType< $mol_textarea['hint'] >
-	>
-	type $mol_textarea__value__1H7MX251 = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_textarea['text'] >
-		,
-		ReturnType< $mol_textarea['value'] >
-	>
-	type $mol_textarea__style__1KB8IXTL = $mol_type_enforce<
-		({ 
-			'height': string,
-		}) 
-		,
-		ReturnType< $mol_textarea['style'] >
-	>
-	type $mol_textarea__value__ATPHWOWM = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_textarea['text'] >
-		,
-		ReturnType< $mol_textarea['value'] >
-	>
-	type $hyoo_sketch_option__name__1I7QPHOC = $mol_type_enforce<
-		string
-		,
-		ReturnType< $hyoo_sketch_option['name'] >
-	>
-	type $hyoo_sketch_option__Control__MOVM8G5Q = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_textarea['Text_control'] >
-		,
-		ReturnType< $hyoo_sketch_option['Control'] >
-	>
-	type $mol_string__value__3YKEXRK0 = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_textarea['hint'] >
-		,
-		ReturnType< $mol_string['value'] >
-	>
-	type $hyoo_sketch_option__name__UWFFJRCX = $mol_type_enforce<
-		string
-		,
-		ReturnType< $hyoo_sketch_option['name'] >
-	>
-	type $hyoo_sketch_option__Control__965RICG0 = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_textarea['Hint_control'] >
-		,
-		ReturnType< $hyoo_sketch_option['Control'] >
-	>
-	export class $hyoo_sketch_element_textarea extends $hyoo_sketch_element_base {
-		Element( ): $mol_textarea
-		Options( ): ({ 
-			'textarea': ReturnType< $hyoo_sketch_element_textarea['textarea_options'] >,
-		})  & ReturnType< $hyoo_sketch_element_base['Options'] >
-		text( next?: string ): string
-		Text_control( ): $mol_textarea
-		Text_option( ): $hyoo_sketch_option
-		hint( next?: string ): string
-		Hint_control( ): $mol_string
-		Hint_option( ): $hyoo_sketch_option
-		textarea_options( ): readonly(any)[]
-	}
-	
-}
-
-//# sourceMappingURL=textarea.view.tree.d.ts.map
-declare namespace $.$$ {
-    class $hyoo_sketch_element_textarea extends $.$hyoo_sketch_element_textarea {
-        text(next?: string): string;
-        hint(next?: string): string;
-        duplicate(elem?: $hyoo_sketch_element): $hyoo_sketch_element;
-    }
-}
-
-declare namespace $ {
-
-	export class $mol_icon_calendar extends $mol_icon {
-		path( ): string
-	}
-	
-}
-
-//# sourceMappingURL=calendar.view.tree.d.ts.map
 declare namespace $ {
     class $mol_time_base {
         static patterns: Record<string, (arg: any) => string>;
@@ -6289,6 +3530,3172 @@ declare namespace $ {
 }
 
 declare namespace $ {
+    class $hyoo_sketch_person extends $hyoo_sketch_entity {
+        name(next?: string): string;
+        avatar(next?: string): string;
+        projects_node(): $hyoo_crowd_list;
+        projects(next?: $hyoo_sketch_project[]): $hyoo_sketch_project[];
+        project_add(obj: $hyoo_sketch_project): void;
+        project_delete(obj: $hyoo_sketch_project): void;
+        current(): boolean;
+        online(): boolean;
+        online_time(): $mol_time_moment | null;
+        cursor_position(next?: {
+            x: number;
+            y: number;
+            page: $mol_int62_string | null;
+        }): {
+            x: number;
+            y: number;
+            page: $mol_int62_string | null;
+        } | undefined;
+    }
+}
+
+declare namespace $ {
+    class $hyoo_sketch_element extends $hyoo_sketch_entity {
+        page(next?: $hyoo_sketch_page): $hyoo_sketch_page;
+        name(next?: string): string;
+        type(next?: string): string;
+        duplicate(): $hyoo_sketch_element;
+    }
+}
+
+declare namespace $ {
+
+	export class $mol_icon_television extends $mol_icon {
+		path( ): string
+	}
+	
+}
+
+//# sourceMappingURL=television.view.tree.d.ts.map
+declare namespace $ {
+
+	export class $mol_icon_television_play extends $mol_icon {
+		path( ): string
+	}
+	
+}
+
+//# sourceMappingURL=play.view.tree.d.ts.map
+declare namespace $ {
+
+	export class $mol_icon_play extends $mol_icon {
+		path( ): string
+	}
+	
+}
+
+//# sourceMappingURL=play.view.tree.d.ts.map
+declare namespace $ {
+
+	export class $mol_icon_play_circle extends $mol_icon {
+		path( ): string
+	}
+	
+}
+
+//# sourceMappingURL=circle.view.tree.d.ts.map
+declare namespace $ {
+}
+
+declare namespace $ {
+
+	export class $mol_row extends $mol_view {
+	}
+	
+}
+
+//# sourceMappingURL=row.view.tree.d.ts.map
+declare namespace $ {
+
+	type $mol_view__sub__PPZHNU8U = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	export class $hyoo_sketch_option extends $mol_row {
+		name( ): string
+		Name( ): $mol_view
+		Control( ): $mol_view
+		sub( ): readonly(any)[]
+	}
+	
+}
+
+//# sourceMappingURL=option.view.tree.d.ts.map
+declare namespace $.$$ {
+}
+
+declare namespace $ {
+
+	export class $mol_icon_minus extends $mol_icon {
+		path( ): string
+	}
+	
+}
+
+//# sourceMappingURL=minus.view.tree.d.ts.map
+declare namespace $ {
+}
+
+declare namespace $ {
+
+	type $mol_string__type__FLPDFD5F = $mol_type_enforce<
+		ReturnType< $mol_number['type'] >
+		,
+		ReturnType< $mol_string['type'] >
+	>
+	type $mol_string__value__FSI3XFD4 = $mol_type_enforce<
+		ReturnType< $mol_number['value_string'] >
+		,
+		ReturnType< $mol_string['value'] >
+	>
+	type $mol_string__hint__NCWGPPOO = $mol_type_enforce<
+		ReturnType< $mol_number['hint'] >
+		,
+		ReturnType< $mol_string['hint'] >
+	>
+	type $mol_string__enabled__MCJ59HYT = $mol_type_enforce<
+		ReturnType< $mol_number['string_enabled'] >
+		,
+		ReturnType< $mol_string['enabled'] >
+	>
+	type $mol_string__submit__HSJIR4ZB = $mol_type_enforce<
+		ReturnType< $mol_number['submit'] >
+		,
+		ReturnType< $mol_string['submit'] >
+	>
+	type $mol_button_minor__event_click__5YPJSZG4 = $mol_type_enforce<
+		ReturnType< $mol_number['event_dec'] >
+		,
+		ReturnType< $mol_button_minor['event_click'] >
+	>
+	type $mol_button_minor__enabled__MZCUD41W = $mol_type_enforce<
+		ReturnType< $mol_number['dec_enabled'] >
+		,
+		ReturnType< $mol_button_minor['enabled'] >
+	>
+	type $mol_button_minor__sub__CJFLU37M = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_button_minor['sub'] >
+	>
+	type $mol_button_minor__event_click__8TLLLK3A = $mol_type_enforce<
+		ReturnType< $mol_number['event_inc'] >
+		,
+		ReturnType< $mol_button_minor['event_click'] >
+	>
+	type $mol_button_minor__enabled__AZ4GZVV7 = $mol_type_enforce<
+		ReturnType< $mol_number['inc_enabled'] >
+		,
+		ReturnType< $mol_button_minor['enabled'] >
+	>
+	type $mol_button_minor__sub__LZKZ9I9X = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_button_minor['sub'] >
+	>
+	export class $mol_number extends $mol_view {
+		precision( ): number
+		type( ): string
+		value_string( next?: string ): string
+		hint( ): string
+		string_enabled( ): ReturnType< $mol_number['enabled'] >
+		submit( next?: any ): any
+		String( ): $mol_string
+		event_dec( next?: any ): any
+		dec_enabled( ): ReturnType< $mol_number['enabled'] >
+		dec_icon( ): $mol_icon_minus
+		Dec( ): $mol_button_minor
+		event_inc( next?: any ): any
+		inc_enabled( ): ReturnType< $mol_number['enabled'] >
+		inc_icon( ): $mol_icon_plus
+		Inc( ): $mol_button_minor
+		precision_view( ): ReturnType< $mol_number['precision'] >
+		precision_change( ): ReturnType< $mol_number['precision'] >
+		value_min( ): number
+		value_max( ): number
+		value( next?: number ): number
+		enabled( ): boolean
+		sub( ): readonly(any)[]
+	}
+	
+}
+
+//# sourceMappingURL=number.view.tree.d.ts.map
+declare namespace $.$$ {
+    class $mol_number extends $.$mol_number {
+        value_limited(next?: any): number;
+        event_dec(next?: Event): void;
+        event_inc(next?: Event): void;
+        value_string(next?: string): string;
+        dec_enabled(): boolean;
+        inc_enabled(): boolean;
+    }
+}
+
+declare namespace $ {
+
+	type $mol_check__checked__1TK7083T = $mol_type_enforce<
+		ReturnType< $mol_check_list['option_checked'] >
+		,
+		ReturnType< $mol_check['checked'] >
+	>
+	type $mol_check__label__9PQEZDOH = $mol_type_enforce<
+		ReturnType< $mol_check_list['option_label'] >
+		,
+		ReturnType< $mol_check['label'] >
+	>
+	type $mol_check__enabled__7E7N87Q9 = $mol_type_enforce<
+		ReturnType< $mol_check_list['option_enabled'] >
+		,
+		ReturnType< $mol_check['enabled'] >
+	>
+	type $mol_check__hint__5M6DE8FE = $mol_type_enforce<
+		ReturnType< $mol_check_list['option_hint'] >
+		,
+		ReturnType< $mol_check['hint'] >
+	>
+	type $mol_check__minimal_height__JAF9S32T = $mol_type_enforce<
+		number
+		,
+		ReturnType< $mol_check['minimal_height'] >
+	>
+	export class $mol_check_list extends $mol_view {
+		option_checked( id: any, next?: boolean ): boolean
+		option_title( id: any): string
+		option_label( id: any): readonly(any)[]
+		enabled( ): boolean
+		option_enabled( id: any): ReturnType< $mol_check_list['enabled'] >
+		option_hint( id: any): string
+		items( ): readonly($mol_check)[]
+		dictionary( ): Record<string, any>
+		Option( id: any): $mol_check
+		options( ): Record<string, any>
+		keys( ): readonly(string)[]
+		sub( ): ReturnType< $mol_check_list['items'] >
+	}
+	
+}
+
+//# sourceMappingURL=list.view.tree.d.ts.map
+declare namespace $.$$ {
+    class $mol_check_list extends $.$mol_check_list {
+        options(): {
+            [key: string]: string;
+        };
+        dictionary(next?: Record<string, boolean>): Record<string, boolean>;
+        option_checked(id: string, next?: boolean | null): boolean;
+        keys(): readonly string[];
+        items(): $.$mol_check[];
+        option_title(key: string): string;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+    class $mol_state_session<Value> extends $mol_object {
+        static 'native()': Pick<Storage, 'getItem' | 'setItem' | 'removeItem'>;
+        static native(): Storage | {
+            getItem(key: string): any;
+            setItem(key: string, value: string): void;
+            removeItem(key: string): void;
+        };
+        static value<Value>(key: string, next?: Value): Value;
+        prefix(): string;
+        value(key: string, next?: Value): Value;
+    }
+}
+
+declare namespace $ {
+
+	export class $mol_switch extends $mol_check_list {
+		value( next?: string ): string
+	}
+	
+}
+
+//# sourceMappingURL=switch.view.tree.d.ts.map
+declare namespace $.$$ {
+    class $mol_switch extends $.$mol_switch {
+        value(next?: string): string;
+        option_checked(key: string, next?: boolean): boolean;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+
+	export class $mol_button_major extends $mol_button_typed {
+		attr( ): ({ 
+			'mol_theme': string,
+		})  & ReturnType< $mol_button_typed['attr'] >
+	}
+	
+}
+
+//# sourceMappingURL=major.view.tree.d.ts.map
+declare namespace $ {
+
+	type $mol_avatar__id__IL2WNKTB = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_person_avatar['id'] >
+		,
+		ReturnType< $mol_avatar['id'] >
+	>
+	type $mol_paragraph__title__WMVP5YFX = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_person_avatar['name'] >
+		,
+		ReturnType< $mol_paragraph['title'] >
+	>
+	type $mol_speck__value__7CZELPGL = $mol_type_enforce<
+		string
+		,
+		ReturnType< $mol_speck['value'] >
+	>
+	export class $hyoo_sketch_person_avatar extends $mol_view {
+		id( ): ReturnType< ReturnType< $hyoo_sketch_person_avatar['person'] >['id'] >
+		name( ): ReturnType< ReturnType< $hyoo_sketch_person_avatar['person'] >['name'] >
+		online( ): ReturnType< ReturnType< $hyoo_sketch_person_avatar['person'] >['online'] >
+		Avatar( ): $mol_avatar
+		Name( ): $mol_paragraph
+		Online( ): $mol_speck
+		person( ): $hyoo_sketch_person
+		sub( ): readonly(any)[]
+	}
+	
+}
+
+//# sourceMappingURL=avatar.view.tree.d.ts.map
+declare namespace $.$$ {
+    class $hyoo_sketch_person_avatar extends $.$hyoo_sketch_person_avatar {
+        name_content(): (string | $mol_speck)[];
+    }
+}
+
+declare namespace $.$$ {
+}
+
+declare namespace $ {
+
+	export class $mol_icon_cursor_default extends $mol_icon {
+		path( ): string
+	}
+	
+}
+
+//# sourceMappingURL=default.view.tree.d.ts.map
+declare namespace $ {
+
+	export class $hyoo_sketch_person_cursor extends $hyoo_sketch_person_avatar {
+		Cursor( ): $mol_icon_cursor_default
+		sub( ): readonly(any)[]
+	}
+	
+}
+
+//# sourceMappingURL=cursor.view.tree.d.ts.map
+declare namespace $.$$ {
+    class $hyoo_sketch_person_cursor extends $.$hyoo_sketch_person_cursor {
+        position_set(): void;
+        auto(): void;
+    }
+}
+
+declare namespace $.$$ {
+}
+
+declare namespace $ {
+
+	type $mol_view__sub__0DPJRVUW = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_editor_paper['content'] >
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $hyoo_sketch_person_cursor__person__TA7Z21ZD = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_editor_paper['person'] >
+		,
+		ReturnType< $hyoo_sketch_person_cursor['person'] >
+	>
+	type $mol_view__sub__EM39CCS3 = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_editor_paper['cursors'] >
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	export class $hyoo_sketch_editor_paper extends $mol_view {
+		pointer_down( next?: any ): any
+		pointer_enter( next?: any ): any
+		width( ): number
+		height( ): number
+		background_size( ): string
+		preview( ): boolean
+		selected( next?: boolean ): boolean
+		content( ): readonly(any)[]
+		Content( ): $mol_view
+		person( id: any): $hyoo_sketch_person
+		Cursor( id: any): $hyoo_sketch_person_cursor
+		cursors( ): readonly(any)[]
+		Cursors( ): $mol_view
+		page( ): $hyoo_sketch_page
+		grid( ): number
+		event( ): ({ 
+			pointerdown( next?: ReturnType< $hyoo_sketch_editor_paper['pointer_down'] > ): ReturnType< $hyoo_sketch_editor_paper['pointer_down'] >,
+			pointerenter( next?: ReturnType< $hyoo_sketch_editor_paper['pointer_enter'] > ): ReturnType< $hyoo_sketch_editor_paper['pointer_enter'] >,
+		})  & ReturnType< $mol_view['event'] >
+		style( ): ({ 
+			'width': ReturnType< $hyoo_sketch_editor_paper['width'] >,
+			'height': ReturnType< $hyoo_sketch_editor_paper['height'] >,
+			'backgroundSize': ReturnType< $hyoo_sketch_editor_paper['background_size'] >,
+		})  & ReturnType< $mol_view['style'] >
+		attr( ): ({ 
+			'hyoo_sketch_editor_paper_preview': ReturnType< $hyoo_sketch_editor_paper['preview'] >,
+			'hyoo_sketch_editor_paper_focused': ReturnType< $hyoo_sketch_editor_paper['selected'] >,
+		})  & ReturnType< $mol_view['attr'] >
+		sub( ): readonly(any)[]
+	}
+	
+}
+
+//# sourceMappingURL=paper.view.tree.d.ts.map
+declare namespace $.$$ {
+    class $hyoo_sketch_editor_paper extends $.$hyoo_sketch_editor_paper {
+        person(id: $mol_int62_string): $hyoo_sketch_person;
+        background_size(): string;
+        pointer_down(): void;
+        pointer_enter(e: PointerEvent): void;
+        cursor_sync(x: number, y: number, page: $mol_int62_string | null): void;
+        cursors(): $.$hyoo_sketch_person_cursor[];
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $.$$ {
+}
+
+declare namespace $ {
+
+	export class $mol_icon_resize extends $mol_icon {
+		path( ): string
+	}
+	
+}
+
+//# sourceMappingURL=resize.view.tree.d.ts.map
+declare namespace $ {
+
+	export class $mol_icon_resize_bottom_right extends $mol_icon {
+		path( ): string
+	}
+	
+}
+
+//# sourceMappingURL=right.view.tree.d.ts.map
+declare namespace $ {
+
+	type $mol_view__sub__289OWANV = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $mol_view__event__9Q79SROR = $mol_type_enforce<
+		({ 
+			pointerdown( next?: ReturnType< $hyoo_sketch_element_base['resize_start'] > ): ReturnType< $hyoo_sketch_element_base['resize_start'] >,
+		}) 
+		,
+		ReturnType< $mol_view['event'] >
+	>
+	type $mol_view__sub__EFDHMARW = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $mol_number__value__IMO39MCY = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_base['width'] >
+		,
+		ReturnType< $mol_number['value'] >
+	>
+	type $hyoo_sketch_option__name__NKGLH22K = $mol_type_enforce<
+		string
+		,
+		ReturnType< $hyoo_sketch_option['name'] >
+	>
+	type $hyoo_sketch_option__Control__O81GSREV = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_base['Width_control'] >
+		,
+		ReturnType< $hyoo_sketch_option['Control'] >
+	>
+	type $mol_number__value__UQ7MCELA = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_base['height'] >
+		,
+		ReturnType< $mol_number['value'] >
+	>
+	type $hyoo_sketch_option__name__FYQM49GV = $mol_type_enforce<
+		string
+		,
+		ReturnType< $hyoo_sketch_option['name'] >
+	>
+	type $hyoo_sketch_option__Control__6NCKRM4W = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_base['Height_control'] >
+		,
+		ReturnType< $hyoo_sketch_option['Control'] >
+	>
+	type $mol_number__value__XE1TT8JD = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_base['left'] >
+		,
+		ReturnType< $mol_number['value'] >
+	>
+	type $hyoo_sketch_option__name__HQ2MU4EV = $mol_type_enforce<
+		string
+		,
+		ReturnType< $hyoo_sketch_option['name'] >
+	>
+	type $hyoo_sketch_option__Control__4RY62YTR = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_base['Left_control'] >
+		,
+		ReturnType< $hyoo_sketch_option['Control'] >
+	>
+	type $mol_number__value__3TLO6UWT = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_base['top'] >
+		,
+		ReturnType< $mol_number['value'] >
+	>
+	type $hyoo_sketch_option__name__KEL8AZ47 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $hyoo_sketch_option['name'] >
+	>
+	type $hyoo_sketch_option__Control__7RF9E0UA = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_base['Top_control'] >
+		,
+		ReturnType< $hyoo_sketch_option['Control'] >
+	>
+	type $mol_number__value__PRY20O4L = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_base['order'] >
+		,
+		ReturnType< $mol_number['value'] >
+	>
+	type $hyoo_sketch_option__name__M4C490U3 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $hyoo_sketch_option['name'] >
+	>
+	type $hyoo_sketch_option__Control__B01VZZA1 = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_base['Order_control'] >
+		,
+		ReturnType< $hyoo_sketch_option['Control'] >
+	>
+	type $mol_view__style__SWO8ELPF = $mol_type_enforce<
+		Record<string, any> & ReturnType< $hyoo_sketch_element_base['position'] >
+		,
+		ReturnType< $mol_view['style'] >
+	>
+	type $mol_view__sub__O8E1FNDS = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $hyoo_sketch_element_base_editor__duplicate__S3YU5GNR = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_base['duplicate_event'] >
+		,
+		ReturnType< $hyoo_sketch_element_base_editor['duplicate'] >
+	>
+	type $hyoo_sketch_element_base_editor__copy__50YPRYYY = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_base['copy'] >
+		,
+		ReturnType< $hyoo_sketch_element_base_editor['copy'] >
+	>
+	type $hyoo_sketch_element_base_editor__paste__7ZKYC7KY = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_base['paste'] >
+		,
+		ReturnType< $hyoo_sketch_element_base_editor['paste'] >
+	>
+	type $hyoo_sketch_element_base_editor__delete__2PYS7FG6 = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_base['delete'] >
+		,
+		ReturnType< $hyoo_sketch_element_base_editor['delete'] >
+	>
+	type $hyoo_sketch_element_base_editor__move_up__KP0FQZO9 = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_base['move_up'] >
+		,
+		ReturnType< $hyoo_sketch_element_base_editor['move_up'] >
+	>
+	type $hyoo_sketch_element_base_editor__move_down__H12XR4PR = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_base['move_down'] >
+		,
+		ReturnType< $hyoo_sketch_element_base_editor['move_down'] >
+	>
+	type $hyoo_sketch_element_base_editor__move_left__LK2Z41IC = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_base['move_left'] >
+		,
+		ReturnType< $hyoo_sketch_element_base_editor['move_left'] >
+	>
+	type $hyoo_sketch_element_base_editor__move_right__D3AXLTH2 = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_base['move_right'] >
+		,
+		ReturnType< $hyoo_sketch_element_base_editor['move_right'] >
+	>
+	type $hyoo_sketch_element_base_editor__event__9N2DIS7R = $mol_type_enforce<
+		({ 
+			pointerdown( next?: ReturnType< $hyoo_sketch_element_base['pointer_down'] > ): ReturnType< $hyoo_sketch_element_base['pointer_down'] >,
+		}) 
+		,
+		ReturnType< $hyoo_sketch_element_base_editor['event'] >
+	>
+	type $hyoo_sketch_element_base_editor__style__HL3TB2K4 = $mol_type_enforce<
+		Record<string, any> & ReturnType< $hyoo_sketch_element_base['position'] >
+		,
+		ReturnType< $hyoo_sketch_element_base_editor['style'] >
+	>
+	type $hyoo_sketch_element_base_editor__selected__8Y7QLFUP = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_base['selected'] >
+		,
+		ReturnType< $hyoo_sketch_element_base_editor['selected'] >
+	>
+	type $hyoo_sketch_element_base_editor__editing__VDE7SI7I = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_base['editing'] >
+		,
+		ReturnType< $hyoo_sketch_element_base_editor['editing'] >
+	>
+	type $hyoo_sketch_element_base_editor__sub__7VE6TA8S = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $hyoo_sketch_element_base_editor['sub'] >
+	>
+	export class $hyoo_sketch_element_base extends $mol_view {
+		domain( ): ReturnType< ReturnType< $hyoo_sketch_element_base['element'] >['domain'] >
+		page( ): ReturnType< ReturnType< $hyoo_sketch_element_base['element'] >['page'] >
+		state( ): ReturnType< ReturnType< $hyoo_sketch_element_base['element'] >['state'] >
+		order_default( ): number
+		width_default( ): number
+		width( next?: ReturnType< $hyoo_sketch_element_base['width_default'] > ): ReturnType< $hyoo_sketch_element_base['width_default'] >
+		height_default( ): number
+		height( next?: ReturnType< $hyoo_sketch_element_base['height_default'] > ): ReturnType< $hyoo_sketch_element_base['height_default'] >
+		left_default( ): number
+		left( next?: ReturnType< $hyoo_sketch_element_base['left_default'] > ): ReturnType< $hyoo_sketch_element_base['left_default'] >
+		top_default( ): number
+		top( next?: ReturnType< $hyoo_sketch_element_base['top_default'] > ): ReturnType< $hyoo_sketch_element_base['top_default'] >
+		order_string( next?: string ): string
+		Element( ): $mol_view
+		duplicate_event( next?: any ): any
+		copy( next?: any ): any
+		paste( next?: any ): any
+		delete( next?: any ): any
+		move_up( next?: any ): any
+		move_down( next?: any ): any
+		move_left( next?: any ): any
+		move_right( next?: any ): any
+		pointer_down( next?: any ): any
+		selected( next?: boolean ): boolean
+		editing( ): boolean
+		Element_wrap( ): $mol_view
+		resize_start( next?: any ): any
+		Resize_icon( ): $mol_icon_resize_bottom_right
+		Resize( ): $mol_view
+		Width_control( ): $mol_number
+		Option_width( ): $hyoo_sketch_option
+		Height_control( ): $mol_number
+		Option_height( ): $hyoo_sketch_option
+		Left_control( ): $mol_number
+		Option_left( ): $hyoo_sketch_option
+		Top_control( ): $mol_number
+		Option_top( ): $hyoo_sketch_option
+		Order_control( ): $mol_number
+		Option_order( ): $hyoo_sketch_option
+		Position_options( ): readonly(any)[]
+		element( ): $hyoo_sketch_element
+		order( next?: ReturnType< $hyoo_sketch_element_base['order_default'] > ): ReturnType< $hyoo_sketch_element_base['order_default'] >
+		grid( next?: number ): number
+		position( ): ({ 
+			'width': ReturnType< $hyoo_sketch_element_base['width'] >,
+			'height': ReturnType< $hyoo_sketch_element_base['height'] >,
+			'left': ReturnType< $hyoo_sketch_element_base['left'] >,
+			'top': ReturnType< $hyoo_sketch_element_base['top'] >,
+			'zIndex': ReturnType< $hyoo_sketch_element_base['order_string'] >,
+		}) 
+		Preview( ): $mol_view
+		duplicate( next?: $hyoo_sketch_element ): $hyoo_sketch_element
+		Editor( ): $hyoo_sketch_element_base_editor
+		Options( ): ({ 
+			'position': ReturnType< $hyoo_sketch_element_base['Position_options'] >,
+		}) 
+		duplicate_top_shift( ): boolean
+	}
+	
+	type $mol_hotkey__key__6WD3LZKR = $mol_type_enforce<
+		({ 
+			D( next?: ReturnType< $hyoo_sketch_element_base_editor['duplicate'] > ): ReturnType< $hyoo_sketch_element_base_editor['duplicate'] >,
+			C( next?: ReturnType< $hyoo_sketch_element_base_editor['copy'] > ): ReturnType< $hyoo_sketch_element_base_editor['copy'] >,
+			V( next?: ReturnType< $hyoo_sketch_element_base_editor['paste'] > ): ReturnType< $hyoo_sketch_element_base_editor['paste'] >,
+			delete( next?: ReturnType< $hyoo_sketch_element_base_editor['delete'] > ): ReturnType< $hyoo_sketch_element_base_editor['delete'] >,
+			backspace( next?: ReturnType< $hyoo_sketch_element_base_editor['delete'] > ): ReturnType< $hyoo_sketch_element_base_editor['delete'] >,
+			left( next?: ReturnType< $hyoo_sketch_element_base_editor['move_left'] > ): ReturnType< $hyoo_sketch_element_base_editor['move_left'] >,
+			up( next?: ReturnType< $hyoo_sketch_element_base_editor['move_up'] > ): ReturnType< $hyoo_sketch_element_base_editor['move_up'] >,
+			right( next?: ReturnType< $hyoo_sketch_element_base_editor['move_right'] > ): ReturnType< $hyoo_sketch_element_base_editor['move_right'] >,
+			down( next?: ReturnType< $hyoo_sketch_element_base_editor['move_down'] > ): ReturnType< $hyoo_sketch_element_base_editor['move_down'] >,
+		}) 
+		,
+		ReturnType< $mol_hotkey['key'] >
+	>
+	export class $hyoo_sketch_element_base_editor extends $mol_view {
+		selected( next?: boolean ): boolean
+		editing( ): boolean
+		duplicate( next?: any ): any
+		copy( next?: any ): any
+		paste( next?: any ): any
+		delete( next?: any ): any
+		move_left( next?: any ): any
+		move_up( next?: any ): any
+		move_right( next?: any ): any
+		move_down( next?: any ): any
+		Hotkey( ): $mol_hotkey
+		attr( ): ({ 
+			'hyoo_sketch_element_base_selected': ReturnType< $hyoo_sketch_element_base_editor['selected'] >,
+			'hyoo_sketch_element_base_editing': ReturnType< $hyoo_sketch_element_base_editor['editing'] >,
+			'tabindex': string,
+		})  & ReturnType< $mol_view['attr'] >
+		plugins( ): readonly(any)[]
+	}
+	
+}
+
+//# sourceMappingURL=base.view.tree.d.ts.map
+declare namespace $.$$ {
+    class $hyoo_sketch_element_base extends $.$hyoo_sketch_element_base {
+        switch(): $mol_view[] | $hyoo_sketch_element_base_editor[];
+        grid_near(value: number): number;
+        pointer_down(event: PointerEvent): void;
+        resize_start(event: PointerEvent): void;
+        width(next?: number): number;
+        height(next?: number): number;
+        top(next?: number): number;
+        left(next?: number): number;
+        order(next?: number): number;
+        order_string(): string;
+        duplicate(elem?: $hyoo_sketch_element): $hyoo_sketch_element;
+        duplicate_event(): void;
+        copy(): void;
+        paste(): void;
+        delete(event: KeyboardEvent): void;
+        move_up(event: KeyboardEvent): void;
+        move_down(event: KeyboardEvent): void;
+        move_left(event: KeyboardEvent): void;
+        move_right(event: KeyboardEvent): void;
+    }
+}
+
+declare namespace $.$$ {
+}
+
+declare namespace $ {
+
+	export class $mol_icon_magnify extends $mol_icon {
+		path( ): string
+	}
+	
+}
+
+//# sourceMappingURL=magnify.view.tree.d.ts.map
+declare namespace $ {
+
+	export class $mol_icon_help extends $mol_icon {
+		path( ): string
+	}
+	
+}
+
+//# sourceMappingURL=help.view.tree.d.ts.map
+declare namespace $ {
+
+	export class $mol_icon_help_rhombus extends $mol_icon {
+		path( ): string
+	}
+	
+}
+
+//# sourceMappingURL=rhombus.view.tree.d.ts.map
+declare namespace $ {
+
+	export class $mol_icon_help_rhombus_outline extends $mol_icon {
+		path( ): string
+	}
+	
+}
+
+//# sourceMappingURL=outline.view.tree.d.ts.map
+declare namespace $ {
+    class $mol_span extends $mol_object2 {
+        readonly uri: string;
+        readonly source: string;
+        readonly row: number;
+        readonly col: number;
+        readonly length: number;
+        constructor(uri: string, source: string, row: number, col: number, length: number);
+        static unknown: $mol_span;
+        static begin(uri: string, source?: string): $mol_span;
+        static end(uri: string, source: string): $mol_span;
+        static entire(uri: string, source: string): $mol_span;
+        toString(): string;
+        toJSON(): {
+            uri: string;
+            row: number;
+            col: number;
+            length: number;
+        };
+        error(message: string, Class?: ErrorConstructor): Error;
+        span(row: number, col: number, length: number): $mol_span;
+        after(length?: number): $mol_span;
+        slice(begin: number, end?: number): $mol_span;
+    }
+}
+
+declare namespace $ {
+    class $mol_error_syntax extends SyntaxError {
+        reason: string;
+        line: string;
+        span: $mol_span;
+        constructor(reason: string, line: string, span: $mol_span);
+    }
+}
+
+declare namespace $ {
+    function $mol_tree2_from_string(this: $, str: string, uri?: string): $mol_tree2;
+}
+
+declare namespace $ {
+    function $mol_tree2_to_string(this: $, tree: $mol_tree2): string;
+}
+
+declare namespace $ {
+    type $mol_tree2_path = Array<string | number | null>;
+    type $mol_tree2_hack<Context> = (input: $mol_tree2, belt: $mol_tree2_belt<Context>, context: Context) => readonly $mol_tree2[];
+    type $mol_tree2_belt<Context> = Record<string, $mol_tree2_hack<Context>>;
+    class $mol_tree2 extends Object {
+        readonly type: string;
+        readonly value: string;
+        readonly kids: readonly $mol_tree2[];
+        readonly span: $mol_span;
+        constructor(type: string, value: string, kids: readonly $mol_tree2[], span: $mol_span);
+        static list(kids: readonly $mol_tree2[], span?: $mol_span): $mol_tree2;
+        list(kids: readonly $mol_tree2[]): $mol_tree2;
+        static data(value: string, kids?: readonly $mol_tree2[], span?: $mol_span): $mol_tree2;
+        data(value: string, kids?: readonly $mol_tree2[]): $mol_tree2;
+        static struct(type: string, kids?: readonly $mol_tree2[], span?: $mol_span): $mol_tree2;
+        struct(type: string, kids?: readonly $mol_tree2[]): $mol_tree2;
+        clone(kids: readonly $mol_tree2[], span?: $mol_span): $mol_tree2;
+        text(): string;
+        static fromString(str: string, uri?: string): $mol_tree2;
+        toString(): string;
+        insert(value: $mol_tree2 | null, ...path: $mol_tree2_path): $mol_tree2;
+        select(...path: $mol_tree2_path): $mol_tree2;
+        filter(path: string[], value?: string): $mol_tree2;
+        hack_self<Context extends {
+            span?: $mol_span;
+            [key: string]: unknown;
+        } = {}>(belt: $mol_tree2_belt<Context>, context?: Context): readonly $mol_tree2[];
+        hack<Context extends {
+            span?: $mol_span;
+            [key: string]: unknown;
+        } = {}>(belt: $mol_tree2_belt<Context>, context?: Context): $mol_tree2[];
+        error(message: string, Class?: ErrorConstructor): Error;
+    }
+    class $mol_tree2_empty extends $mol_tree2 {
+        constructor();
+    }
+}
+
+declare namespace $ {
+    class $mol_view_tree2_error extends Error {
+        readonly spans: readonly $mol_span[];
+        constructor(message: string, spans: readonly $mol_span[]);
+        toJSON(): {
+            message: string;
+            spans: readonly $mol_span[];
+        };
+    }
+    class $mol_view_tree2_error_suggestions {
+        readonly suggestions: readonly string[];
+        constructor(suggestions: readonly string[]);
+        toString(): string;
+        toJSON(): readonly string[];
+    }
+    function $mol_view_tree2_error_str(strings: readonly string[], ...parts: readonly ($mol_span | readonly $mol_span[] | string | number | $mol_view_tree2_error_suggestions)[]): $mol_view_tree2_error;
+}
+
+declare namespace $ {
+    function $mol_view_tree2_child(this: $, tree: $mol_tree2): $mol_tree2;
+}
+
+declare namespace $ {
+    function $mol_view_tree2_classes(defs: $mol_tree2): $mol_tree2;
+}
+
+declare namespace $ {
+    function $mol_view_tree2_normalize(this: $, defs: $mol_tree2): $mol_tree2;
+}
+
+declare namespace $ {
+    let $mol_view_tree2_prop_signature: $mol_regexp<{
+        readonly name: string;
+        readonly key: string;
+        readonly next: string;
+    }>;
+}
+
+declare namespace $ {
+    function $mol_view_tree2_prop_parts(this: $, prop: $mol_tree2): {
+        name: string;
+        key: string;
+        next: string;
+    };
+}
+
+declare namespace $ {
+    function $mol_view_tree2_prop_quote(name: $mol_tree2): $mol_tree2;
+}
+
+declare namespace $ {
+    function $mol_view_tree2_class_match(klass?: $mol_tree2): boolean;
+}
+
+declare namespace $ {
+    function $mol_view_tree2_class_super(this: $, klass: $mol_tree2): $mol_tree2;
+}
+
+declare namespace $ {
+    function $mol_view_tree2_class_props(this: $, klass: $mol_tree2): $mol_tree2[];
+}
+
+declare namespace $ {
+
+	type $mol_icon__path__UICS51BX = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_icon['icon_path'] >
+		,
+		ReturnType< $mol_icon['path'] >
+	>
+	type $mol_string__hint__YZQS0S3O = $mol_type_enforce<
+		string
+		,
+		ReturnType< $mol_string['hint'] >
+	>
+	type $mol_string__value__RLLLYA0H = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_icon['icon_name'] >
+		,
+		ReturnType< $mol_string['value'] >
+	>
+	type $hyoo_sketch_option__name__CVS3EGC8 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $hyoo_sketch_option['name'] >
+	>
+	type $hyoo_sketch_option__Control__GOHYJQV6 = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_icon['Icon_name_control'] >
+		,
+		ReturnType< $hyoo_sketch_option['Control'] >
+	>
+	type $mol_link__uri__KILQL36H = $mol_type_enforce<
+		string
+		,
+		ReturnType< $mol_link['uri'] >
+	>
+	type $mol_link__target__NJT9X7QY = $mol_type_enforce<
+		string
+		,
+		ReturnType< $mol_link['target'] >
+	>
+	type $mol_link__sub__6OBZ4D75 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_link['sub'] >
+	>
+	type $hyoo_sketch_option__name__OC9EVVBC = $mol_type_enforce<
+		string
+		,
+		ReturnType< $hyoo_sketch_option['name'] >
+	>
+	type $hyoo_sketch_option__Control__XYJ6I11C = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_icon['Icon_search'] >
+		,
+		ReturnType< $hyoo_sketch_option['Control'] >
+	>
+	type $mol_view__sub__PJDMGPSK = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	export class $hyoo_sketch_element_icon extends $hyoo_sketch_element_base {
+		icon_path( ): string
+		Icon( ): $mol_icon
+		icon_name( next?: string ): string
+		Icon_name_control( ): $mol_string
+		Icon_name_option( ): $hyoo_sketch_option
+		Icon_search_icon( ): $mol_icon_magnify
+		Icon_search( ): $mol_link
+		Icon_search_option( ): $hyoo_sketch_option
+		icon_options( ): readonly(any)[]
+		Element( ): $mol_view
+		Not_found_icon( ): $mol_icon_help_rhombus_outline
+		Options( ): ({ 
+			'icon': ReturnType< $hyoo_sketch_element_icon['icon_options'] >,
+		})  & ReturnType< $hyoo_sketch_element_base['Options'] >
+	}
+	
+}
+
+//# sourceMappingURL=icon.view.tree.d.ts.map
+declare namespace $.$$ {
+    class $hyoo_sketch_element_icon extends $.$hyoo_sketch_element_icon {
+        icon_path(): string;
+        icon_name(next?: string): string;
+        duplicate(elem?: $hyoo_sketch_element): $hyoo_sketch_element;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+
+	type $mol_string__value__RW3POCUD = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_text['text'] >
+		,
+		ReturnType< $mol_string['value'] >
+	>
+	type $hyoo_sketch_option__name__524FS41N = $mol_type_enforce<
+		string
+		,
+		ReturnType< $hyoo_sketch_option['name'] >
+	>
+	type $hyoo_sketch_option__Control__ECA4KA15 = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_text['Text_control'] >
+		,
+		ReturnType< $hyoo_sketch_option['Control'] >
+	>
+	type $mol_switch__value__F6A3QZSL = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_text['padding'] >
+		,
+		ReturnType< $mol_switch['value'] >
+	>
+	type $mol_switch__options__DQALET06 = $mol_type_enforce<
+		({ 
+			'none': string,
+			'text': string,
+			'block': string,
+			'space': string,
+		}) 
+		,
+		ReturnType< $mol_switch['options'] >
+	>
+	type $hyoo_sketch_option__name__JSKW3QSM = $mol_type_enforce<
+		string
+		,
+		ReturnType< $hyoo_sketch_option['name'] >
+	>
+	type $hyoo_sketch_option__Control__AZKL59G8 = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_text['Padding_control'] >
+		,
+		ReturnType< $hyoo_sketch_option['Control'] >
+	>
+	type $mol_switch__value__YMZQ7E8P = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_text['align_hor'] >
+		,
+		ReturnType< $mol_switch['value'] >
+	>
+	type $mol_switch__options__AS32O02R = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_text['align_options'] >
+		,
+		ReturnType< $mol_switch['options'] >
+	>
+	type $hyoo_sketch_option__name__HSC3R1IZ = $mol_type_enforce<
+		string
+		,
+		ReturnType< $hyoo_sketch_option['name'] >
+	>
+	type $hyoo_sketch_option__Control__LSLQT4XV = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_text['Align_hor_control'] >
+		,
+		ReturnType< $hyoo_sketch_option['Control'] >
+	>
+	type $mol_switch__value__VFBSQO02 = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_text['align_ver'] >
+		,
+		ReturnType< $mol_switch['value'] >
+	>
+	type $mol_switch__options__6W60FZ5W = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_text['align_options'] >
+		,
+		ReturnType< $mol_switch['options'] >
+	>
+	type $hyoo_sketch_option__name__S0A82I9W = $mol_type_enforce<
+		string
+		,
+		ReturnType< $hyoo_sketch_option['name'] >
+	>
+	type $hyoo_sketch_option__Control__1P7ZVVR9 = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_text['Align_ver_control'] >
+		,
+		ReturnType< $hyoo_sketch_option['Control'] >
+	>
+	type $mol_switch__value__K145Q90Z = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_text['size'] >
+		,
+		ReturnType< $mol_switch['value'] >
+	>
+	type $mol_switch__options__TL4160EL = $mol_type_enforce<
+		({ 
+			'0.75rem': string,
+			'1.0rem': string,
+			'1.25rem': string,
+		}) 
+		,
+		ReturnType< $mol_switch['options'] >
+	>
+	type $hyoo_sketch_option__name__BMFE8LTQ = $mol_type_enforce<
+		string
+		,
+		ReturnType< $hyoo_sketch_option['name'] >
+	>
+	type $hyoo_sketch_option__Control__O8L9XBY8 = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_text['Size_control'] >
+		,
+		ReturnType< $hyoo_sketch_option['Control'] >
+	>
+	type $mol_view__style__XZ9WWP8L = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_text['style'] >
+		,
+		ReturnType< $mol_view['style'] >
+	>
+	type $mol_view__sub__UGF9KTMJ = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_text['text_sub'] >
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $hyoo_sketch_element_icon__element__7S96OI5S = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_text['element'] >
+		,
+		ReturnType< $hyoo_sketch_element_icon['element'] >
+	>
+	export class $hyoo_sketch_element_text extends $hyoo_sketch_element_base {
+		padding_style( ): string
+		style( ): ({ 
+			'padding': ReturnType< $hyoo_sketch_element_text['padding_style'] >,
+			'justifyContent': ReturnType< $hyoo_sketch_element_text['align_hor'] >,
+			'alignItems': ReturnType< $hyoo_sketch_element_text['align_ver'] >,
+			'fontSize': ReturnType< $hyoo_sketch_element_text['size'] >,
+		}) 
+		Text_icon( ): $mol_icon
+		text_sub( ): readonly(any)[]
+		icon_options( ): ReturnType< ReturnType< $hyoo_sketch_element_text['Icon'] >['icon_options'] >
+		text_default( ): string
+		text( next?: ReturnType< $hyoo_sketch_element_text['text_default'] > ): ReturnType< $hyoo_sketch_element_text['text_default'] >
+		Text_control( ): $mol_string
+		Text_option( ): $hyoo_sketch_option
+		padding_default( ): string
+		padding( next?: ReturnType< $hyoo_sketch_element_text['padding_default'] > ): ReturnType< $hyoo_sketch_element_text['padding_default'] >
+		Padding_control( ): $mol_switch
+		Padding_option( ): $hyoo_sketch_option
+		align_hor_default( ): string
+		align_hor( next?: ReturnType< $hyoo_sketch_element_text['align_hor_default'] > ): ReturnType< $hyoo_sketch_element_text['align_hor_default'] >
+		Align_hor_control( ): $mol_switch
+		Align_hor_option( ): $hyoo_sketch_option
+		align_ver_default( ): string
+		align_ver( next?: ReturnType< $hyoo_sketch_element_text['align_ver_default'] > ): ReturnType< $hyoo_sketch_element_text['align_ver_default'] >
+		align_options( ): ({ 
+			'start': string,
+			'center': string,
+			'end': string,
+		}) 
+		Align_ver_control( ): $mol_switch
+		Align_ver_option( ): $hyoo_sketch_option
+		size_default( ): string
+		size( next?: ReturnType< $hyoo_sketch_element_text['size_default'] > ): ReturnType< $hyoo_sketch_element_text['size_default'] >
+		Size_control( ): $mol_switch
+		Size_option( ): $hyoo_sketch_option
+		text_options( ): readonly(any)[]
+		Element( ): $mol_view
+		Icon( ): $hyoo_sketch_element_icon
+		Options( ): ({ 
+			'text': ReturnType< $hyoo_sketch_element_text['text_options'] >,
+		})  & ReturnType< $hyoo_sketch_element_base['Options'] >
+	}
+	
+}
+
+//# sourceMappingURL=text.view.tree.d.ts.map
+declare namespace $.$$ {
+    class $hyoo_sketch_element_text extends $.$hyoo_sketch_element_text {
+        text_sub(): (string | $mol_icon)[];
+        padding_style(): string;
+        text(next?: string): string;
+        padding(next?: string): string;
+        align_ver(next?: string): string;
+        align_hor(next?: string): string;
+        size(next?: string): string;
+        duplicate(elem?: $hyoo_sketch_element): $hyoo_sketch_element;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+
+	type $mol_view__minimal_height__M3MPDET5 = $mol_type_enforce<
+		number
+		,
+		ReturnType< $mol_view['minimal_height'] >
+	>
+	type $mol_view__sub__QV0QNGVR = $mol_type_enforce<
+		ReturnType< $mol_labeler['label'] >
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $mol_view__minimal_height__EUZTOCSY = $mol_type_enforce<
+		number
+		,
+		ReturnType< $mol_view['minimal_height'] >
+	>
+	type $mol_view__sub__0ANABUDB = $mol_type_enforce<
+		ReturnType< $mol_labeler['content'] >
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	export class $mol_labeler extends $mol_list {
+		label( ): readonly($mol_view_content)[]
+		Label( ): $mol_view
+		content( ): readonly(any)[]
+		Content( ): $mol_view
+		rows( ): readonly(any)[]
+	}
+	
+}
+
+//# sourceMappingURL=labeler.view.tree.d.ts.map
+declare namespace $ {
+    type $hyoo_sketch_element_nav_action_type = 'open' | 'close' | 'replace' | 'external';
+    type $hyoo_sketch_element_nav_action_data = {
+        type: $hyoo_sketch_element_nav_action_type;
+        source_page: string;
+        target_page: string;
+        target_link: string;
+    };
+}
+
+declare namespace $ {
+
+	type $mol_button_major__title__HU3UTXUT = $mol_type_enforce<
+		string
+		,
+		ReturnType< $mol_button_major['title'] >
+	>
+	type $mol_button_major__click__13XL4PUZ = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_nav['nav_action_add'] >
+		,
+		ReturnType< $mol_button_major['click'] >
+	>
+	type $hyoo_sketch_option__Control__H4S5YVU0 = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_nav['Nav_action_add'] >
+		,
+		ReturnType< $hyoo_sketch_option['Control'] >
+	>
+	type $hyoo_sketch_element_nav_action__pages__PHNZQKJG = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_nav['project_pages'] >
+		,
+		ReturnType< $hyoo_sketch_element_nav_action['pages'] >
+	>
+	type $hyoo_sketch_element_nav_action__drop__62FL2JJ9 = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_nav['nav_action_drop'] >
+		,
+		ReturnType< $hyoo_sketch_element_nav_action['drop'] >
+	>
+	type $hyoo_sketch_element_nav_action__type__UDXDVO5M = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_nav['nav_action_type'] >
+		,
+		ReturnType< $hyoo_sketch_element_nav_action['type'] >
+	>
+	type $hyoo_sketch_element_nav_action__target_page__2H316ZI5 = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_nav['nav_action_target_page'] >
+		,
+		ReturnType< $hyoo_sketch_element_nav_action['target_page'] >
+	>
+	type $hyoo_sketch_element_nav_action__source_page__USXNKQJ6 = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_nav['nav_action_source_page'] >
+		,
+		ReturnType< $hyoo_sketch_element_nav_action['source_page'] >
+	>
+	type $hyoo_sketch_element_nav_action__link__GI5F8IRJ = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_nav['nav_action_target_link'] >
+		,
+		ReturnType< $hyoo_sketch_element_nav_action['link'] >
+	>
+	type $mol_view__sub__G23F6UEK = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	export class $hyoo_sketch_element_nav extends $hyoo_sketch_element_base {
+		nav_action_add( next?: any ): any
+		Nav_action_add( ): $mol_button_major
+		Nav_action_add_option( ): $hyoo_sketch_option
+		project_pages( ): Record<string, any>
+		nav_action_drop( id: any, next?: any ): any
+		nav_action_type( id: any, next?: string ): string
+		nav_action_target_page( id: any, next?: string ): string
+		nav_action_source_page( id: any, next?: string ): string
+		nav_action_target_link( id: any, next?: string ): string
+		Nav_action( id: any): $hyoo_sketch_element_nav_action
+		nav_options( ): readonly(any)[]
+		Element( ): $mol_view
+		nav_pages_param( ): string
+		nav_click_handler( ): any
+		nav_actions( ): readonly($hyoo_sketch_element_nav_action_data)[]
+		Options( ): ({ 
+			'nav': ReturnType< $hyoo_sketch_element_nav['nav_options'] >,
+		})  & ReturnType< $hyoo_sketch_element_base['Options'] >
+	}
+	
+	type $mol_switch__value__TUWRSIF2 = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_nav_action['type'] >
+		,
+		ReturnType< $mol_switch['value'] >
+	>
+	type $mol_switch__options__MLNNR1KF = $mol_type_enforce<
+		({ 
+			'open': string,
+			'replace': string,
+			'close': string,
+			'external': string,
+		}) 
+		,
+		ReturnType< $mol_switch['options'] >
+	>
+	type $mol_labeler__title__OHQIFHEK = $mol_type_enforce<
+		string
+		,
+		ReturnType< $mol_labeler['title'] >
+	>
+	type $mol_labeler__content__G6142GJK = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_labeler['content'] >
+	>
+	type $mol_select__align__8O3CRS0J = $mol_type_enforce<
+		string
+		,
+		ReturnType< $mol_select['align'] >
+	>
+	type $mol_select__value__9SJS51OP = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_nav_action['source_page'] >
+		,
+		ReturnType< $mol_select['value'] >
+	>
+	type $mol_select__dictionary__15Q7HDJE = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_nav_action['pages'] >
+		,
+		ReturnType< $mol_select['dictionary'] >
+	>
+	type $mol_labeler__title__4SHJTEWG = $mol_type_enforce<
+		string
+		,
+		ReturnType< $mol_labeler['title'] >
+	>
+	type $mol_labeler__content__6IXHT2WU = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_labeler['content'] >
+	>
+	type $mol_select__align__90EH8WUY = $mol_type_enforce<
+		string
+		,
+		ReturnType< $mol_select['align'] >
+	>
+	type $mol_select__value__9IRD231C = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_nav_action['target_page'] >
+		,
+		ReturnType< $mol_select['value'] >
+	>
+	type $mol_select__dictionary__P1OD58I1 = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_nav_action['pages'] >
+		,
+		ReturnType< $mol_select['dictionary'] >
+	>
+	type $mol_labeler__title__UVTNTFKW = $mol_type_enforce<
+		string
+		,
+		ReturnType< $mol_labeler['title'] >
+	>
+	type $mol_labeler__content__QGWK1YFY = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_labeler['content'] >
+	>
+	type $mol_string__value__JY2LTNFS = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_nav_action['link'] >
+		,
+		ReturnType< $mol_string['value'] >
+	>
+	type $mol_labeler__title__VBVLDJZD = $mol_type_enforce<
+		string
+		,
+		ReturnType< $mol_labeler['title'] >
+	>
+	type $mol_labeler__content__RURSHVR4 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_labeler['content'] >
+	>
+	type $mol_button_minor__title__R6X5AAW5 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $mol_button_minor['title'] >
+	>
+	type $mol_button_minor__click__M3QG2GSR = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_nav_action['drop'] >
+		,
+		ReturnType< $mol_button_minor['click'] >
+	>
+	export class $hyoo_sketch_element_nav_action extends $mol_list {
+		type( next?: string ): string
+		Type( ): $mol_switch
+		Type_label( ): $mol_labeler
+		source_page( next?: string ): string
+		pages( ): Record<string, any>
+		Source_page( ): $mol_select
+		Source_page_label( ): $mol_labeler
+		target_page( next?: string ): string
+		Target_page( ): $mol_select
+		Target_page_label( ): $mol_labeler
+		link( next?: string ): string
+		Link( ): $mol_string
+		Link_label( ): $mol_labeler
+		drop( next?: any ): any
+		Drop( ): $mol_button_minor
+		rows( ): readonly(any)[]
+	}
+	
+}
+
+//# sourceMappingURL=nav.view.tree.d.ts.map
+declare namespace $.$$ {
+    class $hyoo_sketch_element_nav extends $.$hyoo_sketch_element_nav {
+        project_pages(): any;
+        nav_options(): ($hyoo_sketch_option | $.$hyoo_sketch_element_nav_action)[];
+        nav_actions_node(): $hyoo_crowd_list;
+        nav_actions(next?: $hyoo_sketch_element_nav_action_data[]): $hyoo_sketch_element_nav_action_data[];
+        nav_action_add(): void;
+        nav_action_drop(id: number): void;
+        nav_action_value<Key extends keyof $hyoo_sketch_element_nav_action_data>({ id, key }: {
+            id: number;
+            key: Key;
+        }, next?: string): $hyoo_sketch_element_nav_action_data[Key];
+        nav_action_type(id: number, next?: string): $hyoo_sketch_element_nav_action_type;
+        nav_action_source_page(id: number, next?: string): string;
+        nav_action_target_page(id: number, next?: string): string;
+        nav_action_target_link(id: number, next?: string): string;
+        nav_pages(next?: string[]): string[];
+        nav_page_close(id: string): string[];
+        nav_page_open(id: string): string[];
+        nav_page_replace(source_id: string, target_id: string): string[];
+        nav_click_handler(): void;
+        duplicate(elem: $hyoo_sketch_element): $hyoo_sketch_element;
+    }
+    class $hyoo_sketch_element_nav_action extends $.$hyoo_sketch_element_nav_action {
+        rows(): ($mol_button_minor | $mol_labeler)[];
+    }
+}
+
+declare namespace $.$$ {
+}
+
+declare namespace $ {
+
+	type $mol_switch__value__D88U1CAG = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_button['button_type'] >
+		,
+		ReturnType< $mol_switch['value'] >
+	>
+	type $mol_switch__options__RVUIPR1Q = $mol_type_enforce<
+		({ 
+			'major': string,
+			'minor': string,
+		}) 
+		,
+		ReturnType< $mol_switch['options'] >
+	>
+	type $hyoo_sketch_option__name__ASJ7WAXL = $mol_type_enforce<
+		string
+		,
+		ReturnType< $hyoo_sketch_option['name'] >
+	>
+	type $hyoo_sketch_option__Control__8K6W18IQ = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_button['Button_type_control'] >
+		,
+		ReturnType< $hyoo_sketch_option['Control'] >
+	>
+	type $hyoo_sketch_element_nav__element__NF8IY8KN = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_button['element'] >
+		,
+		ReturnType< $hyoo_sketch_element_nav['element'] >
+	>
+	type $hyoo_sketch_element_button_text__element__OHO57CC7 = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_button['element'] >
+		,
+		ReturnType< $hyoo_sketch_element_button_text['element'] >
+	>
+	type $mol_button_major__style__772248NS = $mol_type_enforce<
+		({ 
+			'width': string,
+		})  & ReturnType< $hyoo_sketch_element_button['text_style'] >
+		,
+		ReturnType< $mol_button_major['style'] >
+	>
+	type $mol_button_major__click__4AMSC132 = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_button['click'] >
+		,
+		ReturnType< $mol_button_major['click'] >
+	>
+	type $mol_button_major__sub__EO1UYCFD = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_button['text_sub'] >
+		,
+		ReturnType< $mol_button_major['sub'] >
+	>
+	type $mol_button_minor__style__NDMJPMQB = $mol_type_enforce<
+		({ 
+			'width': string,
+		})  & ReturnType< $hyoo_sketch_element_button['text_style'] >
+		,
+		ReturnType< $mol_button_minor['style'] >
+	>
+	type $mol_button_minor__click__LYC54F7K = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_button['click'] >
+		,
+		ReturnType< $mol_button_minor['click'] >
+	>
+	type $mol_button_minor__sub__E80LWJES = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_button['text_sub'] >
+		,
+		ReturnType< $mol_button_minor['sub'] >
+	>
+	export class $hyoo_sketch_element_button extends $hyoo_sketch_element_base {
+		nav_options( ): ReturnType< ReturnType< $hyoo_sketch_element_button['Nav'] >['nav_options'] >
+		text_options( ): ReturnType< ReturnType< $hyoo_sketch_element_button['Text'] >['text_options'] >
+		text_sub( ): ReturnType< ReturnType< $hyoo_sketch_element_button['Text'] >['text_sub'] >
+		text_style( ): ReturnType< ReturnType< $hyoo_sketch_element_button['Text'] >['style'] >
+		Text_option( ): ReturnType< ReturnType< $hyoo_sketch_element_button['Text'] >['Text_option'] >
+		click( next?: any ): any
+		button_type( next?: string ): string
+		Button_type_control( ): $mol_switch
+		Button_type_option( ): $hyoo_sketch_option
+		button_options( ): readonly(any)[]
+		Nav( ): $hyoo_sketch_element_nav
+		Text( ): $hyoo_sketch_element_button_text
+		Button_major( ): $mol_button_major
+		Button_minor( ): $mol_button_minor
+		Element( ): $mol_button
+		Options( ): ({ 
+			'button': ReturnType< $hyoo_sketch_element_button['button_options'] >,
+			'text': ReturnType< $hyoo_sketch_element_button['text_options'] >,
+			'nav': ReturnType< $hyoo_sketch_element_button['nav_options'] >,
+		})  & ReturnType< $hyoo_sketch_element_base['Options'] >
+	}
+	
+	export class $hyoo_sketch_element_button_text extends $hyoo_sketch_element_text {
+		text_default( next?: string ): string
+		padding_default( next?: string ): string
+		align_hor_default( next?: string ): string
+		align_ver_default( next?: string ): string
+	}
+	
+}
+
+//# sourceMappingURL=button.view.tree.d.ts.map
+declare namespace $.$$ {
+    class $hyoo_sketch_element_button extends $.$hyoo_sketch_element_button {
+        Element(): $mol_button;
+        button_type(next?: string): string;
+        click(): void;
+        duplicate(elem?: $hyoo_sketch_element): $hyoo_sketch_element;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+
+	export class $mol_icon_eye extends $mol_icon {
+		path( ): string
+	}
+	
+}
+
+//# sourceMappingURL=eye.view.tree.d.ts.map
+declare namespace $ {
+
+	type $mol_string__type__RN3ACM5L = $mol_type_enforce<
+		ReturnType< $mol_password['type'] >
+		,
+		ReturnType< $mol_string['type'] >
+	>
+	type $mol_string__hint__2EOBWE1V = $mol_type_enforce<
+		ReturnType< $mol_password['hint'] >
+		,
+		ReturnType< $mol_string['hint'] >
+	>
+	type $mol_string__value__1B2EDD2O = $mol_type_enforce<
+		ReturnType< $mol_password['value'] >
+		,
+		ReturnType< $mol_string['value'] >
+	>
+	type $mol_string__submit__1OGSLMUC = $mol_type_enforce<
+		ReturnType< $mol_password['submit'] >
+		,
+		ReturnType< $mol_string['submit'] >
+	>
+	type $mol_string__enabled__13DF5MZO = $mol_type_enforce<
+		ReturnType< $mol_password['enabled'] >
+		,
+		ReturnType< $mol_string['enabled'] >
+	>
+	type $mol_check_icon__checked__B6E1U5XH = $mol_type_enforce<
+		ReturnType< $mol_password['checked'] >
+		,
+		ReturnType< $mol_check_icon['checked'] >
+	>
+	type $mol_check_icon__Icon__UELY4UVQ = $mol_type_enforce<
+		ReturnType< $mol_password['Show_icon'] >
+		,
+		ReturnType< $mol_check_icon['Icon'] >
+	>
+	export class $mol_password extends $mol_view {
+		hint( ): string
+		value( next?: string ): string
+		submit( next?: any ): any
+		enabled( ): boolean
+		Pass( ): $mol_string
+		checked( next?: boolean ): boolean
+		Show_icon( ): $mol_icon_eye
+		Show( ): $mol_check_icon
+		content( ): readonly(any)[]
+		type( next?: string ): string
+		sub( ): ReturnType< $mol_password['content'] >
+	}
+	
+}
+
+//# sourceMappingURL=password.view.tree.d.ts.map
+declare namespace $.$$ {
+    class $mol_password extends $.$mol_password {
+        checked(next?: boolean): boolean;
+    }
+}
+
+declare namespace $ {
+
+	type $mol_switch__value__WZULQ9HL = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_input['input_type'] >
+		,
+		ReturnType< $mol_switch['value'] >
+	>
+	type $mol_switch__options__IH6HITLK = $mol_type_enforce<
+		({ 
+			'String': string,
+			'Number': string,
+			'Password': string,
+			'Search': string,
+		}) 
+		,
+		ReturnType< $mol_switch['options'] >
+	>
+	type $hyoo_sketch_option__name__1W2SSFP0 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $hyoo_sketch_option['name'] >
+	>
+	type $hyoo_sketch_option__Control__364NQU4B = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_input['Input_type_control'] >
+		,
+		ReturnType< $hyoo_sketch_option['Control'] >
+	>
+	type $mol_string__value__RKF9MNQZ = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_input['input_hint'] >
+		,
+		ReturnType< $mol_string['value'] >
+	>
+	type $hyoo_sketch_option__name__LFWCD4AT = $mol_type_enforce<
+		string
+		,
+		ReturnType< $hyoo_sketch_option['name'] >
+	>
+	type $hyoo_sketch_option__Control__QRACUAU2 = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_input['Input_hint_control'] >
+		,
+		ReturnType< $hyoo_sketch_option['Control'] >
+	>
+	type $mol_string__value__0PYARH8U = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_input['input_text'] >
+		,
+		ReturnType< $mol_string['value'] >
+	>
+	type $hyoo_sketch_option__name__UQMJGOI3 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $hyoo_sketch_option['name'] >
+	>
+	type $hyoo_sketch_option__Control__8QIKWVS5 = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_input['Input_text_control'] >
+		,
+		ReturnType< $hyoo_sketch_option['Control'] >
+	>
+	type $mol_switch__value__AO0T2NBD = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_input['input_enabled'] >
+		,
+		ReturnType< $mol_switch['value'] >
+	>
+	type $mol_switch__options__4HF28DMH = $mol_type_enforce<
+		({ 
+			'on': string,
+			'off': string,
+		}) 
+		,
+		ReturnType< $mol_switch['options'] >
+	>
+	type $hyoo_sketch_option__name__M3I35YNC = $mol_type_enforce<
+		string
+		,
+		ReturnType< $hyoo_sketch_option['name'] >
+	>
+	type $hyoo_sketch_option__Control__RFDAIM2I = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_input['Input_enabled_control'] >
+		,
+		ReturnType< $hyoo_sketch_option['Control'] >
+	>
+	type $mol_string__hint__MHBF5IZD = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_input['input_hint'] >
+		,
+		ReturnType< $mol_string['hint'] >
+	>
+	type $mol_string__value__B6SC6HXO = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_input['input_text'] >
+		,
+		ReturnType< $mol_string['value'] >
+	>
+	type $mol_string__enabled__TVUBE4ZG = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_input['input_enabled_bool'] >
+		,
+		ReturnType< $mol_string['enabled'] >
+	>
+	type $mol_number__value__3LZCASXU = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_input['input_number'] >
+		,
+		ReturnType< $mol_number['value'] >
+	>
+	type $mol_number__enabled__CYPEPKSO = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_input['input_enabled_bool'] >
+		,
+		ReturnType< $mol_number['enabled'] >
+	>
+	type $mol_password__hint__QK8954JW = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_input['input_hint'] >
+		,
+		ReturnType< $mol_password['hint'] >
+	>
+	type $mol_password__value__PWSZKRWC = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_input['input_text'] >
+		,
+		ReturnType< $mol_password['value'] >
+	>
+	type $mol_password__enabled__PHMKNRZY = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_input['input_enabled_bool'] >
+		,
+		ReturnType< $mol_password['enabled'] >
+	>
+	type $mol_search__query__WTO7GNII = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_input['input_text'] >
+		,
+		ReturnType< $mol_search['query'] >
+	>
+	type $mol_search__enabled__TGN2VOCV = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_input['input_enabled_bool'] >
+		,
+		ReturnType< $mol_search['enabled'] >
+	>
+	export class $hyoo_sketch_element_input extends $hyoo_sketch_element_base {
+		input_enabled_bool( ): boolean
+		input_number( next?: number ): number
+		input_type( next?: string ): string
+		Input_type_control( ): $mol_switch
+		Input_type_option( ): $hyoo_sketch_option
+		input_hint( next?: string ): string
+		Input_hint_control( ): $mol_string
+		Input_hint_option( ): $hyoo_sketch_option
+		input_text( next?: string ): string
+		Input_text_control( ): $mol_string
+		Input_text_option( ): $hyoo_sketch_option
+		input_enabled( next?: string ): string
+		Input_enabled_control( ): $mol_switch
+		Input_enabled_option( ): $hyoo_sketch_option
+		input_options( ): readonly(any)[]
+		String( ): $mol_string
+		Number( ): $mol_number
+		Password( ): $mol_password
+		Search( ): $mol_search
+		Element( ): $mol_view
+		Options( ): ({ 
+			'input': ReturnType< $hyoo_sketch_element_input['input_options'] >,
+		})  & ReturnType< $hyoo_sketch_element_base['Options'] >
+	}
+	
+}
+
+//# sourceMappingURL=input.view.tree.d.ts.map
+declare namespace $.$$ {
+    class $hyoo_sketch_element_input extends $.$hyoo_sketch_element_input {
+        Element(): $mol_view;
+        input_number(next?: number): number;
+        input_type(next?: string): string;
+        input_hint(next?: string): string;
+        input_text(next?: string): string;
+        input_enabled(next?: string): string;
+        input_enabled_bool(): boolean;
+        duplicate(elem?: $hyoo_sketch_element): $hyoo_sketch_element;
+    }
+}
+
+declare namespace $ {
+
+	type $mol_string__value__IIAPK8P1 = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_link['link_hint'] >
+		,
+		ReturnType< $mol_string['value'] >
+	>
+	type $hyoo_sketch_option__name__RU3K4BLI = $mol_type_enforce<
+		string
+		,
+		ReturnType< $hyoo_sketch_option['name'] >
+	>
+	type $hyoo_sketch_option__Control__A74W9J5H = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_link['Link_hint_control'] >
+		,
+		ReturnType< $hyoo_sketch_option['Control'] >
+	>
+	type $hyoo_sketch_element_nav__element__GTLQ0UOJ = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_link['element'] >
+		,
+		ReturnType< $hyoo_sketch_element_nav['element'] >
+	>
+	type $hyoo_sketch_element_link_text__element__O8H88PII = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_link['element'] >
+		,
+		ReturnType< $hyoo_sketch_element_link_text['element'] >
+	>
+	type $mol_link__style__6BBNH845 = $mol_type_enforce<
+		Record<string, any> & ReturnType< $hyoo_sketch_element_link['text_style'] >
+		,
+		ReturnType< $mol_link['style'] >
+	>
+	type $mol_link__uri__42EWJFDY = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_link['link_uri'] >
+		,
+		ReturnType< $mol_link['uri'] >
+	>
+	type $mol_link__hint__KO5MHC5P = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_link['link_hint'] >
+		,
+		ReturnType< $mol_link['hint'] >
+	>
+	type $mol_link__sub__WUBW4KBF = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_link['text_sub'] >
+		,
+		ReturnType< $mol_link['sub'] >
+	>
+	type $mol_link__style__CHFZLCPE = $mol_type_enforce<
+		Record<string, any> & ReturnType< $hyoo_sketch_element_link['text_style'] >
+		,
+		ReturnType< $mol_link['style'] >
+	>
+	type $mol_link__arg__DP3VR31W = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_link['link_arg'] >
+		,
+		ReturnType< $mol_link['arg'] >
+	>
+	type $mol_link__hint__GAWK5I7D = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_link['link_hint'] >
+		,
+		ReturnType< $mol_link['hint'] >
+	>
+	type $mol_link__sub__RMEI44RS = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_link['text_sub'] >
+		,
+		ReturnType< $mol_link['sub'] >
+	>
+	type $mol_link__click__42V9EXOO = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_link['click'] >
+		,
+		ReturnType< $mol_link['click'] >
+	>
+	export class $hyoo_sketch_element_link extends $hyoo_sketch_element_base {
+		nav_options( ): ReturnType< ReturnType< $hyoo_sketch_element_link['Nav'] >['nav_options'] >
+		text_options( ): ReturnType< ReturnType< $hyoo_sketch_element_link['Text'] >['text_options'] >
+		text_sub( ): ReturnType< ReturnType< $hyoo_sketch_element_link['Text'] >['text_sub'] >
+		text_style( ): ReturnType< ReturnType< $hyoo_sketch_element_link['Text'] >['style'] >
+		Text_option( ): ReturnType< ReturnType< $hyoo_sketch_element_link['Text'] >['Text_option'] >
+		link_uri( ): string
+		link_arg( ): Record<string, any>
+		click( next?: any ): any
+		link_hint( next?: string ): string
+		Link_hint_control( ): $mol_string
+		Link_hint_option( ): $hyoo_sketch_option
+		link_options( ): readonly(any)[]
+		Nav( ): $hyoo_sketch_element_nav
+		Text( ): $hyoo_sketch_element_link_text
+		Link_external( ): $mol_link
+		Link_internal( ): $mol_link
+		Element( ): $mol_link
+		Options( ): ({ 
+			'link': ReturnType< $hyoo_sketch_element_link['link_options'] >,
+			'nav': ReturnType< $hyoo_sketch_element_link['nav_options'] >,
+			'text': ReturnType< $hyoo_sketch_element_link['text_options'] >,
+		})  & ReturnType< $hyoo_sketch_element_base['Options'] >
+	}
+	
+	export class $hyoo_sketch_element_link_text extends $hyoo_sketch_element_text {
+		text_default( next?: string ): string
+		padding_default( next?: string ): string
+		align_hor_default( next?: string ): string
+		align_ver_default( next?: string ): string
+	}
+	
+}
+
+//# sourceMappingURL=link.view.tree.d.ts.map
+declare namespace $.$$ {
+    class $hyoo_sketch_element_link extends $.$hyoo_sketch_element_link {
+        Element(): $.$mol_link;
+        click(event: PointerEvent): void;
+        link_hint(next?: string): string;
+        link_uri(): string;
+        duplicate(elem?: $hyoo_sketch_element): $hyoo_sketch_element;
+    }
+}
+
+declare namespace $.$$ {
+}
+
+declare namespace $ {
+
+	export class $mol_icon_tick extends $mol_icon {
+		path( ): string
+	}
+	
+}
+
+//# sourceMappingURL=tick.view.tree.d.ts.map
+declare namespace $ {
+}
+
+declare namespace $ {
+
+	export class $mol_check_box extends $mol_check {
+		Icon( ): $mol_icon_tick
+	}
+	
+}
+
+//# sourceMappingURL=box.view.tree.d.ts.map
+declare namespace $ {
+
+	type $mol_view__style__HWFZGLJM = $mol_type_enforce<
+		({ 
+			'paddingTop': ReturnType< $mol_image2['height'] >,
+			'backgroundImage': ReturnType< $mol_image2['background'] >,
+		}) 
+		,
+		ReturnType< $mol_view['style'] >
+	>
+	export class $mol_image2 extends $mol_view {
+		height( ): string
+		background( ): string
+		Content( ): $mol_view
+		links( ): readonly(any)[]
+		aspect( ): number
+		sub( ): readonly(any)[]
+	}
+	
+}
+
+//# sourceMappingURL=image2.view.tree.d.ts.map
+declare namespace $.$$ {
+    class $mol_image2 extends $.$mol_image2 {
+        background(): string;
+        height(): string;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+
+	type $mol_string__value__XYSC0IST = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_image['image_link'] >
+		,
+		ReturnType< $mol_string['value'] >
+	>
+	type $hyoo_sketch_option__name__C41BB9CT = $mol_type_enforce<
+		string
+		,
+		ReturnType< $hyoo_sketch_option['name'] >
+	>
+	type $hyoo_sketch_option__Control__9YPLPPYS = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_image['Image_link_control'] >
+		,
+		ReturnType< $hyoo_sketch_option['Control'] >
+	>
+	type $mol_check_box__title__U2UIDSBO = $mol_type_enforce<
+		string
+		,
+		ReturnType< $mol_check_box['title'] >
+	>
+	type $mol_check_box__checked__6T592BBQ = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_image['image_round'] >
+		,
+		ReturnType< $mol_check_box['checked'] >
+	>
+	type $hyoo_sketch_option__name__MZ5Y59MZ = $mol_type_enforce<
+		string
+		,
+		ReturnType< $hyoo_sketch_option['name'] >
+	>
+	type $hyoo_sketch_option__Control__EFHR5E47 = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_image['Image_round_control'] >
+		,
+		ReturnType< $hyoo_sketch_option['Control'] >
+	>
+	type $mol_image2__style__6HN63VNP = $mol_type_enforce<
+		({ 
+			'borderRadius': ReturnType< $hyoo_sketch_element_image['round'] >,
+		}) 
+		,
+		ReturnType< $mol_image2['style'] >
+	>
+	type $mol_image2__links__3NQI86LN = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_image2['links'] >
+	>
+	export class $hyoo_sketch_element_image extends $hyoo_sketch_element_base {
+		round( ): string
+		image_link_default( ): string
+		image_link( next?: ReturnType< $hyoo_sketch_element_image['image_link_default'] > ): ReturnType< $hyoo_sketch_element_image['image_link_default'] >
+		Image_link_control( ): $mol_string
+		Image_link_option( ): $hyoo_sketch_option
+		image_round( next?: boolean ): boolean
+		Image_round_control( ): $mol_check_box
+		Image_round_option( ): $hyoo_sketch_option
+		image_options( ): readonly(any)[]
+		Element( ): $mol_image2
+		Options( ): ({ 
+			'image': ReturnType< $hyoo_sketch_element_image['image_options'] >,
+		})  & ReturnType< $hyoo_sketch_element_base['Options'] >
+		width_default( ): number
+		height_default( ): number
+	}
+	
+}
+
+//# sourceMappingURL=image.view.tree.d.ts.map
+declare namespace $.$$ {
+    class $hyoo_sketch_element_image extends $.$hyoo_sketch_element_image {
+        image_link(next?: string): string;
+        image_round(next?: boolean): boolean;
+        round(): "50%" | "unset";
+        image_link_placeholder(): string;
+        duplicate(elem: $hyoo_sketch_element): $hyoo_sketch_element;
+    }
+}
+
+declare namespace $ {
+
+	type $mol_button_minor__click__5BZFHPJL = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_options['option_clear'] >
+		,
+		ReturnType< $mol_button_minor['click'] >
+	>
+	type $mol_button_minor__sub__MVOQPRWP = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_button_minor['sub'] >
+	>
+	type $mol_string__value__TBSOR8XV = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_options['option_row'] >
+		,
+		ReturnType< $mol_string['value'] >
+	>
+	type $mol_view__sub__EJ3M8WVQ = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_options['row_sub'] >
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $mol_list__rows__LG5CB3GF = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_options['rows'] >
+		,
+		ReturnType< $mol_list['rows'] >
+	>
+	type $hyoo_sketch_option__name__HMISSU9F = $mol_type_enforce<
+		string
+		,
+		ReturnType< $hyoo_sketch_option['name'] >
+	>
+	type $hyoo_sketch_option__Control__1B55W8W9 = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_options['Option_list_control'] >
+		,
+		ReturnType< $hyoo_sketch_option['Control'] >
+	>
+	type $mol_switch__value__73BKGRAX = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_options['option_current'] >
+		,
+		ReturnType< $mol_switch['value'] >
+	>
+	type $mol_switch__options__E3WC30MA = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_options['option_dict'] >
+		,
+		ReturnType< $mol_switch['options'] >
+	>
+	type $hyoo_sketch_option__name__YNK143LI = $mol_type_enforce<
+		string
+		,
+		ReturnType< $hyoo_sketch_option['name'] >
+	>
+	type $hyoo_sketch_option__Control__NJBHSIWJ = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_options['Option_current_control'] >
+		,
+		ReturnType< $hyoo_sketch_option['Control'] >
+	>
+	export class $hyoo_sketch_element_options extends $hyoo_sketch_element_base {
+		option_clear( id: any, next?: any ): any
+		Row_clear_icon( id: any): $mol_icon_cross
+		Row_clear( id: any): $mol_button_minor
+		option_row( id: any, next?: string ): string
+		Row_string( id: any): $mol_string
+		row_sub( id: any): readonly(any)[]
+		Row( id: any): $mol_view
+		rows( ): readonly(any)[]
+		Option_list_control( ): $mol_list
+		Option_list_option( ): $hyoo_sketch_option
+		option_dict( ): Record<string, any>
+		Option_current_control( ): $mol_switch
+		Option_current_option( ): $hyoo_sketch_option
+		options( ): readonly(any)[]
+		option_list_default( ): readonly(any)[]
+		option_current( next?: string ): string
+		option_list( ): readonly(string)[]
+		Options( ): ({ 
+			'options': ReturnType< $hyoo_sketch_element_options['options'] >,
+		})  & ReturnType< $hyoo_sketch_element_base['Options'] >
+	}
+	
+}
+
+//# sourceMappingURL=options.view.tree.d.ts.map
+declare namespace $.$$ {
+    class $hyoo_sketch_element_options extends $.$hyoo_sketch_element_options {
+        option_list(next?: string[]): string[];
+        option_current(next?: string): string;
+        option_dict(): any;
+        rows(): $mol_view[];
+        row_sub(index: number): ($mol_button_minor | $.$mol_string)[];
+        option_row(index: number, next?: string): string;
+        option_clear(index: number): void;
+        duplicate(elem: $hyoo_sketch_element): $hyoo_sketch_element;
+    }
+}
+
+declare namespace $.$$ {
+}
+
+declare namespace $ {
+
+	type $mol_select_list_filter_pattern__3J6DR6IT = $mol_type_enforce<
+		Parameters< $mol_select_list['filter_pattern'] >[0]
+		,
+		Parameters< ReturnType< $mol_select_list['Pick'] >['filter_pattern'] >[0]
+	>
+	type $mol_select__event_select__H8UM9O60 = $mol_type_enforce<
+		ReturnType< $mol_select_list['event_select'] >
+		,
+		ReturnType< $mol_select['event_select'] >
+	>
+	type $mol_select__align_hor__8LB97DQ8 = $mol_type_enforce<
+		ReturnType< $mol_select_list['align_hor'] >
+		,
+		ReturnType< $mol_select['align_hor'] >
+	>
+	type $mol_select__options__CMTSNP57 = $mol_type_enforce<
+		ReturnType< $mol_select_list['options_pickable'] >
+		,
+		ReturnType< $mol_select['options'] >
+	>
+	type $mol_select__value__OZ4QUPQR = $mol_type_enforce<
+		ReturnType< $mol_select_list['pick'] >
+		,
+		ReturnType< $mol_select['value'] >
+	>
+	type $mol_select__option_label__6W1L54JD = $mol_type_enforce<
+		ReturnType< $mol_select_list['option_title'] >
+		,
+		ReturnType< $mol_select['option_label'] >
+	>
+	type $mol_select__trigger_enabled__SKRC0W0Z = $mol_type_enforce<
+		ReturnType< $mol_select_list['pick_enabled'] >
+		,
+		ReturnType< $mol_select['trigger_enabled'] >
+	>
+	type $mol_select__hint__TFRV4V2G = $mol_type_enforce<
+		ReturnType< $mol_select_list['pick_hint'] >
+		,
+		ReturnType< $mol_select['hint'] >
+	>
+	type $mol_select__Trigger_icon__ROX97EIS = $mol_type_enforce<
+		ReturnType< $mol_select_list['Pick_icon'] >
+		,
+		ReturnType< $mol_select['Trigger_icon'] >
+	>
+	type $mol_button_minor__title__1YDGVXFS = $mol_type_enforce<
+		ReturnType< $mol_select_list['badge_title'] >
+		,
+		ReturnType< $mol_button_minor['title'] >
+	>
+	type $mol_button_minor__click__CSV0YVQM = $mol_type_enforce<
+		ReturnType< $mol_select_list['remove'] >
+		,
+		ReturnType< $mol_button_minor['click'] >
+	>
+	type $mol_button_minor__hint__CIP5ET68 = $mol_type_enforce<
+		ReturnType< $mol_select_list['badge_hint'] >
+		,
+		ReturnType< $mol_button_minor['hint'] >
+	>
+	type $mol_button_minor__enabled__9S9L691V = $mol_type_enforce<
+		ReturnType< $mol_select_list['drop_enabled'] >
+		,
+		ReturnType< $mol_button_minor['enabled'] >
+	>
+	type $mol_select_list_sub__ZIYTVM81 = $mol_type_enforce<
+		ReturnType< $mol_select_list['badges_list'] >[number]
+		,
+		$mol_view
+	>
+	export class $mol_select_list extends $mol_view {
+		Badges( ): readonly($mol_view)[]
+		badge_title( id: any): string
+		remove( id: any, next?: any ): any
+		badge_hint( ): string
+		enabled( ): boolean
+		drop_enabled( ): ReturnType< $mol_select_list['enabled'] >
+		event_select( id: any, next?: any ): any
+		align_hor( ): string
+		options( ): readonly(string)[]
+		options_pickable( ): ReturnType< $mol_select_list['options'] >
+		pick( next?: string ): string
+		option_title( id: any): string
+		pick_enabled( ): ReturnType< $mol_select_list['enabled'] >
+		pick_hint( ): string
+		filter_pattern( next?: ReturnType< ReturnType< $mol_select_list['Pick'] >['filter_pattern'] > ): ReturnType< ReturnType< $mol_select_list['Pick'] >['filter_pattern'] >
+		Pick_icon( ): $mol_icon_plus
+		Pick( ): $mol_select
+		value( next?: readonly(string)[] ): readonly(string)[]
+		dictionary( ): Record<string, any>
+		badges_list( ): ReturnType< $mol_select_list['Badges'] >
+		Badge( id: any): $mol_button_minor
+		sub( ): readonly($mol_view)[]
+	}
+	
+}
+
+//# sourceMappingURL=list.view.tree.d.ts.map
+declare namespace $.$$ {
+    class $mol_select_list extends $.$mol_select_list {
+        value(val?: readonly string[]): readonly string[];
+        pick(key?: string): string;
+        event_select(id: string, event?: MouseEvent): void;
+        options(): readonly string[];
+        options_pickable(): readonly string[];
+        option_title(key: string): string;
+        badge_title(key: string): string;
+        pick_enabled(): boolean;
+        Badges(): $mol_button_minor[];
+        title(): string;
+        remove(key: string): void;
+    }
+}
+
+declare namespace $.$$ {
+}
+
+declare namespace $ {
+
+	type $mol_switch__value__9J4PE6NB = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_select['select_type'] >
+		,
+		ReturnType< $mol_switch['value'] >
+	>
+	type $mol_switch__options__CAMZAUJ2 = $mol_type_enforce<
+		({ 
+			'Single': string,
+			'List': string,
+		}) 
+		,
+		ReturnType< $mol_switch['options'] >
+	>
+	type $hyoo_sketch_option__name__Z3CZH48D = $mol_type_enforce<
+		string
+		,
+		ReturnType< $hyoo_sketch_option['name'] >
+	>
+	type $hyoo_sketch_option__Control__IL9DIDI2 = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_select['Select_type_control'] >
+		,
+		ReturnType< $hyoo_sketch_option['Control'] >
+	>
+	type $hyoo_sketch_element_options__element__Y1JTJ8GK = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_select['element'] >
+		,
+		ReturnType< $hyoo_sketch_element_options['element'] >
+	>
+	type $mol_select_list__value__U52SHWWN = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_select['select_list_value'] >
+		,
+		ReturnType< $mol_select_list['value'] >
+	>
+	type $mol_select_list__dictionary__3E7MPDSO = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_select['option_dict'] >
+		,
+		ReturnType< $mol_select_list['dictionary'] >
+	>
+	type $mol_select__value__H1S0BIOU = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_select['select_single_value'] >
+		,
+		ReturnType< $mol_select['value'] >
+	>
+	type $mol_select__options__1PW0JTLW = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_select['option_list'] >
+		,
+		ReturnType< $mol_select['options'] >
+	>
+	export class $hyoo_sketch_element_select extends $hyoo_sketch_element_base {
+		option_list( ): ReturnType< ReturnType< $hyoo_sketch_element_select['Option_list'] >['option_list'] >
+		option_dict( ): ReturnType< ReturnType< $hyoo_sketch_element_select['Option_list'] >['option_dict'] >
+		options( ): ReturnType< ReturnType< $hyoo_sketch_element_select['Option_list'] >['options'] >
+		select_list_value( next?: readonly(any)[] ): readonly(any)[]
+		select_single_value( next?: string ): string
+		select_type_default( ): string
+		select_type( next?: ReturnType< $hyoo_sketch_element_select['select_type_default'] > ): ReturnType< $hyoo_sketch_element_select['select_type_default'] >
+		Select_type_control( ): $mol_switch
+		Select_type_option( ): $hyoo_sketch_option
+		select_options( ): readonly(any)[]
+		Option_list( ): $hyoo_sketch_element_options
+		List( ): $mol_select_list
+		Single( ): $mol_select
+		Elemet( ): $mol_view
+		Options( ): ({ 
+			'select': ReturnType< $hyoo_sketch_element_select['select_options'] >,
+		})  & ReturnType< $hyoo_sketch_element_base['Options'] >
+	}
+	
+}
+
+//# sourceMappingURL=select.view.tree.d.ts.map
+declare namespace $.$$ {
+    class $hyoo_sketch_element_select extends $.$hyoo_sketch_element_select {
+        Element(): $mol_view;
+        select_type(next?: string): string;
+        duplicate(elem?: $hyoo_sketch_element): $hyoo_sketch_element;
+    }
+}
+
+declare namespace $ {
+
+	type $mol_switch__value__TMNPNDGT = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_check['check_type'] >
+		,
+		ReturnType< $mol_switch['value'] >
+	>
+	type $mol_switch__options__BYUOA95A = $mol_type_enforce<
+		({ 
+			'Check_box': string,
+			'Check_icon': string,
+		}) 
+		,
+		ReturnType< $mol_switch['options'] >
+	>
+	type $hyoo_sketch_option__name__3HD5KOUI = $mol_type_enforce<
+		string
+		,
+		ReturnType< $hyoo_sketch_option['name'] >
+	>
+	type $hyoo_sketch_option__Control__XY0BSJIW = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_check['Check_type_control'] >
+		,
+		ReturnType< $hyoo_sketch_option['Control'] >
+	>
+	type $mol_check_box__checked__DKQK3X96 = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_check['check_checked'] >
+		,
+		ReturnType< $mol_check_box['checked'] >
+	>
+	type $hyoo_sketch_option__name__UANW3XIW = $mol_type_enforce<
+		string
+		,
+		ReturnType< $hyoo_sketch_option['name'] >
+	>
+	type $hyoo_sketch_option__Control__KHGZEVQL = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_check['Check_checked_control'] >
+		,
+		ReturnType< $hyoo_sketch_option['Control'] >
+	>
+	type $mol_string__value__M2FTMICY = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_check['check_title'] >
+		,
+		ReturnType< $mol_string['value'] >
+	>
+	type $hyoo_sketch_option__name__FY1BDRQW = $mol_type_enforce<
+		string
+		,
+		ReturnType< $hyoo_sketch_option['name'] >
+	>
+	type $hyoo_sketch_option__Control__72ZEW3RP = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_check['Check_title_control'] >
+		,
+		ReturnType< $hyoo_sketch_option['Control'] >
+	>
+	type $mol_check_box__title__O2YSUNJ2 = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_check['check_title'] >
+		,
+		ReturnType< $mol_check_box['title'] >
+	>
+	type $mol_check_box__checked__YQJL1I1U = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_check['check_checked'] >
+		,
+		ReturnType< $mol_check_box['checked'] >
+	>
+	type $mol_check_icon__Icon__1Z1FPE40 = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_check['Checked_icon'] >
+		,
+		ReturnType< $mol_check_icon['Icon'] >
+	>
+	type $mol_check_icon__checked__JP5DVIR8 = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_check['check_checked'] >
+		,
+		ReturnType< $mol_check_icon['checked'] >
+	>
+	type $hyoo_sketch_element_icon__element__UQYS5IIT = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_check['element'] >
+		,
+		ReturnType< $hyoo_sketch_element_icon['element'] >
+	>
+	export class $hyoo_sketch_element_check extends $hyoo_sketch_element_base {
+		Checked_icon( ): ReturnType< ReturnType< $hyoo_sketch_element_check['Icon'] >['Icon'] >
+		icon_options( ): ReturnType< ReturnType< $hyoo_sketch_element_check['Icon'] >['icon_options'] >
+		check_type_default( ): string
+		check_type( next?: ReturnType< $hyoo_sketch_element_check['check_type_default'] > ): ReturnType< $hyoo_sketch_element_check['check_type_default'] >
+		Check_type_control( ): $mol_switch
+		Check_type_option( ): $hyoo_sketch_option
+		check_checked_default( ): boolean
+		check_checked( next?: ReturnType< $hyoo_sketch_element_check['check_checked_default'] > ): ReturnType< $hyoo_sketch_element_check['check_checked_default'] >
+		Check_checked_control( ): $mol_check_box
+		Check_checked_option( ): $hyoo_sketch_option
+		check_title_default( ): string
+		check_title( next?: ReturnType< $hyoo_sketch_element_check['check_title_default'] > ): ReturnType< $hyoo_sketch_element_check['check_title_default'] >
+		Check_title_control( ): $mol_string
+		Check_title_option( ): $hyoo_sketch_option
+		check_options( ): readonly(any)[]
+		Check_box( ): $mol_check_box
+		Check_icon( ): $mol_check_icon
+		Element( ): $mol_view
+		Icon( ): $hyoo_sketch_element_icon
+		Options( ): ({ 
+			'check': ReturnType< $hyoo_sketch_element_check['check_options'] >,
+		})  & ReturnType< $hyoo_sketch_element_base['Options'] >
+		width_default( ): number
+	}
+	
+}
+
+//# sourceMappingURL=check.view.tree.d.ts.map
+declare namespace $.$$ {
+    class $hyoo_sketch_element_check extends $.$hyoo_sketch_element_check {
+        Element(): $mol_view;
+        check_type(next?: string): string;
+        check_title(next?: string): string;
+        check_checked(next?: boolean): boolean;
+        duplicate(elem?: $hyoo_sketch_element): $hyoo_sketch_element;
+        check_options(): any[];
+    }
+}
+
+declare namespace $ {
+
+	type $hyoo_sketch_element_switch_value__34PLSY1C = $mol_type_enforce<
+		Parameters< $hyoo_sketch_element_switch['value'] >[0]
+		,
+		Parameters< ReturnType< $hyoo_sketch_element_switch['Option_list'] >['option_current'] >[0]
+	>
+	type $hyoo_sketch_element_options__element__W2MQL8FR = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_switch['element'] >
+		,
+		ReturnType< $hyoo_sketch_element_options['element'] >
+	>
+	type $mol_switch__value__6DD61M14 = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_switch['value'] >
+		,
+		ReturnType< $mol_switch['value'] >
+	>
+	type $mol_switch__options__NT01KT6V = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_switch['option_dict'] >
+		,
+		ReturnType< $mol_switch['options'] >
+	>
+	export class $hyoo_sketch_element_switch extends $hyoo_sketch_element_base {
+		option_dict( ): ReturnType< ReturnType< $hyoo_sketch_element_switch['Option_list'] >['option_dict'] >
+		value( next?: ReturnType< ReturnType< $hyoo_sketch_element_switch['Option_list'] >['option_current'] > ): ReturnType< ReturnType< $hyoo_sketch_element_switch['Option_list'] >['option_current'] >
+		options( ): ReturnType< ReturnType< $hyoo_sketch_element_switch['Option_list'] >['options'] >
+		Option_list( ): $hyoo_sketch_element_options
+		Element( ): $mol_switch
+		Options( ): ({ 
+			'switch': ReturnType< $hyoo_sketch_element_switch['options'] >,
+		})  & ReturnType< $hyoo_sketch_element_base['Options'] >
+	}
+	
+}
+
+//# sourceMappingURL=switch.view.tree.d.ts.map
+declare namespace $.$$ {
+    class $hyoo_sketch_element_switch extends $.$hyoo_sketch_element_switch {
+        duplicate(elem?: $hyoo_sketch_element): $hyoo_sketch_element;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+
+	export class $mol_stack extends $mol_view {
+	}
+	
+}
+
+//# sourceMappingURL=stack.view.tree.d.ts.map
+declare namespace $ {
+
+	export class $mol_text_code_token extends $mol_dimmer {
+		type( ): string
+		attr( ): ({ 
+			'mol_text_code_token_type': ReturnType< $mol_text_code_token['type'] >,
+		})  & ReturnType< $mol_dimmer['attr'] >
+	}
+	
+	export class $mol_text_code_token_link extends $mol_text_code_token {
+		uri( ): string
+		dom_name( ): string
+		type( ): string
+		attr( ): ({ 
+			'href': ReturnType< $mol_text_code_token_link['uri'] >,
+			'target': string,
+		})  & ReturnType< $mol_text_code_token['attr'] >
+	}
+	
+}
+
+//# sourceMappingURL=token.view.tree.d.ts.map
+declare namespace $.$$ {
+}
+
+declare namespace $ {
+    class $mol_syntax2<Lexems extends {
+        [name: string]: RegExp;
+    }> {
+        lexems: Lexems;
+        constructor(lexems: Lexems);
+        rules: {
+            regExp: RegExp;
+            name: string;
+            size: number;
+        }[];
+        regexp: RegExp;
+        tokenize(text: string, handle: (name: string, found: string, chunks: string[], offset: number) => void): void;
+        parse(text: string, handlers: {
+            [key in keyof Lexems | '']: (found: string, chunks: string[], offset: number) => void;
+        }): void;
+    }
+}
+
+declare namespace $ {
+    var $mol_syntax2_md_flow: $mol_syntax2<{
+        quote: RegExp;
+        header: RegExp;
+        list: RegExp;
+        code: RegExp;
+        'code-indent': RegExp;
+        table: RegExp;
+        grid: RegExp;
+        cut: RegExp;
+        block: RegExp;
+    }>;
+    var $mol_syntax2_md_line: $mol_syntax2<{
+        strong: RegExp;
+        emphasis: RegExp;
+        code: RegExp;
+        insert: RegExp;
+        delete: RegExp;
+        embed: RegExp;
+        link: RegExp;
+        'image-link': RegExp;
+        'text-link': RegExp;
+        'text-link-http': RegExp;
+    }>;
+    const $mol_syntax2_md_code: $mol_syntax2<{
+        'code-indent': RegExp;
+        'code-docs': RegExp;
+        'code-comment-block': RegExp;
+        'code-link': RegExp;
+        'code-comment-inline': RegExp;
+        'code-string': RegExp;
+        'code-number': RegExp;
+        'code-call': RegExp;
+        'code-sexpr': RegExp;
+        'code-field': RegExp;
+        'code-keyword': RegExp;
+        'code-global': RegExp;
+        'code-word': RegExp;
+        'code-decorator': RegExp;
+        'code-tag': RegExp;
+        'code-punctuation': RegExp;
+    }>;
+}
+
+declare namespace $ {
+
+	type $mol_view__sub__4YWILG5R = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $mol_text_code_token__type__8IH9342F = $mol_type_enforce<
+		ReturnType< $mol_text_code_row['token_type'] >
+		,
+		ReturnType< $mol_text_code_token['type'] >
+	>
+	type $mol_text_code_token__haystack__5HMHIN8N = $mol_type_enforce<
+		ReturnType< $mol_text_code_row['token_text'] >
+		,
+		ReturnType< $mol_text_code_token['haystack'] >
+	>
+	type $mol_text_code_token__needle__2JXM6TYK = $mol_type_enforce<
+		ReturnType< $mol_text_code_row['highlight'] >
+		,
+		ReturnType< $mol_text_code_token['needle'] >
+	>
+	type $mol_text_code_token_link__haystack__KVEGGYI7 = $mol_type_enforce<
+		ReturnType< $mol_text_code_row['token_text'] >
+		,
+		ReturnType< $mol_text_code_token_link['haystack'] >
+	>
+	type $mol_text_code_token_link__needle__U57VK2S8 = $mol_type_enforce<
+		ReturnType< $mol_text_code_row['highlight'] >
+		,
+		ReturnType< $mol_text_code_token_link['needle'] >
+	>
+	type $mol_text_code_token_link__uri__PCLNKG98 = $mol_type_enforce<
+		ReturnType< $mol_text_code_row['token_uri'] >
+		,
+		ReturnType< $mol_text_code_token_link['uri'] >
+	>
+	export class $mol_text_code_row extends $mol_paragraph {
+		numb( ): number
+		token_type( id: any): string
+		token_text( id: any): string
+		highlight( ): string
+		token_uri( id: any): string
+		text( ): string
+		minimal_height( ): number
+		numb_showed( ): boolean
+		syntax( ): any
+		uri_resolve( id: any): string
+		Numb( ): $mol_view
+		Token( id: any): $mol_text_code_token
+		Token_link( id: any): $mol_text_code_token_link
+		find_pos( id: any): any
+	}
+	
+}
+
+//# sourceMappingURL=row.view.tree.d.ts.map
+declare namespace $.$$ {
+    class $mol_text_code_row extends $.$mol_text_code_row {
+        maximal_width(): number;
+        syntax(): $mol_syntax2<{
+            'code-indent': RegExp;
+            'code-docs': RegExp;
+            'code-comment-block': RegExp;
+            'code-link': RegExp;
+            'code-comment-inline': RegExp;
+            'code-string': RegExp;
+            'code-number': RegExp;
+            'code-call': RegExp;
+            'code-sexpr': RegExp;
+            'code-field': RegExp;
+            'code-keyword': RegExp;
+            'code-global': RegExp;
+            'code-word': RegExp;
+            'code-decorator': RegExp;
+            'code-tag': RegExp;
+            'code-punctuation': RegExp;
+        }>;
+        tokens(path: number[]): readonly {
+            name: string;
+            found: string;
+            chunks: string[];
+        }[];
+        sub(): $mol_view[];
+        row_content(path: number[]): $mol_text_code_token[];
+        Token(path: number[]): $mol_text_code_token;
+        token_type(path: number[]): string;
+        token_content(path: number[]): (string | $mol_text_code_token)[];
+        token_text(path: number[]): string;
+        token_uri(path: number[]): string;
+        view_find(check: (path: $mol_view, text?: string) => boolean, path?: $mol_view[]): Generator<$mol_view[]>;
+        find_pos(offset: number): {
+            token: $mol_text_code_token;
+            offset: number;
+        } | null;
+        find_token_pos([offset, ...path]: number[]): {
+            token: $mol_text_code_token;
+            offset: number;
+        } | null;
+    }
+}
+
+declare namespace $.$$ {
+}
+
+declare namespace $ {
+    type $mol_blob = Blob;
+    let $mol_blob: {
+        new (blobParts?: readonly BlobPart[], options?: BlobPropertyBag): Blob;
+        prototype: Blob;
+    };
+}
+
+declare namespace $ {
+
+	export class $mol_icon_clipboard extends $mol_icon {
+		path( ): string
+	}
+	
+}
+
+//# sourceMappingURL=clipboard.view.tree.d.ts.map
+declare namespace $ {
+
+	export class $mol_icon_clipboard_outline extends $mol_icon {
+		path( ): string
+	}
+	
+}
+
+//# sourceMappingURL=outline.view.tree.d.ts.map
+declare namespace $ {
+    function $mol_html_encode(text: string): string;
+}
+
+declare namespace $ {
+
+	type $mol_blob__F7GC8N1Y = $mol_type_enforce<
+		[ readonly(BlobPart)[], ({ 
+			'type': string,
+		})  ]
+		,
+		ConstructorParameters< typeof $mol_blob >
+	>
+	type $mol_blob__2V902ZHB = $mol_type_enforce<
+		[ readonly(BlobPart)[], ({ 
+			'type': string,
+		})  ]
+		,
+		ConstructorParameters< typeof $mol_blob >
+	>
+	export class $mol_button_copy extends $mol_button_minor {
+		text( ): ReturnType< $mol_button_copy['title'] >
+		text_blob( next?: $mol_blob ): $mol_blob
+		html( ): string
+		html_blob( next?: $mol_blob ): $mol_blob
+		Icon( ): $mol_icon_clipboard_outline
+		title( ): string
+		blobs( ): readonly($mol_blob)[]
+		data( ): Record<string, any>
+		sub( ): readonly(any)[]
+	}
+	
+}
+
+//# sourceMappingURL=copy.view.tree.d.ts.map
+declare namespace $.$$ {
+    class $mol_button_copy extends $.$mol_button_copy {
+        data(): {
+            [k: string]: Blob;
+        };
+        html(): string;
+        attachments(): ClipboardItem[];
+        click(event?: Event): void;
+    }
+}
+
+declare namespace $ {
+
+	type $mol_text_code_row__numb_showed__AIIWYRE4 = $mol_type_enforce<
+		ReturnType< $mol_text_code['sidebar_showed'] >
+		,
+		ReturnType< $mol_text_code_row['numb_showed'] >
+	>
+	type $mol_text_code_row__numb__B3DZAGMY = $mol_type_enforce<
+		ReturnType< $mol_text_code['row_numb'] >
+		,
+		ReturnType< $mol_text_code_row['numb'] >
+	>
+	type $mol_text_code_row__text__KP31113U = $mol_type_enforce<
+		ReturnType< $mol_text_code['row_text'] >
+		,
+		ReturnType< $mol_text_code_row['text'] >
+	>
+	type $mol_text_code_row__syntax__KMXATDYU = $mol_type_enforce<
+		ReturnType< $mol_text_code['syntax'] >
+		,
+		ReturnType< $mol_text_code_row['syntax'] >
+	>
+	type $mol_text_code_row__uri_resolve__0QHUXMAK = $mol_type_enforce<
+		ReturnType< $mol_text_code['uri_resolve'] >
+		,
+		ReturnType< $mol_text_code_row['uri_resolve'] >
+	>
+	type $mol_text_code_row__highlight__M6XKFHHU = $mol_type_enforce<
+		ReturnType< $mol_text_code['highlight'] >
+		,
+		ReturnType< $mol_text_code_row['highlight'] >
+	>
+	type $mol_list__render_visible_only__83T8H4YL = $mol_type_enforce<
+		ReturnType< $mol_text_code['render_visible_only'] >
+		,
+		ReturnType< $mol_list['render_visible_only'] >
+	>
+	type $mol_list__rows__AA0FFXBQ = $mol_type_enforce<
+		ReturnType< $mol_text_code['rows'] >
+		,
+		ReturnType< $mol_list['rows'] >
+	>
+	type $mol_button_copy__hint__6UQL44PD = $mol_type_enforce<
+		string
+		,
+		ReturnType< $mol_button_copy['hint'] >
+	>
+	type $mol_button_copy__text__E0B7L4H3 = $mol_type_enforce<
+		ReturnType< $mol_text_code['text_export'] >
+		,
+		ReturnType< $mol_button_copy['text'] >
+	>
+	export class $mol_text_code extends $mol_stack {
+		sidebar_showed( ): boolean
+		render_visible_only( ): boolean
+		row_numb( id: any): number
+		row_text( id: any): string
+		syntax( ): any
+		uri_resolve( id: any): string
+		highlight( ): string
+		Row( id: any): $mol_text_code_row
+		rows( ): readonly(any)[]
+		Rows( ): $mol_list
+		text_export( ): string
+		Copy( ): $mol_button_copy
+		attr( ): ({ 
+			'mol_text_code_sidebar_showed': ReturnType< $mol_text_code['sidebar_showed'] >,
+		})  & ReturnType< $mol_stack['attr'] >
+		text( ): string
+		text_lines( ): readonly(string)[]
+		find_pos( id: any): any
+		uri_base( ): string
+		sub( ): readonly(any)[]
+	}
+	
+}
+
+//# sourceMappingURL=code.view.tree.d.ts.map
+declare namespace $.$$ {
+    class $mol_text_code extends $.$mol_text_code {
+        render_visible_only(): boolean;
+        text_lines(): readonly string[];
+        rows(): $.$mol_text_code_row[];
+        row_text(index: number): string;
+        row_numb(index: number): number;
+        find_pos(offset: number): any;
+        sub(): ($.$mol_list | $.$mol_button_copy)[];
+        syntax(): $mol_syntax2<{
+            'code-indent': RegExp;
+            'code-docs': RegExp;
+            'code-comment-block': RegExp;
+            'code-link': RegExp;
+            'code-comment-inline': RegExp;
+            'code-string': RegExp;
+            'code-number': RegExp;
+            'code-call': RegExp;
+            'code-sexpr': RegExp;
+            'code-field': RegExp;
+            'code-keyword': RegExp;
+            'code-global': RegExp;
+            'code-word': RegExp;
+            'code-decorator': RegExp;
+            'code-tag': RegExp;
+            'code-punctuation': RegExp;
+        }>;
+        uri_base(): string;
+        uri_resolve(uri: string): string;
+        text_export(): string;
+    }
+}
+
+declare namespace $.$$ {
+}
+
+declare namespace $ {
+
+	type $mol_textarea_edit__value__7SF2Y7VI = $mol_type_enforce<
+		ReturnType< $mol_textarea['value'] >
+		,
+		ReturnType< $mol_textarea_edit['value'] >
+	>
+	type $mol_textarea_edit__hint__BS9DJPBL = $mol_type_enforce<
+		ReturnType< $mol_textarea['hint'] >
+		,
+		ReturnType< $mol_textarea_edit['hint'] >
+	>
+	type $mol_textarea_edit__enabled__4CS79QAP = $mol_type_enforce<
+		ReturnType< $mol_textarea['enabled'] >
+		,
+		ReturnType< $mol_textarea_edit['enabled'] >
+	>
+	type $mol_textarea_edit__spellcheck__0KH86VWS = $mol_type_enforce<
+		ReturnType< $mol_textarea['spellcheck'] >
+		,
+		ReturnType< $mol_textarea_edit['spellcheck'] >
+	>
+	type $mol_textarea_edit__length_max__VBZOYXO2 = $mol_type_enforce<
+		ReturnType< $mol_textarea['length_max'] >
+		,
+		ReturnType< $mol_textarea_edit['length_max'] >
+	>
+	type $mol_textarea_edit__selection__MRGRJ5YJ = $mol_type_enforce<
+		ReturnType< $mol_textarea['selection'] >
+		,
+		ReturnType< $mol_textarea_edit['selection'] >
+	>
+	type $mol_textarea_edit__submit__N4DG9X7W = $mol_type_enforce<
+		ReturnType< $mol_textarea['submit'] >
+		,
+		ReturnType< $mol_textarea_edit['submit'] >
+	>
+	type $mol_textarea_edit__submit_with_ctrl__ZVKGWVE6 = $mol_type_enforce<
+		ReturnType< $mol_textarea['submit_with_ctrl'] >
+		,
+		ReturnType< $mol_textarea_edit['submit_with_ctrl'] >
+	>
+	type $mol_text_code__text__4DJJIOKM = $mol_type_enforce<
+		ReturnType< $mol_textarea['value'] >
+		,
+		ReturnType< $mol_text_code['text'] >
+	>
+	type $mol_text_code__render_visible_only__4IW4URZD = $mol_type_enforce<
+		boolean
+		,
+		ReturnType< $mol_text_code['render_visible_only'] >
+	>
+	type $mol_text_code__row_numb__ADUNK8PP = $mol_type_enforce<
+		ReturnType< $mol_textarea['row_numb'] >
+		,
+		ReturnType< $mol_text_code['row_numb'] >
+	>
+	type $mol_text_code__sidebar_showed__F57EY0HT = $mol_type_enforce<
+		ReturnType< $mol_textarea['sidebar_showed'] >
+		,
+		ReturnType< $mol_text_code['sidebar_showed'] >
+	>
+	type $mol_text_code__highlight__G7YB8SLF = $mol_type_enforce<
+		ReturnType< $mol_textarea['highlight'] >
+		,
+		ReturnType< $mol_text_code['highlight'] >
+	>
+	export class $mol_textarea extends $mol_stack {
+		clickable( next?: boolean ): boolean
+		sidebar_showed( ): boolean
+		press( next?: any ): any
+		hover( next?: any ): any
+		value( next?: string ): string
+		hint( ): string
+		enabled( ): boolean
+		spellcheck( ): boolean
+		length_max( ): number
+		selection( next?: readonly(number)[] ): readonly(number)[]
+		bring( ): ReturnType< ReturnType< $mol_textarea['Edit'] >['bring'] >
+		submit( next?: any ): any
+		submit_with_ctrl( ): boolean
+		Edit( ): $mol_textarea_edit
+		row_numb( id: any): number
+		highlight( ): string
+		View( ): $mol_text_code
+		attr( ): ({ 
+			'mol_textarea_clickable': ReturnType< $mol_textarea['clickable'] >,
+			'mol_textarea_sidebar_showed': ReturnType< $mol_textarea['sidebar_showed'] >,
+		})  & ReturnType< $mol_stack['attr'] >
+		event( ): ({ 
+			keydown( next?: ReturnType< $mol_textarea['press'] > ): ReturnType< $mol_textarea['press'] >,
+			pointermove( next?: ReturnType< $mol_textarea['hover'] > ): ReturnType< $mol_textarea['hover'] >,
+		}) 
+		sub( ): readonly(any)[]
+		symbols_alt( ): Record<string, string>
+		symbols_alt_ctrl( ): Record<string, string>
+		symbols_alt_shift( ): Record<string, string>
+	}
+	
+	export class $mol_textarea_edit extends $mol_string {
+		dom_name( ): string
+		enter( ): string
+		field( ): ({ 
+			'scrollTop': number,
+		})  & ReturnType< $mol_string['field'] >
+	}
+	
+}
+
+//# sourceMappingURL=textarea.view.tree.d.ts.map
+declare namespace $.$$ {
+    class $mol_textarea extends $.$mol_textarea {
+        indent_inc(): void;
+        indent_dec(): void;
+        symbol_insert(event: KeyboardEvent): void;
+        clickable(next?: boolean): boolean;
+        hover(event: PointerEvent): void;
+        press(event: KeyboardEvent): void;
+        row_numb(index: number): number;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+    let $hyoo_crowd_tokenizer: RegExp;
+}
+
+declare namespace $ {
+    class $hyoo_crowd_text extends $hyoo_crowd_node {
+        text(next?: string): string;
+        str(next?: string): string;
+        write(next: string, str_from?: number, str_to?: number): this;
+        point_by_offset(offset: number): readonly [$mol_int62_string, number];
+        offset_by_point([self, offset]: [$mol_int62_string, number]): readonly [$mol_int62_string, number];
+        selection(peer: $mol_int62_string, next?: number[]): number[];
+    }
+}
+
+declare namespace $ {
+
+	type $mol_textarea__style__6WS9LIUM = $mol_type_enforce<
+		({ 
+			'height': string,
+		}) 
+		,
+		ReturnType< $mol_textarea['style'] >
+	>
+	type $mol_textarea__value__84NUIOZA = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_textarea['text'] >
+		,
+		ReturnType< $mol_textarea['value'] >
+	>
+	type $hyoo_sketch_option__name__6Y5OI9YM = $mol_type_enforce<
+		string
+		,
+		ReturnType< $hyoo_sketch_option['name'] >
+	>
+	type $hyoo_sketch_option__Control__EOKQID7L = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_textarea['Text_control'] >
+		,
+		ReturnType< $hyoo_sketch_option['Control'] >
+	>
+	type $mol_string__value__56CX3R8J = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_textarea['hint'] >
+		,
+		ReturnType< $mol_string['value'] >
+	>
+	type $hyoo_sketch_option__name__Q663L6SS = $mol_type_enforce<
+		string
+		,
+		ReturnType< $hyoo_sketch_option['name'] >
+	>
+	type $hyoo_sketch_option__Control__6059VZF3 = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_textarea['Hint_control'] >
+		,
+		ReturnType< $hyoo_sketch_option['Control'] >
+	>
+	type $mol_textarea__hint__XJSZ6J2F = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_textarea['hint'] >
+		,
+		ReturnType< $mol_textarea['hint'] >
+	>
+	type $mol_textarea__value__M15VNPFP = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_textarea['text'] >
+		,
+		ReturnType< $mol_textarea['value'] >
+	>
+	export class $hyoo_sketch_element_textarea extends $hyoo_sketch_element_base {
+		text( next?: string ): string
+		Text_control( ): $mol_textarea
+		Text_option( ): $hyoo_sketch_option
+		hint( next?: string ): string
+		Hint_control( ): $mol_string
+		Hint_option( ): $hyoo_sketch_option
+		textarea_options( ): readonly(any)[]
+		Element( ): $mol_textarea
+		Options( ): ({ 
+			'textarea': ReturnType< $hyoo_sketch_element_textarea['textarea_options'] >,
+		})  & ReturnType< $hyoo_sketch_element_base['Options'] >
+	}
+	
+}
+
+//# sourceMappingURL=textarea.view.tree.d.ts.map
+declare namespace $.$$ {
+    class $hyoo_sketch_element_textarea extends $.$hyoo_sketch_element_textarea {
+        text(next?: string): string;
+        hint(next?: string): string;
+        duplicate(elem?: $hyoo_sketch_element): $hyoo_sketch_element;
+    }
+}
+
+declare namespace $ {
+
+	export class $mol_icon_calendar extends $mol_icon {
+		path( ): string
+	}
+	
+}
+
+//# sourceMappingURL=calendar.view.tree.d.ts.map
+declare namespace $ {
 
 	export class $mol_icon_calendar_today extends $mol_icon {
 		path( ): string
@@ -6300,10 +6707,10 @@ declare namespace $ {
 declare namespace $ {
 
 	export class $mol_format extends $mol_string {
+		mask( id: any): string
 		allow( ): string
 		hint( ): ReturnType< $mol_format['mask'] >
 		keyboard( ): string
-		mask( id: any): string
 	}
 	
 }
@@ -6383,80 +6790,72 @@ declare namespace $ {
 
 declare namespace $ {
 
-	type $mol_calendar_day__holiday__P4SMXL9W = $mol_type_enforce<
-		ReturnType< $mol_calendar['weekend'] >
-		,
-		ReturnType< $mol_calendar_day['holiday'] >
-	>
-	type $mol_calendar_day__sub__9ORD3SZG = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_calendar_day['sub'] >
-	>
-	type $mol_hor__sub__U3B2Q9B5 = $mol_type_enforce<
-		ReturnType< $mol_calendar['week_days'] >
-		,
-		ReturnType< $mol_hor['sub'] >
-	>
-	type $mol_calendar_day__ghost__W8FWCA6V = $mol_type_enforce<
-		ReturnType< $mol_calendar['day_ghost'] >
-		,
-		ReturnType< $mol_calendar_day['ghost'] >
-	>
-	type $mol_calendar_day__holiday__7LBIIUEN = $mol_type_enforce<
-		ReturnType< $mol_calendar['day_holiday'] >
-		,
-		ReturnType< $mol_calendar_day['holiday'] >
-	>
-	type $mol_calendar_day__selected__QYEU5Z7X = $mol_type_enforce<
-		ReturnType< $mol_calendar['day_selected'] >
-		,
-		ReturnType< $mol_calendar_day['selected'] >
-	>
-	type $mol_calendar_day__today__8P51VAVB = $mol_type_enforce<
-		ReturnType< $mol_calendar['day_today'] >
-		,
-		ReturnType< $mol_calendar_day['today'] >
-	>
-	type $mol_calendar_day__theme__N8ATVIG9 = $mol_type_enforce<
-		ReturnType< $mol_calendar['day_theme'] >
-		,
-		ReturnType< $mol_calendar_day['theme'] >
-	>
-	type $mol_calendar_day__sub__2Z9Z4CKG = $mol_type_enforce<
-		ReturnType< $mol_calendar['day_content'] >
-		,
-		ReturnType< $mol_calendar_day['sub'] >
-	>
-	type $mol_view__minimal_height__5M3AIRUY = $mol_type_enforce<
+	type $mol_view__minimal_height__4VT3L7CU = $mol_type_enforce<
 		number
 		,
 		ReturnType< $mol_view['minimal_height'] >
 	>
-	type $mol_view__sub__XN8OOFTO = $mol_type_enforce<
+	type $mol_view__sub__3VWLR1ZN = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_view['sub'] >
 	>
-	type $mol_view__sub__FQYFGT72 = $mol_type_enforce<
+	type $mol_view__sub__D89PNO8H = $mol_type_enforce<
 		ReturnType< $mol_calendar['head'] >
 		,
 		ReturnType< $mol_view['sub'] >
 	>
-	type $mol_hor__sub__SBMTVW4L = $mol_type_enforce<
+	type $mol_hor__sub__IJ79MFDV = $mol_type_enforce<
 		ReturnType< $mol_calendar['weekdays'] >
 		,
 		ReturnType< $mol_hor['sub'] >
 	>
+	type $mol_calendar_day__holiday__TVV1FBNL = $mol_type_enforce<
+		ReturnType< $mol_calendar['weekend'] >
+		,
+		ReturnType< $mol_calendar_day['holiday'] >
+	>
+	type $mol_calendar_day__sub__E9BYSI35 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_calendar_day['sub'] >
+	>
+	type $mol_hor__sub__KNG9YAKC = $mol_type_enforce<
+		ReturnType< $mol_calendar['week_days'] >
+		,
+		ReturnType< $mol_hor['sub'] >
+	>
+	type $mol_calendar_day__ghost__D74MFWMG = $mol_type_enforce<
+		ReturnType< $mol_calendar['day_ghost'] >
+		,
+		ReturnType< $mol_calendar_day['ghost'] >
+	>
+	type $mol_calendar_day__holiday__VXX7IBEO = $mol_type_enforce<
+		ReturnType< $mol_calendar['day_holiday'] >
+		,
+		ReturnType< $mol_calendar_day['holiday'] >
+	>
+	type $mol_calendar_day__selected__F2JHTCRK = $mol_type_enforce<
+		ReturnType< $mol_calendar['day_selected'] >
+		,
+		ReturnType< $mol_calendar_day['selected'] >
+	>
+	type $mol_calendar_day__today__UP082ZXT = $mol_type_enforce<
+		ReturnType< $mol_calendar['day_today'] >
+		,
+		ReturnType< $mol_calendar_day['today'] >
+	>
+	type $mol_calendar_day__theme__GLXN695D = $mol_type_enforce<
+		ReturnType< $mol_calendar['day_theme'] >
+		,
+		ReturnType< $mol_calendar_day['theme'] >
+	>
+	type $mol_calendar_day__sub__DAR8LNZO = $mol_type_enforce<
+		ReturnType< $mol_calendar['day_content'] >
+		,
+		ReturnType< $mol_calendar_day['sub'] >
+	>
 	export class $mol_calendar extends $mol_list {
-		sub( ): readonly(any)[]
-		weeks( ): readonly($mol_view)[]
-		weeks_count( ): number
-		Weekday( id: any): $mol_calendar_day
-		Week( id: any): $mol_hor
-		Day( id: any): $mol_calendar_day
-		month_string( ): string
-		month_moment( ): $mol_time_moment
 		title( ): string
 		Title( ): $mol_view
 		head( ): readonly(any)[]
@@ -6473,9 +6872,22 @@ declare namespace $ {
 		day_theme( id: any): any
 		day_text( id: any): string
 		day_content( id: any): readonly(any)[]
+		sub( ): readonly(any)[]
+		weeks( ): readonly($mol_view)[]
+		weeks_count( ): number
+		Weekday( id: any): $mol_calendar_day
+		Week( id: any): $mol_hor
+		Day( id: any): $mol_calendar_day
+		month_string( ): string
+		month_moment( ): $mol_time_moment
 	}
 	
 	export class $mol_calendar_day extends $mol_view {
+		holiday( ): boolean
+		ghost( ): boolean
+		selected( ): boolean
+		today( ): boolean
+		theme( ): any
 		minimal_height( ): number
 		minimal_width( ): number
 		attr( ): ({ 
@@ -6485,11 +6897,6 @@ declare namespace $ {
 			'mol_calendar_today': ReturnType< $mol_calendar_day['today'] >,
 			'mol_theme': ReturnType< $mol_calendar_day['theme'] >,
 		}) 
-		holiday( ): boolean
-		ghost( ): boolean
-		selected( ): boolean
-		today( ): boolean
-		theme( ): any
 	}
 	
 }
@@ -6526,136 +6933,132 @@ declare namespace $ {
 
 declare namespace $ {
 
-	type $mol_button_minor__hint__0SY85GE4 = $mol_type_enforce<
+	type $mol_button_minor__hint__93Y4U17B = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_button_minor['hint'] >
 	>
-	type $mol_button_minor__enabled__YVB9UWMK = $mol_type_enforce<
+	type $mol_button_minor__enabled__RCDCEKPQ = $mol_type_enforce<
 		ReturnType< $mol_date['enabled'] >
 		,
 		ReturnType< $mol_button_minor['enabled'] >
 	>
-	type $mol_button_minor__click__BFCHLRUF = $mol_type_enforce<
+	type $mol_button_minor__click__OHKS9EWB = $mol_type_enforce<
 		ReturnType< $mol_date['today_click'] >
 		,
 		ReturnType< $mol_button_minor['click'] >
 	>
-	type $mol_button_minor__sub__WQKNEYXQ = $mol_type_enforce<
+	type $mol_button_minor__sub__MJ3X6I4Y = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_button_minor['sub'] >
 	>
-	type $mol_date_value_changed__9G4EYNQ5 = $mol_type_enforce<
+	type $mol_date_value_changed__WZ94F554 = $mol_type_enforce<
 		Parameters< $mol_date['value_changed'] >[0]
 		,
 		Parameters< ReturnType< $mol_date['Input'] >['value_changed'] >[0]
 	>
-	type $mol_format__value__Z8ZFZ2MX = $mol_type_enforce<
+	type $mol_format__value__0HRWFTKP = $mol_type_enforce<
 		ReturnType< $mol_date['value'] >
 		,
 		ReturnType< $mol_format['value'] >
 	>
-	type $mol_format__mask__H5RZZ4XP = $mol_type_enforce<
+	type $mol_format__mask__UKCQNMLJ = $mol_type_enforce<
 		ReturnType< $mol_date['input_mask'] >
 		,
 		ReturnType< $mol_format['mask'] >
 	>
-	type $mol_format__enabled__6GZR3XGI = $mol_type_enforce<
+	type $mol_format__enabled__GSU41IRY = $mol_type_enforce<
 		ReturnType< $mol_date['enabled'] >
 		,
 		ReturnType< $mol_format['enabled'] >
 	>
-	type $mol_button_minor__hint__QE1A2X80 = $mol_type_enforce<
+	type $mol_button_minor__hint__3MXGQ6HB = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_button_minor['hint'] >
 	>
-	type $mol_button_minor__enabled__Q0B7GUWH = $mol_type_enforce<
+	type $mol_button_minor__enabled__D80WNO6E = $mol_type_enforce<
 		ReturnType< $mol_date['enabled'] >
 		,
 		ReturnType< $mol_button_minor['enabled'] >
 	>
-	type $mol_button_minor__click__J94RA2ZZ = $mol_type_enforce<
+	type $mol_button_minor__click__0XLXS1J6 = $mol_type_enforce<
 		ReturnType< $mol_date['clear'] >
 		,
 		ReturnType< $mol_button_minor['click'] >
 	>
-	type $mol_button_minor__sub__MT0IM41N = $mol_type_enforce<
+	type $mol_button_minor__sub__BOQ3ZTWS = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_button_minor['sub'] >
 	>
-	type $mol_view__sub__P4GT0534 = $mol_type_enforce<
+	type $mol_view__sub__KLULXT7V = $mol_type_enforce<
 		ReturnType< $mol_date['input_content'] >
 		,
 		ReturnType< $mol_view['sub'] >
 	>
-	type $mol_button_minor__hint__Q7RP9NKV = $mol_type_enforce<
+	type $mol_button_minor__hint__NHQ6PC9P = $mol_type_enforce<
 		ReturnType< $mol_date['prev_hint'] >
 		,
 		ReturnType< $mol_button_minor['hint'] >
 	>
-	type $mol_button_minor__click__I4YEY85K = $mol_type_enforce<
+	type $mol_button_minor__click__HHST966P = $mol_type_enforce<
 		ReturnType< $mol_date['prev'] >
 		,
 		ReturnType< $mol_button_minor['click'] >
 	>
-	type $mol_button_minor__sub__NZCXB4GV = $mol_type_enforce<
+	type $mol_button_minor__sub__51CZALAL = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_button_minor['sub'] >
 	>
-	type $mol_button_minor__hint__DWO0AN98 = $mol_type_enforce<
+	type $mol_button_minor__hint__S36ZER13 = $mol_type_enforce<
 		ReturnType< $mol_date['next_hint'] >
 		,
 		ReturnType< $mol_button_minor['hint'] >
 	>
-	type $mol_button_minor__click__V3W9LMRD = $mol_type_enforce<
+	type $mol_button_minor__click__XOXNL9JE = $mol_type_enforce<
 		ReturnType< $mol_date['next'] >
 		,
 		ReturnType< $mol_button_minor['click'] >
 	>
-	type $mol_button_minor__sub__9PMDG455 = $mol_type_enforce<
+	type $mol_button_minor__sub__0BLT7493 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_button_minor['sub'] >
 	>
-	type $mol_view__sub__9OBTXN4L = $mol_type_enforce<
+	type $mol_view__sub__ZJIEB7BN = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_view['sub'] >
 	>
-	type $mol_date_calendar__enabled__FQQ8HMKF = $mol_type_enforce<
+	type $mol_date_calendar__enabled__W0CNNBQB = $mol_type_enforce<
 		ReturnType< $mol_date['enabled'] >
 		,
 		ReturnType< $mol_date_calendar['enabled'] >
 	>
-	type $mol_date_calendar__month_moment__UTJFMSYT = $mol_type_enforce<
+	type $mol_date_calendar__month_moment__ZD5S6YRI = $mol_type_enforce<
 		ReturnType< $mol_date['month_moment'] >
 		,
 		ReturnType< $mol_date_calendar['month_moment'] >
 	>
-	type $mol_date_calendar__day_selected__WVN6FSDL = $mol_type_enforce<
+	type $mol_date_calendar__day_selected__RLD401LE = $mol_type_enforce<
 		ReturnType< $mol_date['day_selected'] >
 		,
 		ReturnType< $mol_date_calendar['day_selected'] >
 	>
-	type $mol_date_calendar__day_click__5DZHYYLX = $mol_type_enforce<
+	type $mol_date_calendar__day_click__VHYMIPM4 = $mol_type_enforce<
 		ReturnType< $mol_date['day_click'] >
 		,
 		ReturnType< $mol_date_calendar['day_click'] >
 	>
-	type $mol_date_calendar__head__Q5K5LI3G = $mol_type_enforce<
+	type $mol_date_calendar__head__96AU2XI3 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_date_calendar['head'] >
 	>
 	export class $mol_date extends $mol_pick {
-		Icon( ): $mol_icon_calendar
-		bubble_content( ): readonly(any)[]
-		value_number( next?: number ): number
-		value_moment( next?: $mol_time_moment ): $mol_time_moment
 		enabled( ): boolean
 		today_click( next?: any ): any
 		Today_icon( ): $mol_icon_calendar_today
@@ -6683,33 +7086,37 @@ declare namespace $ {
 		Next( ): $mol_button_minor
 		Calendar_tools( ): $mol_view
 		Calendar( ): $mol_date_calendar
+		Icon( ): $mol_icon_calendar
+		bubble_content( ): readonly(any)[]
+		value_number( next?: number ): number
+		value_moment( next?: $mol_time_moment ): $mol_time_moment
 	}
 	
-	type $mol_button_minor__title__6ARQ0L9T = $mol_type_enforce<
+	type $mol_button_minor__title__LYCF2L7C = $mol_type_enforce<
 		ReturnType< $mol_date_calendar['day_text'] >
 		,
 		ReturnType< $mol_button_minor['title'] >
 	>
-	type $mol_button_minor__event_click__4ZLUVNL4 = $mol_type_enforce<
+	type $mol_button_minor__event_click__CDP71N00 = $mol_type_enforce<
 		ReturnType< $mol_date_calendar['day_click'] >
 		,
 		ReturnType< $mol_button_minor['event_click'] >
 	>
-	type $mol_button_minor__minimal_height__0ETFVBKI = $mol_type_enforce<
+	type $mol_button_minor__minimal_height__4PGXIBHV = $mol_type_enforce<
 		number
 		,
 		ReturnType< $mol_button_minor['minimal_height'] >
 	>
-	type $mol_button_minor__enabled__EF5O4F63 = $mol_type_enforce<
+	type $mol_button_minor__enabled__0SI35RSW = $mol_type_enforce<
 		ReturnType< $mol_date_calendar['enabled'] >
 		,
 		ReturnType< $mol_button_minor['enabled'] >
 	>
 	export class $mol_date_calendar extends $mol_calendar {
-		day_content( id: any): readonly(any)[]
 		day_click( id: any, next?: any ): any
 		enabled( ): boolean
 		Day_button( id: any): $mol_button_minor
+		day_content( id: any): readonly(any)[]
 	}
 	
 }
@@ -6739,42 +7146,32 @@ declare namespace $ {
 
 declare namespace $ {
 
-	type $mol_date__value_moment__16XOMQ9C = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_date['date'] >
-		,
-		ReturnType< $mol_date['value_moment'] >
-	>
-	type $mol_view__sub__ATKGDPMA = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_view['sub'] >
-	>
-	type $mol_date__align__IQOYDAZW = $mol_type_enforce<
+	type $mol_date__align__SUXUSGI9 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_date['align'] >
 	>
-	type $mol_date__value_moment__LR5UFOGF = $mol_type_enforce<
+	type $mol_date__value_moment__T20NM2KN = $mol_type_enforce<
 		ReturnType< $hyoo_sketch_element_date['date'] >
 		,
 		ReturnType< $mol_date['value_moment'] >
 	>
-	type $hyoo_sketch_option__name__4VV3IGVO = $mol_type_enforce<
+	type $hyoo_sketch_option__name__KRYVN1AW = $mol_type_enforce<
 		string
 		,
 		ReturnType< $hyoo_sketch_option['name'] >
 	>
-	type $hyoo_sketch_option__Control__PEJMTRLV = $mol_type_enforce<
+	type $hyoo_sketch_option__Control__EAN3PKZ9 = $mol_type_enforce<
 		ReturnType< $hyoo_sketch_element_date['Date_control'] >
 		,
 		ReturnType< $hyoo_sketch_option['Control'] >
 	>
-	type $mol_switch__value__6SKI0V77 = $mol_type_enforce<
+	type $mol_switch__value__6NDBNWFE = $mol_type_enforce<
 		ReturnType< $hyoo_sketch_element_date['type'] >
 		,
 		ReturnType< $mol_switch['value'] >
 	>
-	type $mol_switch__options__0D888P5W = $mol_type_enforce<
+	type $mol_switch__options__4D57DB9U = $mol_type_enforce<
 		({ 
 			'Picker': string,
 			'View': string,
@@ -6782,38 +7179,42 @@ declare namespace $ {
 		,
 		ReturnType< $mol_switch['options'] >
 	>
-	type $hyoo_sketch_option__name__IWVELAR7 = $mol_type_enforce<
+	type $hyoo_sketch_option__name__4JC1YOXY = $mol_type_enforce<
 		string
 		,
 		ReturnType< $hyoo_sketch_option['name'] >
 	>
-	type $hyoo_sketch_option__Control__KLMXOTU0 = $mol_type_enforce<
+	type $hyoo_sketch_option__Control__T07PQUUC = $mol_type_enforce<
 		ReturnType< $hyoo_sketch_element_date['Type_control'] >
 		,
 		ReturnType< $hyoo_sketch_option['Control'] >
 	>
-	type $mol_string__value__08N3G5BZ = $mol_type_enforce<
+	type $mol_string__value__THKN6JMC = $mol_type_enforce<
 		ReturnType< $hyoo_sketch_element_date['format'] >
 		,
 		ReturnType< $mol_string['value'] >
 	>
-	type $hyoo_sketch_option__name__GHQYA22T = $mol_type_enforce<
+	type $hyoo_sketch_option__name__PI29HPIP = $mol_type_enforce<
 		string
 		,
 		ReturnType< $hyoo_sketch_option['name'] >
 	>
-	type $hyoo_sketch_option__Control__COP47D2R = $mol_type_enforce<
+	type $hyoo_sketch_option__Control__BJW4D46R = $mol_type_enforce<
 		ReturnType< $hyoo_sketch_element_date['Format_control'] >
 		,
 		ReturnType< $hyoo_sketch_option['Control'] >
 	>
+	type $mol_date__value_moment__2034R4ZT = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_date['date'] >
+		,
+		ReturnType< $mol_date['value_moment'] >
+	>
+	type $mol_view__sub__494NHGL6 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
 	export class $hyoo_sketch_element_date extends $hyoo_sketch_element_base {
-		Picker( ): $mol_date
-		View( ): $mol_view
-		Element( ): $mol_view
-		Options( ): ({ 
-			'date': ReturnType< $hyoo_sketch_element_date['date_options'] >,
-		})  & ReturnType< $hyoo_sketch_element_base['Options'] >
 		date( next?: $mol_time_moment ): $mol_time_moment
 		formated_date( ): string
 		Date_control( ): $mol_date
@@ -6827,6 +7228,12 @@ declare namespace $ {
 		Format_control( ): $mol_string
 		Format_option( ): $hyoo_sketch_option
 		date_options( ): readonly(any)[]
+		Picker( ): $mol_date
+		View( ): $mol_view
+		Element( ): $mol_view
+		Options( ): ({ 
+			'date': ReturnType< $hyoo_sketch_element_date['date_options'] >,
+		})  & ReturnType< $hyoo_sketch_element_base['Options'] >
 	}
 	
 }
@@ -6848,77 +7255,7 @@ declare namespace $.$$ {
 
 declare namespace $ {
 
-	export class $mol_icon_upload extends $mol_icon {
-		path( ): string
-	}
-	
-}
-
-//# sourceMappingURL=upload.view.tree.d.ts.map
-declare namespace $ {
-
-	type $mol_button_open_native__files__GF24IM4J = $mol_type_enforce<
-		ReturnType< $mol_button_open['files'] >
-		,
-		ReturnType< $mol_button_open_native['files'] >
-	>
-	type $mol_button_open_native__accept__4QFN9S2U = $mol_type_enforce<
-		ReturnType< $mol_button_open['accept'] >
-		,
-		ReturnType< $mol_button_open_native['accept'] >
-	>
-	type $mol_button_open_native__multiple__V3SPQVIQ = $mol_type_enforce<
-		ReturnType< $mol_button_open['multiple'] >
-		,
-		ReturnType< $mol_button_open_native['multiple'] >
-	>
-	export class $mol_button_open extends $mol_button_minor {
-		sub( ): readonly(any)[]
-		Icon( ): $mol_icon_upload
-		files( next?: readonly(any)[] ): readonly(any)[]
-		accept( ): string
-		multiple( ): boolean
-		Native( ): $mol_button_open_native
-	}
-	
-	export class $mol_button_open_native extends $mol_view {
-		dom_name( ): string
-		files( next?: readonly(any)[] ): readonly(any)[]
-		attr( ): ({ 
-			'type': string,
-			'accept': ReturnType< $mol_button_open_native['accept'] >,
-			'multiple': ReturnType< $mol_button_open_native['multiple'] >,
-		}) 
-		event( ): ({ 
-			change( next?: ReturnType< $mol_button_open_native['picked'] > ): ReturnType< $mol_button_open_native['picked'] >,
-		}) 
-		accept( ): string
-		multiple( ): boolean
-		picked( next?: any ): any
-	}
-	
-}
-
-//# sourceMappingURL=open.view.tree.d.ts.map
-declare namespace $.$$ {
-    class $mol_button_open_native extends $.$mol_button_open_native {
-        dom_node(): HTMLInputElement;
-        picked(): void;
-    }
-}
-
-declare namespace $ {
-}
-
-declare namespace $ {
-
 	export class $mol_image extends $mol_view {
-		dom_name( ): string
-		field( ): Record<string, any> & ReturnType< $mol_view['field'] >
-		attr( ): Record<string, any> & ReturnType< $mol_view['attr'] >
-		event( ): Record<string, any>
-		minimal_width( ): number
-		minimal_height( ): number
 		uri( ): string
 		loading( ): string
 		decoding( ): string
@@ -6926,6 +7263,12 @@ declare namespace $ {
 		natural_width( ): number
 		natural_height( ): number
 		load( next?: any ): any
+		dom_name( ): string
+		field( ): Record<string, any> & ReturnType< $mol_view['field'] >
+		attr( ): Record<string, any> & ReturnType< $mol_view['attr'] >
+		event( ): Record<string, any>
+		minimal_width( ): number
+		minimal_height( ): number
 	}
 	
 }
@@ -6944,46 +7287,106 @@ declare namespace $ {
 
 declare namespace $ {
 
-	type $mol_button_open__title__Z5HJ5JDS = $mol_type_enforce<
-		ReturnType< $mol_attach['attach_title'] >
-		,
-		ReturnType< $mol_button_open['title'] >
-	>
-	type $mol_button_open__files__HMBNYRE1 = $mol_type_enforce<
-		ReturnType< $mol_attach['attach_new'] >
-		,
+	export class $mol_icon_upload extends $mol_icon {
+		path( ): string
+	}
+	
+}
+
+//# sourceMappingURL=upload.view.tree.d.ts.map
+declare namespace $ {
+
+	type $mol_button_open_native__files__4W9TSHN6 = $mol_type_enforce<
 		ReturnType< $mol_button_open['files'] >
-	>
-	type $mol_button_minor__click__70CZ82N9 = $mol_type_enforce<
-		ReturnType< $mol_attach['item_drop'] >
 		,
-		ReturnType< $mol_button_minor['click'] >
+		ReturnType< $mol_button_open_native['files'] >
 	>
-	type $mol_button_minor__sub__NWBNXTAW = $mol_type_enforce<
-		readonly(any)[]
+	type $mol_button_open_native__accept__6K2G6GAO = $mol_type_enforce<
+		ReturnType< $mol_button_open['accept'] >
 		,
-		ReturnType< $mol_button_minor['sub'] >
+		ReturnType< $mol_button_open_native['accept'] >
 	>
-	type $mol_row__sub__CDMZYB87 = $mol_type_enforce<
+	type $mol_button_open_native__multiple__CMUOQJYD = $mol_type_enforce<
+		ReturnType< $mol_button_open['multiple'] >
+		,
+		ReturnType< $mol_button_open_native['multiple'] >
+	>
+	export class $mol_button_open extends $mol_button_minor {
+		Icon( ): $mol_icon_upload
+		files( next?: readonly(any)[] ): readonly(any)[]
+		accept( ): string
+		multiple( ): boolean
+		Native( ): $mol_button_open_native
+		sub( ): readonly(any)[]
+	}
+	
+	export class $mol_button_open_native extends $mol_view {
+		accept( ): string
+		multiple( ): boolean
+		picked( next?: any ): any
+		dom_name( ): string
+		files( next?: readonly(any)[] ): readonly(any)[]
+		attr( ): ({ 
+			'type': string,
+			'accept': ReturnType< $mol_button_open_native['accept'] >,
+			'multiple': ReturnType< $mol_button_open_native['multiple'] >,
+		}) 
+		event( ): ({ 
+			change( next?: ReturnType< $mol_button_open_native['picked'] > ): ReturnType< $mol_button_open_native['picked'] >,
+		}) 
+	}
+	
+}
+
+//# sourceMappingURL=open.view.tree.d.ts.map
+declare namespace $.$$ {
+    class $mol_button_open_native extends $.$mol_button_open_native {
+        dom_node(): HTMLInputElement;
+        picked(): void;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+
+	type $mol_row__sub__FXQQJ41V = $mol_type_enforce<
 		ReturnType< $mol_attach['content'] >
 		,
 		ReturnType< $mol_row['sub'] >
 	>
-	type $mol_image__title__5QLICXFS = $mol_type_enforce<
+	type $mol_image__title__8V2PUM9A = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_image['title'] >
 	>
-	type $mol_image__uri__VXOI1AYL = $mol_type_enforce<
+	type $mol_image__uri__LNLUQPZ5 = $mol_type_enforce<
 		ReturnType< $mol_attach['item_uri'] >
 		,
 		ReturnType< $mol_image['uri'] >
 	>
+	type $mol_button_open__title__YBXL29M3 = $mol_type_enforce<
+		ReturnType< $mol_attach['attach_title'] >
+		,
+		ReturnType< $mol_button_open['title'] >
+	>
+	type $mol_button_open__files__4885EJQ1 = $mol_type_enforce<
+		ReturnType< $mol_attach['attach_new'] >
+		,
+		ReturnType< $mol_button_open['files'] >
+	>
+	type $mol_button_minor__click__0SEVPWYK = $mol_type_enforce<
+		ReturnType< $mol_attach['item_drop'] >
+		,
+		ReturnType< $mol_button_minor['click'] >
+	>
+	type $mol_button_minor__sub__IGL3RI2O = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_button_minor['sub'] >
+	>
 	export class $mol_attach extends $mol_view {
-		items( next?: readonly(string)[] ): readonly(string)[]
-		sub( ): readonly(any)[]
-		Add( ): $mol_button_open
-		Item( id: any): $mol_button_minor
 		content( ): readonly($mol_view)[]
 		Content( ): $mol_row
 		attach_title( ): string
@@ -6991,6 +7394,10 @@ declare namespace $ {
 		item_drop( id: any, next?: any ): any
 		item_uri( id: any): string
 		Image( id: any): $mol_image
+		items( next?: readonly(string)[] ): readonly(string)[]
+		sub( ): readonly(any)[]
+		Add( ): $mol_button_open
+		Item( id: any): $mol_button_minor
 	}
 	
 }
@@ -7010,16 +7417,16 @@ declare namespace $ {
 
 declare namespace $ {
 
-	type $mol_attach__items__NQMONC61 = $mol_type_enforce<
+	type $mol_attach__items__FRMZ7A4R = $mol_type_enforce<
 		ReturnType< $hyoo_sketch_element_attach['files'] >
 		,
 		ReturnType< $mol_attach['items'] >
 	>
 	export class $hyoo_sketch_element_attach extends $hyoo_sketch_element_base {
+		files( next?: readonly(any)[] ): readonly(any)[]
 		Element( ): $mol_attach
 		width_default( ): number
 		height_default( ): number
-		files( next?: readonly(any)[] ): readonly(any)[]
 	}
 	
 }
@@ -7045,6 +7452,9 @@ declare namespace $ {
 declare namespace $ {
 
 	export class $mol_check_expand extends $mol_check {
+		level_style( ): string
+		expanded( next?: boolean ): boolean
+		expandable( ): boolean
 		Icon( ): $mol_icon_chevron
 		level( ): number
 		style( ): ({ 
@@ -7052,9 +7462,6 @@ declare namespace $ {
 		})  & ReturnType< $mol_check['style'] >
 		checked( next?: ReturnType< $mol_check_expand['expanded'] > ): ReturnType< $mol_check_expand['expanded'] >
 		enabled( ): ReturnType< $mol_check_expand['expandable'] >
-		level_style( ): string
-		expanded( next?: boolean ): boolean
-		expandable( ): boolean
 	}
 	
 }
@@ -7072,77 +7479,90 @@ declare namespace $ {
 
 declare namespace $ {
 
-	type $mol_grid_row__cells__4R8MWJME = $mol_type_enforce<
-		ReturnType< $mol_grid['head_cells'] >
-		,
-		ReturnType< $mol_grid_row['cells'] >
-	>
-	type $mol_grid_row__minimal_height__QKS2RPXD = $mol_type_enforce<
-		ReturnType< $mol_grid['row_height'] >
-		,
-		ReturnType< $mol_grid_row['minimal_height'] >
-	>
-	type $mol_grid_row__minimal_width__ZN1QJK6O = $mol_type_enforce<
-		ReturnType< $mol_grid['minimal_width'] >
-		,
-		ReturnType< $mol_grid_row['minimal_width'] >
-	>
-	type $mol_grid_row__cells__E2KVIF00 = $mol_type_enforce<
-		ReturnType< $mol_grid['cells'] >
-		,
-		ReturnType< $mol_grid_row['cells'] >
-	>
-	type $mol_grid_cell__sub__UPEYO49E = $mol_type_enforce<
-		ReturnType< $mol_grid['cell_content_text'] >
-		,
-		ReturnType< $mol_grid_cell['sub'] >
-	>
-	type $mol_grid_number__sub__7X9GA4CL = $mol_type_enforce<
-		ReturnType< $mol_grid['cell_content_number'] >
-		,
-		ReturnType< $mol_grid_number['sub'] >
-	>
-	type $mol_float__dom_name__8SA3OSG5 = $mol_type_enforce<
-		string
-		,
-		ReturnType< $mol_float['dom_name'] >
-	>
-	type $mol_float__sub__48F2EVSQ = $mol_type_enforce<
-		ReturnType< $mol_grid['col_head_content'] >
-		,
-		ReturnType< $mol_float['sub'] >
-	>
-	type $mol_check_expand__level__MZ8N3P06 = $mol_type_enforce<
-		ReturnType< $mol_grid['cell_level'] >
-		,
-		ReturnType< $mol_check_expand['level'] >
-	>
-	type $mol_check_expand__label__C7YB9XSG = $mol_type_enforce<
-		ReturnType< $mol_grid['cell_content'] >
-		,
-		ReturnType< $mol_check_expand['label'] >
-	>
-	type $mol_check_expand__expanded__4C9B6W9L = $mol_type_enforce<
-		ReturnType< $mol_grid['cell_expanded'] >
-		,
-		ReturnType< $mol_check_expand['expanded'] >
-	>
-	type $mol_grid_table__sub__AWYNT4VH = $mol_type_enforce<
+	type $mol_grid_table__sub__0U4JWZVM = $mol_type_enforce<
 		ReturnType< $mol_grid['rows'] >
 		,
 		ReturnType< $mol_grid_table['sub'] >
 	>
-	type $mol_dimmer__needle__LTKJ8WBC = $mol_type_enforce<
+	type $mol_dimmer__needle__573HO5QC = $mol_type_enforce<
 		ReturnType< $mol_grid['needle'] >
 		,
 		ReturnType< $mol_dimmer['needle'] >
 	>
-	type $mol_dimmer__haystack__LNJNY34L = $mol_type_enforce<
+	type $mol_dimmer__haystack__0KENNPK8 = $mol_type_enforce<
 		ReturnType< $mol_grid['cell_value'] >
 		,
 		ReturnType< $mol_dimmer['haystack'] >
 	>
+	type $mol_grid_row__cells__F3LKGBHA = $mol_type_enforce<
+		ReturnType< $mol_grid['head_cells'] >
+		,
+		ReturnType< $mol_grid_row['cells'] >
+	>
+	type $mol_grid_row__minimal_height__MQFDH9MG = $mol_type_enforce<
+		ReturnType< $mol_grid['row_height'] >
+		,
+		ReturnType< $mol_grid_row['minimal_height'] >
+	>
+	type $mol_grid_row__minimal_width__X9PCQXUC = $mol_type_enforce<
+		ReturnType< $mol_grid['minimal_width'] >
+		,
+		ReturnType< $mol_grid_row['minimal_width'] >
+	>
+	type $mol_grid_row__cells__GCN2H7BP = $mol_type_enforce<
+		ReturnType< $mol_grid['cells'] >
+		,
+		ReturnType< $mol_grid_row['cells'] >
+	>
+	type $mol_grid_cell__sub__4MZ47SSW = $mol_type_enforce<
+		ReturnType< $mol_grid['cell_content_text'] >
+		,
+		ReturnType< $mol_grid_cell['sub'] >
+	>
+	type $mol_grid_number__sub__Z8ZXGSKB = $mol_type_enforce<
+		ReturnType< $mol_grid['cell_content_number'] >
+		,
+		ReturnType< $mol_grid_number['sub'] >
+	>
+	type $mol_float__dom_name__J0LC5TFG = $mol_type_enforce<
+		string
+		,
+		ReturnType< $mol_float['dom_name'] >
+	>
+	type $mol_float__sub__HX7EIMWA = $mol_type_enforce<
+		ReturnType< $mol_grid['col_head_content'] >
+		,
+		ReturnType< $mol_float['sub'] >
+	>
+	type $mol_check_expand__level__ASQKKJEN = $mol_type_enforce<
+		ReturnType< $mol_grid['cell_level'] >
+		,
+		ReturnType< $mol_check_expand['level'] >
+	>
+	type $mol_check_expand__label__WRV17IHR = $mol_type_enforce<
+		ReturnType< $mol_grid['cell_content'] >
+		,
+		ReturnType< $mol_check_expand['label'] >
+	>
+	type $mol_check_expand__expanded__5U451GOV = $mol_type_enforce<
+		ReturnType< $mol_grid['cell_expanded'] >
+		,
+		ReturnType< $mol_check_expand['expanded'] >
+	>
 	export class $mol_grid extends $mol_view {
+		rows( ): readonly($mol_view)[]
+		Table( ): $mol_grid_table
+		head_cells( ): readonly($mol_view)[]
+		cells( id: any): readonly($mol_view)[]
+		cell_content( id: any): readonly($mol_view_content)[]
+		cell_content_text( id: any): ReturnType< $mol_grid['cell_content'] >
+		cell_content_number( id: any): ReturnType< $mol_grid['cell_content'] >
+		col_head_content( id: any): readonly($mol_view_content)[]
+		cell_level( id: any): number
+		cell_expanded( id: any, next?: boolean ): boolean
+		needle( ): string
+		cell_value( id: any): string
+		Cell_dimmer( id: any): $mol_dimmer
 		row_height( ): number
 		row_ids( ): readonly(string[])[]
 		row_id( id: any): any
@@ -7162,27 +7582,14 @@ declare namespace $ {
 		Col_head( id: any): $mol_float
 		Cell_branch( id: any): $mol_check_expand
 		Cell_content( id: any): readonly(any)[]
-		rows( ): readonly($mol_view)[]
-		Table( ): $mol_grid_table
-		head_cells( ): readonly($mol_view)[]
-		cells( id: any): readonly($mol_view)[]
-		cell_content( id: any): readonly($mol_view_content)[]
-		cell_content_text( id: any): ReturnType< $mol_grid['cell_content'] >
-		cell_content_number( id: any): ReturnType< $mol_grid['cell_content'] >
-		col_head_content( id: any): readonly($mol_view_content)[]
-		cell_level( id: any): number
-		cell_expanded( id: any, next?: boolean ): boolean
-		needle( ): string
-		cell_value( id: any): string
-		Cell_dimmer( id: any): $mol_dimmer
 	}
 	
 	export class $mol_grid_table extends $mol_list {
 	}
 	
 	export class $mol_grid_row extends $mol_view {
-		sub( ): ReturnType< $mol_grid_row['cells'] >
 		cells( ): readonly($mol_view)[]
+		sub( ): ReturnType< $mol_grid_row['cells'] >
 	}
 	
 	export class $mol_grid_cell extends $mol_view {
@@ -7246,23 +7653,23 @@ declare namespace $ {
 
 declare namespace $ {
 
-	type $mol_image__uri__N2E2C3GC = $mol_type_enforce<
+	type $mol_image__uri__KHCW2WJ8 = $mol_type_enforce<
 		ReturnType< $mol_link_iconed['icon'] >
 		,
 		ReturnType< $mol_image['uri'] >
 	>
-	type $mol_image__title__5JBA5V2W = $mol_type_enforce<
+	type $mol_image__title__2Q05SFOV = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_image['title'] >
 	>
 	export class $mol_link_iconed extends $mol_link {
-		sub( ): readonly(any)[]
-		content( ): readonly(any)[]
-		host( ): string
 		icon( ): string
 		Icon( ): $mol_image
 		title( ): ReturnType< $mol_link_iconed['uri'] >
+		sub( ): readonly(any)[]
+		content( ): readonly(any)[]
+		host( ): string
 	}
 	
 }
@@ -7282,17 +7689,21 @@ declare namespace $ {
 
 declare namespace $ {
 
-	type $mol_link__uri__2TB7Y4BT = $mol_type_enforce<
+	type $mol_link__uri__MF6NBPI7 = $mol_type_enforce<
 		ReturnType< $mol_embed_native['uri'] >
 		,
 		ReturnType< $mol_link['uri'] >
 	>
-	type $mol_link__sub__0AMRUNNN = $mol_type_enforce<
+	type $mol_link__sub__NCKVBX8M = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_link['sub'] >
 	>
 	export class $mol_embed_native extends $mol_scroll {
+		mime( ): string
+		title( ): string
+		Fallback( ): $mol_link
+		uri_change( next?: any ): any
 		uri( next?: string ): string
 		dom_name( ): string
 		window( ): any
@@ -7304,10 +7715,6 @@ declare namespace $ {
 		message( ): ({ 
 			hashchange( next?: ReturnType< $mol_embed_native['uri_change'] > ): ReturnType< $mol_embed_native['uri_change'] >,
 		}) 
-		mime( ): string
-		title( ): string
-		Fallback( ): $mol_link
-		uri_change( next?: any ): any
 	}
 	
 }
@@ -7340,6 +7747,9 @@ declare namespace $ {
 declare namespace $ {
 
 	export class $mol_frame extends $mol_embed_native {
+		uri( next?: string ): string
+		html( ): any
+		allow( ): string
 		dom_name( ): string
 		attr( ): ({ 
 			'data': any,
@@ -7356,9 +7766,6 @@ declare namespace $ {
 		pip( ): boolean
 		clipboard_read( ): boolean
 		clipboard_write( ): boolean
-		uri( next?: string ): string
-		html( ): any
-		allow( ): string
 	}
 	
 }
@@ -7376,32 +7783,27 @@ declare namespace $ {
 
 declare namespace $ {
 
-	type $mol_image__title__QE9E5Q5B = $mol_type_enforce<
+	type $mol_image__title__PANT1PWK = $mol_type_enforce<
 		ReturnType< $mol_embed_youtube['title'] >
 		,
 		ReturnType< $mol_image['title'] >
 	>
-	type $mol_image__uri__U9G1RDC2 = $mol_type_enforce<
+	type $mol_image__uri__E7H9QDHN = $mol_type_enforce<
 		ReturnType< $mol_embed_youtube['video_preview'] >
 		,
 		ReturnType< $mol_image['uri'] >
 	>
-	type $mol_frame__title__L6AN2BJP = $mol_type_enforce<
+	type $mol_frame__title__NAXQSE3J = $mol_type_enforce<
 		ReturnType< $mol_embed_youtube['title'] >
 		,
 		ReturnType< $mol_frame['title'] >
 	>
-	type $mol_frame__uri__VMCJ2Y21 = $mol_type_enforce<
+	type $mol_frame__uri__I30TGV8B = $mol_type_enforce<
 		ReturnType< $mol_embed_youtube['video_embed'] >
 		,
 		ReturnType< $mol_frame['uri'] >
 	>
 	export class $mol_embed_youtube extends $mol_check {
-		uri( ): string
-		video_preview( ): string
-		video_id( ): string
-		checked( next?: ReturnType< $mol_embed_youtube['active'] > ): ReturnType< $mol_embed_youtube['active'] >
-		sub( ): readonly(any)[]
 		active( next?: boolean ): boolean
 		title( ): string
 		video_preview( ): string
@@ -7409,6 +7811,10 @@ declare namespace $ {
 		Hint( ): $mol_icon_youtube
 		video_embed( ): string
 		Frame( ): $mol_frame
+		uri( ): string
+		video_id( ): string
+		checked( next?: ReturnType< $mol_embed_youtube['active'] > ): ReturnType< $mol_embed_youtube['active'] >
+		sub( ): readonly(any)[]
 	}
 	
 }
@@ -7428,42 +7834,42 @@ declare namespace $ {
 
 declare namespace $ {
 
-	type $mol_image__title__K45LXFN3 = $mol_type_enforce<
+	type $mol_image__title__9J3ZA9W3 = $mol_type_enforce<
 		ReturnType< $mol_embed_any['title'] >
 		,
 		ReturnType< $mol_image['title'] >
 	>
-	type $mol_image__uri__HOY10A0O = $mol_type_enforce<
+	type $mol_image__uri__P6NRVA8D = $mol_type_enforce<
 		ReturnType< $mol_embed_any['uri'] >
 		,
 		ReturnType< $mol_image['uri'] >
 	>
-	type $mol_embed_native__title__OICY8QFW = $mol_type_enforce<
+	type $mol_embed_native__title__EJECL2AV = $mol_type_enforce<
 		ReturnType< $mol_embed_any['title'] >
 		,
 		ReturnType< $mol_embed_native['title'] >
 	>
-	type $mol_embed_native__uri__L6CT7LOH = $mol_type_enforce<
+	type $mol_embed_native__uri__AU2YPPS1 = $mol_type_enforce<
 		ReturnType< $mol_embed_any['uri'] >
 		,
 		ReturnType< $mol_embed_native['uri'] >
 	>
-	type $mol_embed_youtube__title__S42Y6S0W = $mol_type_enforce<
+	type $mol_embed_youtube__title__QM0NHAQH = $mol_type_enforce<
 		ReturnType< $mol_embed_any['title'] >
 		,
 		ReturnType< $mol_embed_youtube['title'] >
 	>
-	type $mol_embed_youtube__uri__LPCSHKEZ = $mol_type_enforce<
+	type $mol_embed_youtube__uri__2H3FT5GD = $mol_type_enforce<
 		ReturnType< $mol_embed_any['uri'] >
 		,
 		ReturnType< $mol_embed_youtube['uri'] >
 	>
 	export class $mol_embed_any extends $mol_view {
+		title( ): string
+		uri( ): string
 		Image( ): $mol_image
 		Object( ): $mol_embed_native
 		Youtube( ): $mol_embed_youtube
-		title( ): string
-		uri( ): string
 	}
 	
 }
@@ -7478,272 +7884,247 @@ declare namespace $.$$ {
 
 declare namespace $ {
 
-	type $mol_paragraph__sub__Z9R75LUK = $mol_type_enforce<
+	type $mol_paragraph__sub__SWFAFPGZ = $mol_type_enforce<
 		ReturnType< $mol_text['block_content'] >
 		,
 		ReturnType< $mol_paragraph['sub'] >
 	>
-	type $mol_text__uri_resolve__38MCRUTH = $mol_type_enforce<
+	type $mol_text__uri_resolve__VSZ4E8CG = $mol_type_enforce<
 		ReturnType< $mol_text['uri_resolve'] >
 		,
 		ReturnType< $mol_text['uri_resolve'] >
 	>
-	type $mol_text__text__E4NG7U5W = $mol_type_enforce<
+	type $mol_text__text__9G0VIAC0 = $mol_type_enforce<
 		ReturnType< $mol_text['quote_text'] >
 		,
 		ReturnType< $mol_text['text'] >
 	>
-	type $mol_text__highlight__UJX9Q1HA = $mol_type_enforce<
+	type $mol_text__highlight__EC1M9RRP = $mol_type_enforce<
 		ReturnType< $mol_text['highlight'] >
 		,
 		ReturnType< $mol_text['highlight'] >
 	>
-	type $mol_text__auto_scroll__38YZ435S = $mol_type_enforce<
+	type $mol_text__auto_scroll__RF98OI4W = $mol_type_enforce<
 		any
 		,
 		ReturnType< $mol_text['auto_scroll'] >
 	>
-	type $mol_text_list__uri_resolve__MJNF3JT1 = $mol_type_enforce<
+	type $mol_text_list__uri_resolve__MBN2Y61O = $mol_type_enforce<
 		ReturnType< $mol_text['uri_resolve'] >
 		,
 		ReturnType< $mol_text_list['uri_resolve'] >
 	>
-	type $mol_text_list__type__GDUJCMSL = $mol_type_enforce<
+	type $mol_text_list__type__TP6FK60P = $mol_type_enforce<
 		ReturnType< $mol_text['list_type'] >
 		,
 		ReturnType< $mol_text_list['type'] >
 	>
-	type $mol_text_list__text__KOQ1U8CX = $mol_type_enforce<
+	type $mol_text_list__text__1P2R4MJ4 = $mol_type_enforce<
 		ReturnType< $mol_text['list_text'] >
 		,
 		ReturnType< $mol_text_list['text'] >
 	>
-	type $mol_text_list__highlight__C5WFMQ36 = $mol_type_enforce<
+	type $mol_text_list__highlight__UWW35CQK = $mol_type_enforce<
 		ReturnType< $mol_text['highlight'] >
 		,
 		ReturnType< $mol_text_list['highlight'] >
 	>
-	type $mol_text_header__minimal_height__P6K2FLJL = $mol_type_enforce<
+	type $mol_text_header__minimal_height__GSCVBYBI = $mol_type_enforce<
 		number
 		,
 		ReturnType< $mol_text_header['minimal_height'] >
 	>
-	type $mol_text_header__level__LE0G1OVO = $mol_type_enforce<
+	type $mol_text_header__level__MKK65GZT = $mol_type_enforce<
 		ReturnType< $mol_text['header_level'] >
 		,
 		ReturnType< $mol_text_header['level'] >
 	>
-	type $mol_text_header__content__XLG4FSUA = $mol_type_enforce<
+	type $mol_text_header__content__P3O0LF8W = $mol_type_enforce<
 		ReturnType< $mol_text['block_content'] >
 		,
 		ReturnType< $mol_text_header['content'] >
 	>
-	type $mol_text_header__arg__W0UWVS9Z = $mol_type_enforce<
+	type $mol_text_header__arg__BELG158T = $mol_type_enforce<
 		ReturnType< $mol_text['header_arg'] >
 		,
 		ReturnType< $mol_text_header['arg'] >
 	>
-	type $mol_text_code__text__1JA1LX6H = $mol_type_enforce<
+	type $mol_text_code__text__FHRUTOJM = $mol_type_enforce<
 		ReturnType< $mol_text['pre_text'] >
 		,
 		ReturnType< $mol_text_code['text'] >
 	>
-	type $mol_text_code__highlight__ZTMZ4AUI = $mol_type_enforce<
+	type $mol_text_code__highlight__CHPZUP56 = $mol_type_enforce<
 		ReturnType< $mol_text['highlight'] >
 		,
 		ReturnType< $mol_text_code['highlight'] >
 	>
-	type $mol_text_code__uri_resolve__BYDOFACD = $mol_type_enforce<
+	type $mol_text_code__uri_resolve__L3NIXKYN = $mol_type_enforce<
 		ReturnType< $mol_text['uri_resolve'] >
 		,
 		ReturnType< $mol_text_code['uri_resolve'] >
 	>
-	type $mol_text_code__sidebar_showed__U3QTN0CY = $mol_type_enforce<
+	type $mol_text_code__sidebar_showed__N9D7VYAS = $mol_type_enforce<
 		ReturnType< $mol_text['pre_sidebar_showed'] >
 		,
 		ReturnType< $mol_text_code['sidebar_showed'] >
 	>
-	type $mol_view__dom_name__X9R22OR1 = $mol_type_enforce<
+	type $mol_view__dom_name__SN7ABYM3 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_view['dom_name'] >
 	>
-	type $mol_grid__head_cells__VTLMBQTO = $mol_type_enforce<
+	type $mol_grid__head_cells__LMNZSIF3 = $mol_type_enforce<
 		ReturnType< $mol_text['table_head_cells'] >
 		,
 		ReturnType< $mol_grid['head_cells'] >
 	>
-	type $mol_grid__rows__S1VS4QZD = $mol_type_enforce<
+	type $mol_grid__rows__9PRCO70V = $mol_type_enforce<
 		ReturnType< $mol_text['table_rows'] >
 		,
 		ReturnType< $mol_grid['rows'] >
 	>
-	type $mol_grid_row__cells__S9KEE282 = $mol_type_enforce<
+	type $mol_grid_row__cells__4G9H7PG4 = $mol_type_enforce<
 		ReturnType< $mol_text['table_cells'] >
 		,
 		ReturnType< $mol_grid_row['cells'] >
 	>
-	type $mol_text__auto_scroll__3IV1NN25 = $mol_type_enforce<
+	type $mol_text__auto_scroll__DQGASV63 = $mol_type_enforce<
 		any
 		,
 		ReturnType< $mol_text['auto_scroll'] >
 	>
-	type $mol_text__highlight__HFDV78J4 = $mol_type_enforce<
+	type $mol_text__highlight__FWECWITZ = $mol_type_enforce<
 		ReturnType< $mol_text['highlight'] >
 		,
 		ReturnType< $mol_text['highlight'] >
 	>
-	type $mol_text__uri_resolve__JFLUM7YF = $mol_type_enforce<
+	type $mol_text__uri_resolve__7AXC5JOC = $mol_type_enforce<
 		ReturnType< $mol_text['uri_resolve'] >
 		,
 		ReturnType< $mol_text['uri_resolve'] >
 	>
-	type $mol_text__text__9DRO2DM2 = $mol_type_enforce<
+	type $mol_text__text__3OSUZM77 = $mol_type_enforce<
 		ReturnType< $mol_text['table_cell_text'] >
 		,
 		ReturnType< $mol_text['text'] >
 	>
-	type $mol_grid__rows__D3XK5J5M = $mol_type_enforce<
+	type $mol_grid__rows__MMOGY48Q = $mol_type_enforce<
 		ReturnType< $mol_text['grid_rows'] >
 		,
 		ReturnType< $mol_grid['rows'] >
 	>
-	type $mol_grid_row__cells__0LDA2220 = $mol_type_enforce<
+	type $mol_grid_row__cells__V7SUKMKI = $mol_type_enforce<
 		ReturnType< $mol_text['grid_cells'] >
 		,
 		ReturnType< $mol_grid_row['cells'] >
 	>
-	type $mol_text__auto_scroll__A3MPCPYN = $mol_type_enforce<
+	type $mol_text__auto_scroll__BZP5UW5T = $mol_type_enforce<
 		any
 		,
 		ReturnType< $mol_text['auto_scroll'] >
 	>
-	type $mol_text__highlight__QRW65CT5 = $mol_type_enforce<
+	type $mol_text__highlight__HIRMSUWZ = $mol_type_enforce<
 		ReturnType< $mol_text['highlight'] >
 		,
 		ReturnType< $mol_text['highlight'] >
 	>
-	type $mol_text__uri_resolve__J2TYNSDW = $mol_type_enforce<
+	type $mol_text__uri_resolve__W9YJ8868 = $mol_type_enforce<
 		ReturnType< $mol_text['uri_resolve'] >
 		,
 		ReturnType< $mol_text['uri_resolve'] >
 	>
-	type $mol_text__text__LIFGBX85 = $mol_type_enforce<
+	type $mol_text__text__L7WQ1FQS = $mol_type_enforce<
 		ReturnType< $mol_text['grid_cell_text'] >
 		,
 		ReturnType< $mol_text['text'] >
 	>
-	type $mol_dimmer__dom_name__PMFVW2O3 = $mol_type_enforce<
+	type $mol_dimmer__dom_name__AIL2U16U = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_dimmer['dom_name'] >
 	>
-	type $mol_dimmer__needle__NNEQU23O = $mol_type_enforce<
+	type $mol_dimmer__needle__S0VFIPPR = $mol_type_enforce<
 		ReturnType< $mol_text['highlight'] >
 		,
 		ReturnType< $mol_dimmer['needle'] >
 	>
-	type $mol_dimmer__haystack__WVB4VBWL = $mol_type_enforce<
+	type $mol_dimmer__haystack__SN43297Y = $mol_type_enforce<
 		ReturnType< $mol_text['line_text'] >
 		,
 		ReturnType< $mol_dimmer['haystack'] >
 	>
-	type $mol_text_span__dom_name__95UHY40W = $mol_type_enforce<
+	type $mol_text_span__dom_name__BQO81FTN = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_text_span['dom_name'] >
 	>
-	type $mol_text_span__type__PTU0L73X = $mol_type_enforce<
+	type $mol_text_span__type__U18APZGV = $mol_type_enforce<
 		ReturnType< $mol_text['line_type'] >
 		,
 		ReturnType< $mol_text_span['type'] >
 	>
-	type $mol_text_span__sub__X2KF3XBP = $mol_type_enforce<
+	type $mol_text_span__sub__1WUCXT6S = $mol_type_enforce<
 		ReturnType< $mol_text['line_content'] >
 		,
 		ReturnType< $mol_text_span['sub'] >
 	>
-	type $mol_text_code_row__numb_showed__BRWNND3Q = $mol_type_enforce<
+	type $mol_text_code_row__numb_showed__IWRM64U1 = $mol_type_enforce<
 		boolean
 		,
 		ReturnType< $mol_text_code_row['numb_showed'] >
 	>
-	type $mol_text_code_row__highlight__QFKSCM4Q = $mol_type_enforce<
+	type $mol_text_code_row__highlight__9QM2V2A5 = $mol_type_enforce<
 		ReturnType< $mol_text['highlight'] >
 		,
 		ReturnType< $mol_text_code_row['highlight'] >
 	>
-	type $mol_text_code_row__text__YHQD3J4X = $mol_type_enforce<
+	type $mol_text_code_row__text__1ES46O3M = $mol_type_enforce<
 		ReturnType< $mol_text['line_text'] >
 		,
 		ReturnType< $mol_text_code_row['text'] >
 	>
-	type $mol_text_code_row__uri_resolve__6TYOMOVQ = $mol_type_enforce<
+	type $mol_text_code_row__uri_resolve__3QQBENS4 = $mol_type_enforce<
 		ReturnType< $mol_text['uri_resolve'] >
 		,
 		ReturnType< $mol_text_code_row['uri_resolve'] >
 	>
-	type $mol_text_code_row__syntax__TTL5WOHJ = $mol_type_enforce<
+	type $mol_text_code_row__syntax__ZIIF0RDI = $mol_type_enforce<
 		ReturnType< $mol_text['code_syntax'] >
 		,
 		ReturnType< $mol_text_code_row['syntax'] >
 	>
-	type $mol_link_iconed__uri__2MRLBCGZ = $mol_type_enforce<
+	type $mol_link_iconed__uri__PHQTCX3R = $mol_type_enforce<
 		ReturnType< $mol_text['link_uri'] >
 		,
 		ReturnType< $mol_link_iconed['uri'] >
 	>
-	type $mol_link_iconed__content__X0VEUD8O = $mol_type_enforce<
+	type $mol_link_iconed__content__3FCJKD3T = $mol_type_enforce<
 		ReturnType< $mol_text['line_content'] >
 		,
 		ReturnType< $mol_link_iconed['content'] >
 	>
-	type $mol_link_iconed__uri__FOKVZC7L = $mol_type_enforce<
+	type $mol_link_iconed__uri__QMU060D8 = $mol_type_enforce<
 		ReturnType< $mol_text['link_uri'] >
 		,
 		ReturnType< $mol_link_iconed['uri'] >
 	>
-	type $mol_link_iconed__content__U5JTN88G = $mol_type_enforce<
+	type $mol_link_iconed__content__DSI03QLS = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_link_iconed['content'] >
 	>
-	type $mol_embed_any__uri__KXZTDCOS = $mol_type_enforce<
+	type $mol_embed_any__uri__NEPG3PM0 = $mol_type_enforce<
 		ReturnType< $mol_text['link_uri'] >
 		,
 		ReturnType< $mol_embed_any['uri'] >
 	>
-	type $mol_embed_any__title__J44L7JS9 = $mol_type_enforce<
+	type $mol_embed_any__title__PO98AUXO = $mol_type_enforce<
 		ReturnType< $mol_text['line_text'] >
 		,
 		ReturnType< $mol_embed_any['title'] >
 	>
 	export class $mol_text extends $mol_list {
-		uri_base( ): string
-		text( ): string
-		param( ): string
-		flow_tokens( ): readonly(any)[]
-		block_text( id: any): string
-		auto( ): readonly(any)[]
-		Paragraph( id: any): $mol_paragraph
-		Quote( id: any): $mol_text
-		List( id: any): $mol_text_list
-		item_index( id: any): number
-		Header( id: any): $mol_text_header
-		Pre( id: any): $mol_text_code
-		Cut( id: any): $mol_view
-		Table( id: any): $mol_grid
-		Table_row( id: any): $mol_grid_row
-		Table_cell( id: any): $mol_text
-		Grid( id: any): $mol_grid
-		Grid_row( id: any): $mol_grid_row
-		Grid_cell( id: any): $mol_text
-		String( id: any): $mol_dimmer
-		Span( id: any): $mol_text_span
-		Code_line( id: any): $mol_text_code_row
-		Link( id: any): $mol_link_iconed
-		Link_http( id: any): $mol_link_iconed
-		Embed( id: any): $mol_embed_any
 		auto_scroll( ): any
 		block_content( id: any): readonly(any)[]
 		uri_resolve( id: any): string
@@ -7769,37 +8150,62 @@ declare namespace $ {
 		code_syntax( ): any
 		link_uri( id: any): string
 		link_host( id: any): string
+		uri_base( ): string
+		text( ): string
+		param( ): string
+		flow_tokens( ): readonly(any)[]
+		block_text( id: any): string
+		auto( ): readonly(any)[]
+		Paragraph( id: any): $mol_paragraph
+		Quote( id: any): $mol_text
+		List( id: any): $mol_text_list
+		item_index( id: any): number
+		Header( id: any): $mol_text_header
+		Pre( id: any): $mol_text_code
+		Cut( id: any): $mol_view
+		Table( id: any): $mol_grid
+		Table_row( id: any): $mol_grid_row
+		Table_cell( id: any): $mol_text
+		Grid( id: any): $mol_grid
+		Grid_row( id: any): $mol_grid_row
+		Grid_cell( id: any): $mol_text
+		String( id: any): $mol_dimmer
+		Span( id: any): $mol_text_span
+		Code_line( id: any): $mol_text_code_row
+		Link( id: any): $mol_link_iconed
+		Link_http( id: any): $mol_link_iconed
+		Embed( id: any): $mol_embed_any
 	}
 	
-	type $mol_link__arg__8D97DVTB = $mol_type_enforce<
+	type $mol_link__arg__S6ZBSNXC = $mol_type_enforce<
 		ReturnType< $mol_text_header['arg'] >
 		,
 		ReturnType< $mol_link['arg'] >
 	>
-	type $mol_link__hint__V1FHGDP3 = $mol_type_enforce<
+	type $mol_link__hint__S4BL312U = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_link['hint'] >
 	>
-	type $mol_link__sub__8GFXS7R1 = $mol_type_enforce<
+	type $mol_link__sub__WUJJ4VZF = $mol_type_enforce<
 		ReturnType< $mol_text_header['content'] >
 		,
 		ReturnType< $mol_link['sub'] >
 	>
 	export class $mol_text_header extends $mol_paragraph {
-		level( ): number
-		sub( ): readonly(any)[]
 		arg( ): Record<string, any>
 		content( ): readonly(any)[]
 		Link( ): $mol_link
+		level( ): number
+		sub( ): readonly(any)[]
 	}
 	
 	export class $mol_text_span extends $mol_paragraph {
+		type( ): string
 		dom_name( ): string
 		attr( ): ({ 
 			'mol_text_type': ReturnType< $mol_text_span['type'] >,
 		})  & ReturnType< $mol_paragraph['attr'] >
-		type( ): string
 	}
 	
 }
@@ -7900,30 +8306,30 @@ declare namespace $ {
 
 declare namespace $ {
 
-	type $mol_text_list_item__index__CABSRP3E = $mol_type_enforce<
+	type $mol_text_list_item__index__O9FJMEK2 = $mol_type_enforce<
 		ReturnType< $mol_text_list['item_index'] >
 		,
 		ReturnType< $mol_text_list_item['index'] >
 	>
-	type $mol_text_list_item__sub__JNHDPK7N = $mol_type_enforce<
+	type $mol_text_list_item__sub__T5CVS8E8 = $mol_type_enforce<
 		ReturnType< $mol_text_list['block_content'] >
 		,
 		ReturnType< $mol_text_list_item['sub'] >
 	>
 	export class $mol_text_list extends $mol_text {
+		type( ): string
 		auto_scroll( ): any
 		attr( ): ({ 
 			'mol_text_list_type': ReturnType< $mol_text_list['type'] >,
 		})  & ReturnType< $mol_text['attr'] >
 		Paragraph( id: any): $mol_text_list_item
-		type( ): string
 	}
 	
 	export class $mol_text_list_item extends $mol_paragraph {
+		index( ): number
 		attr( ): ({ 
 			'mol_text_list_item_index': ReturnType< $mol_text_list_item['index'] >,
 		})  & ReturnType< $mol_paragraph['attr'] >
-		index( ): number
 	}
 	
 }
@@ -7931,32 +8337,32 @@ declare namespace $ {
 //# sourceMappingURL=list.view.tree.d.ts.map
 declare namespace $ {
 
-	type $mol_text__text__IAA8J590 = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_markdown['text'] >
-		,
-		ReturnType< $mol_text['text'] >
-	>
-	type $mol_textarea__style__10M7E4SY = $mol_type_enforce<
+	type $mol_textarea__style__TVE1UTCH = $mol_type_enforce<
 		({ 
 			'height': string,
 		}) 
 		,
 		ReturnType< $mol_textarea['style'] >
 	>
-	type $mol_textarea__value__F1F7LLLF = $mol_type_enforce<
+	type $mol_textarea__value__7N3O2K39 = $mol_type_enforce<
 		ReturnType< $hyoo_sketch_element_markdown['text'] >
 		,
 		ReturnType< $mol_textarea['value'] >
 	>
+	type $mol_text__text__XCOO35F7 = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_markdown['text'] >
+		,
+		ReturnType< $mol_text['text'] >
+	>
 	export class $hyoo_sketch_element_markdown extends $hyoo_sketch_element_base {
-		Element( ): $mol_text
-		Options( ): ({ 
-			'markdown': ReturnType< $hyoo_sketch_element_markdown['markdown_options'] >,
-		})  & ReturnType< $hyoo_sketch_element_base['Options'] >
 		text_default( ): string
 		text( next?: ReturnType< $hyoo_sketch_element_markdown['text_default'] > ): ReturnType< $hyoo_sketch_element_markdown['text_default'] >
 		Text_option( ): $mol_textarea
 		markdown_options( ): readonly(any)[]
+		Element( ): $mol_text
+		Options( ): ({ 
+			'markdown': ReturnType< $hyoo_sketch_element_markdown['markdown_options'] >,
+		})  & ReturnType< $hyoo_sketch_element_base['Options'] >
 	}
 	
 }
@@ -7971,7 +8377,22 @@ declare namespace $.$$ {
 
 declare namespace $ {
 
-	type $mol_speck__style__9I7RGUZW = $mol_type_enforce<
+	type $mol_string__value__I1ZDFDKE = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_speck['speck_value'] >
+		,
+		ReturnType< $mol_string['value'] >
+	>
+	type $hyoo_sketch_option__name__Z8SQ17D9 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $hyoo_sketch_option['name'] >
+	>
+	type $hyoo_sketch_option__Control__80KHGNDT = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_speck['Speck_value_control'] >
+		,
+		ReturnType< $hyoo_sketch_option['Control'] >
+	>
+	type $mol_speck__style__YJ29NV0J = $mol_type_enforce<
 		({ 
 			'width': string,
 			'height': string,
@@ -7981,27 +8402,18 @@ declare namespace $ {
 		,
 		ReturnType< $mol_speck['style'] >
 	>
-	type $mol_speck__value__CQJG98IZ = $mol_type_enforce<
+	type $mol_speck__value__BTI0HGQT = $mol_type_enforce<
 		ReturnType< $hyoo_sketch_element_speck['speck_value'] >
 		,
 		ReturnType< $mol_speck['value'] >
 	>
-	type $mol_string__value__0V4KIUG8 = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_speck['speck_value'] >
-		,
-		ReturnType< $mol_string['value'] >
-	>
-	type $hyoo_sketch_option__name__05MTB3D2 = $mol_type_enforce<
-		string
-		,
-		ReturnType< $hyoo_sketch_option['name'] >
-	>
-	type $hyoo_sketch_option__Control__O3AUOZ9H = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_speck['Speck_value_control'] >
-		,
-		ReturnType< $hyoo_sketch_option['Control'] >
-	>
 	export class $hyoo_sketch_element_speck extends $hyoo_sketch_element_base {
+		min_height( ): string
+		speck_value_default( ): string
+		speck_value( next?: ReturnType< $hyoo_sketch_element_speck['speck_value_default'] > ): ReturnType< $hyoo_sketch_element_speck['speck_value_default'] >
+		Speck_value_control( ): $mol_string
+		Speck_value_options( ): $hyoo_sketch_option
+		speck_options( ): readonly(any)[]
 		Resize( ): any
 		Element( ): $mol_speck
 		Position_options( ): readonly(any)[]
@@ -8010,12 +8422,6 @@ declare namespace $ {
 		})  & ReturnType< $hyoo_sketch_element_base['Options'] >
 		width_default( ): number
 		height_default( ): number
-		min_height( ): string
-		speck_value_default( ): string
-		speck_value( next?: ReturnType< $hyoo_sketch_element_speck['speck_value_default'] > ): ReturnType< $hyoo_sketch_element_speck['speck_value_default'] >
-		Speck_value_control( ): $mol_string
-		Speck_value_options( ): $hyoo_sketch_option
-		speck_options( ): readonly(any)[]
 	}
 	
 }
@@ -8170,36 +8576,36 @@ declare namespace $ {
 
 declare namespace $ {
 
-	type $mol_vector_2d__8Q350FOW = $mol_type_enforce<
+	type $mol_vector_range__R9D5NYUK = $mol_type_enforce<
+		[ number, number ]
+		,
+		ConstructorParameters< typeof $mol_vector_range<number> >
+	>
+	type $mol_vector_range__EPFMZ7TJ = $mol_type_enforce<
+		[ number, number ]
+		,
+		ConstructorParameters< typeof $mol_vector_range<number> >
+	>
+	type $mol_vector_2d__PQD84EGA = $mol_type_enforce<
 		[ number, number ]
 		,
 		ConstructorParameters< typeof $mol_vector_2d<number> >
 	>
-	type $mol_vector_2d__5NL4TNLP = $mol_type_enforce<
+	type $mol_vector_2d__6A7TGH86 = $mol_type_enforce<
 		[ ReturnType< $mol_map_yandex_mark['box_lat'] >, ReturnType< $mol_map_yandex_mark['box_lon'] > ]
 		,
 		ConstructorParameters< typeof $mol_vector_2d<$mol_vector_range<number>> >
 	>
-	type $mol_vector_range__JFSF82G9 = $mol_type_enforce<
-		[ number, number ]
-		,
-		ConstructorParameters< typeof $mol_vector_range<number> >
-	>
-	type $mol_vector_range__2OKZBDSZ = $mol_type_enforce<
-		[ number, number ]
-		,
-		ConstructorParameters< typeof $mol_vector_range<number> >
-	>
 	export class $mol_map_yandex_mark extends $mol_object {
+		box_lat( ): $mol_vector_range<number>
+		box_lon( ): $mol_vector_range<number>
+		address( ): string
 		pos( ): $mol_vector_2d<number>
 		box( ): $mol_vector_2d<$mol_vector_range<number>>
 		hint( ): string
 		title( ): ReturnType< $mol_map_yandex_mark['address'] >
 		content( ): string
 		object( ): any
-		box_lat( ): $mol_vector_range<number>
-		box_lon( ): $mol_vector_range<number>
-		address( ): string
 	}
 	
 }
@@ -8285,44 +8691,44 @@ declare namespace $ {
 
 declare namespace $ {
 
-	type $hyoo_sketch_element_map_my__center__9UF31RGA = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $hyoo_sketch_element_map_my['center'] >
-	>
-	type $hyoo_sketch_element_map_my__zoom__TPCW5R9K = $mol_type_enforce<
-		number
-		,
-		ReturnType< $hyoo_sketch_element_map_my['zoom'] >
-	>
-	type $hyoo_sketch_element_map_my__objects__19N5U91G = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $hyoo_sketch_element_map_my['objects'] >
-	>
-	type $mol_map_yandex_mark__title__KVU0U6TG = $mol_type_enforce<
+	type $mol_map_yandex_mark__title__78L9MLKK = $mol_type_enforce<
 		ReturnType< $hyoo_sketch_element_map['place_title'] >
 		,
 		ReturnType< $mol_map_yandex_mark['title'] >
 	>
-	type $mol_map_yandex_mark__address__IYAN5H9A = $mol_type_enforce<
+	type $mol_map_yandex_mark__address__348WYPJ0 = $mol_type_enforce<
 		ReturnType< $hyoo_sketch_element_map['place_addres'] >
 		,
 		ReturnType< $mol_map_yandex_mark['address'] >
 	>
-	type $mol_map_yandex_mark__content__89BO8M6R = $mol_type_enforce<
+	type $mol_map_yandex_mark__content__F58PNNYS = $mol_type_enforce<
 		ReturnType< $hyoo_sketch_element_map['place_content'] >
 		,
 		ReturnType< $mol_map_yandex_mark['content'] >
 	>
+	type $hyoo_sketch_element_map_my__center__TSHSTXZ4 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $hyoo_sketch_element_map_my['center'] >
+	>
+	type $hyoo_sketch_element_map_my__zoom__YWL5N1OG = $mol_type_enforce<
+		number
+		,
+		ReturnType< $hyoo_sketch_element_map_my['zoom'] >
+	>
+	type $hyoo_sketch_element_map_my__objects__UGXOETPY = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $hyoo_sketch_element_map_my['objects'] >
+	>
 	export class $hyoo_sketch_element_map extends $hyoo_sketch_element_base {
-		Element( ): $hyoo_sketch_element_map_my
-		width_default( ): number
-		height_default( ): number
 		place_title( ): string
 		place_addres( ): string
 		place_content( ): string
 		Place( ): $mol_map_yandex_mark
+		Element( ): $hyoo_sketch_element_map_my
+		width_default( ): number
+		height_default( ): number
 	}
 	
 	export class $hyoo_sketch_element_map_my extends $mol_map_yandex {
@@ -8341,27 +8747,33 @@ declare namespace $.$$ {
 
 declare namespace $ {
 
-	type $mol_page__title__AJJ2C1P7 = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_element_header['title'] >
-		,
-		ReturnType< $mol_page['title'] >
-	>
-	type $mol_string__value__21XAXD1K = $mol_type_enforce<
+	type $mol_string__value__3AHM3XV7 = $mol_type_enforce<
 		ReturnType< $hyoo_sketch_element_header['title'] >
 		,
 		ReturnType< $mol_string['value'] >
 	>
-	type $hyoo_sketch_option__name__MBNLHW4T = $mol_type_enforce<
+	type $hyoo_sketch_option__name__JKGTVMDM = $mol_type_enforce<
 		string
 		,
 		ReturnType< $hyoo_sketch_option['name'] >
 	>
-	type $hyoo_sketch_option__Control__GN0CKI4F = $mol_type_enforce<
+	type $hyoo_sketch_option__Control__M8TRB6IT = $mol_type_enforce<
 		ReturnType< $hyoo_sketch_element_header['Title_control'] >
 		,
 		ReturnType< $hyoo_sketch_option['Control'] >
 	>
+	type $mol_page__title__E9L7GK6X = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_element_header['title'] >
+		,
+		ReturnType< $mol_page['title'] >
+	>
 	export class $hyoo_sketch_element_header extends $hyoo_sketch_element_base {
+		Head( ): ReturnType< ReturnType< $hyoo_sketch_element_header['Page'] >['Head'] >
+		title_default( ): string
+		title( next?: ReturnType< $hyoo_sketch_element_header['title_default'] > ): ReturnType< $hyoo_sketch_element_header['title_default'] >
+		Title_control( ): $mol_string
+		Title_option( ): $hyoo_sketch_option
+		header_options( ): readonly(any)[]
 		Page( ): $mol_page
 		Element( ): ReturnType< $hyoo_sketch_element_header['Head'] >
 		height_default( ): number
@@ -8369,12 +8781,6 @@ declare namespace $ {
 		Options( ): ({ 
 			'header': ReturnType< $hyoo_sketch_element_header['header_options'] >,
 		})  & ReturnType< $hyoo_sketch_element_base['Options'] >
-		Head( ): ReturnType< ReturnType< $hyoo_sketch_element_header['Page'] >['Head'] >
-		title_default( ): string
-		title( next?: ReturnType< $hyoo_sketch_element_header['title_default'] > ): ReturnType< $hyoo_sketch_element_header['title_default'] >
-		Title_control( ): $mol_string
-		Title_option( ): $hyoo_sketch_option
-		header_options( ): readonly(any)[]
 	}
 	
 }
@@ -8390,214 +8796,109 @@ declare namespace $.$$ {
 
 declare namespace $ {
 
-	export class $mol_icon_television extends $mol_icon {
-		path( ): string
-	}
-	
-}
-
-//# sourceMappingURL=television.view.tree.d.ts.map
-declare namespace $ {
-
-	export class $mol_icon_television_play extends $mol_icon {
-		path( ): string
-	}
-	
-}
-
-//# sourceMappingURL=play.view.tree.d.ts.map
-declare namespace $ {
-
-	export class $mol_icon_play extends $mol_icon {
-		path( ): string
-	}
-	
-}
-
-//# sourceMappingURL=play.view.tree.d.ts.map
-declare namespace $ {
-
-	export class $mol_icon_play_circle extends $mol_icon {
-		path( ): string
-	}
-	
-}
-
-//# sourceMappingURL=circle.view.tree.d.ts.map
-declare namespace $ {
-
-	type $mol_view__sub__1OXC8I6B = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_editor_paper['content'] >
-		,
-		ReturnType< $mol_view['sub'] >
-	>
-	type $hyoo_sketch_person_cursor__person__F7IEXI6Z = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_editor_paper['person'] >
-		,
-		ReturnType< $hyoo_sketch_person_cursor['person'] >
-	>
-	type $mol_view__sub__Z7UUS75U = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_editor_paper['cursors'] >
-		,
-		ReturnType< $mol_view['sub'] >
-	>
-	export class $hyoo_sketch_editor_paper extends $mol_view {
-		page( ): $hyoo_sketch_page
-		grid( ): number
-		event( ): ({ 
-			pointerdown( next?: ReturnType< $hyoo_sketch_editor_paper['pointer_down'] > ): ReturnType< $hyoo_sketch_editor_paper['pointer_down'] >,
-			pointerenter( next?: ReturnType< $hyoo_sketch_editor_paper['pointer_enter'] > ): ReturnType< $hyoo_sketch_editor_paper['pointer_enter'] >,
-		})  & ReturnType< $mol_view['event'] >
-		style( ): ({ 
-			'width': ReturnType< $hyoo_sketch_editor_paper['width'] >,
-			'height': ReturnType< $hyoo_sketch_editor_paper['height'] >,
-			'backgroundSize': ReturnType< $hyoo_sketch_editor_paper['background_size'] >,
-		})  & ReturnType< $mol_view['style'] >
-		attr( ): ({ 
-			'hyoo_sketch_editor_paper_preview': ReturnType< $hyoo_sketch_editor_paper['preview'] >,
-			'hyoo_sketch_editor_paper_focused': ReturnType< $hyoo_sketch_editor_paper['selected'] >,
-		})  & ReturnType< $mol_view['attr'] >
-		sub( ): readonly(any)[]
-		pointer_down( next?: any ): any
-		pointer_enter( next?: any ): any
-		width( ): number
-		height( ): number
-		background_size( ): string
-		preview( ): boolean
-		selected( next?: boolean ): boolean
-		content( ): readonly(any)[]
-		Content( ): $mol_view
-		person( id: any): $hyoo_sketch_person
-		Cursor( id: any): $hyoo_sketch_person_cursor
-		cursors( ): readonly(any)[]
-		Cursors( ): $mol_view
-	}
-	
-}
-
-//# sourceMappingURL=paper.view.tree.d.ts.map
-declare namespace $.$$ {
-    class $hyoo_sketch_editor_paper extends $.$hyoo_sketch_editor_paper {
-        person(id: $mol_int62_string): $hyoo_sketch_person;
-        background_size(): string;
-        pointer_down(): void;
-        pointer_enter(e: PointerEvent): void;
-        cursor_sync(x: number, y: number, page: $mol_int62_string | null): void;
-        cursors(): $.$hyoo_sketch_person_cursor[];
-    }
-}
-
-declare namespace $ {
-}
-
-declare namespace $.$$ {
-}
-
-declare namespace $ {
-
-	type $hyoo_sketch_editor_width__A5AHN8W7 = $mol_type_enforce<
+	type $hyoo_sketch_editor_width__L9CMVOSX = $mol_type_enforce<
 		Parameters< $hyoo_sketch_editor['width'] >[0]
 		,
 		Parameters< ReturnType< $hyoo_sketch_editor['page'] >['width'] >[0]
 	>
-	type $hyoo_sketch_editor_height__6XZ7NXZP = $mol_type_enforce<
+	type $hyoo_sketch_editor_height__4WJ0OBP0 = $mol_type_enforce<
 		Parameters< $hyoo_sketch_editor['height'] >[0]
 		,
 		Parameters< ReturnType< $hyoo_sketch_editor['page'] >['height'] >[0]
 	>
-	type $hyoo_sketch_editor_grid__GMRHN3FL = $mol_type_enforce<
+	type $hyoo_sketch_editor_grid__RTHY7FPV = $mol_type_enforce<
 		Parameters< $hyoo_sketch_editor['grid'] >[0]
 		,
 		Parameters< ReturnType< $hyoo_sketch_editor['page'] >['grid'] >[0]
 	>
-	type $mol_link__hint__NQVW75C1 = $mol_type_enforce<
+	type $mol_link__hint__W4ONK82V = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_link['hint'] >
 	>
-	type $mol_link__sub__VEJUK6AY = $mol_type_enforce<
+	type $mol_link__sub__9AUNXUGB = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_link['sub'] >
 	>
-	type $mol_link__target__7RMJ6R8F = $mol_type_enforce<
+	type $mol_link__target__HMT8HSFH = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_link['target'] >
 	>
-	type $mol_link__arg__01VXC7X7 = $mol_type_enforce<
+	type $mol_link__arg__3XDKHED3 = $mol_type_enforce<
 		({ 
 			'demo': ReturnType< $hyoo_sketch_editor['page_current_id'] >,
 		}) 
 		,
 		ReturnType< $mol_link['arg'] >
 	>
-	type $mol_check_icon__hint__696YSJML = $mol_type_enforce<
+	type $mol_check_icon__hint__R769TG2H = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_check_icon['hint'] >
 	>
-	type $mol_check_icon__Icon__WRGC70PL = $mol_type_enforce<
+	type $mol_check_icon__Icon__FJO610FR = $mol_type_enforce<
 		ReturnType< $hyoo_sketch_editor['Page_preview_icon'] >
 		,
 		ReturnType< $mol_check_icon['Icon'] >
 	>
-	type $mol_check_icon__checked__T8892YJG = $mol_type_enforce<
+	type $mol_check_icon__checked__PZVP0RDQ = $mol_type_enforce<
 		ReturnType< $hyoo_sketch_editor['preview'] >
 		,
 		ReturnType< $mol_check_icon['checked'] >
 	>
-	type $mol_string__value__680TVB6Z = $mol_type_enforce<
+	type $mol_string__value__NR0N3P9E = $mol_type_enforce<
 		ReturnType< $hyoo_sketch_editor['page_name'] >
 		,
 		ReturnType< $mol_string['value'] >
 	>
-	type $hyoo_sketch_option__name__03OW68QO = $mol_type_enforce<
+	type $hyoo_sketch_option__name__7WF4KR0K = $mol_type_enforce<
 		string
 		,
 		ReturnType< $hyoo_sketch_option['name'] >
 	>
-	type $hyoo_sketch_option__Control__X37V6ZD7 = $mol_type_enforce<
+	type $hyoo_sketch_option__Control__OSVCCYCA = $mol_type_enforce<
 		ReturnType< $hyoo_sketch_editor['Name'] >
 		,
 		ReturnType< $hyoo_sketch_option['Control'] >
 	>
-	type $mol_number__value__IDCHZQ0L = $mol_type_enforce<
+	type $mol_number__value__OVX61CZY = $mol_type_enforce<
 		ReturnType< $hyoo_sketch_editor['width'] >
 		,
 		ReturnType< $mol_number['value'] >
 	>
-	type $hyoo_sketch_option__name__AIXLXBFN = $mol_type_enforce<
+	type $hyoo_sketch_option__name__HKWKFKZG = $mol_type_enforce<
 		string
 		,
 		ReturnType< $hyoo_sketch_option['name'] >
 	>
-	type $hyoo_sketch_option__Control__N01E1V8A = $mol_type_enforce<
+	type $hyoo_sketch_option__Control__GDNNNVXW = $mol_type_enforce<
 		ReturnType< $hyoo_sketch_editor['Width'] >
 		,
 		ReturnType< $hyoo_sketch_option['Control'] >
 	>
-	type $mol_number__value__AIUSPMAH = $mol_type_enforce<
+	type $mol_number__value__NGLMII8B = $mol_type_enforce<
 		ReturnType< $hyoo_sketch_editor['height'] >
 		,
 		ReturnType< $mol_number['value'] >
 	>
-	type $hyoo_sketch_option__name__5CXAKD4Z = $mol_type_enforce<
+	type $hyoo_sketch_option__name__9EMBOLOH = $mol_type_enforce<
 		string
 		,
 		ReturnType< $hyoo_sketch_option['name'] >
 	>
-	type $hyoo_sketch_option__Control__ZP6CW4NY = $mol_type_enforce<
+	type $hyoo_sketch_option__Control__NN2Y3YML = $mol_type_enforce<
 		ReturnType< $hyoo_sketch_editor['Height'] >
 		,
 		ReturnType< $hyoo_sketch_option['Control'] >
 	>
-	type $mol_switch__value__07H43IU9 = $mol_type_enforce<
+	type $mol_switch__value__NFRZMSK7 = $mol_type_enforce<
 		ReturnType< $hyoo_sketch_editor['grid_str'] >
 		,
 		ReturnType< $mol_switch['value'] >
 	>
-	type $mol_switch__options__J8J46LF1 = $mol_type_enforce<
+	type $mol_switch__options__6GYSCXBT = $mol_type_enforce<
 		({ 
 			'4': string,
 			'8': string,
@@ -8607,77 +8908,106 @@ declare namespace $ {
 		,
 		ReturnType< $mol_switch['options'] >
 	>
-	type $hyoo_sketch_option__name__MXBRFQ73 = $mol_type_enforce<
+	type $hyoo_sketch_option__name__ADINBZI2 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $hyoo_sketch_option['name'] >
 	>
-	type $hyoo_sketch_option__Control__Q64LG5HY = $mol_type_enforce<
+	type $hyoo_sketch_option__Control__T71K9RVK = $mol_type_enforce<
 		ReturnType< $hyoo_sketch_editor['Grid'] >
 		,
 		ReturnType< $hyoo_sketch_option['Control'] >
 	>
-	type $mol_button_major__click__HUYBI3RK = $mol_type_enforce<
+	type $mol_button_major__click__RF9JKFLV = $mol_type_enforce<
 		ReturnType< $hyoo_sketch_editor['page_delete'] >
 		,
 		ReturnType< $mol_button_major['click'] >
 	>
-	type $mol_button_major__title__IOUCD53W = $mol_type_enforce<
+	type $mol_button_major__title__P2CS5AF5 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_button_major['title'] >
 	>
-	type $hyoo_sketch_option__name__4D0RI1L3 = $mol_type_enforce<
+	type $hyoo_sketch_option__name__LQ5TAI7R = $mol_type_enforce<
 		string
 		,
 		ReturnType< $hyoo_sketch_option['name'] >
 	>
-	type $hyoo_sketch_option__Control__TBV9UOIT = $mol_type_enforce<
+	type $hyoo_sketch_option__Control__66UOCPGD = $mol_type_enforce<
 		ReturnType< $hyoo_sketch_editor['Delete_control'] >
 		,
 		ReturnType< $hyoo_sketch_option['Control'] >
 	>
-	type $mol_view__sub__M409ESNE = $mol_type_enforce<
+	type $mol_view__sub__JM2S53JO = $mol_type_enforce<
 		ReturnType< $hyoo_sketch_editor['elements'] >
 		,
 		ReturnType< $mol_view['sub'] >
 	>
-	type $hyoo_sketch_editor_paper__page__USTTQ21I = $mol_type_enforce<
+	type $hyoo_sketch_editor_paper__page__414NVX6Z = $mol_type_enforce<
 		ReturnType< $hyoo_sketch_editor['page'] >
 		,
 		ReturnType< $hyoo_sketch_editor_paper['page'] >
 	>
-	type $hyoo_sketch_editor_paper__width__MBS3OFAY = $mol_type_enforce<
+	type $hyoo_sketch_editor_paper__width__RIV5N47M = $mol_type_enforce<
 		ReturnType< $hyoo_sketch_editor['width'] >
 		,
 		ReturnType< $hyoo_sketch_editor_paper['width'] >
 	>
-	type $hyoo_sketch_editor_paper__height__NWDWU38C = $mol_type_enforce<
+	type $hyoo_sketch_editor_paper__height__JIOIZV8Q = $mol_type_enforce<
 		ReturnType< $hyoo_sketch_editor['height'] >
 		,
 		ReturnType< $hyoo_sketch_editor_paper['height'] >
 	>
-	type $hyoo_sketch_editor_paper__grid__H6ZZO4C2 = $mol_type_enforce<
+	type $hyoo_sketch_editor_paper__grid__US9PPDFP = $mol_type_enforce<
 		ReturnType< $hyoo_sketch_editor['grid'] >
 		,
 		ReturnType< $hyoo_sketch_editor_paper['grid'] >
 	>
-	type $hyoo_sketch_editor_paper__preview__CTPMSYBG = $mol_type_enforce<
+	type $hyoo_sketch_editor_paper__preview__2TFPQ4RT = $mol_type_enforce<
 		ReturnType< $hyoo_sketch_editor['preview'] >
 		,
 		ReturnType< $hyoo_sketch_editor_paper['preview'] >
 	>
-	type $hyoo_sketch_editor_paper__selected__WQOI9O7B = $mol_type_enforce<
+	type $hyoo_sketch_editor_paper__selected__GUF5D7UX = $mol_type_enforce<
 		ReturnType< $hyoo_sketch_editor['paper_selected'] >
 		,
 		ReturnType< $hyoo_sketch_editor_paper['selected'] >
 	>
-	type $hyoo_sketch_editor_paper__content__48RPN69D = $mol_type_enforce<
+	type $hyoo_sketch_editor_paper__content__25O50NF1 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $hyoo_sketch_editor_paper['content'] >
 	>
 	export class $hyoo_sketch_editor extends $mol_page {
+		domain( ): ReturnType< ReturnType< $hyoo_sketch_editor['page'] >['domain'] >
+		project( ): ReturnType< ReturnType< $hyoo_sketch_editor['page'] >['project'] >
+		width( next?: ReturnType< ReturnType< $hyoo_sketch_editor['page'] >['width'] > ): ReturnType< ReturnType< $hyoo_sketch_editor['page'] >['width'] >
+		height( next?: ReturnType< ReturnType< $hyoo_sketch_editor['page'] >['height'] > ): ReturnType< ReturnType< $hyoo_sketch_editor['page'] >['height'] >
+		grid( next?: ReturnType< ReturnType< $hyoo_sketch_editor['page'] >['grid'] > ): ReturnType< ReturnType< $hyoo_sketch_editor['page'] >['grid'] >
+		editor_title( ): string
+		Project_demo_icon( ): $mol_icon_television_play
+		page_current_id( ): string
+		Project_demo( ): $mol_link
+		Page_preview_icon( ): $mol_icon_play_circle
+		preview( next?: boolean ): boolean
+		Page_preview( ): $mol_check_icon
+		page_name( next?: string ): string
+		Name( ): $mol_string
+		Page_name( ): $hyoo_sketch_option
+		Width( ): $mol_number
+		Page_width( ): $hyoo_sketch_option
+		Height( ): $mol_number
+		Page_height( ): $hyoo_sketch_option
+		grid_str( next?: string ): string
+		Grid( ): $mol_switch
+		Page_grid( ): $hyoo_sketch_option
+		page_delete( next?: any ): any
+		Delete_control( ): $mol_button_major
+		Page_delete( ): $hyoo_sketch_option
+		paper_selected( next?: boolean ): boolean
+		elements( ): readonly(any)[]
+		Elements( ): $mol_view
+		Paper( ): $hyoo_sketch_editor_paper
 		page( ): $hyoo_sketch_page
 		Element( id: any): $hyoo_sketch_element_base
 		style( ): ({ 
@@ -8709,35 +9039,6 @@ declare namespace $ {
 		Element_speck( id: any): $hyoo_sketch_element_speck
 		Element_map( id: any): $hyoo_sketch_element_map
 		Element_header( id: any): $hyoo_sketch_element_header
-		domain( ): ReturnType< ReturnType< $hyoo_sketch_editor['page'] >['domain'] >
-		project( ): ReturnType< ReturnType< $hyoo_sketch_editor['page'] >['project'] >
-		width( next?: ReturnType< ReturnType< $hyoo_sketch_editor['page'] >['width'] > ): ReturnType< ReturnType< $hyoo_sketch_editor['page'] >['width'] >
-		height( next?: ReturnType< ReturnType< $hyoo_sketch_editor['page'] >['height'] > ): ReturnType< ReturnType< $hyoo_sketch_editor['page'] >['height'] >
-		grid( next?: ReturnType< ReturnType< $hyoo_sketch_editor['page'] >['grid'] > ): ReturnType< ReturnType< $hyoo_sketch_editor['page'] >['grid'] >
-		editor_title( ): string
-		Project_demo_icon( ): $mol_icon_television_play
-		page_current_id( ): string
-		Project_demo( ): $mol_link
-		Page_preview_icon( ): $mol_icon_play_circle
-		preview( next?: boolean ): boolean
-		Page_preview( ): $mol_check_icon
-		page_name( next?: string ): string
-		Name( ): $mol_string
-		Page_name( ): $hyoo_sketch_option
-		Width( ): $mol_number
-		Page_width( ): $hyoo_sketch_option
-		Height( ): $mol_number
-		Page_height( ): $hyoo_sketch_option
-		grid_str( next?: string ): string
-		Grid( ): $mol_switch
-		Page_grid( ): $hyoo_sketch_option
-		page_delete( next?: any ): any
-		Delete_control( ): $mol_button_major
-		Page_delete( ): $hyoo_sketch_option
-		paper_selected( next?: boolean ): boolean
-		elements( ): readonly(any)[]
-		Elements( ): $mol_view
-		Paper( ): $hyoo_sketch_editor_paper
 	}
 	
 }
@@ -8791,292 +9092,55 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    class $hyoo_sketch_project extends $hyoo_sketch_entity {
-        name(next?: string): string;
-        pages_node(): $hyoo_crowd_list;
-        pages(next?: $hyoo_sketch_page[]): $hyoo_sketch_page[];
-        page_add(obj: $hyoo_sketch_page): void;
-        page_delete(obj: $hyoo_sketch_page): void;
-        page_duplicate(obj: $hyoo_sketch_page): void;
-        editors(): `${string}_${string}`[];
-        authors(): $hyoo_sketch_person[];
-        access_public(): boolean;
-    }
-}
 
-declare namespace $ {
-    class $hyoo_sketch_person extends $hyoo_sketch_entity {
-        name(next?: string): string;
-        avatar(next?: string): string;
-        projects_node(): $hyoo_crowd_list;
-        projects(next?: $hyoo_sketch_project[]): $hyoo_sketch_project[];
-        project_add(obj: $hyoo_sketch_project): void;
-        project_delete(obj: $hyoo_sketch_project): void;
-        current(): boolean;
-        online(): boolean;
-        online_time(): $mol_time_moment | null;
-        cursor_position(next?: {
-            x: number;
-            y: number;
-            page: $mol_int62_string | null;
-        }): {
-            x: number;
-            y: number;
-            page: $mol_int62_string | null;
-        } | undefined;
-    }
-}
-
-declare namespace $ {
-
-	export class $mol_icon_account extends $mol_icon {
-		path( ): string
-	}
-	
-}
-
-//# sourceMappingURL=account.view.tree.d.ts.map
-declare namespace $ {
-    function $mol_hash_string(str: string, seed?: number): number;
-}
-
-declare namespace $ {
-
-	export class $mol_avatar extends $mol_icon {
-		view_box( ): string
-		id( ): string
-		path( ): string
-	}
-	
-}
-
-//# sourceMappingURL=avatar.view.tree.d.ts.map
-declare namespace $.$$ {
-    class $mol_avatar extends $.$mol_avatar {
-        path(): string;
-    }
-}
-
-declare namespace $ {
-}
-
-declare namespace $ {
-
-	export class $mol_icon_sync extends $mol_icon {
-		path( ): string
-	}
-	
-}
-
-//# sourceMappingURL=sync.view.tree.d.ts.map
-declare namespace $ {
-
-	export class $mol_icon_sync_off extends $mol_icon {
-		path( ): string
-	}
-	
-}
-
-//# sourceMappingURL=off.view.tree.d.ts.map
-declare namespace $.$$ {
-    class $hyoo_sync_online extends $.$hyoo_sync_online {
-        message(): string;
-        link_content(): $mol_icon_sync_off[];
-        hint(): string;
-        master_link(): string;
-        master_id(index: number): string;
-        option_label(index: number): string;
-        value(next?: string): string;
-    }
-}
-
-declare namespace $ {
-}
-
-declare namespace $ {
-
-	type $hyoo_sync_online_master_cursor__DU3NI0L9 = $mol_type_enforce<
-		Parameters< $hyoo_sync_online['master_cursor'] >[0]
+	type $mol_link__arg__2IRWMKRH = $mol_type_enforce<
+		({ 
+			'person': ReturnType< $hyoo_sketch_project_list['person_id'] >,
+		}) 
 		,
-		Parameters< ReturnType< $hyoo_sync_online['yard'] >['master_cursor'] >[0]
+		ReturnType< $mol_link['arg'] >
 	>
-	type $mol_avatar__id__WYD8JUAE = $mol_type_enforce<
-		ReturnType< $hyoo_sync_online['master_id'] >
-		,
-		ReturnType< $mol_avatar['id'] >
-	>
-	type $mol_avatar__id__Y4UXJY69 = $mol_type_enforce<
-		ReturnType< $hyoo_sync_online['master_link'] >
-		,
-		ReturnType< $mol_avatar['id'] >
-	>
-	type $mol_link__uri__9DGYRFEF = $mol_type_enforce<
-		ReturnType< $hyoo_sync_online['master_link'] >
-		,
-		ReturnType< $mol_link['uri'] >
-	>
-	type $mol_link__sub__X1OL9IV9 = $mol_type_enforce<
-		ReturnType< $hyoo_sync_online['link_content'] >
-		,
-		ReturnType< $mol_link['sub'] >
-	>
-	type $mol_link__hint__O3QJSRJS = $mol_type_enforce<
-		ReturnType< $hyoo_sync_online['message'] >
+	type $mol_link__hint__10ZM03ML = $mol_type_enforce<
+		string
 		,
 		ReturnType< $mol_link['hint'] >
 	>
-	export class $hyoo_sync_online extends $mol_select {
-		minimal_width( ): number
-		minimal_height( ): number
-		yard( ): $hyoo_sync_yard<any>
-		Filter( ): any
-		option_content( id: any): readonly(any)[]
-		trigger_content( ): readonly(any)[]
-		dictionary( ): ReturnType< ReturnType< $hyoo_sync_online['yard'] >['master_list'] >
-		master_cursor( next?: ReturnType< ReturnType< $hyoo_sync_online['yard'] >['master_cursor'] > ): ReturnType< ReturnType< $hyoo_sync_online['yard'] >['master_cursor'] >
-		master_id( id: any): string
-		Option_logo( id: any): $mol_avatar
-		master_link( ): string
-		Well( ): $mol_avatar
-		Fail( ): $mol_icon_sync_off
-		link_content( ): readonly(any)[]
-		hint( ): string
-		message( ): ReturnType< $hyoo_sync_online['hint'] >
-		Link( ): $mol_link
-	}
-	
-}
-
-//# sourceMappingURL=online.view.tree.d.ts.map
-declare namespace $ {
-
-	export class $mol_icon_script extends $mol_icon {
-		path( ): string
-	}
-	
-}
-
-//# sourceMappingURL=script.view.tree.d.ts.map
-declare namespace $ {
-
-	export class $mol_icon_script_text extends $mol_icon {
-		path( ): string
-	}
-	
-}
-
-//# sourceMappingURL=text.view.tree.d.ts.map
-declare namespace $ {
-
-	export class $mol_link_source extends $mol_link {
-		hint( ): string
-		sub( ): readonly(any)[]
-		Icon( ): $mol_icon_script_text
-	}
-	
-}
-
-//# sourceMappingURL=source.view.tree.d.ts.map
-declare namespace $ {
-
-	export class $mol_icon_brightness_6 extends $mol_icon {
-		path( ): string
-	}
-	
-}
-
-//# sourceMappingURL=6.view.tree.d.ts.map
-declare namespace $ {
-
-	export class $mol_lights_toggle extends $mol_check_icon {
-		Icon( ): ReturnType< $mol_lights_toggle['Lights_icon'] >
-		hint( ): string
-		checked( next?: ReturnType< $mol_lights_toggle['lights'] > ): ReturnType< $mol_lights_toggle['lights'] >
-		Lights_icon( ): $mol_icon_brightness_6
-		lights( next?: boolean ): boolean
-	}
-	
-}
-
-//# sourceMappingURL=toggle.view.tree.d.ts.map
-declare namespace $.$$ {
-    class $mol_lights_toggle extends $.$mol_lights_toggle {
-        lights(next?: boolean): boolean;
-    }
-}
-
-declare namespace $ {
-
-	type $mol_avatar__id__7ELZU8W4 = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_person_avatar['id'] >
+	type $mol_link__sub__FID82QBO = $mol_type_enforce<
+		readonly(any)[]
 		,
-		ReturnType< $mol_avatar['id'] >
+		ReturnType< $mol_link['sub'] >
 	>
-	type $mol_paragraph__title__R9LPUKOG = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_person_avatar['name'] >
-		,
-		ReturnType< $mol_paragraph['title'] >
-	>
-	type $mol_speck__value__FQEDN59J = $mol_type_enforce<
+	type $mol_button_minor__hint__LN8ZN0ZP = $mol_type_enforce<
 		string
 		,
-		ReturnType< $mol_speck['value'] >
+		ReturnType< $mol_button_minor['hint'] >
 	>
-	export class $hyoo_sketch_person_avatar extends $mol_view {
-		person( ): $hyoo_sketch_person
-		sub( ): readonly(any)[]
-		id( ): ReturnType< ReturnType< $hyoo_sketch_person_avatar['person'] >['id'] >
-		name( ): ReturnType< ReturnType< $hyoo_sketch_person_avatar['person'] >['name'] >
-		online( ): ReturnType< ReturnType< $hyoo_sketch_person_avatar['person'] >['online'] >
-		Avatar( ): $mol_avatar
-		Name( ): $mol_paragraph
-		Online( ): $mol_speck
-	}
-	
-}
-
-//# sourceMappingURL=avatar.view.tree.d.ts.map
-declare namespace $.$$ {
-    class $hyoo_sketch_person_avatar extends $.$hyoo_sketch_person_avatar {
-        name_content(): (string | $mol_speck)[];
-    }
-}
-
-declare namespace $.$$ {
-}
-
-declare namespace $ {
-
-	export class $mol_icon_cursor_default extends $mol_icon {
-		path( ): string
-	}
-	
-}
-
-//# sourceMappingURL=default.view.tree.d.ts.map
-declare namespace $ {
-
-	export class $hyoo_sketch_person_cursor extends $hyoo_sketch_person_avatar {
-		sub( ): readonly(any)[]
-		Cursor( ): $mol_icon_cursor_default
-	}
-	
-}
-
-//# sourceMappingURL=cursor.view.tree.d.ts.map
-declare namespace $.$$ {
-    class $hyoo_sketch_person_cursor extends $.$hyoo_sketch_person_cursor {
-        position_set(): void;
-        auto(): void;
-    }
-}
-
-declare namespace $.$$ {
-}
-
-declare namespace $ {
-
-	type $mol_link__arg__0F5AH4RE = $mol_type_enforce<
+	type $mol_button_minor__click__TIW8HSQ8 = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_project_list['project_add'] >
+		,
+		ReturnType< $mol_button_minor['click'] >
+	>
+	type $mol_button_minor__sub__B5NZXLFK = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_button_minor['sub'] >
+	>
+	type $mol_list__rows__K3ZAOCU2 = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_project_list['projects'] >
+		,
+		ReturnType< $mol_list['rows'] >
+	>
+	type $hyoo_sync_online__yard__UYV08VMP = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_project_list['yard'] >
+		,
+		ReturnType< $hyoo_sync_online['yard'] >
+	>
+	type $mol_link_source__uri__0WS9ZN5L = $mol_type_enforce<
+		string
+		,
+		ReturnType< $mol_link_source['uri'] >
+	>
+	type $mol_link__arg__NRU6W6A6 = $mol_type_enforce<
 		({ 
 			'project': ReturnType< $hyoo_sketch_project_list['project_id'] >,
 			'page': any,
@@ -9086,66 +9150,12 @@ declare namespace $ {
 		,
 		ReturnType< $mol_link['arg'] >
 	>
-	type $mol_link__title__N6PX3AUF = $mol_type_enforce<
+	type $mol_link__title__J2XZK2L6 = $mol_type_enforce<
 		ReturnType< $hyoo_sketch_project_list['project_name'] >
 		,
 		ReturnType< $mol_link['title'] >
 	>
-	type $mol_link__arg__CES0V88O = $mol_type_enforce<
-		({ 
-			'person': ReturnType< $hyoo_sketch_project_list['person_id'] >,
-		}) 
-		,
-		ReturnType< $mol_link['arg'] >
-	>
-	type $mol_link__hint__03Z80G9M = $mol_type_enforce<
-		string
-		,
-		ReturnType< $mol_link['hint'] >
-	>
-	type $mol_link__sub__C46YLVJ4 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_link['sub'] >
-	>
-	type $mol_button_minor__hint__YDPBPOIR = $mol_type_enforce<
-		string
-		,
-		ReturnType< $mol_button_minor['hint'] >
-	>
-	type $mol_button_minor__click__MZM4Y64I = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_project_list['project_add'] >
-		,
-		ReturnType< $mol_button_minor['click'] >
-	>
-	type $mol_button_minor__sub__HNEQ88I5 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_button_minor['sub'] >
-	>
-	type $mol_list__rows__9H5ZTDG9 = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_project_list['projects'] >
-		,
-		ReturnType< $mol_list['rows'] >
-	>
-	type $hyoo_sync_online__yard__VII9V798 = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_project_list['yard'] >
-		,
-		ReturnType< $hyoo_sync_online['yard'] >
-	>
-	type $mol_link_source__uri__JTFZM5M4 = $mol_type_enforce<
-		string
-		,
-		ReturnType< $mol_link_source['uri'] >
-	>
 	export class $hyoo_sketch_project_list extends $mol_page {
-		person( ): $hyoo_sketch_person
-		title( ): string
-		project_name_default( ): string
-		tools( ): readonly(any)[]
-		body( ): readonly(any)[]
-		foot( ): readonly(any)[]
-		Project( id: any): $mol_link
 		domain( ): ReturnType< ReturnType< $hyoo_sketch_project_list['person'] >['domain'] >
 		person_id( ): string
 		Person_icon( ): $mol_icon_account
@@ -9161,6 +9171,13 @@ declare namespace $ {
 		Lights( ): $mol_lights_toggle
 		project_id( id: any): string
 		project_name( id: any): string
+		person( ): $hyoo_sketch_person
+		title( ): string
+		project_name_default( ): string
+		tools( ): readonly(any)[]
+		body( ): readonly(any)[]
+		foot( ): readonly(any)[]
+		Project( id: any): $mol_link
 	}
 	
 }
@@ -9178,45 +9195,33 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
-}
 
-declare namespace $ {
-
-	export class $mol_bar extends $mol_view {
-	}
-	
-}
-
-//# sourceMappingURL=bar.view.tree.d.ts.map
-declare namespace $ {
-
-	type $mol_check_expand__checked__SU13RSF7 = $mol_type_enforce<
+	type $mol_check_expand__checked__MAX5CFGF = $mol_type_enforce<
 		ReturnType< $mol_expander['expanded'] >
 		,
 		ReturnType< $mol_check_expand['checked'] >
 	>
-	type $mol_check_expand__expandable__364ENBKT = $mol_type_enforce<
+	type $mol_check_expand__expandable__EUXJQYAI = $mol_type_enforce<
 		ReturnType< $mol_expander['expandable'] >
 		,
 		ReturnType< $mol_check_expand['expandable'] >
 	>
-	type $mol_check_expand__label__D0J9KRCZ = $mol_type_enforce<
+	type $mol_check_expand__label__1BFSJHGR = $mol_type_enforce<
 		ReturnType< $mol_expander['label'] >
 		,
 		ReturnType< $mol_check_expand['label'] >
 	>
-	type $mol_view__sub__80OBNL7Z = $mol_type_enforce<
+	type $mol_view__sub__T5FKQ0RM = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_view['sub'] >
 	>
-	type $mol_list__rows__HIY83J9K = $mol_type_enforce<
+	type $mol_list__rows__S1XQGDFT = $mol_type_enforce<
 		ReturnType< $mol_expander['content'] >
 		,
 		ReturnType< $mol_list['rows'] >
 	>
 	export class $mol_expander extends $mol_list {
-		rows( ): readonly(any)[]
 		expanded( next?: boolean ): boolean
 		expandable( ): boolean
 		label( ): readonly(any)[]
@@ -9225,6 +9230,7 @@ declare namespace $ {
 		Label( ): $mol_view
 		content( ): readonly(any)[]
 		Content( ): $mol_list
+		rows( ): readonly(any)[]
 	}
 	
 }
@@ -9242,19 +9248,19 @@ declare namespace $ {
 
 declare namespace $ {
 
-	type $mol_view__sub__4EXDS25V = $mol_type_enforce<
+	type $mol_view__sub__QPM8RKYA = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_view['sub'] >
 	>
 	export class $mol_form_field extends $mol_labeler {
-		bids( ): readonly(string)[]
-		label( ): readonly(any)[]
-		content( ): readonly(any)[]
 		name( ): string
 		bid( ): string
 		Bid( ): $mol_view
 		control( ): any
+		bids( ): readonly(string)[]
+		label( ): readonly(any)[]
+		content( ): readonly(any)[]
 	}
 	
 }
@@ -9270,6 +9276,17 @@ declare namespace $ {
 }
 
 declare namespace $ {
+}
+
+declare namespace $ {
+
+	export class $mol_bar extends $mol_view {
+	}
+	
+}
+
+//# sourceMappingURL=bar.view.tree.d.ts.map
+declare namespace $ {
 
 	export class $mol_icon_content_copy extends $mol_icon {
 		path( ): string
@@ -9280,24 +9297,17 @@ declare namespace $ {
 //# sourceMappingURL=copy.view.tree.d.ts.map
 declare namespace $ {
 
-	type $mol_list__sub__OZ6UC3GN = $mol_type_enforce<
+	type $mol_list__sub__91M6T41G = $mol_type_enforce<
 		ReturnType< $mol_form['body'] >
 		,
 		ReturnType< $mol_list['sub'] >
 	>
-	type $mol_row__sub__RQG5QTV4 = $mol_type_enforce<
+	type $mol_row__sub__36BBHAKZ = $mol_type_enforce<
 		ReturnType< $mol_form['foot'] >
 		,
 		ReturnType< $mol_row['sub'] >
 	>
 	export class $mol_form extends $mol_list {
-		submit_allowed( ): boolean
-		submit_blocked( ): boolean
-		event( ): ({ 
-			keydown( next?: ReturnType< $mol_form['keydown'] > ): ReturnType< $mol_form['keydown'] >,
-		})  & ReturnType< $mol_list['event'] >
-		submit( next?: any ): any
-		rows( ): readonly(any)[]
 		keydown( next?: any ): any
 		form_fields( ): readonly($mol_form_field)[]
 		body( ): ReturnType< $mol_form['form_fields'] >
@@ -9305,6 +9315,13 @@ declare namespace $ {
 		buttons( ): readonly($mol_view)[]
 		foot( ): ReturnType< $mol_form['buttons'] >
 		Foot( ): $mol_row
+		submit_allowed( ): boolean
+		submit_blocked( ): boolean
+		event( ): ({ 
+			keydown( next?: ReturnType< $mol_form['keydown'] > ): ReturnType< $mol_form['keydown'] >,
+		})  & ReturnType< $mol_list['event'] >
+		submit( next?: any ): any
+		rows( ): readonly(any)[]
 	}
 	
 }
@@ -9324,37 +9341,32 @@ declare namespace $ {
 
 declare namespace $ {
 
-	type $mol_bar__sub__47ZBMODW = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_bar['sub'] >
-	>
-	type $hyoo_sketch_project_page_project_name__U787WRT9 = $mol_type_enforce<
+	type $hyoo_sketch_project_page_project_name__77P7M7SB = $mol_type_enforce<
 		Parameters< $hyoo_sketch_project_page['project_name'] >[0]
 		,
 		Parameters< ReturnType< $hyoo_sketch_project_page['project'] >['name'] >[0]
 	>
-	type $mol_check_icon__hint__NB27YRQG = $mol_type_enforce<
+	type $mol_check_icon__hint__YEU1009O = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_check_icon['hint'] >
 	>
-	type $mol_check_icon__Icon__NT8C7KIR = $mol_type_enforce<
+	type $mol_check_icon__Icon__A09WIWDN = $mol_type_enforce<
 		ReturnType< $hyoo_sketch_project_page['Project_pin_icon'] >
 		,
 		ReturnType< $mol_check_icon['Icon'] >
 	>
-	type $mol_check_icon__checked__JO3K5JFI = $mol_type_enforce<
+	type $mol_check_icon__checked__0NWA9URS = $mol_type_enforce<
 		ReturnType< $hyoo_sketch_project_page['project_pin'] >
 		,
 		ReturnType< $mol_check_icon['checked'] >
 	>
-	type $mol_link__hint__BRDDXY90 = $mol_type_enforce<
+	type $mol_link__hint__949IMW5J = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_link['hint'] >
 	>
-	type $mol_link__arg__5Q91GYQ3 = $mol_type_enforce<
+	type $mol_link__arg__IR08FDK7 = $mol_type_enforce<
 		({ 
 			'page': any,
 			'project': any,
@@ -9363,179 +9375,179 @@ declare namespace $ {
 		,
 		ReturnType< $mol_link['arg'] >
 	>
-	type $mol_link__sub__QJDS9L65 = $mol_type_enforce<
+	type $mol_link__sub__SGD3YD3N = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_link['sub'] >
 	>
-	type $mol_list__rows__VYUJX68W = $mol_type_enforce<
+	type $mol_list__rows__F8VRCEBB = $mol_type_enforce<
 		ReturnType< $hyoo_sketch_project_page['pages'] >
 		,
 		ReturnType< $mol_list['rows'] >
 	>
-	type $mol_button_minor__hint__SGLC6Y9B = $mol_type_enforce<
+	type $mol_button_minor__hint__6L2DFL4L = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_button_minor['hint'] >
 	>
-	type $mol_button_minor__click__IOSPKZM1 = $mol_type_enforce<
+	type $mol_button_minor__click__LBJEASJ6 = $mol_type_enforce<
 		ReturnType< $hyoo_sketch_project_page['page_add'] >
 		,
 		ReturnType< $mol_button_minor['click'] >
 	>
-	type $mol_button_minor__sub__4BJYUAE0 = $mol_type_enforce<
+	type $mol_button_minor__sub__BWK68381 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_button_minor['sub'] >
 	>
-	type $mol_view__sub__FPONGWLK = $mol_type_enforce<
+	type $mol_view__sub__FCNDCXA6 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_view['sub'] >
 	>
-	type $mol_expander__title__HGGIUH7L = $mol_type_enforce<
+	type $mol_expander__title__0Y28U7RR = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_expander['title'] >
 	>
-	type $mol_expander__content__VJLBX252 = $mol_type_enforce<
+	type $mol_expander__content__9SW72KYX = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_expander['content'] >
 	>
-	type $mol_expander__expanded__KMZQV5IR = $mol_type_enforce<
+	type $mol_expander__expanded__AJVX3I6T = $mol_type_enforce<
 		ReturnType< $hyoo_sketch_project_page['pages_expanded'] >
 		,
 		ReturnType< $mol_expander['expanded'] >
 	>
-	type $mol_expander__Tools__BCVL3EHR = $mol_type_enforce<
+	type $mol_expander__Tools__0S2785K3 = $mol_type_enforce<
 		ReturnType< $hyoo_sketch_project_page['Settings_tools'] >
 		,
 		ReturnType< $mol_expander['Tools'] >
 	>
-	type $mol_string__value__3J6VAFAX = $mol_type_enforce<
+	type $mol_string__value__Q2BDK1LQ = $mol_type_enforce<
 		ReturnType< $hyoo_sketch_project_page['project_name'] >
 		,
 		ReturnType< $mol_string['value'] >
 	>
-	type $mol_form_field__name__OOJYSZY9 = $mol_type_enforce<
+	type $mol_form_field__name__TRL3GDDW = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_form_field['name'] >
 	>
-	type $mol_form_field__control__RI641TRN = $mol_type_enforce<
+	type $mol_form_field__control__LYWC9RPW = $mol_type_enforce<
 		ReturnType< $hyoo_sketch_project_page['Project_name_control'] >
 		,
 		ReturnType< $mol_form_field['control'] >
 	>
-	type $mol_string__hint__HRGI4MXZ = $mol_type_enforce<
+	type $mol_string__hint__TX8CQPOW = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_string['hint'] >
 	>
-	type $mol_string__value__NTM30I6K = $mol_type_enforce<
+	type $mol_string__value__3JD9N49I = $mol_type_enforce<
 		ReturnType< $hyoo_sketch_project_page['editor_add_id'] >
 		,
 		ReturnType< $mol_string['value'] >
 	>
-	type $mol_button_major__enabled__GG4E8ZIR = $mol_type_enforce<
+	type $mol_button_major__enabled__T4492DVX = $mol_type_enforce<
 		ReturnType< $hyoo_sketch_project_page['editor_add_submut_enabled'] >
 		,
 		ReturnType< $mol_button_major['enabled'] >
 	>
-	type $mol_button_major__click__W1X3D5J1 = $mol_type_enforce<
+	type $mol_button_major__click__70CQGC7J = $mol_type_enforce<
 		ReturnType< $hyoo_sketch_project_page['editor_add_submit'] >
 		,
 		ReturnType< $mol_button_major['click'] >
 	>
-	type $mol_button_major__sub__ST2EDQDI = $mol_type_enforce<
+	type $mol_button_major__sub__2R3K8OH9 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_button_major['sub'] >
 	>
-	type $mol_bar__sub__P4IGVINM = $mol_type_enforce<
+	type $mol_bar__sub__7IZXY0AF = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_bar['sub'] >
 	>
-	type $mol_button_minor__title__4P9LW9WX = $mol_type_enforce<
+	type $mol_button_minor__title__1EUYDLL9 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_button_minor['title'] >
 	>
-	type $mol_button_minor__click__ZMXS6ZEZ = $mol_type_enforce<
+	type $mol_button_minor__click__D3YZKL3K = $mol_type_enforce<
 		ReturnType< $hyoo_sketch_project_page['editor_fill_all'] >
 		,
 		ReturnType< $mol_button_minor['click'] >
 	>
-	type $mol_list__rows__HALL79XX = $mol_type_enforce<
+	type $mol_list__rows__ERLSWTI7 = $mol_type_enforce<
 		ReturnType< $hyoo_sketch_project_page['editor_add_rows'] >
 		,
 		ReturnType< $mol_list['rows'] >
 	>
-	type $mol_form_field__name__A2S4MYTT = $mol_type_enforce<
+	type $mol_form_field__name__DILIC7H5 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_form_field['name'] >
 	>
-	type $mol_form_field__bid__OZ547M7O = $mol_type_enforce<
+	type $mol_form_field__bid__Q5Q0A5XC = $mol_type_enforce<
 		ReturnType< $hyoo_sketch_project_page['editor_add_bid'] >
 		,
 		ReturnType< $mol_form_field['bid'] >
 	>
-	type $mol_form_field__Content__CJ5DLERA = $mol_type_enforce<
+	type $mol_form_field__Content__CCPPK8GC = $mol_type_enforce<
 		ReturnType< $hyoo_sketch_project_page['Editor_add_form'] >
 		,
 		ReturnType< $mol_form_field['Content'] >
 	>
-	type $hyoo_sketch_person_avatar__person__O8O425U0 = $mol_type_enforce<
+	type $hyoo_sketch_person_avatar__person__79D5THV1 = $mol_type_enforce<
 		ReturnType< $hyoo_sketch_project_page['person'] >
 		,
 		ReturnType< $hyoo_sketch_person_avatar['person'] >
 	>
-	type $mol_link__arg__GHR7LYJ3 = $mol_type_enforce<
+	type $mol_link__arg__XB4AAJVT = $mol_type_enforce<
 		({ 
 			'person': ReturnType< $hyoo_sketch_project_page['editor_id'] >,
 		}) 
 		,
 		ReturnType< $mol_link['arg'] >
 	>
-	type $mol_link__sub__VXEMRK1S = $mol_type_enforce<
+	type $mol_link__sub__YU1RWT4E = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_link['sub'] >
 	>
-	type $mol_list__rows__QCCVH5J7 = $mol_type_enforce<
+	type $mol_list__rows__A3OCO2JM = $mol_type_enforce<
 		ReturnType< $hyoo_sketch_project_page['editor_list'] >
 		,
 		ReturnType< $mol_list['rows'] >
 	>
-	type $mol_form_field__name__A7D2LJB2 = $mol_type_enforce<
+	type $mol_form_field__name__TJPWQV5B = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_form_field['name'] >
 	>
-	type $mol_form_field__Content__U45QRY7N = $mol_type_enforce<
+	type $mol_form_field__Content__FWJVP085 = $mol_type_enforce<
 		ReturnType< $hyoo_sketch_project_page['Editor_list'] >
 		,
 		ReturnType< $mol_form_field['Content'] >
 	>
-	type $mol_expander__title__PUBYQ4DH = $mol_type_enforce<
+	type $mol_expander__title__5TNK5Z5I = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_expander['title'] >
 	>
-	type $mol_expander__expanded__MQJON5RU = $mol_type_enforce<
+	type $mol_expander__expanded__81MZUKL2 = $mol_type_enforce<
 		ReturnType< $hyoo_sketch_project_page['settings_expanded'] >
 		,
 		ReturnType< $mol_expander['expanded'] >
 	>
-	type $mol_expander__content__FK73JTHB = $mol_type_enforce<
+	type $mol_expander__content__1KBSK213 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_expander['content'] >
 	>
-	type $mol_link__arg__RPMAUU6F = $mol_type_enforce<
+	type $mol_link__arg__F7WXKQQQ = $mol_type_enforce<
 		({ 
 			'page': ReturnType< $hyoo_sketch_project_page['page_id'] >,
 			'selected': any,
@@ -9543,29 +9555,27 @@ declare namespace $ {
 		,
 		ReturnType< $mol_link['arg'] >
 	>
-	type $mol_link__title__6UIDGAAW = $mol_type_enforce<
+	type $mol_link__title__DEU80VKX = $mol_type_enforce<
 		ReturnType< $hyoo_sketch_project_page['page_name'] >
 		,
 		ReturnType< $mol_link['title'] >
 	>
-	type $mol_button_minor__click__HNTYIQCV = $mol_type_enforce<
+	type $mol_button_minor__click__Q6A32CAZ = $mol_type_enforce<
 		ReturnType< $hyoo_sketch_project_page['page_copy'] >
 		,
 		ReturnType< $mol_button_minor['click'] >
 	>
-	type $mol_button_minor__sub__Y7K2R22I = $mol_type_enforce<
+	type $mol_button_minor__sub__02U4XCY1 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_button_minor['sub'] >
 	>
+	type $mol_bar__sub__WSGGDF8T = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_bar['sub'] >
+	>
 	export class $hyoo_sketch_project_page extends $mol_page {
-		project( ): $hyoo_sketch_project
-		title( ): ReturnType< $hyoo_sketch_project_page['project_name'] >
-		page_name_default( ): string
-		tools( ): readonly(any)[]
-		body( ): readonly(any)[]
-		label_allowed_anyone( ): string
-		Row( id: any): $mol_bar
 		project_name( next?: ReturnType< ReturnType< $hyoo_sketch_project_page['project'] >['name'] > ): ReturnType< ReturnType< $hyoo_sketch_project_page['project'] >['name'] >
 		domain( ): ReturnType< ReturnType< $hyoo_sketch_project_page['project'] >['domain'] >
 		Project_pin_icon( ): $mol_icon_eye
@@ -9611,6 +9621,13 @@ declare namespace $ {
 		page_copy( id: any, next?: any ): any
 		Copy_icon( id: any): $mol_icon_content_copy
 		Copy( id: any): $mol_button_minor
+		project( ): $hyoo_sketch_project
+		title( ): ReturnType< $hyoo_sketch_project_page['project_name'] >
+		page_name_default( ): string
+		tools( ): readonly(any)[]
+		body( ): readonly(any)[]
+		label_allowed_anyone( ): string
+		Row( id: any): $mol_bar
 	}
 	
 }
@@ -9642,36 +9659,36 @@ declare namespace $.$$ {
 
 declare namespace $ {
 
-	type $mol_expander__label__I36AMQCR = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_expander['label'] >
-	>
-	type $mol_expander__content__AQVCWP11 = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_option_page['tab_rows'] >
-		,
-		ReturnType< $mol_expander['content'] >
-	>
-	type $mol_expander__expanded__2P2BNNDZ = $mol_type_enforce<
-		ReturnType< $hyoo_sketch_option_page['expanded'] >
-		,
-		ReturnType< $mol_expander['expanded'] >
-	>
-	type $mol_list__rows__NB5YNBCX = $mol_type_enforce<
+	type $mol_list__rows__NZHM6MHS = $mol_type_enforce<
 		ReturnType< $hyoo_sketch_option_page['items'] >
 		,
 		ReturnType< $mol_list['rows'] >
 	>
+	type $mol_expander__label__KX5TCKVN = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_expander['label'] >
+	>
+	type $mol_expander__content__T2MTA60S = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_option_page['tab_rows'] >
+		,
+		ReturnType< $mol_expander['content'] >
+	>
+	type $mol_expander__expanded__F74BI7G2 = $mol_type_enforce<
+		ReturnType< $hyoo_sketch_option_page['expanded'] >
+		,
+		ReturnType< $mol_expander['expanded'] >
+	>
 	export class $hyoo_sketch_option_page extends $mol_page {
-		title( ): string
-		Options( ): Record<string, any>
-		body( ): readonly(any)[]
-		Expander( id: any): $mol_expander
 		items( ): readonly(any)[]
 		List( ): $mol_list
 		tab_title( id: any): string
 		tab_rows( id: any): readonly($mol_view)[]
 		expanded( id: any, next?: boolean ): boolean
+		title( ): string
+		Options( ): Record<string, any>
+		body( ): readonly(any)[]
+		Expander( id: any): $mol_expander
 	}
 	
 }
@@ -9692,32 +9709,32 @@ declare namespace $.$$ {
 
 declare namespace $ {
 
-	type $mol_button_minor__title__WR69SPTC = $mol_type_enforce<
+	type $mol_button_minor__title__IP40G9ZY = $mol_type_enforce<
 		ReturnType< $hyoo_sketch_palette['row_title'] >
 		,
 		ReturnType< $mol_button_minor['title'] >
 	>
-	type $mol_button_minor__click__949PUOQK = $mol_type_enforce<
+	type $mol_button_minor__click__94K9EFHQ = $mol_type_enforce<
 		ReturnType< $hyoo_sketch_palette['element_add'] >
 		,
 		ReturnType< $mol_button_minor['click'] >
 	>
-	type $mol_list__rows__JS7HOLN6 = $mol_type_enforce<
+	type $mol_list__rows__DAEE0ECG = $mol_type_enforce<
 		ReturnType< $hyoo_sketch_palette['rows'] >
 		,
 		ReturnType< $mol_list['rows'] >
 	>
 	export class $hyoo_sketch_palette extends $mol_page {
-		page( ): $hyoo_sketch_page
-		title( ): string
-		body( ): readonly(any)[]
-		type_list( ): readonly(any)[]
 		domain( ): ReturnType< ReturnType< $hyoo_sketch_palette['page'] >['domain'] >
 		row_title( id: any): string
 		element_add( id: any, next?: any ): any
 		Row( id: any): $mol_button_minor
 		rows( ): readonly(any)[]
 		List( ): $mol_list
+		page( ): $hyoo_sketch_page
+		title( ): string
+		body( ): readonly(any)[]
+		type_list( ): readonly(any)[]
 	}
 	
 }
@@ -9735,58 +9752,54 @@ declare namespace $.$$ {
 
 declare namespace $ {
 
-	type $hyoo_sketch_person_page_name__RC8LWG1L = $mol_type_enforce<
+	type $hyoo_sketch_person_page_name__NK7Q04YO = $mol_type_enforce<
 		Parameters< $hyoo_sketch_person_page['name'] >[0]
 		,
 		Parameters< ReturnType< $hyoo_sketch_person_page['person'] >['name'] >[0]
 	>
-	type $mol_button_copy__text__F4RNQDBY = $mol_type_enforce<
+	type $mol_button_copy__text__4B3X3VNZ = $mol_type_enforce<
 		ReturnType< $hyoo_sketch_person_page['id'] >
 		,
 		ReturnType< $mol_button_copy['text'] >
 	>
-	type $mol_button_copy__hint__98RR02NZ = $mol_type_enforce<
+	type $mol_button_copy__hint__RW08ONDL = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_button_copy['hint'] >
 	>
-	type $mol_link__arg__E08NX4ZP = $mol_type_enforce<
+	type $mol_link__arg__MRA72B7B = $mol_type_enforce<
 		({ 
 			'person': any,
 		}) 
 		,
 		ReturnType< $mol_link['arg'] >
 	>
-	type $mol_link__sub__J2TRHEMM = $mol_type_enforce<
+	type $mol_link__sub__74QEJHAI = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_link['sub'] >
 	>
-	type $mol_string__value__IE6H7H5R = $mol_type_enforce<
+	type $mol_string__value__6D8W1MRN = $mol_type_enforce<
 		ReturnType< $hyoo_sketch_person_page['name'] >
 		,
 		ReturnType< $mol_string['value'] >
 	>
-	type $mol_string__enabled__YW4IWUS0 = $mol_type_enforce<
+	type $mol_string__enabled__6RGYXCPU = $mol_type_enforce<
 		ReturnType< $hyoo_sketch_person_page['editable'] >
 		,
 		ReturnType< $mol_string['enabled'] >
 	>
-	type $mol_form_field__name__LZ0Y1N7V = $mol_type_enforce<
+	type $mol_form_field__name__T8SO9M70 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_form_field['name'] >
 	>
-	type $mol_form_field__control__OMPQW8VS = $mol_type_enforce<
+	type $mol_form_field__control__LU6FNPCB = $mol_type_enforce<
 		ReturnType< $hyoo_sketch_person_page['Name_control'] >
 		,
 		ReturnType< $mol_form_field['control'] >
 	>
 	export class $hyoo_sketch_person_page extends $mol_page {
-		person( ): $hyoo_sketch_person
-		tools( ): readonly(any)[]
-		title( ): string
-		body( ): readonly(any)[]
 		name( next?: ReturnType< ReturnType< $hyoo_sketch_person_page['person'] >['name'] > ): ReturnType< ReturnType< $hyoo_sketch_person_page['person'] >['name'] >
 		id( ): ReturnType< ReturnType< $hyoo_sketch_person_page['person'] >['id'] >
 		domain( ): ReturnType< ReturnType< $hyoo_sketch_person_page['person'] >['domain'] >
@@ -9796,6 +9809,10 @@ declare namespace $ {
 		editable( ): boolean
 		Name_control( ): $mol_string
 		Name( ): $mol_form_field
+		person( ): $hyoo_sketch_person
+		tools( ): readonly(any)[]
+		title( ): string
+		body( ): readonly(any)[]
 	}
 	
 }
@@ -9820,91 +9837,84 @@ declare namespace $ {
 
 declare namespace $ {
 
-	type $mol_page__title__9VMX3BPX = $mol_type_enforce<
-		ReturnType< $hyoo_sketch['demo_page_title'] >
-		,
-		ReturnType< $mol_page['title'] >
-	>
-	type $mol_page__Head__EMHFP2K7 = $mol_type_enforce<
-		any
-		,
-		ReturnType< $mol_page['Head'] >
-	>
-	type $mol_page__body__5Z705XLA = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_page['body'] >
-	>
-	type $hyoo_sketch_project__BCS0JNJS = $mol_type_enforce<
+	type $hyoo_sketch_project__BLMM74X4 = $mol_type_enforce<
 		Parameters< $hyoo_sketch['project'] >[0]
 		,
 		Parameters< ReturnType< $hyoo_sketch['domain'] >['project'] >[0]
 	>
-	type $hyoo_sketch_page__RPIT98CY = $mol_type_enforce<
+	type $hyoo_sketch_page__Y135LADE = $mol_type_enforce<
 		Parameters< $hyoo_sketch['page'] >[0]
 		,
 		Parameters< ReturnType< $hyoo_sketch['domain'] >['page'] >[0]
 	>
-	type $hyoo_sketch_project_list__title__IQB2O12V = $mol_type_enforce<
+	type $hyoo_sketch_project_list__title__NZYIOHQE = $mol_type_enforce<
 		string
 		,
 		ReturnType< $hyoo_sketch_project_list['title'] >
 	>
-	type $hyoo_sketch_project_list__person__G67KVGBZ = $mol_type_enforce<
+	type $hyoo_sketch_project_list__person__AY0B5FW3 = $mol_type_enforce<
 		ReturnType< $hyoo_sketch['user'] >
 		,
 		ReturnType< $hyoo_sketch_project_list['person'] >
 	>
-	type $hyoo_sketch_project_page__project__Y7WNX1XS = $mol_type_enforce<
+	type $hyoo_sketch_project_page__project__ZXYMFUCX = $mol_type_enforce<
 		ReturnType< $hyoo_sketch['project_opened'] >
 		,
 		ReturnType< $hyoo_sketch_project_page['project'] >
 	>
-	type $hyoo_sketch_Element__FQ99AUJM = $mol_type_enforce<
+	type $hyoo_sketch_Element__AHUVIPL7 = $mol_type_enforce<
 		Parameters< $hyoo_sketch['Element'] >[0]
 		,
 		Parameters< ReturnType< $hyoo_sketch['Editor'] >['Element'] >[0]
 	>
-	type $hyoo_sketch_editor__page__UOPM1K6R = $mol_type_enforce<
+	type $hyoo_sketch_editor__page__6FW8ACHV = $mol_type_enforce<
 		ReturnType< $hyoo_sketch['page_opened'] >
 		,
 		ReturnType< $hyoo_sketch_editor['page'] >
 	>
-	type $hyoo_sketch_option_page__Options__GEFK7AKS = $mol_type_enforce<
+	type $hyoo_sketch_option_page__Options__GDBOG3FU = $mol_type_enforce<
 		ReturnType< $hyoo_sketch['Options'] >
 		,
 		ReturnType< $hyoo_sketch_option_page['Options'] >
 	>
-	type $hyoo_sketch_palette__page__JRVU7HWK = $mol_type_enforce<
+	type $hyoo_sketch_palette__page__FW70TPW8 = $mol_type_enforce<
 		ReturnType< $hyoo_sketch['page_opened'] >
 		,
 		ReturnType< $hyoo_sketch_palette['page'] >
 	>
-	type $hyoo_sketch_person_page__person__BQB6FQJ1 = $mol_type_enforce<
+	type $hyoo_sketch_person_page__person__RIX2LXNN = $mol_type_enforce<
 		ReturnType< $hyoo_sketch['person_opened'] >
 		,
 		ReturnType< $hyoo_sketch_person_page['person'] >
 	>
-	type $mol_view__style__UU55XJRX = $mol_type_enforce<
+	type $mol_view__style__HB5P8UM1 = $mol_type_enforce<
 		({ 
 			'width': ReturnType< $hyoo_sketch['demo_page_width'] >,
 		}) 
 		,
 		ReturnType< $mol_view['style'] >
 	>
-	type $mol_view__sub__2R1HAJJM = $mol_type_enforce<
+	type $mol_view__sub__WDBRGQS2 = $mol_type_enforce<
 		ReturnType< $hyoo_sketch['demo_page_elements'] >
 		,
 		ReturnType< $mol_view['sub'] >
 	>
+	type $mol_page__title__7TM8ZD2U = $mol_type_enforce<
+		ReturnType< $hyoo_sketch['demo_page_title'] >
+		,
+		ReturnType< $mol_page['title'] >
+	>
+	type $mol_page__Head__QL9QCQT4 = $mol_type_enforce<
+		any
+		,
+		ReturnType< $mol_page['Head'] >
+	>
+	type $mol_page__body__3PF0XLFN = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_page['body'] >
+	>
 	export class $hyoo_sketch extends $mol_book2 {
-		domain( ): $hyoo_sketch_domain
-		plugins( ): readonly(any)[]
-		event( ): ({ 
-			mousemove( next?: ReturnType< $hyoo_sketch['cursor_move'] > ): ReturnType< $hyoo_sketch['cursor_move'] >,
-		})  & ReturnType< $mol_book2['event'] >
-		pages( ): readonly(any)[]
-		Demo_page( id: any): $mol_page
 		user( ): ReturnType< ReturnType< $hyoo_sketch['domain'] >['user'] >
 		project( id: any): ReturnType< ReturnType< $hyoo_sketch['domain'] >['project'] >
 		page( id: any): ReturnType< ReturnType< $hyoo_sketch['domain'] >['page'] >
@@ -9925,6 +9935,13 @@ declare namespace $ {
 		demo_page_width( id: any): number
 		demo_page_elements( id: any): readonly(any)[]
 		Demo_page_content( id: any): $mol_view
+		domain( ): $hyoo_sketch_domain
+		plugins( ): readonly(any)[]
+		event( ): ({ 
+			mousemove( next?: ReturnType< $hyoo_sketch['cursor_move'] > ): ReturnType< $hyoo_sketch['cursor_move'] >,
+		})  & ReturnType< $mol_book2['event'] >
+		pages( ): readonly(any)[]
+		Demo_page( id: any): $mol_page
 	}
 	
 }
