@@ -491,6 +491,7 @@ $mol_switch $mol_check_list
 	value? \
 
 $mol_button_major $mol_button_minor
+	theme \$mol_theme_base
 
 $hyoo_sketch_person_avatar $mol_view
 	person $hyoo_sketch_person
