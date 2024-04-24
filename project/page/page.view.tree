@@ -15,7 +15,7 @@ $hyoo_sketch_project_page $mol_page
 				page null
 				project null
 				selected null
-			sub / <= Project_close_icon $mol_icon_cross
+			sub / <= Project_close_icon $mol_icon_close
 	body /
 		<= Pages $mol_expander
 			title @ \Pages

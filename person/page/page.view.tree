@@ -9,7 +9,7 @@ $hyoo_sketch_person_page $mol_page
 			hint @ \Copy user id
 		<= Close $mol_link
 			arg * person null
-			sub / <= Close_icon $mol_icon_cross
+			sub / <= Close_icon $mol_icon_close
 	title @ \Person
 	body /
 		<= Name $mol_form_field

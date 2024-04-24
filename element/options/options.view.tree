@@ -16,7 +16,7 @@ $hyoo_sketch_element_options $hyoo_sketch_element_base
 							sub <= row_sub* /
 								<= Row_clear* $mol_button_minor
 									click? <=> option_clear*? null
-									sub / <= Row_clear_icon* $mol_icon_cross
+									sub / <= Row_clear_icon* $mol_icon_close
 								<= Row_string* $mol_string
 									value? <=> option_row*? \
 			<= Option_current_option $hyoo_sketch_option
